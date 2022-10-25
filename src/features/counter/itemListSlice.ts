@@ -10,9 +10,9 @@ import {
 } from "../../types";
 
 const initialTodoListState: ItemListState = {
-  firstList: [{ id: "todo-left-1-check", name: "something", done: false }],
-  secondList: [{ id: "todo-mid-1-check", name: "something", done: false }],
-  thirdList: [{ id: "todo-right-1-check", name: "something", done: false }],
+  firstList: [],
+  secondList: [],
+  thirdList: [],
 };
 
 export const itemListSlice = createSlice({
