@@ -1,12 +1,8 @@
-import React, { SyntheticEvent } from "react";
+import { SyntheticEvent, useRef } from "react";
 import { useAppDispatch } from "../../app/hooks";
-import { clearAll, clearDone } from "../../features/counter/itemListSlice";
+import { add, clearAll, clearDone } from "../../features/counter/itemListSlice";
 import { ListKey } from "../../types";
-
-const addClick = (event: SyntheticEvent) => {
-  event.stopPropagation();
-  event.preventDefault();
-};
+import { v4 as uuidv4 } from "uuid";
 
 export const Options = ({
   shouldShowOptions = false,
@@ -18,19 +14,42 @@ export const Options = ({
   toggleOptions: () => void;
 }) => {
   const dispatch = useAppDispatch();
+  const inputRef = useRef(null as unknown as HTMLInputElement);
 
-  const clearDoneTasks = () => {
-    dispatch(clearDone({ listKey }));
+  const addClick = (event: SyntheticEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
+    if (inputRef.current?.value) {
+      dispatch(
+        add({
+          listKey,
+          item: {
+            id: uuidv4(),
+            name: inputRef.current.value,
+            done: false,
+          },
+        })
+      );
+      inputRef.current.value = "";
+    }
   };
 
   const clearAllTasks = () => {
     dispatch(clearAll({ listKey }));
   };
 
+  const clearDoneTasks = () => {
+    dispatch(clearDone({ listKey }));
+  };
+
   return (
     <div className={`edit-priorities${shouldShowOptions ? "" : " hidden"}`}>
       <form id={`todo-form-${listKey}`}>
-        <input type="text" className="todo main-bgcolor main-font-color" />
+        <input
+          ref={inputRef}
+          type="text"
+          className="todo main-bgcolor main-font-color"
+        />
         <input
           type="submit"
           id="submit"

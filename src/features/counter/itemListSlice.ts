@@ -5,6 +5,7 @@ import {
   ItemListState,
   JustListKey,
   MoveAction,
+  RemoveAction,
   ToggleCheckedAction,
 } from "../../types";
 
@@ -20,16 +21,16 @@ export const itemListSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     add: (state, action: PayloadAction<AddAction>) => {
-      const { key, index, item } = action.payload;
-      state[key].splice(index, 0, item);
+      const { listKey, item } = action.payload;
+      state[listKey].push(item);
     },
-    remove: (state, action: PayloadAction<AddAction>) => {
-      const { key, index } = action.payload;
-      state[key].splice(index, 1);
+    remove: (state, action: PayloadAction<RemoveAction>) => {
+      const { listKey, index } = action.payload;
+      state[listKey].splice(index, 1);
     },
     move: (state, action: PayloadAction<MoveAction>) => {
       const { item, place } = action.payload;
-      state[place.key].splice(place.index, 0, item.item);
+      state[place.listKey].splice(place.index, 0, item.item);
     },
     toggleChecked: (state, action: PayloadAction<ToggleCheckedAction>) => {
       const { listKey, index } = action.payload;

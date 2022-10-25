@@ -81,17 +81,21 @@ export interface UnitsState {
 }
 
 export interface AddAction {
-  key: keyof ItemListState;
-  index: number;
+  listKey: ListKey;
   item: Item;
+}
+
+export interface RemoveAction {
+  listKey: ListKey;
+  index: number;
 }
 
 export interface MoveAction {
   item: AddAction;
-  place: AddAction;
+  place: RemoveAction;
 }
 
-export type ListKey = "firstList" | "secondList" | "thirdList";
+export type ListKey = keyof ItemListState;
 
 export interface JustListKey {
   listKey: ListKey;
