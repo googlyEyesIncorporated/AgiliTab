@@ -49,7 +49,7 @@ export const Options = ({
           ref={inputRef}
           type="text"
           className="todo main-bgcolor main-font-color"
-        />
+        />{" "}
         <input
           type="submit"
           id="submit"
@@ -61,12 +61,12 @@ export const Options = ({
       <a
         href="#"
         id={`sweep-${listKey}`}
-        className="sweep-link shadow-color"
+        className="sweep-link shadow-color link"
         onClick={clearDoneTasks}
       >
         Clear Done
-      </a>{" "}
-      |
+      </a>
+      {" | "}
       <a
         href="#"
         id={`clear-all-${listKey}`}
@@ -74,8 +74,8 @@ export const Options = ({
         onClick={clearAllTasks}
       >
         Clear All
-      </a>{" "}
-      |
+      </a>
+      {" | "}
       <a href="#" className="hide-edit shadow-color" onClick={toggleOptions}>
         Hide
       </a>
