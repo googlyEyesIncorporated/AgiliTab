@@ -3,6 +3,7 @@ import { RootState } from "../../app/store";
 import {
   AddAction,
   ItemListState,
+  JustListKey,
   MoveAction,
   ToggleCheckedAction,
 } from "../../types";
@@ -34,10 +35,21 @@ export const itemListSlice = createSlice({
       const { listKey, index } = action.payload;
       state[listKey][index].done = !state[listKey][index].done;
     },
+    clearDone: (state, action: PayloadAction<JustListKey>) => {
+      const { listKey } = action.payload;
+      state[listKey] = state[listKey].filter((item) => {
+        return !item.done;
+      });
+    },
+    clearAll: (state, action: PayloadAction<JustListKey>) => {
+      const { listKey } = action.payload;
+      state[listKey] = [];
+    },
   },
 });
 
-export const { add, remove, move, toggleChecked } = itemListSlice.actions;
+export const { add, remove, move, toggleChecked, clearAll, clearDone } =
+  itemListSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

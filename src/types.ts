@@ -93,7 +93,10 @@ export interface MoveAction {
 
 export type ListKey = "firstList" | "secondList" | "thirdList";
 
-export interface ToggleCheckedAction {
+export interface JustListKey {
   listKey: ListKey;
+}
+
+export interface ToggleCheckedAction extends JustListKey {
   index: number;
 }

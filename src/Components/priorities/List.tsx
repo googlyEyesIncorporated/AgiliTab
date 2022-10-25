@@ -37,7 +37,7 @@ export const List = ({
         >
           Options
         </a>
-        <Options shouldShowOptions={shouldShowOptions} />
+        <Options shouldShowOptions={shouldShowOptions} listKey={listKey} />
       </div>
     </div>
   );
