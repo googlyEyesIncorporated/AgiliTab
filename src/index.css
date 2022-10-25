@@ -231,6 +231,10 @@ ul li:active {
   display: none;
 }
 
+.revealed {
+  animation: fadeIn 1s both;
+}
+
 form {
   display: inline-block;
   width: 100%;

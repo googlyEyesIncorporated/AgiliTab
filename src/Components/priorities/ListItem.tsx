@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { ListItemProps, ListKey } from "../../types";
 import { useAppDispatch } from "../../app/hooks";
-import { toggleChecked } from "../../features/counter/itemListSlice";
+import { remove, toggleChecked } from "../../features/counter/itemListSlice";
 
 export const ListItem = ({
   name,
@@ -14,9 +14,17 @@ export const ListItem = ({
   listKey: ListKey;
 }) => {
   const dispatch = useAppDispatch();
+  const [hidden, setHidden] = useState(true);
+  const toggleHidden = (bool: boolean) => {
+    setHidden(bool);
+  };
 
   const checkboxClick = () => {
     dispatch(toggleChecked({ listKey, index }));
+  };
+
+  const removeItem = () => {
+    dispatch(remove({ listKey, index }));
   };
   return (
     <li
@@ -25,6 +33,8 @@ export const ListItem = ({
           ? "shadow-color shadow-border-color"
           : "main-font-color main-border-color"
       }`}
+      onMouseEnter={() => toggleHidden(false)}
+      onMouseLeave={() => toggleHidden(true)}
     >
       <div className="squaredThree">
         <input
@@ -37,7 +47,16 @@ export const ListItem = ({
         />
         <label htmlFor={id} />
       </div>
-      <div className={`todo-text${done ? "todo-card-done" : ""}`}>{name}</div>
+      <div className={`todo-text${done ? "todo-card-done" : ""}`}>
+        {name}
+        <a
+          href="#"
+          onClick={removeItem}
+          className={`pull-right${hidden ? " hidden" : " revealed"}`}
+        >
+          🗑️
+        </a>
+      </div>
     </li>
   );
 };
