@@ -12,7 +12,7 @@ export const List = ({
 }) => {
   const [shouldShowOptions, setShouldShowOptions] = useState(false);
 
-  const optionsClick = () => {
+  const toggleOptions = () => {
     setShouldShowOptions(!shouldShowOptions);
   };
 
@@ -30,14 +30,20 @@ export const List = ({
             />
           ))}
         </ul>
-        <a
-          href="#"
-          className="edit-priorities-link shadow-color"
-          onClick={optionsClick}
-        >
-          Options
-        </a>
-        <Options shouldShowOptions={shouldShowOptions} listKey={listKey} />
+        {!shouldShowOptions && (
+          <a
+            href="#"
+            className="edit-priorities-link shadow-color"
+            onClick={toggleOptions}
+          >
+            Options
+          </a>
+        )}
+        <Options
+          shouldShowOptions={shouldShowOptions}
+          toggleOptions={toggleOptions}
+          listKey={listKey}
+        />
       </div>
     </div>
   );

@@ -11,9 +11,11 @@ const addClick = (event: SyntheticEvent) => {
 export const Options = ({
   shouldShowOptions = false,
   listKey,
+  toggleOptions,
 }: {
   listKey: ListKey;
   shouldShowOptions: boolean;
+  toggleOptions: () => void;
 }) => {
   const dispatch = useAppDispatch();
 
@@ -55,7 +57,7 @@ export const Options = ({
         Clear All
       </a>{" "}
       |
-      <a href="#" className="hide-edit shadow-color">
+      <a href="#" className="hide-edit shadow-color" onClick={toggleOptions}>
         Hide
       </a>
     </div>
