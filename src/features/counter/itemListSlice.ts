@@ -4,7 +4,6 @@ import {
   AddAction,
   ItemListState,
   JustListKey,
-  MoveAction,
   RemoveAction,
   ReplaceList,
   ToggleCheckedAction,
@@ -29,10 +28,6 @@ export const itemListSlice = createSlice({
       const { listKey, index } = action.payload;
       state[listKey].splice(index, 1);
     },
-    move: (state, action: PayloadAction<MoveAction>) => {
-      const { item, place } = action.payload;
-      state[place.listKey].splice(place.index, 0, item.item);
-    },
     toggleChecked: (state, action: PayloadAction<ToggleCheckedAction>) => {
       const { listKey, index } = action.payload;
       state[listKey][index].done = !state[listKey][index].done;
@@ -54,15 +49,8 @@ export const itemListSlice = createSlice({
   },
 });
 
-export const {
-  add,
-  remove,
-  move,
-  toggleChecked,
-  clearAll,
-  clearDone,
-  updateList,
-} = itemListSlice.actions;
+export const { add, remove, toggleChecked, clearAll, clearDone, updateList } =
+  itemListSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

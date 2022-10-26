@@ -83,11 +83,6 @@ export interface RemoveAction {
   index: number;
 }
 
-export interface MoveAction {
-  item: AddAction;
-  place: RemoveAction;
-}
-
 export type ListKey = keyof ItemListState;
 
 export interface JustListKey {
