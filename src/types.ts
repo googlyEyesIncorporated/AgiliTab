@@ -10,10 +10,12 @@ export interface TimeLeftProps extends UnitTypes {
   date?: DateTime;
 }
 
+type Title = string;
+
 export interface UnitType {
   endDate: DateTime;
   startDate: DateTime;
-  title: string;
+  title: Title;
   unitType: string;
 }
 
@@ -25,26 +27,17 @@ export type ListItemProps = {
   name: string;
   done: boolean;
   id: string;
-  onChange?: () => void;
+  index: number;
+  listKey: ListKey;
+  dragAndDrop: Omit<DragAndDrop, "enterList">;
 };
 
 export interface ListProps {
   listItems: ListItemProps[];
 }
 
-type SetList = React.Dispatch<
-  React.SetStateAction<
-    {
-      id: string;
-      name: string;
-      done: boolean;
-    }[]
-  >
->;
-
 interface listItemObject {
   listItems: ListItemProps[];
-  setList?: SetList;
 }
 
 export interface AllListItems {
@@ -69,7 +62,7 @@ export interface ItemListState {
 
 interface UnitObj {
   unitType: string;
-  title: string;
+  title: Title;
   endDate: DateTime;
   startDate: DateTime;
 }
@@ -103,4 +96,25 @@ export interface JustListKey {
 
 export interface ToggleCheckedAction extends JustListKey {
   index: number;
+}
+
+export interface ReplaceList extends JustListKey {
+  itemList: ItemList;
+}
+
+export interface DragAndDrop {
+  enterListItem: (position: Position) => void;
+  dragStart: (position: Position) => void;
+  dragEnd: () => void;
+  enterList: (listKey: ListKey) => void;
+}
+
+export interface Position {
+  key: ListKey;
+  index: number;
+}
+
+export interface ColumnProps extends ReplaceList {
+  title: Title;
+  dragAndDrop: DragAndDrop;
 }

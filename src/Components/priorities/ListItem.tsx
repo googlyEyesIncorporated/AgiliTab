@@ -9,10 +9,8 @@ export const ListItem = ({
   done = false,
   index,
   listKey,
-}: ListItemProps & {
-  index: number;
-  listKey: ListKey;
-}) => {
+  dragAndDrop: { dragStart, dragEnd, enterListItem },
+}: ListItemProps) => {
   const dispatch = useAppDispatch();
   const [hidden, setHidden] = useState(true);
   const toggleHidden = (bool: boolean) => {
@@ -35,6 +33,10 @@ export const ListItem = ({
       }`}
       onMouseEnter={() => toggleHidden(false)}
       onMouseLeave={() => toggleHidden(true)}
+      draggable
+      onDragStart={() => dragStart({ key: listKey, index })}
+      onDragEnter={() => enterListItem({ key: listKey, index })}
+      onDragEnd={() => dragEnd()}
     >
       <div className="squaredThree">
         <input

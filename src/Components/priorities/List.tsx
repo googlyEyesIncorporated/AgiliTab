@@ -1,32 +1,35 @@
-import React, { useState } from "react";
-import { ItemList, ListKey, ListProps } from "../../types";
+import { useState } from "react";
+import { ColumnProps } from "../../types";
 import { ListItem } from "./ListItem";
 import { Options } from "./PriorityActions";
 
 export const List = ({
-  listItems,
+  itemList,
   listKey,
-}: {
-  listItems: ItemList;
-  listKey: ListKey;
-}) => {
+  dragAndDrop,
+}: Omit<ColumnProps, "title">) => {
   const [shouldShowOptions, setShouldShowOptions] = useState(false);
 
   const toggleOptions = () => {
     setShouldShowOptions(!shouldShowOptions);
   };
+  const { ...restDND } = dragAndDrop;
 
   return (
     <div className="list">
-      <div className="list-scrollable">
+      <div
+        className="list-scrollable"
+        onDragEnter={() => dragAndDrop.enterList(listKey)}
+      >
         <ul className="shown-items">
-          {listItems.map((props, index, list) => (
+          {itemList.map((props, index, list) => (
             <ListItem
               {...props}
               done={props.done}
               index={index}
               key={props.id}
               listKey={listKey}
+              dragAndDrop={restDND}
             />
           ))}
         </ul>

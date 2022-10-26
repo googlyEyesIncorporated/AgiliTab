@@ -6,6 +6,7 @@ import {
   JustListKey,
   MoveAction,
   RemoveAction,
+  ReplaceList,
   ToggleCheckedAction,
 } from "../../types";
 
@@ -46,11 +47,22 @@ export const itemListSlice = createSlice({
       const { listKey } = action.payload;
       state[listKey] = [];
     },
+    updateList: (state, action: PayloadAction<ReplaceList>) => {
+      const { listKey, itemList } = action.payload;
+      state[listKey] = itemList;
+    },
   },
 });
 
-export const { add, remove, move, toggleChecked, clearAll, clearDone } =
-  itemListSlice.actions;
+export const {
+  add,
+  remove,
+  move,
+  toggleChecked,
+  clearAll,
+  clearDone,
+  updateList,
+} = itemListSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
