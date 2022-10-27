@@ -95,6 +95,7 @@ export interface ToggleCheckedAction extends JustListKey {
 
 export interface ReplaceList extends JustListKey {
   itemList: ItemList;
+  save?: boolean;
 }
 
 export interface DragAndDrop {

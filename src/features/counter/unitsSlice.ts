@@ -1,14 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
 import { RootState } from "../../app/store";
-import {
-  AddAction,
-  UnitsState,
-  MoveAction,
-  ToggleCheckedAction,
-  UnitType,
-  ItemListState,
-} from "../../types";
+import { UnitsState, UnitType } from "../../types";
 
 const referenceSprintStartDate = DateTime.fromObject(
   { year: 2022, month: 10, day: 10, hour: 10 },

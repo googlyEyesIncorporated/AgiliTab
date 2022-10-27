@@ -15,24 +15,26 @@ export const List = ({
   };
   const { ...restDND } = dragAndDrop;
 
+  const ListItems = !Array.isArray(itemList)
+    ? null
+    : itemList.map((props, index, list) => (
+        <ListItem
+          {...props}
+          done={props.done}
+          index={index}
+          key={props.id}
+          listKey={listKey}
+          dragAndDrop={restDND}
+        />
+      ));
+
   return (
     <div className="list">
       <div
         className="list-scrollable"
         onDragEnter={() => dragAndDrop.enterList(listKey)}
       >
-        <ul className="shown-items">
-          {itemList.map((props, index, list) => (
-            <ListItem
-              {...props}
-              done={props.done}
-              index={index}
-              key={props.id}
-              listKey={listKey}
-              dragAndDrop={restDND}
-            />
-          ))}
-        </ul>
+        <ul className="shown-items">{ListItems}</ul>
         {!shouldShowOptions && (
           <a
             href="#"

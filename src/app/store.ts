@@ -7,6 +7,7 @@ export const store = configureStore({
     itemList: itemListReducer,
     units: unitsSlice,
   },
+  devTools: true,
 });
 
 export type AppDispatch = typeof store.dispatch;
