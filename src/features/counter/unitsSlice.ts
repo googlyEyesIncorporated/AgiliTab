@@ -6,28 +6,28 @@ import { UnitsState, UnitType } from "../../types";
 const referenceSprintStartDate = DateTime.fromObject(
   { year: 2022, month: 10, day: 10, hour: 10 },
   { zone: "America/New_York" }
-);
+).toISO();
 
 const referenceSprintEndDate = DateTime.fromObject(
   { year: 2022, month: 10, day: 24, hour: 10 },
   { zone: "America/New_York" }
-);
+).toISO();
 
 const referenceQuarterStartDate = DateTime.fromObject(
   { year: 2022, month: 8, day: 15, hour: 10 },
   { zone: "America/New_York" }
-);
+).toISO();
 
 const referenceQuarterEndDate = DateTime.fromObject(
   { year: 2022, month: 11, day: 7, hour: 10 },
   { zone: "America/New_York" }
-);
+).toISO();
 
 const shortTerm: UnitType = {
   unitType: "day",
   title: "Today",
-  endDate: DateTime.now().endOf("day"),
-  startDate: DateTime.now().startOf("day"),
+  endDate: DateTime.now().endOf("day").toISO(),
+  startDate: DateTime.now().startOf("day").toISO(),
 };
 
 const mediumTerm: UnitType = {

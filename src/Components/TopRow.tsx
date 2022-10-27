@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import { Clock } from "./currentTimeBox/Clock";
 import { TimeLeft } from "./timeLeftBox/TimeLeft";
-import { TopRowProps, TimeLeftProps } from "../types";
-import { weekDays } from "./timeLeftBox/dateData";
+import { TopRowProps } from "../types";
 import { DateTime } from "luxon";
+
+const weekDays = [
+  "Unused",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursdays",
+  "Fridays",
+  "Saturday",
+  "Sunday",
+];
 
 export const TopRow = ({ h24 = true }: TopRowProps) => {
   const [date, setDate] = useState(DateTime.now());

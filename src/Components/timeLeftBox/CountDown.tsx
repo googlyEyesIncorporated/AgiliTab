@@ -1,4 +1,3 @@
-import React from "react";
 export const CountDown = ({ ratio, unit }: { ratio: number; unit: string }) => {
   return (
     <div className="countdown">

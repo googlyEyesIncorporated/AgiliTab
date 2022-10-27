@@ -1,5 +1,4 @@
 import { DateTime } from "luxon";
-import React from "react";
 import "./Clock.css";
 
 const getTimeString = (currentTime: number) => {

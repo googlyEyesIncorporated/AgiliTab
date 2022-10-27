@@ -22,7 +22,9 @@ const updateStorage = ({
   listKey: ListKey;
   itemList: ItemList;
 }) => {
-  chrome.storage.sync.set({ [listKey]: itemList });
+  if (chrome.storage) {
+    chrome.storage.sync.set({ [listKey]: itemList });
+  }
 };
 
 const initialTodoListState: ItemListState = {

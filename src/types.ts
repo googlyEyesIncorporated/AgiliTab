@@ -13,8 +13,8 @@ export interface TimeLeftProps extends UnitTypes {
 type Title = string;
 
 export interface UnitType {
-  endDate: DateTime;
-  startDate: DateTime;
+  endDate: string;
+  startDate: string;
   title: Title;
   unitType: string;
 }
@@ -60,17 +60,10 @@ export interface ItemListState {
   longTermList: ItemList;
 }
 
-interface UnitObj {
-  unitType: string;
-  title: Title;
-  endDate: DateTime;
-  startDate: DateTime;
-}
-
 export interface UnitsState {
-  shortTerm: UnitObj;
-  mediumTerm: UnitObj;
-  longTerm: UnitObj;
+  shortTerm: UnitType;
+  mediumTerm: UnitType;
+  longTerm: UnitType;
 }
 
 export interface AddAction {

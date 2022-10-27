@@ -1,4 +1,3 @@
-import React from "react";
 import { CountDown } from "./CountDown";
 import { DateTime } from "luxon";
 import { UnitType } from "../../types";
@@ -6,8 +5,11 @@ import { useSelector } from "react-redux";
 import { selectAllUnits } from "../../features/counter/unitsSlice";
 
 const getCurrentRatio = (unitObj: UnitType) => {
-  const timeInUnit = unitObj.endDate.diff(unitObj.startDate).milliseconds;
-  const timeElapsed = DateTime.now().diff(unitObj.startDate).milliseconds;
+  const startDate = DateTime.fromISO(unitObj.startDate);
+  const timeInUnit = DateTime.fromISO(unitObj.endDate).diff(
+    startDate
+  ).milliseconds;
+  const timeElapsed = DateTime.now().diff(startDate).milliseconds;
   return Math.floor((timeElapsed / timeInUnit) * 100);
 };
 

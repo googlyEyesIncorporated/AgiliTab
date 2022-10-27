@@ -10,41 +10,43 @@ function App() {
   const [textColor, setTextColor] = useState("white");
   const dispatch = useDispatch();
   useEffect(() => {
-    chrome.storage.sync.get(
-      ["shortTermList", "mediumTermList", "longTermList"],
-      function (result) {
-        const shortTermList = result["shortTermList"]
-          ? (Object.values(result["shortTermList"]) as ItemList)
-          : [];
-        const mediumTermList = result["mediumTermList"]
-          ? (Object.values(result["mediumTermList"]) as ItemList)
-          : [];
-        const longTermList = result["longTermList"]
-          ? (Object.values(result["longTermList"]) as ItemList)
-          : [];
-        dispatch(
-          updateList({
-            listKey: "shortTermList",
-            itemList: shortTermList,
-            save: false,
-          })
-        );
-        dispatch(
-          updateList({
-            listKey: "mediumTermList",
-            itemList: mediumTermList,
-            save: false,
-          })
-        );
-        dispatch(
-          updateList({
-            listKey: "longTermList",
-            itemList: longTermList,
-            save: false,
-          })
-        );
-      }
-    );
+    if (chrome.storage) {
+      chrome.storage.sync.get(
+        ["shortTermList", "mediumTermList", "longTermList"],
+        function (result) {
+          const shortTermList = result["shortTermList"]
+            ? (Object.values(result["shortTermList"]) as ItemList)
+            : [];
+          const mediumTermList = result["mediumTermList"]
+            ? (Object.values(result["mediumTermList"]) as ItemList)
+            : [];
+          const longTermList = result["longTermList"]
+            ? (Object.values(result["longTermList"]) as ItemList)
+            : [];
+          dispatch(
+            updateList({
+              listKey: "shortTermList",
+              itemList: shortTermList,
+              save: false,
+            })
+          );
+          dispatch(
+            updateList({
+              listKey: "mediumTermList",
+              itemList: mediumTermList,
+              save: false,
+            })
+          );
+          dispatch(
+            updateList({
+              listKey: "longTermList",
+              itemList: longTermList,
+              save: false,
+            })
+          );
+        }
+      );
+    }
   }, []);
 
   return (

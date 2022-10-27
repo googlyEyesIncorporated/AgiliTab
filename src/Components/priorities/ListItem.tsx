@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ListItemProps, ListKey } from "../../types";
 import { useAppDispatch } from "../../app/hooks";
 import { remove, toggleChecked } from "../../features/counter/itemListSlice";
