@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ListItemProps, ListKey } from "../../types";
+import { ListItemProps } from "../../types";
 import { useAppDispatch } from "../../app/hooks";
 import { remove, toggleChecked } from "../../features/counter/itemListSlice";
 
@@ -49,15 +49,14 @@ export const ListItem = ({
         />
         <label htmlFor={id} />
       </div>
-      <div className={`todo-text${done ? "todo-card-done" : ""}`}>
+      <div className={`todo-text${done ? " todo-card-done" : ""}`}>
         {name}
-        <a
-          href="#"
+        <button
           onClick={removeItem}
           className={`pull-right${hidden ? " hidden" : " revealed"}`}
         >
           🗑️
-        </a>
+        </button>
       </div>
     </li>
   );

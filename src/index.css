@@ -27,6 +27,12 @@ body {
   float: right;
 }
 
+button {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
 /* Colors */
 
 .main-bgcolor {
@@ -212,7 +218,6 @@ ul li:active {
 .edit-priorities-link {
   font-size: 1rem;
   display: block;
-  text-align: right;
   margin: 0.5rem;
   text-decoration: none;
 }

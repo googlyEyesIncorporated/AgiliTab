@@ -58,27 +58,25 @@ export const Options = ({
           className="add-item-button main-font-color"
         />
       </form>
-      <a
-        href="#"
+      <button
         id={`sweep-${listKey}`}
         className="sweep-link shadow-color link"
         onClick={clearDoneTasks}
       >
         Clear Done
-      </a>
+      </button>
       {" | "}
-      <a
-        href="#"
+      <button
         id={`clear-all-${listKey}`}
         className="clear-all-link shadow-color"
         onClick={clearAllTasks}
       >
         Clear All
-      </a>
+      </button>
       {" | "}
-      <a href="#" className="hide-edit shadow-color" onClick={toggleOptions}>
+      <button className="hide-edit shadow-color" onClick={toggleOptions}>
         Hide
-      </a>
+      </button>
     </div>
   );
 };

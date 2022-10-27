@@ -36,13 +36,12 @@ export const List = ({
       >
         <ul className="shown-items">{ListItems}</ul>
         {!shouldShowOptions && (
-          <a
-            href="#"
-            className="edit-priorities-link shadow-color"
+          <button
+            className="edit-priorities-link pull-right shadow-color"
             onClick={toggleOptions}
           >
             Options
-          </a>
+          </button>
         )}
         <Options
           shouldShowOptions={shouldShowOptions}
