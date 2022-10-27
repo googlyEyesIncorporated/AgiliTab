@@ -1,9 +1,9 @@
 import { DateTime } from "luxon";
 
 export interface UnitTypes {
-  firstUnit: UnitType;
-  secondUnit: UnitType;
-  thirdUnit: UnitType;
+  shortTerm: UnitType;
+  mediumTerm: UnitType;
+  longTerm: UnitType;
 }
 
 export interface TimeLeftProps extends UnitTypes {
@@ -41,9 +41,9 @@ interface listItemObject {
 }
 
 export interface AllListItems {
-  firstListItems: listItemObject;
-  secondListItems: listItemObject;
-  thirdListItems: listItemObject;
+  shortTermListItems: listItemObject;
+  mediumTermListItems: listItemObject;
+  longListItems: listItemObject;
 }
 
 interface Item {
@@ -55,9 +55,9 @@ interface Item {
 export type ItemList = Item[];
 
 export interface ItemListState {
-  firstList: ItemList;
-  secondList: ItemList;
-  thirdList: ItemList;
+  shortTermList: ItemList;
+  mediumTermList: ItemList;
+  longTermList: ItemList;
 }
 
 interface UnitObj {
@@ -68,9 +68,9 @@ interface UnitObj {
 }
 
 export interface UnitsState {
-  firstUnit: UnitObj;
-  secondUnit: UnitObj;
-  thirdUnit: UnitObj;
+  shortTerm: UnitObj;
+  mediumTerm: UnitObj;
+  longTerm: UnitObj;
 }
 
 export interface AddAction {

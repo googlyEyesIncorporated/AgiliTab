@@ -11,29 +11,37 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     chrome.storage.sync.get(
-      ["firstList", "secondList", "thirdList"],
+      ["shortTermList", "mediumTermList", "longTermList"],
       function (result) {
-        const firstList = result["firstList"]
-          ? (Object.values(result["firstList"]) as ItemList)
+        const shortTermList = result["shortTermList"]
+          ? (Object.values(result["shortTermList"]) as ItemList)
           : [];
-        const secondList = result["secondList"]
-          ? (Object.values(result["secondList"]) as ItemList)
+        const mediumTermList = result["mediumTermList"]
+          ? (Object.values(result["mediumTermList"]) as ItemList)
           : [];
-        const thirdList = result["thirdList"]
-          ? (Object.values(result["thirdList"]) as ItemList)
+        const longTermList = result["longTermList"]
+          ? (Object.values(result["longTermList"]) as ItemList)
           : [];
-        dispatch(
-          updateList({ listKey: "firstList", itemList: firstList, save: false })
-        );
         dispatch(
           updateList({
-            listKey: "secondList",
-            itemList: secondList,
+            listKey: "shortTermList",
+            itemList: shortTermList,
             save: false,
           })
         );
         dispatch(
-          updateList({ listKey: "thirdList", itemList: thirdList, save: false })
+          updateList({
+            listKey: "mediumTermList",
+            itemList: mediumTermList,
+            save: false,
+          })
+        );
+        dispatch(
+          updateList({
+            listKey: "longTermList",
+            itemList: longTermList,
+            save: false,
+          })
         );
       }
     );

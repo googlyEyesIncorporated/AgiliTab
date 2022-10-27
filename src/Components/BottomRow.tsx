@@ -7,7 +7,7 @@ import { Column } from "./priorities/Column";
 
 export const BottomRow = () => {
   const lists = useSelector(selectAllLists);
-  const { firstUnit, secondUnit, thirdUnit } = useSelector(selectAllUnits);
+  const { shortTerm, mediumTerm, longTerm } = useSelector(selectAllUnits);
   const dragFrom: React.MutableRefObject<null | Position> = useRef(null);
   const dragTo: React.MutableRefObject<null | Position> = useRef(null);
   const dispatch = useDispatch();
@@ -57,21 +57,21 @@ export const BottomRow = () => {
   return (
     <div id="bottom-row">
       <Column
-        title={firstUnit.title}
-        itemList={lists.firstList}
-        listKey="firstList"
+        title={shortTerm.title}
+        itemList={lists.shortTermList}
+        listKey="shortTermList"
         dragAndDrop={dragAndDrop}
       />
       <Column
-        title={secondUnit.title}
-        itemList={lists.secondList}
-        listKey="secondList"
+        title={mediumTerm.title}
+        itemList={lists.mediumTermList}
+        listKey="mediumTermList"
         dragAndDrop={dragAndDrop}
       />
       <Column
-        title={thirdUnit.title}
-        itemList={lists.thirdList}
-        listKey="thirdList"
+        title={longTerm.title}
+        itemList={lists.longTermList}
+        listKey="longTermList"
         dragAndDrop={dragAndDrop}
       />
     </div>

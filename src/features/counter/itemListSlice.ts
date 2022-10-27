@@ -11,9 +11,9 @@ import {
   ToggleCheckedAction,
 } from "../../types";
 
-let firstList: ItemList = [];
-let secondList: ItemList = [];
-let thirdList: ItemList = [];
+let shortTermList: ItemList = [];
+let mediumTermList: ItemList = [];
+let longTermList: ItemList = [];
 
 const updateStorage = ({
   listKey,
@@ -26,9 +26,9 @@ const updateStorage = ({
 };
 
 const initialTodoListState: ItemListState = {
-  firstList,
-  secondList,
-  thirdList,
+  shortTermList,
+  mediumTermList,
+  longTermList,
 };
 
 export const itemListSlice = createSlice({
@@ -78,8 +78,11 @@ export const { add, remove, toggleChecked, clearAll, clearDone, updateList } =
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectAllLists = (state: RootState) => state.itemList;
-export const selectFirstList = (state: RootState) => state.itemList.firstList;
-export const selectSecondList = (state: RootState) => state.itemList.secondList;
-export const selectThirdList = (state: RootState) => state.itemList.thirdList;
+export const selectShortTermList = (state: RootState) =>
+  state.itemList.shortTermList;
+export const selectMediumTermList = (state: RootState) =>
+  state.itemList.mediumTermList;
+export const selectLongTermList = (state: RootState) =>
+  state.itemList.longTermList;
 
 export default itemListSlice.reducer;

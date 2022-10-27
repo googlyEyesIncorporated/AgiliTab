@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
 import { RootState } from "../../app/store";
 import { UnitsState, UnitType } from "../../types";
@@ -23,21 +23,21 @@ const referenceQuarterEndDate = DateTime.fromObject(
   { zone: "America/New_York" }
 );
 
-const firstUnit: UnitType = {
+const shortTerm: UnitType = {
   unitType: "day",
   title: "Today",
   endDate: DateTime.now().endOf("day"),
   startDate: DateTime.now().startOf("day"),
 };
 
-const secondUnit: UnitType = {
+const mediumTerm: UnitType = {
   unitType: "sprint",
   title: "Sprint",
   endDate: referenceSprintEndDate,
   startDate: referenceSprintStartDate,
 };
 
-const thirdUnit: UnitType = {
+const longTerm: UnitType = {
   unitType: "quarter",
   title: "Quarter",
   endDate: referenceQuarterEndDate,
@@ -45,9 +45,9 @@ const thirdUnit: UnitType = {
 };
 
 const initialUnitsState: UnitsState = {
-  firstUnit: firstUnit,
-  secondUnit: secondUnit,
-  thirdUnit: thirdUnit,
+  shortTerm: shortTerm,
+  mediumTerm: mediumTerm,
+  longTerm: longTerm,
 };
 
 export const unitsSlice = createSlice({
@@ -65,8 +65,8 @@ export const unitsSlice = createSlice({
 // export const { add, remove, move, toggleChecked } = unitsSlice.actions;
 
 export const selectAllUnits = (state: RootState) => state.units;
-export const selectFirstUnit = (state: RootState) => state.units.firstUnit;
-export const selectSecondUnit = (state: RootState) => state.units.secondUnit;
-export const selectThirdUnit = (state: RootState) => state.units.thirdUnit;
+export const selectShortTerm = (state: RootState) => state.units.shortTerm;
+export const selectMediumTerm = (state: RootState) => state.units.mediumTerm;
+export const selectLongTerm = (state: RootState) => state.units.longTerm;
 
 export default unitsSlice.reducer;

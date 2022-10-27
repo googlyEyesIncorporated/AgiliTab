@@ -12,22 +12,22 @@ const getCurrentRatio = (unitObj: UnitType) => {
 };
 
 export const TimeLeft = () => {
-  const { firstUnit, secondUnit, thirdUnit } = useSelector(selectAllUnits);
+  const { shortTerm, mediumTerm, longTerm } = useSelector(selectAllUnits);
   return (
     <div className="time-left" id="countdownbox">
       <div className="countdown-title">Time Elapsed:</div>
       <div className="countdowns" id="countdownbox-justifier">
-        <CountDown ratio={getCurrentRatio(firstUnit)} unit={"day"} />
-        {secondUnit && (
+        <CountDown ratio={getCurrentRatio(shortTerm)} unit={"day"} />
+        {mediumTerm && (
           <CountDown
-            ratio={getCurrentRatio(secondUnit)}
-            unit={secondUnit?.unitType || "sprint"}
+            ratio={getCurrentRatio(mediumTerm)}
+            unit={mediumTerm?.unitType || "sprint"}
           />
         )}
-        {thirdUnit && (
+        {longTerm && (
           <CountDown
-            ratio={getCurrentRatio(thirdUnit)}
-            unit={thirdUnit?.unitType || "quarter"}
+            ratio={getCurrentRatio(longTerm)}
+            unit={longTerm?.unitType || "quarter"}
           />
         )}
       </div>
