@@ -14,8 +14,8 @@ export const Options = ({
   toggleOptions: () => void;
 }) => {
   const dispatch = useAppDispatch();
-  const inputRef = useRef(null as unknown as HTMLInputElement);
-
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> =
+    useRef(null);
   const addClick = (event: SyntheticEvent) => {
     event.stopPropagation();
     event.preventDefault();
