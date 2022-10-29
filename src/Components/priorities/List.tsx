@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { ColumnProps } from "../../types";
-import { ListItem } from "./ListItem";
+import { ReplaceList } from "../../features/counter/itemListSlice";
+import { DragAndDrop, ListItem } from "./ListItem";
 import { Options } from "./PriorityActions";
 
-export const List = ({
-  itemList,
-  listKey,
-  dragAndDrop,
-}: Omit<ColumnProps, "title">) => {
+interface ListProps extends ReplaceList {
+  dragAndDrop: DragAndDrop;
+}
+
+export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
   const [shouldShowOptions, setShouldShowOptions] = useState(false);
 
   const toggleOptions = () => {

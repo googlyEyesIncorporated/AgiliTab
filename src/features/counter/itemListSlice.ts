@@ -1,15 +1,31 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import {
-  AddAction,
-  ItemList,
-  ItemListState,
-  JustListKey,
-  ListKey,
-  RemoveAction,
-  ReplaceList,
-  ToggleCheckedAction,
-} from "../../types";
+
+export type ItemList = Item[];
+export interface ReplaceList extends JustListKey {
+  itemList: ItemList;
+  save?: boolean;
+}
+export type ListKey = keyof ItemListState;
+export interface ListAndIndex extends JustListKey {
+  index: number;
+}
+interface ListAndItem extends JustListKey {
+  item: Item;
+}
+interface JustListKey {
+  listKey: ListKey;
+}
+interface Item {
+  id: string;
+  name: string;
+  done: boolean;
+}
+interface ItemListState {
+  shortTermList: ItemList;
+  mediumTermList: ItemList;
+  longTermList: ItemList;
+}
 
 let shortTermList: ItemList = [];
 let mediumTermList: ItemList = [];
@@ -38,17 +54,17 @@ export const itemListSlice = createSlice({
   initialState: initialTodoListState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    add: (state, action: PayloadAction<AddAction>) => {
+    add: (state, action: PayloadAction<ListAndItem>) => {
       const { listKey, item } = action.payload;
       state[listKey].push(item);
       updateStorage({ listKey, itemList: state[listKey] });
     },
-    remove: (state, action: PayloadAction<RemoveAction>) => {
+    remove: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
       state[listKey].splice(index, 1);
       updateStorage({ listKey, itemList: state[listKey] });
     },
-    toggleChecked: (state, action: PayloadAction<ToggleCheckedAction>) => {
+    toggleChecked: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
       state[listKey][index].done = !state[listKey][index].done;
       updateStorage({ listKey, itemList: state[listKey] });

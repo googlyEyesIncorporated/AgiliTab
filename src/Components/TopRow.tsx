@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Clock } from "./currentTimeBox/Clock";
 import { TimeLeft } from "./timeLeftBox/TimeLeft";
-import { TopRowProps } from "../types";
 import { DateTime } from "luxon";
+
+interface TopRowProps {
+  h24: boolean;
+}
 
 const weekDays = [
   "Unused",

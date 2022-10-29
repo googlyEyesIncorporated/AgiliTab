@@ -1,13 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
 import { RootState } from "../../app/store";
-import {
-  SettingsState,
-  UnitsState,
-  LegacyUnitType,
-  UnitType,
-  Visual,
-} from "../../types";
+
+export type Title = string;
+export interface SettingsState {
+  units: UnitsState;
+  visual: Visual;
+}
+export interface UnitsState {
+  shortTerm: UnitType | LegacyUnitType;
+  mediumTerm: UnitType | LegacyUnitType;
+  longTerm: UnitType | LegacyUnitType;
+}
+interface UnitType extends baseUnitType {
+  duration: string;
+}
+interface LegacyUnitType extends baseUnitType {
+  endDate: string;
+}
+interface baseUnitType {
+  startDate: string;
+  title: Title;
+  unitType: string;
+}
+interface Visual {
+  bgColor: string;
+  textColor: string;
+}
 
 const referenceSprintStartDate = DateTime.fromObject(
   { year: 2022, month: 10, day: 10, hour: 10 },

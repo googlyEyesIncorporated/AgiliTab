@@ -1,30 +1,34 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllLists, updateList } from "../features/counter/itemListSlice";
+import {
+  ListKey,
+  ListAndIndex,
+  selectAllLists,
+  updateList,
+} from "../features/counter/itemListSlice";
 import { selectAllUnits } from "../features/counter/settingsSlice";
-import { ListKey, Position } from "../types";
 import { Column } from "./priorities/Column";
 
 export const BottomRow = () => {
   const lists = useSelector(selectAllLists);
   const { shortTerm, mediumTerm, longTerm } = useSelector(selectAllUnits);
-  const dragFrom: React.MutableRefObject<null | Position> = useRef(null);
-  const dragTo: React.MutableRefObject<null | Position> = useRef(null);
+  const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
+  const dragTo: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dispatch = useDispatch();
 
-  const dragStart = (position: Position) => {
+  const dragStart = (position: ListAndIndex) => {
     dragFrom.current = position;
     console.log("dragStart", position);
   };
 
-  const enterListItem = (position: Position) => {
+  const enterListItem = (position: ListAndIndex) => {
     dragTo.current = position;
     console.log("enterListItem", position);
   };
 
   const enterList = (listKey: ListKey) => {
-    if (dragTo.current?.key !== listKey) {
-      dragTo.current = { key: listKey, index: 0 };
+    if (dragTo.current?.listKey !== listKey) {
+      dragTo.current = { listKey, index: 0 };
       console.log("enterList", listKey);
     }
   };
@@ -32,8 +36,8 @@ export const BottomRow = () => {
   const dragEnd = () => {
     if (dragFrom.current && dragTo.current) {
       const mutableLists = JSON.parse(JSON.stringify(lists));
-      const { key: fromKey, index: fromIndex } = dragFrom.current;
-      const { key: toKey, index: toIndex } = dragTo.current;
+      const { listKey: fromKey, index: fromIndex } = dragFrom.current;
+      const { listKey: toKey, index: toIndex } = dragTo.current;
       const item = mutableLists[fromKey][fromIndex];
       mutableLists[fromKey].splice(fromIndex, 1);
       mutableLists[toKey].splice(toIndex, 0, item);

@@ -1,7 +1,11 @@
 import { SyntheticEvent, useRef } from "react";
 import { useAppDispatch } from "../../app/hooks";
-import { add, clearAll, clearDone } from "../../features/counter/itemListSlice";
-import { ListKey } from "../../types";
+import {
+  add,
+  clearAll,
+  clearDone,
+  ListKey,
+} from "../../features/counter/itemListSlice";
 import { v4 as uuidv4 } from "uuid";
 
 export const Options = ({

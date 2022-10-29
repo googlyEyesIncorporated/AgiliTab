@@ -2,12 +2,15 @@ import { useEffect } from "react";
 import { TopRow } from "./Components/TopRow";
 import { BottomRow } from "./Components/BottomRow";
 import { useAppDispatch } from "./app/hooks";
-import { ItemList, SettingsState } from "./types";
 import {
   populateSettingssFromChrome,
   selectVisualSettings,
+  SettingsState,
 } from "./features/counter/settingsSlice";
-import { populateTasksFromChrome } from "./features/counter/itemListSlice";
+import {
+  ItemList,
+  populateTasksFromChrome,
+} from "./features/counter/itemListSlice";
 import { useSelector } from "react-redux";
 
 function App() {

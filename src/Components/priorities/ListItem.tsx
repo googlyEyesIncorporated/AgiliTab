@@ -1,7 +1,27 @@
 import { useState } from "react";
-import { ListItemProps } from "../../types";
 import { useAppDispatch } from "../../app/hooks";
-import { remove, toggleChecked } from "../../features/counter/itemListSlice";
+import {
+  remove,
+  toggleChecked,
+  ListKey,
+  ListAndIndex,
+} from "../../features/counter/itemListSlice";
+
+export interface DragAndDrop {
+  enterListItem: (position: ListAndIndex) => void;
+  dragStart: (position: ListAndIndex) => void;
+  dragEnd: () => void;
+  enterList: (listKey: ListKey) => void;
+}
+
+type ListItemProps = {
+  name: string;
+  done: boolean;
+  id: string;
+  index: number;
+  listKey: ListKey;
+  dragAndDrop: Omit<DragAndDrop, "enterList">;
+};
 
 export const ListItem = ({
   name,
@@ -34,8 +54,8 @@ export const ListItem = ({
       onMouseEnter={() => toggleHidden(false)}
       onMouseLeave={() => toggleHidden(true)}
       draggable
-      onDragStart={() => dragStart({ key: listKey, index })}
-      onDragEnter={() => enterListItem({ key: listKey, index })}
+      onDragStart={() => dragStart({ listKey, index })}
+      onDragEnter={() => enterListItem({ listKey, index })}
       onDragEnd={() => dragEnd()}
     >
       <div className="squaredThree">
