@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import itemListReducer from "../features/counter/itemListSlice";
-import unitsSlice from "../features/counter/unitsSlice";
+import settingsSlice from "../features/counter/settingsSlice";
 
 export const store = configureStore({
   reducer: {
     itemList: itemListReducer,
-    units: unitsSlice,
+    settings: settingsSlice,
   },
   devTools: true,
 });

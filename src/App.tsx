@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TopRow } from "./Components/TopRow";
 import { BottomRow } from "./Components/BottomRow";
-import { updateList } from "./features/counter/itemListSlice";
-import { useDispatch } from "react-redux";
-import { ItemList } from "./types";
+import { useAppDispatch } from "./app/hooks";
+import { ItemList, SettingsState } from "./types";
+import {
+  populateSettingssFromChrome,
+  selectVisualSettings,
+} from "./features/counter/settingsSlice";
+import { populateTasksFromChrome } from "./features/counter/itemListSlice";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [bgColor, setBgColor] = useState("#222");
-  const [textColor, setTextColor] = useState("white");
-  const dispatch = useDispatch();
+  const { bgColor, textColor } = useSelector(selectVisualSettings);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (chrome.storage) {
       chrome.storage.sync.get(
@@ -24,30 +28,34 @@ function App() {
             ? (Object.values(result["longTermList"]) as ItemList)
             : [];
           dispatch(
-            updateList({
-              listKey: "shortTermList",
-              itemList: shortTermList,
-              save: false,
-            })
-          );
-          dispatch(
-            updateList({
-              listKey: "mediumTermList",
-              itemList: mediumTermList,
-              save: false,
-            })
-          );
-          dispatch(
-            updateList({
-              listKey: "longTermList",
-              itemList: longTermList,
-              save: false,
+            populateTasksFromChrome({
+              shortTermList: {
+                listKey: "shortTermList",
+                itemList: shortTermList,
+                save: false,
+              },
+              mediumTermList: {
+                listKey: "mediumTermList",
+                itemList: mediumTermList,
+                save: false,
+              },
+              longTermList: {
+                listKey: "longTermList",
+                itemList: longTermList,
+                save: false,
+              },
             })
           );
         }
       );
+      chrome.storage.sync.get(["settings"], (result) => {
+        const settings = result["settings"]
+          ? (result["settings"] as SettingsState)
+          : {};
+        dispatch(populateSettingssFromChrome(settings));
+      });
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App" style={{ backgroundColor: bgColor, color: textColor }}>

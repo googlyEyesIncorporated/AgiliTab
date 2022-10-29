@@ -70,11 +70,33 @@ export const itemListSlice = createSlice({
       state[listKey] = itemList;
       save && updateStorage({ listKey, itemList: state[listKey] });
     },
+    populateTasksFromChrome: (
+      state,
+      { payload }: PayloadAction<ItemListState | {}>
+    ) => {
+      if (
+        "shortTermList" in payload &&
+        "mediumTermList" in payload &&
+        "longTermList" in payload
+      ) {
+        const { shortTermList, mediumTermList, longTermList } = payload;
+        state.shortTermList = shortTermList;
+        state.mediumTermList = mediumTermList;
+        state.longTermList = longTermList;
+      }
+    },
   },
 });
 
-export const { add, remove, toggleChecked, clearAll, clearDone, updateList } =
-  itemListSlice.actions;
+export const {
+  add,
+  remove,
+  toggleChecked,
+  clearAll,
+  clearDone,
+  updateList,
+  populateTasksFromChrome,
+} = itemListSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

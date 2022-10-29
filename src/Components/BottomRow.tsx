@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllLists, updateList } from "../features/counter/itemListSlice";
-import { selectAllUnits } from "../features/counter/unitsSlice";
+import { selectAllUnits } from "../features/counter/settingsSlice";
 import { ListKey, Position } from "../types";
 import { Column } from "./priorities/Column";
 
