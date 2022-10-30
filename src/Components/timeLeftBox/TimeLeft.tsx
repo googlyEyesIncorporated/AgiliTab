@@ -14,11 +14,18 @@ interface CalculatedTimes {
 type CalculatedTimesObj = Record<keyof UnitsState, CalculatedTimes>;
 type Predicate = (date: DateTime) => boolean;
 
-const getCurrentRatio = ({ start, end }: CalculatedTimes) => {
+const getCurrentRatio = (
+  { start, end }: CalculatedTimes,
+  setNeedsAdjustment: (value: React.SetStateAction<boolean>) => void
+) => {
   const timeElapsed = DateTime.now().toMillis() - start;
   const totalTime = end - start;
+  const ratio = timeElapsed / totalTime;
+  if (ratio > 1 && ratio !== Infinity) {
+    setNeedsAdjustment(true);
+  }
   if (totalTime) {
-    return Math.floor((timeElapsed / totalTime) * 100);
+    return Math.floor(ratio * 100);
   }
   return NaN;
 };
@@ -40,53 +47,60 @@ export const TimeLeft = () => {
     mediumTerm: { start: 0, end: 0 },
     longTerm: { start: 0, end: 0 },
   });
+  const [needsAdjustment, setNeedsAdjustment] = useState(true);
 
   useEffect(() => {
-    const newUnits: CalculatedTimesObj = {
-      shortTerm: {},
-      mediumTerm: {},
-      longTerm: {},
-    } as CalculatedTimesObj;
-    for (const property in timeUnits) {
-      const list = timeUnits[property as keyof UnitsState];
-      const referencePoint = DateTime.fromISO(list.startDate);
-      let duration;
-      if ("duration" in list) {
-        duration = durationFormatter(list.duration);
-      }
+    if (needsAdjustment) {
+      const newUnits: CalculatedTimesObj = {
+        shortTerm: {},
+        mediumTerm: {},
+        longTerm: {},
+      } as CalculatedTimesObj;
+      for (const property in timeUnits) {
+        const list = timeUnits[property as keyof UnitsState];
+        const referencePoint = DateTime.fromISO(list.startDate);
+        let duration;
+        if ("duration" in list) {
+          duration = durationFormatter(list.duration);
+        }
 
-      if ("endDate" in list) {
-        const endPoint = DateTime.fromISO(list.endDate);
-        duration = endPoint.diff(referencePoint);
+        if ("endDate" in list) {
+          const endPoint = DateTime.fromISO(list.endDate);
+          duration = endPoint.diff(referencePoint);
+        }
+        const { newDate: endDate, lastDate: startDate } = predicateDateRecalc(
+          referencePoint,
+          duration || {},
+          dateIsPast
+        );
+        if (startDate && endDate) {
+          newUnits[property as keyof UnitsState].start = startDate.toMillis();
+          newUnits[property as keyof UnitsState].end = endDate.toMillis();
+        }
       }
-      const { newDate: endDate, lastDate: startDate } = predicateDateRecalc(
-        referencePoint,
-        duration || {},
-        dateIsPast
-      );
-      if (startDate && endDate) {
-        newUnits[property as keyof UnitsState].start = startDate.toMillis();
-        newUnits[property as keyof UnitsState].end = endDate.toMillis();
-      }
+      setAdjustedTimeFrames({ ...newUnits });
+      setNeedsAdjustment(false);
     }
-    setAdjustedTimeFrames(newUnits);
-  }, [timeUnits]);
+  }, [timeUnits, needsAdjustment]);
 
   const { shortTerm, mediumTerm, longTerm } = adjustedTimeFrames;
   return (
     <div className="time-left" id="countdownbox">
       <div className="countdown-title">Time Elapsed:</div>
       <div className="countdowns" id="countdownbox-justifier">
-        <CountDown ratio={getCurrentRatio(shortTerm)} unit={"day"} />
+        <CountDown
+          ratio={getCurrentRatio(shortTerm, setNeedsAdjustment)}
+          unit={"day"}
+        />
         {mediumTerm && (
           <CountDown
-            ratio={getCurrentRatio(mediumTerm)}
+            ratio={getCurrentRatio(mediumTerm, setNeedsAdjustment)}
             unit={timeUnits.mediumTerm?.unitType || "sprint"}
           />
         )}
         {longTerm && (
           <CountDown
-            ratio={getCurrentRatio(longTerm)}
+            ratio={getCurrentRatio(longTerm, setNeedsAdjustment)}
             unit={timeUnits.longTerm?.unitType || "quarter"}
           />
         )}

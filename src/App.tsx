@@ -32,21 +32,9 @@ function App() {
             : [];
           dispatch(
             populateTasksFromChrome({
-              shortTermList: {
-                listKey: "shortTermList",
-                itemList: shortTermList,
-                save: false,
-              },
-              mediumTermList: {
-                listKey: "mediumTermList",
-                itemList: mediumTermList,
-                save: false,
-              },
-              longTermList: {
-                listKey: "longTermList",
-                itemList: longTermList,
-                save: false,
-              },
+              shortTermList,
+              mediumTermList,
+              longTermList,
             })
           );
         }
