@@ -6,6 +6,8 @@ import {
   ListKey,
   ListAndIndex,
 } from "../../features/counter/itemListSlice";
+import { faTrash, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface DragAndDrop {
   enterListItem: (position: ListAndIndex) => void;
@@ -71,12 +73,13 @@ export const ListItem = ({
       </div>
       <div className={`todo-text${done ? " todo-card-done" : ""}`}>
         {name}
-        <button
+        <FontAwesomeIcon
           onClick={removeItem}
-          className={`pull-right${hidden ? " hidden" : " revealed"}`}
-        >
-          🗑️
-        </button>
+          icon={faTrash}
+          className={`main-font-color pull-right${
+            hidden ? " hidden" : " revealed"
+          }`}
+        />
       </div>
     </li>
   );
