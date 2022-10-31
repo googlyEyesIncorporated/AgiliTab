@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import {
+  Item,
+  ItemList,
+  ItemListState,
+  ListKey,
+  updateStorage,
+} from "./storageHelper";
 
-export type ItemList = Item[];
 export interface ReplaceList extends JustListKey {
   itemList: ItemList;
   save?: boolean;
 }
-export type ListKey = keyof ItemListState;
 export interface ListAndIndex extends JustListKey {
   index: number;
 }
@@ -16,32 +21,10 @@ interface ListAndItem extends JustListKey {
 interface JustListKey {
   listKey: ListKey;
 }
-interface Item {
-  id: string;
-  name: string;
-  done: boolean;
-}
-interface ItemListState {
-  shortTermList: ItemList;
-  mediumTermList: ItemList;
-  longTermList: ItemList;
-}
 
 let shortTermList: ItemList = [];
 let mediumTermList: ItemList = [];
 let longTermList: ItemList = [];
-
-const updateStorage = ({
-  listKey,
-  itemList,
-}: {
-  listKey: ListKey;
-  itemList: ItemList;
-}) => {
-  if (chrome.storage) {
-    chrome.storage.sync.set({ [listKey]: itemList });
-  }
-};
 
 const initialTodoListState: ItemListState = {
   shortTermList,

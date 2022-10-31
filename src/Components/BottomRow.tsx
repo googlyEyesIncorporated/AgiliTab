@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  ListKey,
   ListAndIndex,
   selectAllLists,
   updateList,
 } from "../features/general/itemListSlice";
 import { selectAllUnits } from "../features/general/settingsSlice";
+import { ListKey } from "../features/general/storageHelper";
 import { Column } from "./priorities/Column";
 
 export const BottomRow = () => {

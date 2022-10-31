@@ -6,9 +6,9 @@ import { selectVisualSettings } from "../../features/general/settingsSlice";
 import {
   remove,
   toggleChecked,
-  ListKey,
   ListAndIndex,
 } from "../../features/general/itemListSlice";
+import { ListKey } from "../../features/general/storageHelper";
 
 export interface DragAndDrop {
   enterListItem: (position: ListAndIndex) => void;

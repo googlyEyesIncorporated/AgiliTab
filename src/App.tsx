@@ -7,11 +7,9 @@ import {
   selectVisualSettings,
   SettingsState,
 } from "./features/general/settingsSlice";
-import {
-  ItemList,
-  populateTasksFromChrome,
-} from "./features/general/itemListSlice";
+import { populateTasksFromChrome } from "./features/general/itemListSlice";
 import { SettingsWrapper } from "./Components/SettingsWrapper";
+import { ItemList } from "./features/general/storageHelper";
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);
