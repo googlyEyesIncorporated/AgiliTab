@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     if (chrome.storage) {
       chrome.storage.sync.get(
-        ["shortTermList", "mediumTermList", "longTermList"],
+        ["shortTermList", "mediumTermList", "longTermList", "settings"],
         function (result) {
           const shortTermList = result["shortTermList"]
             ? (Object.values(result["shortTermList"]) as ItemList)
@@ -30,6 +30,10 @@ function App() {
           const longTermList = result["longTermList"]
             ? (Object.values(result["longTermList"]) as ItemList)
             : [];
+          const settings = result["settings"]
+            ? (result["settings"] as SettingsState)
+            : {};
+          dispatch(populateSettingssFromChrome(settings));
           dispatch(
             populateTasksFromChrome({
               shortTermList,
@@ -39,12 +43,6 @@ function App() {
           );
         }
       );
-      chrome.storage.sync.get(["settings"], (result) => {
-        const settings = result["settings"]
-          ? (result["settings"] as SettingsState)
-          : {};
-        dispatch(populateSettingssFromChrome(settings));
-      });
     }
   }, [dispatch]);
 
