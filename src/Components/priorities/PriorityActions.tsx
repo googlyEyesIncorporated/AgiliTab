@@ -1,5 +1,5 @@
 import { SyntheticEvent, useRef } from "react";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector as useSelector } from "../../app/hooks";
 import {
   add,
   clearAll,
@@ -7,6 +7,7 @@ import {
   ListKey,
 } from "../../features/counter/itemListSlice";
 import { v4 as uuidv4 } from "uuid";
+import { selectVisualSettings } from "../../features/counter/settingsSlice";
 
 export const Options = ({
   shouldShowOptions = false,
@@ -17,9 +18,12 @@ export const Options = ({
   shouldShowOptions: boolean;
   toggleOptions: () => void;
 }) => {
+  const { fontColor, secondFontColor, bgColor } =
+    useSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
   const inputRef: React.MutableRefObject<HTMLInputElement | null> =
     useRef(null);
+
   const addClick = (event: SyntheticEvent) => {
     event.stopPropagation();
     event.preventDefault();
@@ -52,19 +56,26 @@ export const Options = ({
         <input
           ref={inputRef}
           type="text"
-          className="todo main-bgcolor main-font-color"
+          style={{
+            color: fontColor,
+            backgroundColor: bgColor,
+            borderColor: fontColor,
+          }}
+          className="todo"
         />{" "}
         <input
           type="submit"
           id="submit"
           value="Add"
           onClick={addClick}
-          className="add-item-button main-font-color"
+          style={{ color: fontColor }}
+          className="add-item-button"
         />
       </form>
       <button
         id={`sweep-${listKey}`}
-        className="sweep-link shadow-color link"
+        className="button-class sweep-link link"
+        style={{ color: secondFontColor }}
         onClick={clearDoneTasks}
       >
         Clear Done
@@ -72,13 +83,18 @@ export const Options = ({
       {" | "}
       <button
         id={`clear-all-${listKey}`}
-        className="clear-all-link shadow-color"
+        style={{ color: secondFontColor }}
+        className="button-class clear-all-link"
         onClick={clearAllTasks}
       >
         Clear All
       </button>
       {" | "}
-      <button className="hide-edit shadow-color" onClick={toggleOptions}>
+      <button
+        style={{ color: secondFontColor }}
+        className="button-class hide-edit"
+        onClick={toggleOptions}
+      >
         Hide
       </button>
     </div>

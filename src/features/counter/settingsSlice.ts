@@ -23,10 +23,22 @@ interface baseUnitType {
   title: Title;
   unitType: string;
 }
-interface Visual {
+interface BgColor {
   bgColor: string;
-  textColor: string;
 }
+interface FontColor {
+  fontColor: string;
+}
+interface SecondFontColor {
+  secondFontColor: string;
+}
+
+interface KeyValuePair {
+  key: keyof BgColor | keyof FontColor | keyof SecondFontColor;
+  value: string;
+}
+
+export interface Visual extends BgColor, FontColor, SecondFontColor {}
 
 const referenceSprintStartDate = DateTime.fromObject(
   { year: 2022, month: 10, day: 10, hour: 10 },
@@ -67,7 +79,8 @@ const initialUnits: UnitsState = {
 
 const initalVisuals: Visual = {
   bgColor: "#222",
-  textColor: "white",
+  fontColor: "white",
+  secondFontColor: "#ffffff4d",
 };
 
 const initialSettings: SettingsState = {
@@ -92,10 +105,17 @@ export const unitsSlice = createSlice({
         state.visual = payload.visual;
       }
     },
+    setVisualSetting: (
+      state,
+      { payload: { key, value } }: PayloadAction<KeyValuePair>
+    ) => {
+      state.visual[key] = value;
+    },
   },
 });
 
-export const { populateSettingssFromChrome } = unitsSlice.actions;
+export const { populateSettingssFromChrome, setVisualSetting } =
+  unitsSlice.actions;
 
 export const selectAllUnits = (state: RootState) => state.settings.units;
 export const selectShortTerm = (state: RootState) =>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { TopRow } from "./Components/TopRow";
 import { BottomRow } from "./Components/BottomRow";
-import { useAppDispatch } from "./app/hooks";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
 import {
   populateSettingssFromChrome,
   selectVisualSettings,
@@ -11,10 +11,10 @@ import {
   ItemList,
   populateTasksFromChrome,
 } from "./features/counter/itemListSlice";
-import { useSelector } from "react-redux";
+import { SettingsWrapper } from "./Components/SettingsWrapper";
 
 function App() {
-  const { bgColor, textColor } = useSelector(selectVisualSettings);
+  const { bgColor, fontColor } = useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (chrome.storage) {
@@ -48,10 +48,16 @@ function App() {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = bgColor;
+    document.body.style.color = fontColor;
+  }, [bgColor, fontColor]);
+
   return (
-    <div className="App" style={{ backgroundColor: bgColor, color: textColor }}>
+    <div className="App" style={{ backgroundColor: bgColor, color: fontColor }}>
       <TopRow h24={false} />
       <BottomRow />
+      <SettingsWrapper />
     </div>
   );
 }

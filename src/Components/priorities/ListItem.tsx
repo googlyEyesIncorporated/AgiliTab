@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectVisualSettings } from "../../features/counter/settingsSlice";
 import {
   remove,
   toggleChecked,
   ListKey,
   ListAndIndex,
 } from "../../features/counter/itemListSlice";
-import { faTrash, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface DragAndDrop {
   enterListItem: (position: ListAndIndex) => void;
@@ -35,10 +36,8 @@ export const ListItem = ({
 }: ListItemProps) => {
   const dispatch = useAppDispatch();
   const [hidden, setHidden] = useState(true);
-  const toggleHidden = (bool: boolean) => {
-    setHidden(bool);
-  };
-
+  const { fontColor, secondFontColor, bgColor } =
+    useAppSelector(selectVisualSettings);
   const checkboxClick = () => {
     dispatch(toggleChecked({ listKey, index }));
   };
@@ -48,13 +47,14 @@ export const ListItem = ({
   };
   return (
     <li
-      className={`todo-card main-bgcolor ${
-        done
-          ? "shadow-color shadow-border-color"
-          : "main-font-color main-border-color"
-      }`}
-      onMouseEnter={() => toggleHidden(false)}
-      onMouseLeave={() => toggleHidden(true)}
+      className={`todo-card`}
+      style={{
+        color: done ? secondFontColor : fontColor,
+        borderColor: done ? secondFontColor : fontColor,
+        backgroundColor: bgColor,
+      }}
+      onMouseEnter={() => setHidden(false)}
+      onMouseLeave={() => setHidden(true)}
       draggable
       onDragStart={() => dragStart({ listKey, index })}
       onDragEnter={() => enterListItem({ listKey, index })}
@@ -67,19 +67,23 @@ export const ListItem = ({
           id={id}
           onChange={checkboxClick}
           key={id}
+          style={{ color: secondFontColor }}
           checked={done}
         />
         <label htmlFor={id} />
       </div>
       <div className={`todo-text${done ? " todo-card-done" : ""}`}>
         {name}
-        <FontAwesomeIcon
-          onClick={removeItem}
-          icon={faTrash}
-          className={`main-font-color pull-right${
-            hidden ? " hidden" : " revealed"
-          }`}
-        />
+        <i
+          aria-hidden="true"
+          className={`pull-right${hidden ? " hidden" : " revealed"}`}
+        >
+          <FontAwesomeIcon
+            onClick={removeItem}
+            icon={faTrash}
+            style={{ color: done ? secondFontColor : fontColor }}
+          />
+        </i>
       </div>
     </li>
   );

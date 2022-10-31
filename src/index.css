@@ -27,25 +27,13 @@ body {
   float: right;
 }
 
-button {
+.button-class {
   border: none;
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
 }
 
 /* Colors */
-
-.main-bgcolor {
-  background-color: #222222;
-}
-
-.main-font-color {
-  color: white;
-}
-
-.shadow-color {
-  color: rgba(255, 255, 255, 0.3);
-}
 
 .main-border-color {
   border-color: white;
@@ -298,7 +286,6 @@ input[type="text"]:focus {
 
 #customize-selectors {
   font-size: 0.75rem;
-  display: none;
   border: 1px solid;
   padding: 0.5rem;
   overflow: auto;
@@ -428,7 +415,6 @@ input[type="checkbox"]:not(.immune) {
 .squaredThree label:after {
   opacity: 0;
   position: absolute;
-  color: white;
   font-family: "FontAwesome";
   content: "✔";
   left: 0;

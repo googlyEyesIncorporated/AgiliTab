@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useAppSelector } from "../../app/hooks";
 import { ReplaceList } from "../../features/counter/itemListSlice";
+import { selectVisualSettings } from "../../features/counter/settingsSlice";
 import { DragAndDrop, ListItem } from "./ListItem";
 import { Options } from "./PriorityActions";
 
@@ -9,6 +11,7 @@ interface ListProps extends ReplaceList {
 
 export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
   const [shouldShowOptions, setShouldShowOptions] = useState(false);
+  const { secondFontColor } = useAppSelector(selectVisualSettings);
 
   const toggleOptions = () => {
     setShouldShowOptions(!shouldShowOptions);
@@ -37,8 +40,9 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
         <ul className="shown-items">{ListItems}</ul>
         {!shouldShowOptions && (
           <button
-            className="edit-priorities-link pull-right shadow-color"
+            className="edit-priorities-link button-class pull-right"
             onClick={toggleOptions}
+            style={{ color: secondFontColor }}
           >
             Options
           </button>
