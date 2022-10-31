@@ -3,7 +3,7 @@ import { Popover } from "react-tiny-popover";
 import { useAppDispatch as useDispatch } from "../../app/hooks";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { setVisualSetting, Visual } from "../../features/counter/settingsSlice";
+import { setVisualSetting, Visual } from "../../features/general/settingsSlice";
 import { SetBooleanState } from "./types";
 
 export const PopOverGenerator = (

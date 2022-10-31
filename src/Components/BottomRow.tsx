@@ -5,8 +5,8 @@ import {
   ListAndIndex,
   selectAllLists,
   updateList,
-} from "../features/counter/itemListSlice";
-import { selectAllUnits } from "../features/counter/settingsSlice";
+} from "../features/general/itemListSlice";
+import { selectAllUnits } from "../features/general/settingsSlice";
 import { Column } from "./priorities/Column";
 
 export const BottomRow = () => {

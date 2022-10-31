@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectVisualSettings } from "../../features/counter/settingsSlice";
+import { selectVisualSettings } from "../../features/general/settingsSlice";
 import { PopOverGenerator } from "./Popover";
 
 export const SetColors = ({

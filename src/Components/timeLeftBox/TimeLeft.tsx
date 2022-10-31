@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import {
   selectAllUnits,
   UnitsState,
-} from "../../features/counter/settingsSlice";
+} from "../../features/general/settingsSlice";
 import { useEffect, useState } from "react";
 
 interface CalculatedTimes {

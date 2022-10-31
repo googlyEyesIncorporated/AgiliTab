@@ -5,9 +5,9 @@ import {
   clearAll,
   clearDone,
   ListKey,
-} from "../../features/counter/itemListSlice";
+} from "../../features/general/itemListSlice";
 import { v4 as uuidv4 } from "uuid";
-import { selectVisualSettings } from "../../features/counter/settingsSlice";
+import { selectVisualSettings } from "../../features/general/settingsSlice";
 
 export const Options = ({
   shouldShowOptions = false,

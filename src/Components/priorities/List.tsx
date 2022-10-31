@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
-import { ReplaceList } from "../../features/counter/itemListSlice";
-import { selectVisualSettings } from "../../features/counter/settingsSlice";
+import { ReplaceList } from "../../features/general/itemListSlice";
+import { selectVisualSettings } from "../../features/general/settingsSlice";
 import { DragAndDrop, ListItem } from "./ListItem";
 import { Options } from "./PriorityActions";
 

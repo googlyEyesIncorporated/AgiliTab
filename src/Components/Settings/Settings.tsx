@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectVisualSettings } from "../../features/counter/settingsSlice";
+import { selectVisualSettings } from "../../features/general/settingsSlice";
 import { SetColors } from "./SetColors";
 import { DateTimeFormat, restoreDefaults, WorkDay } from "./Static";
 import { SetBooleanState } from "./types";

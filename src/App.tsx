@@ -6,11 +6,11 @@ import {
   populateSettingssFromChrome,
   selectVisualSettings,
   SettingsState,
-} from "./features/counter/settingsSlice";
+} from "./features/general/settingsSlice";
 import {
   ItemList,
   populateTasksFromChrome,
-} from "./features/counter/itemListSlice";
+} from "./features/general/itemListSlice";
 import { SettingsWrapper } from "./Components/SettingsWrapper";
 
 function App() {

@@ -2,13 +2,13 @@ import { useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectVisualSettings } from "../../features/counter/settingsSlice";
+import { selectVisualSettings } from "../../features/general/settingsSlice";
 import {
   remove,
   toggleChecked,
   ListKey,
   ListAndIndex,
-} from "../../features/counter/itemListSlice";
+} from "../../features/general/itemListSlice";
 
 export interface DragAndDrop {
   enterListItem: (position: ListAndIndex) => void;
