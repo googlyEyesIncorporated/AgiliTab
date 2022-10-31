@@ -1,41 +1,18 @@
 import { CountDown } from "./CountDown";
-import { DateTime, DurationObjectUnits } from "luxon";
+import { DateTime } from "luxon";
 import { useSelector } from "react-redux";
 import { selectAllUnits } from "../../features/general/settingsSlice";
 import { useEffect, useState } from "react";
 import { UnitsState } from "../../features/general/types";
+import {
+  dateIsPast,
+  durationFormatter,
+  getCurrentRatio,
+  predicateDateRecalc,
+  CalculatedTimes,
+} from "./utils";
 
-interface CalculatedTimes {
-  start: number;
-  end: number;
-}
 type CalculatedTimesObj = Record<keyof UnitsState, CalculatedTimes>;
-type Predicate = (date: DateTime) => boolean;
-
-const getCurrentRatio = (
-  { start, end }: CalculatedTimes,
-  setNeedsAdjustment: (value: React.SetStateAction<boolean>) => void
-) => {
-  const timeElapsed = DateTime.now().toMillis() - start;
-  const totalTime = end - start;
-  const ratio = timeElapsed / totalTime;
-  if (ratio > 1 && ratio !== Infinity) {
-    setNeedsAdjustment(true);
-  }
-  if (totalTime) {
-    return Math.floor(ratio * 100);
-  }
-  return NaN;
-};
-
-const dateIsPast = (date: DateTime) => date.diffNow().toMillis() < 0;
-
-const durationFormatter = (duration?: string) => {
-  if (typeof duration === "string") {
-    const [qty, unit] = duration.split(" ", 2);
-    return { [unit]: parseInt(qty) } as DurationObjectUnits;
-  }
-};
 
 export const TimeLeft = () => {
   const timeUnits = useSelector(selectAllUnits);
@@ -105,18 +82,4 @@ export const TimeLeft = () => {
       </div>
     </div>
   );
-};
-
-const predicateDateRecalc = (
-  date: DateTime,
-  interval: DurationObjectUnits,
-  predicate: Predicate
-) => {
-  let newDate = date;
-  let lastDate;
-  while (predicate(newDate)) {
-    lastDate = newDate;
-    newDate = newDate.plus(interval);
-  }
-  return { newDate, lastDate };
 };
