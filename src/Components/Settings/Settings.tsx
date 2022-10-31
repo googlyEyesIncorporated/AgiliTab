@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import { selectVisualSettings } from "../../features/general/settingsSlice";
+import { RestoreDefaults } from "./RestoreDefaults";
 import { SetColors } from "./SetColors";
-import { DateTimeFormat, restoreDefaults, WorkDay } from "./Static";
+import { DateTimeFormat, WorkDay } from "./Static";
 import { SetBooleanState } from "./types";
 
 const handleClickOutside =
@@ -39,7 +40,7 @@ export const Settings = ({
     >
       <h1 id="customize-corner-title">Customization</h1>
       <SetColors settingsContainer={settingsContainer} />
-      {restoreDefaults}
+      <RestoreDefaults />
       {WorkDay}
       {DateTimeFormat}
       <div>

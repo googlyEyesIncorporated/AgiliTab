@@ -63,11 +63,3 @@ export const WorkDay = (
     </div>
   </div>
 );
-
-export const restoreDefaults = (
-  <div style={{ margin: "1rem 0" }}>
-    <button id="restore-default-colors" className="cursor-pointer">
-      Restore default colors
-    </button>
-  </div>
-);
