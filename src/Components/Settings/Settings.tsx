@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { selectVisualSettings } from "../../features/counter/settingsSlice";
 import { SetColors } from "./SetColors";
 import { DateTimeFormat, restoreDefaults, WorkDay } from "./Static";
 import { SetBooleanState } from "./types";
@@ -27,9 +29,14 @@ export const Settings = ({
     "click",
     handleClickOutside(setHidden, settingsContainer)
   );
+  const { bgColor } = useSelector(selectVisualSettings);
 
   return (
-    <div id="customize-selectors" className={hideSettings ? "hidden" : ""}>
+    <div
+      id="customize-selectors"
+      className={hideSettings ? "hidden" : ""}
+      style={{ backgroundColor: bgColor }}
+    >
       <h1 id="customize-corner-title">Customization</h1>
       <SetColors settingsContainer={settingsContainer} />
       {restoreDefaults}
