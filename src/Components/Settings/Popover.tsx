@@ -1,6 +1,6 @@
 import { HexColorPicker } from "react-colorful";
 import { Popover } from "react-tiny-popover";
-import { useAppDispatch as useDispatch } from "../../app/hooks";
+import { useAppDispatch } from "../../app/hooks";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { setVisualSetting } from "../../features/general/settingsSlice";
@@ -16,7 +16,7 @@ export const PopOverGenerator = (
   id: string,
   text: string
 ) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <Popover
       isOpen={isOpen}

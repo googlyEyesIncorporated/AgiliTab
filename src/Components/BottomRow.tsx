@@ -1,16 +1,16 @@
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { selectAllLists, updateList } from "../features/general/itemListSlice";
 import { selectAllUnits } from "../features/general/settingsSlice";
 import { ListAndIndex, ListKey } from "../features/general/types";
 import { Column } from "./priorities/Column";
 
 export const BottomRow = () => {
-  const lists = useSelector(selectAllLists);
-  const { shortTerm, mediumTerm, longTerm } = useSelector(selectAllUnits);
+  const lists = useAppSelector(selectAllLists);
+  const { shortTerm, mediumTerm, longTerm } = useAppSelector(selectAllUnits);
   const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dragTo: React.MutableRefObject<null | ListAndIndex> = useRef(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const dragStart = (position: ListAndIndex) => {
     dragFrom.current = position;
