@@ -1,26 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import {
-  Item,
   ItemList,
   ItemListState,
-  ListKey,
-  updateStorage,
-} from "./storageHelper";
-
-export interface ReplaceList extends JustListKey {
-  itemList: ItemList;
-  save?: boolean;
-}
-export interface ListAndIndex extends JustListKey {
-  index: number;
-}
-interface ListAndItem extends JustListKey {
-  item: Item;
-}
-interface JustListKey {
-  listKey: ListKey;
-}
+  JustListKey,
+  ListAndIndex,
+  ListAndItem,
+  ReplaceList,
+} from "./types";
+import { updateStorage } from "./storageHelper";
 
 let shortTermList: ItemList = [];
 let mediumTermList: ItemList = [];
@@ -40,34 +28,34 @@ export const itemListSlice = createSlice({
     add: (state, action: PayloadAction<ListAndItem>) => {
       const { listKey, item } = action.payload;
       state[listKey].push(item);
-      updateStorage({ listKey, itemList: state[listKey] });
+      updateStorage({ storageKey: listKey, val: state[listKey] });
     },
     remove: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
       state[listKey].splice(index, 1);
-      updateStorage({ listKey, itemList: state[listKey] });
+      updateStorage({ storageKey: listKey, val: state[listKey] });
     },
     toggleChecked: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
       state[listKey][index].done = !state[listKey][index].done;
-      updateStorage({ listKey, itemList: state[listKey] });
+      updateStorage({ storageKey: listKey, val: state[listKey] });
     },
     clearDone: (state, action: PayloadAction<JustListKey>) => {
       const { listKey } = action.payload;
       state[listKey] = state[listKey].filter((item) => {
         return !item.done;
       });
-      updateStorage({ listKey, itemList: state[listKey] });
+      updateStorage({ storageKey: listKey, val: state[listKey] });
     },
     clearAll: (state, action: PayloadAction<JustListKey>) => {
       const { listKey } = action.payload;
       state[listKey] = [];
-      updateStorage({ listKey, itemList: state[listKey] });
+      updateStorage({ storageKey: listKey, val: state[listKey] });
     },
     updateList: (state, action: PayloadAction<ReplaceList>) => {
       const { listKey, itemList, save = true } = action.payload;
       state[listKey] = itemList;
-      save && updateStorage({ listKey, itemList: state[listKey] });
+      save && updateStorage({ storageKey: listKey, val: state[listKey] });
     },
     populateTasksFromChrome: (
       state,

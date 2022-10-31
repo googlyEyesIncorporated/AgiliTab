@@ -5,11 +5,10 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import {
   populateSettingssFromChrome,
   selectVisualSettings,
-  SettingsState,
 } from "./features/general/settingsSlice";
 import { populateTasksFromChrome } from "./features/general/itemListSlice";
 import { SettingsWrapper } from "./Components/SettingsWrapper";
-import { ItemList } from "./features/general/storageHelper";
+import { ItemList, SettingsState } from "./features/general/types";
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);

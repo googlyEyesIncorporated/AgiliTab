@@ -3,12 +3,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectVisualSettings } from "../../features/general/settingsSlice";
-import {
-  remove,
-  toggleChecked,
-  ListAndIndex,
-} from "../../features/general/itemListSlice";
-import { ListKey } from "../../features/general/storageHelper";
+import { remove, toggleChecked } from "../../features/general/itemListSlice";
+import { ListAndIndex, ListKey } from "../../features/general/types";
 
 export interface DragAndDrop {
   enterListItem: (position: ListAndIndex) => void;

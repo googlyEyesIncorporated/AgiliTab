@@ -1,11 +1,9 @@
 import { CountDown } from "./CountDown";
 import { DateTime, DurationObjectUnits } from "luxon";
 import { useSelector } from "react-redux";
-import {
-  selectAllUnits,
-  UnitsState,
-} from "../../features/general/settingsSlice";
+import { selectAllUnits } from "../../features/general/settingsSlice";
 import { useEffect, useState } from "react";
+import { UnitsState } from "../../features/general/types";
 
 interface CalculatedTimes {
   start: number;

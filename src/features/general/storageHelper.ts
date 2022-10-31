@@ -1,24 +1,13 @@
-export type ItemList = Item[];
-export interface Item {
-  id: string;
-  name: string;
-  done: boolean;
-}
-export interface ItemListState {
-  shortTermList: ItemList;
-  mediumTermList: ItemList;
-  longTermList: ItemList;
-}
-export type ListKey = keyof ItemListState;
+import { ItemList, SettingsState, StorageKey } from "./types";
 
 export const updateStorage = ({
-  listKey,
-  itemList,
+  storageKey,
+  val,
 }: {
-  listKey: ListKey;
-  itemList: ItemList;
+  storageKey: StorageKey;
+  val: ItemList | SettingsState;
 }) => {
   if (chrome.storage) {
-    chrome.storage.sync.set({ [listKey]: itemList });
+    chrome.storage.sync.set({ [storageKey]: val });
   }
 };
