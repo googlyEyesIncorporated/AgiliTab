@@ -83,11 +83,18 @@ export const unitsSlice = createSlice({
       state.visual[key] = value;
       updateStorage({ storageKey: "settings", val: state });
     },
+    resetVisualSetting: (state) => {
+      state.visual = initalVisuals;
+      updateStorage({ storageKey: "settings", val: state });
+    },
   },
 });
 
-export const { populateSettingssFromChrome, setVisualSetting } =
-  unitsSlice.actions;
+export const {
+  populateSettingssFromChrome,
+  setVisualSetting,
+  resetVisualSetting,
+} = unitsSlice.actions;
 
 export const selectAllUnits = (state: RootState) => state.settings.units;
 export const selectShortTerm = (state: RootState) =>
