@@ -31,35 +31,3 @@ export const DateTimeFormat = (
     <button id="date-time-format-save">Save</button>
   </div>
 );
-
-export const WorkDay = (
-  <div style={{ margin: "1rem 0" }}>
-    <h2>Workday:</h2>
-    <input
-      type="checkbox"
-      name="workday-on"
-      className="immune"
-      id="workday-checkbox"
-    />
-    <label htmlFor="workday-on">Make day timer based on my workday:</label>
-    <div>
-      <span>Workday start: </span>
-      <input
-        type="time"
-        name="workday-start"
-        id="workday-start-timeinput"
-        // value="09:00"
-        className="time-input"
-      />
-      <span> - Workday end: </span>
-      <input
-        type="time"
-        name="workday-end"
-        id="workday-end-timeinput"
-        // value="18:00"
-        className="time-input"
-      />{" "}
-      <button id="workday-time-save">Save</button>
-    </div>
-  </div>
-);
