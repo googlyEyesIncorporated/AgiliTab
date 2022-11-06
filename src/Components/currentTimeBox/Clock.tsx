@@ -6,5 +6,5 @@ import "./Clock.css";
 export const Clock = ({ date }: { date: DateTime }) => {
   const timeFormat = useAppSelector(selectTimeFormat);
 
-  return <div className="clock">{date.toFormat(timeFormat)}</div>;
+  return <div className="clock">{timeFormat && date.toFormat(timeFormat)}</div>;
 };

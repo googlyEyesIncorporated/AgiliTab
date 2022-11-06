@@ -6,8 +6,8 @@ import {
 } from "../../features/general/settingsSlice";
 
 interface Formats {
-  time: string;
-  date: string;
+  timeFormat: string;
+  dateFormat: string;
 }
 
 const formats = {
@@ -41,12 +41,16 @@ const formats = {
 export const DateTimeFormat = () => {
   const dispatch = useAppDispatch();
   const [selectedFormats, setSelectedFormats] = useState({} as Formats);
-  const { date, time } = selectedFormats;
-  const { dateFormat, timeFormat } = useAppSelector(selectVisualSettings);
+  const { dateFormat, timeFormat } = selectedFormats;
+  const { dateFormat: savedDateFormat, timeFormat: savedTimeFormat } =
+    useAppSelector(selectVisualSettings);
 
   useEffect(() => {
-    setSelectedFormats({ date: dateFormat, time: timeFormat });
-  }, [dateFormat, timeFormat]);
+    setSelectedFormats({
+      dateFormat: savedDateFormat,
+      timeFormat: savedTimeFormat,
+    });
+  }, [savedDateFormat, savedTimeFormat]);
 
   return (
     <div style={{ margin: "1rem 0" }}>
@@ -55,9 +59,9 @@ export const DateTimeFormat = () => {
       <select
         name="date-format-input"
         id="date-format-input"
-        value={date}
+        value={dateFormat}
         onChange={(e) => {
-          setSelectedFormats({ date: e.target.value, time: time });
+          setSelectedFormats({ dateFormat: e.target.value, timeFormat });
         }}
       >
         <optgroup label="American">
@@ -92,9 +96,9 @@ export const DateTimeFormat = () => {
       <select
         name="time-format-input"
         id="time-format-input"
-        value={time}
+        value={timeFormat}
         onChange={(e) => {
-          setSelectedFormats({ date: date, time: e.target.value });
+          setSelectedFormats({ dateFormat, timeFormat: e.target.value });
         }}
       >
         <optgroup label="12 hour">
@@ -117,7 +121,7 @@ export const DateTimeFormat = () => {
       <button
         id="date-time-format-save"
         onClick={() => {
-          dispatch(setDateTimeFormats({ dateFormat: date, timeFormat: time }));
+          dispatch(setDateTimeFormats(selectedFormats));
         }}
       >
         Save

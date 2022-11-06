@@ -31,7 +31,7 @@ export const NowBox = () => {
       <Clock date={date} />
       <div className="date" style={{ marginTop: "1rem" }}>
         <div>{date.weekdayLong}</div>
-        <div>{date.toFormat(dateFormat)}</div>
+        <div>{dateFormat && date.toFormat(dateFormat)}</div>
       </div>
     </div>
   );
