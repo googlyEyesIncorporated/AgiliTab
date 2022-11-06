@@ -1,13 +1,16 @@
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../app/hooks";
+import { selectDateFormat } from "../features/general/settingsSlice";
 import { Clock } from "./currentTimeBox/Clock";
 
 export interface ClockProps {
   h24: boolean;
 }
 
-export const NowBox = ({ h24 }: ClockProps) => {
+export const NowBox = () => {
   const [date, setDate] = useState(DateTime.now());
+  const dateFormat = useAppSelector(selectDateFormat);
 
   useEffect(() => {
     const updateDate = () => {
@@ -25,10 +28,10 @@ export const NowBox = ({ h24 }: ClockProps) => {
 
   return (
     <div className="now" id="nowbox">
-      <Clock date={date} h24={h24} />
+      <Clock date={date} />
       <div className="date" style={{ marginTop: "1rem" }}>
         <div>{date.weekdayLong}</div>
-        <div>{date.toFormat("MMM dd, yyyy")}</div>
+        <div>{date.toFormat(dateFormat)}</div>
       </div>
     </div>
   );

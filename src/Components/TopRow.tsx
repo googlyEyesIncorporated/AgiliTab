@@ -1,10 +1,10 @@
 import { TimeLeft } from "./timeLeftBox/TimeLeft";
-import { NowBox, ClockProps } from "./NowBox";
+import { NowBox } from "./NowBox";
 
-export const TopRow = (props: ClockProps) => {
+export const TopRow = () => {
   return (
     <div id="top-row">
-      <NowBox {...props} />
+      <NowBox />
       <TimeLeft />
     </div>
   );

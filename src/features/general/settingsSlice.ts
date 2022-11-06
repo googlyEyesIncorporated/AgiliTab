@@ -11,6 +11,8 @@ import {
   WorkingHours,
   BooleanPayload,
   Times,
+  DateFormat,
+  TimeFormat,
 } from "./types";
 
 const referenceSprintStartDate = DateTime.fromObject(
@@ -63,6 +65,8 @@ const initalVisuals: Visual = {
   bgColor: "#222",
   fontColor: "white",
   secondFontColor: "#ffffff4d",
+  dateFormat: "MMM dd, yyyy",
+  timeFormat: "h:mm a",
 };
 
 const initialSettings: SettingsState = {
@@ -108,6 +112,13 @@ export const unitsSlice = createSlice({
       state.visual[key] = value;
       updateStorage({ storageKey: "settings", val: state });
     },
+    setDateTimeFormats: (
+      state,
+      { payload }: PayloadAction<DateFormat & TimeFormat>
+    ) => {
+      state.visual = { ...state.visual, ...payload };
+      updateStorage({ storageKey: "settings", val: state });
+    },
     resetVisualSetting: (state) => {
       state.visual = initalVisuals;
       updateStorage({ storageKey: "settings", val: state });
@@ -118,6 +129,7 @@ export const unitsSlice = createSlice({
 export const {
   populateSettingssFromChrome,
   setVisualSetting,
+  setDateTimeFormats,
   resetVisualSetting,
   setWorkDayHours,
   toggleWorkDay,
@@ -125,6 +137,10 @@ export const {
 
 export const selectWorkingHours = (state: RootState) =>
   state.settings.units.shortTerm.workingHours;
+export const selectTimeFormat = (state: RootState) =>
+  state.settings.visual.timeFormat;
+export const selectDateFormat = (state: RootState) =>
+  state.settings.visual.dateFormat;
 export const selectWorkDayToggle = (state: RootState) =>
   state.settings.units.shortTerm.workingHours.scopedToWorkingHours;
 export const selectAllUnits = (state: RootState) => state.settings.units;

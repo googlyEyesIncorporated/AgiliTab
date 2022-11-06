@@ -54,13 +54,27 @@ export interface FontColor {
 export interface SecondFontColor {
   secondFontColor: string;
 }
+export interface TimeFormat {
+  timeFormat: string;
+}
+export interface DateFormat {
+  dateFormat: string;
+}
 
 export interface KeyValuePair {
-  key: keyof BgColor | keyof FontColor | keyof SecondFontColor;
+  key:
+    | keyof BgColor
+    | keyof FontColor
+    | keyof SecondFontColor
+    | keyof TimeFormat
+    | keyof DateFormat;
   value: string;
 }
 
-export interface Visual extends BgColor, FontColor, SecondFontColor {}
+export interface Visual extends BgColor, FontColor, SecondFontColor {
+  dateFormat: string;
+  timeFormat: string;
+}
 
 export interface Times {
   start: string;

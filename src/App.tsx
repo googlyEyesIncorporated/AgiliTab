@@ -50,7 +50,7 @@ function App() {
 
   return (
     <div className="App" style={{ backgroundColor: bgColor, color: fontColor }}>
-      <TopRow h24={false} />
+      <TopRow />
       <BottomRow />
       <SettingsWrapper />
     </div>
