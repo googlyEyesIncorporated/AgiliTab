@@ -4,11 +4,13 @@ import { RootState } from "../../app/store";
 import { updateStorage } from "./storageHelper";
 import {
   KeyValuePair,
-  LegacyUnitType,
   SettingsState,
   UnitsState,
   UnitType,
   Visual,
+  WorkingHours,
+  BooleanPayload,
+  Times,
 } from "./types";
 
 const referenceSprintStartDate = DateTime.fromObject(
@@ -21,11 +23,20 @@ const referenceQuarterStartDate = DateTime.fromObject(
   { zone: "America/New_York" }
 ).toISO();
 
-const shortTerm: LegacyUnitType = {
+const WorkDay: WorkingHours = {
+  times: {
+    start: "09:00",
+    end: "17:00",
+  },
+  scopedToWorkingHours: true,
+};
+
+const shortTerm: UnitType & { workingHours: WorkingHours } = {
   unitType: "day",
   title: "Today",
-  endDate: DateTime.now().endOf("day").toISO(),
+  duration: "24 hours",
   startDate: DateTime.now().startOf("day").toISO(),
+  workingHours: WorkDay,
 };
 
 const mediumTerm: UnitType = {
@@ -76,6 +87,20 @@ export const unitsSlice = createSlice({
         state.visual = payload.visual;
       }
     },
+    toggleWorkDay: (
+      state,
+      { payload: { value } }: PayloadAction<BooleanPayload>
+    ) => {
+      state.units.shortTerm.workingHours.scopedToWorkingHours = value;
+      updateStorage({ storageKey: "settings", val: state });
+    },
+    setWorkDayHours: (
+      state,
+      { payload: workingHours }: PayloadAction<Times>
+    ) => {
+      state.units.shortTerm.workingHours.times = workingHours;
+      updateStorage({ storageKey: "settings", val: state });
+    },
     setVisualSetting: (
       state,
       { payload: { key, value } }: PayloadAction<KeyValuePair>
@@ -94,8 +119,14 @@ export const {
   populateSettingssFromChrome,
   setVisualSetting,
   resetVisualSetting,
+  setWorkDayHours,
+  toggleWorkDay,
 } = unitsSlice.actions;
 
+export const selectWorkingHours = (state: RootState) =>
+  state.settings.units.shortTerm.workingHours;
+export const selectWorkDayToggle = (state: RootState) =>
+  state.settings.units.shortTerm.workingHours.scopedToWorkingHours;
 export const selectAllUnits = (state: RootState) => state.settings.units;
 export const selectShortTerm = (state: RootState) =>
   state.settings.units.shortTerm;

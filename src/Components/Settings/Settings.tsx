@@ -1,19 +1,23 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectVisualSettings } from "../../features/general/settingsSlice";
 import { RestoreDefaults } from "./RestoreDefaults";
 import { SetColors } from "./SetColors";
-import { DateTimeFormat, WorkDay } from "./Static";
+import { DateTimeFormat } from "./Static";
 import { SetBooleanState } from "./types";
+import { WorkDay } from "./WorkDay";
 
 const handleClickOutside =
   (
     setHidden: SetBooleanState,
+    setIsOpen: SetBooleanState,
     { current }: React.MutableRefObject<HTMLDivElement | null>
   ) =>
   (event: Event) => {
     // @ts-ignore
     if (current && !current.contains(event.target)) {
       setHidden(true);
+      setIsOpen(false);
     }
   };
 
@@ -26,9 +30,10 @@ export const Settings = ({
   hideSettings: boolean;
   setHidden: SetBooleanState;
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
   document.addEventListener(
     "click",
-    handleClickOutside(setHidden, settingsContainer)
+    handleClickOutside(setHidden, setIsOpen, settingsContainer)
   );
   const { bgColor } = useSelector(selectVisualSettings);
 
@@ -41,7 +46,10 @@ export const Settings = ({
       <h1 id="customize-corner-title">Customization</h1>
       <SetColors settingsContainer={settingsContainer} />
       <RestoreDefaults />
-      {WorkDay}
+      <WorkDay
+        settingsContainer={settingsContainer}
+        popover={{ setIsOpen, isOpen }}
+      />
       {DateTimeFormat}
       <div>
         <button

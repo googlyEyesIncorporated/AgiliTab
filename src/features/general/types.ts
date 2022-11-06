@@ -33,15 +33,12 @@ export interface SettingsState {
   visual: Visual;
 }
 export interface UnitsState {
-  shortTerm: UnitType | LegacyUnitType;
-  mediumTerm: UnitType | LegacyUnitType;
-  longTerm: UnitType | LegacyUnitType;
+  shortTerm: UnitType & ScopedToWorkingHours;
+  mediumTerm: UnitType;
+  longTerm: UnitType;
 }
 export interface UnitType extends baseUnitType {
   duration: string;
-}
-export interface LegacyUnitType extends baseUnitType {
-  endDate: string;
 }
 export interface baseUnitType {
   startDate: string;
@@ -64,3 +61,19 @@ export interface KeyValuePair {
 }
 
 export interface Visual extends BgColor, FontColor, SecondFontColor {}
+
+export interface Times {
+  start: string;
+  end: string;
+}
+export interface WorkingHours {
+  times: Times;
+  scopedToWorkingHours: boolean;
+}
+export interface BooleanPayload {
+  value: boolean;
+}
+
+interface ScopedToWorkingHours extends UnitType {
+  workingHours: WorkingHours;
+}

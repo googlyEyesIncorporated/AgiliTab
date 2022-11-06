@@ -20,23 +20,22 @@ export const predicateDateRecalc = (
   return { newDate, lastDate };
 };
 
-export const getCurrentRatio = (
-  { start, end }: CalculatedTimes,
-  setNeedsAdjustment: (value: React.SetStateAction<boolean>) => void
-) => {
+const MaxPercentage = 100;
+const MinPercentage = 0;
+const PercentScaler = 100;
+
+export const getCurrentRatio = ({ start, end }: CalculatedTimes) => {
   const timeElapsed = DateTime.now().toMillis() - start;
   const totalTime = end - start;
   const ratio = timeElapsed / totalTime;
-  if (ratio > 1 && ratio !== Infinity) {
-    setNeedsAdjustment(true);
-  }
   if (totalTime) {
-    return Math.floor(ratio * 100);
+    return Math.min(
+      Math.max(Math.floor(ratio * PercentScaler), MinPercentage),
+      MaxPercentage
+    );
   }
   return NaN;
 };
-
-export const dateIsPast = (date: DateTime) => date.diffNow().toMillis() < 0;
 
 export const durationFormatter = (duration?: string) => {
   if (typeof duration === "string") {
