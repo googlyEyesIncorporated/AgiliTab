@@ -1,17 +1,13 @@
-import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectVisualSettings } from "../../features/general/settingsSlice";
-import { PopOverGenerator } from "./Popover";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectVisualSettings,
+  setVisualSetting,
+} from "../../features/general/settingsSlice";
 
-export const SetColors = ({
-  settingsContainer: { current },
-}: {
-  settingsContainer: React.MutableRefObject<HTMLDivElement | null>;
-}) => {
+export const SetColors = () => {
   const SettingsBoundary = useRef(null);
-  const [isBGPopoverOpen, setIsBGPopoverOpen] = useState(false);
-  const [isFontPopoverOpen, setIsFontPopoverOpen] = useState(false);
-  const [isSecondFontPopoverOpen, setIsSecondFontPopoverOpen] = useState(false);
+  const dispatch = useDispatch();
   const { fontColor, secondFontColor, bgColor } =
     useSelector(selectVisualSettings);
 
@@ -19,37 +15,49 @@ export const SetColors = ({
     <div style={{ margin: "0 0 1rem 0" }} ref={SettingsBoundary}>
       <h2>Colors:</h2>
       <div>
-        {PopOverGenerator(
-          isBGPopoverOpen,
-          setIsBGPopoverOpen,
-          current,
-          bgColor,
-          "bgColor",
-          "background-color-selector",
-          "Background"
-        )}
+        <input
+          type="color"
+          name="bgColor"
+          id="bgColor-picker"
+          defaultValue={bgColor}
+          onChange={(e) =>
+            dispatch(
+              setVisualSetting({ key: "bgColor", value: e.target.value })
+            )
+          }
+        />
+        <label htmlFor="bgColor"> Background Color</label>
       </div>
       <div>
-        {PopOverGenerator(
-          isFontPopoverOpen,
-          setIsFontPopoverOpen,
-          current,
-          fontColor,
-          "fontColor",
-          "font-color-selector",
-          "Font"
-        )}
+        <input
+          type="color"
+          name="fontColor"
+          id="fontColor-picker"
+          defaultValue={fontColor}
+          onChange={(e) =>
+            dispatch(
+              setVisualSetting({ key: "fontColor", value: e.target.value })
+            )
+          }
+        />
+        <label htmlFor="fontColor"> Font Color</label>
       </div>
       <div>
-        {PopOverGenerator(
-          isSecondFontPopoverOpen,
-          setIsSecondFontPopoverOpen,
-          current,
-          secondFontColor,
-          "secondFontColor",
-          "shadow-color-selector",
-          "Secondary Font"
-        )}
+        <input
+          type="color"
+          name="secondFontColor"
+          id="secondFontColor-picker"
+          defaultValue={secondFontColor}
+          onChange={(e) =>
+            dispatch(
+              setVisualSetting({
+                key: "secondFontColor",
+                value: e.target.value,
+              })
+            )
+          }
+        />
+        <label htmlFor="secondFontColor"> Secondary Font Color</label>
       </div>
     </div>
   );

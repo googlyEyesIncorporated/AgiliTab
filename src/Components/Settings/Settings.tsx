@@ -44,7 +44,7 @@ export const Settings = ({
       style={{ backgroundColor: bgColor }}
     >
       <h1 id="customize-corner-title">Customization</h1>
-      <SetColors settingsContainer={settingsContainer} />
+      <SetColors />
       <RestoreDefaults />
       <WorkDay
         settingsContainer={settingsContainer}
@@ -54,7 +54,6 @@ export const Settings = ({
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}
-          // id="hide-customize-selectors"
           className="cursor-pointer"
         >
           (Hide)
