@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { faGears } from "@fortawesome/free-solid-svg-icons";
+import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppSelector as useSelector } from "../app/hooks";
 

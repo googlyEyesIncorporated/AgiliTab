@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectVisualSettings } from "../../features/general/settingsSlice";
