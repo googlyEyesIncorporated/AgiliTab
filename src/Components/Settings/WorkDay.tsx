@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Popover } from "react-tiny-popover";
 import {
   selectWorkDayToggle,
@@ -10,6 +10,13 @@ import {
 } from "../../features/general/settingsSlice";
 import { SetBooleanState } from "./types";
 
+const handleChecked = (
+  event: SyntheticEvent & { target: { checked: boolean } },
+  dispatch: ReturnType<typeof useAppDispatch>
+) => {
+  dispatch(toggleWorkDay({ value: event.target.checked }));
+};
+
 export const WorkDay = ({
   settingsContainer: { current },
   popover,
@@ -17,20 +24,18 @@ export const WorkDay = ({
   popover: { isOpen: boolean; setIsOpen: SetBooleanState };
   settingsContainer: React.MutableRefObject<HTMLDivElement | null>;
 }) => {
+  const dispatch = useAppDispatch();
+
+  const [hours, setHours] = useState({ start: "00:00", end: "12:00" });
+  const workDayEnabled = useAppSelector(selectWorkDayToggle);
+
   const {
     times: { start, end },
-  } = useSelector(selectWorkingHours);
-  const workDayEnabled = useSelector(selectWorkDayToggle);
-  const [hours, setHours] = useState({ start: "00:00", end: "12:00" });
-  const dispatch = useDispatch();
-  const handleChecked = (
-    event: SyntheticEvent & { target: { checked: boolean } }
-  ) => {
-    dispatch(toggleWorkDay({ value: event.target.checked }));
-  };
+  } = useAppSelector(selectWorkingHours);
   useEffect(() => {
     setHours({ start, end });
   }, [start, end]);
+
   return (
     <div style={{ margin: "1rem 0" }}>
       <h2>Workday:</h2>
@@ -40,7 +45,7 @@ export const WorkDay = ({
         className="immune"
         id="workday-checkbox"
         {...(workDayEnabled ? { checked: true } : { checked: false })}
-        onChange={(e) => handleChecked(e)}
+        onChange={(e) => handleChecked(e, dispatch)}
       />
       <label htmlFor="workday-on">Make day timer based on my workday:</label>
       <div>
