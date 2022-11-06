@@ -1,5 +1,5 @@
 import { CountDown } from "./CountDown";
-import { DateTime } from "luxon";
+import { DateTime, DayNumbers } from "luxon";
 import { useSelector } from "react-redux";
 import {
   selectAllUnits,
@@ -7,80 +7,80 @@ import {
   selectWorkingHours,
 } from "../../features/general/settingsSlice";
 import { useEffect, useState } from "react";
-import { UnitsState } from "../../features/general/types";
+import { ScopedToWorkingHours, UnitType } from "../../features/general/types";
 import {
   durationFormatter,
   getCurrentRatio,
   predicateDateRecalc,
-  CalculatedTimes,
 } from "./utils";
 
-type CalculatedTimesObj = Record<keyof UnitsState, CalculatedTimes>;
 const dateIsPast = (date: DateTime) => date.diffNow().toMillis() < 0;
 
-export const TimeLeft = () => {
-  const timeUnits = useSelector(selectAllUnits);
-  const [adjustedTimeFrames, setAdjustedTimeFrames] = useState({
-    shortTerm: { start: 0, end: 0 },
-    mediumTerm: { start: 0, end: 0 },
-    longTerm: { start: 0, end: 0 },
-  });
-  const [currentDay, setCurrentDay] = useState(0);
+const calculateStartEndMs = (
+  savedShortTerm: (UnitType & ScopedToWorkingHours) | UnitType
+) => {
+  const referencePoint = DateTime.fromISO(savedShortTerm.startDate);
+  const duration = durationFormatter(savedShortTerm.duration);
+  const recalcedDate = predicateDateRecalc(
+    referencePoint,
+    duration || {},
+    dateIsPast
+  );
+  const end = recalcedDate.newDate.toMillis();
+  const start = recalcedDate.lastDate?.toMillis() || referencePoint.toMillis();
+  return { end, start };
+};
+
+// Shows time left based on settings and ...time left
+export const TimeLeft = ({ today }: { today: DayNumbers }) => {
   const scopedToWorkingHours = useSelector(selectWorkDayToggle);
-  const [workDayToggle, setWorkDayToggle] = useState(scopedToWorkingHours);
-  const workingHours = useSelector(selectWorkingHours);
-  const [workDayHours, setWorkDayHours] = useState(workingHours);
-  const [needsAdjustment, setNeedsAdjustment] = useState(false);
+  const savedWorkingHours = useSelector(selectWorkingHours);
+
+  // Get startTime and duration data for each term
+  const [shortTerm, setShortTerm] = useState({ start: 0, end: 0 });
+  const [mediumTerm, setMediumTerm] = useState({ start: 0, end: 0 });
+  const [longTerm, setLongTerm] = useState({ start: 0, end: 0 });
+  const savedTimeUnits = useSelector(selectAllUnits);
+  const {
+    shortTerm: savedShortTerm,
+    mediumTerm: savedMediumTerm,
+    longTerm: savedLongTerm,
+  } = savedTimeUnits;
+
+  const savedWorkingStart = DateTime.fromFormat(
+    savedWorkingHours.times.start,
+    "T"
+  ).toMillis();
+  const savedWorkingEnd = DateTime.fromFormat(
+    savedWorkingHours.times.end,
+    "T"
+  ).toMillis();
+
+  // Calculate end date and new start times (if needed)
+  useEffect(() => {
+    if (scopedToWorkingHours) {
+      // Supplant shortTerm start and end times if workday is selected
+      setShortTerm({ start: savedWorkingStart, end: savedWorkingEnd });
+    } else {
+      setShortTerm(calculateStartEndMs(savedShortTerm));
+    }
+  }, [
+    savedShortTerm,
+    scopedToWorkingHours,
+    savedWorkingStart,
+    savedWorkingEnd,
+    today,
+  ]);
 
   useEffect(() => {
-    if (needsAdjustment) {
-      const newUnits: CalculatedTimesObj = {
-        shortTerm: {},
-        mediumTerm: {},
-        longTerm: {},
-      } as CalculatedTimesObj;
-      for (const property in timeUnits) {
-        const list = timeUnits[property as keyof UnitsState];
-        let endDate, startDate;
-        if ("workingHours" in list && workDayToggle) {
-          startDate = DateTime.fromFormat(workDayHours.times.start, "T");
-          endDate = DateTime.fromFormat(workDayHours.times.end, "T");
-        } else if ("duration" in list) {
-          const referencePoint = DateTime.fromISO(list.startDate);
-          const duration = durationFormatter(list.duration);
-          const recalcedDate = predicateDateRecalc(
-            referencePoint,
-            duration || {},
-            dateIsPast
-          );
-          endDate = recalcedDate.newDate;
-          startDate = recalcedDate.lastDate;
-        }
+    setMediumTerm(calculateStartEndMs(savedMediumTerm));
+  }, [savedMediumTerm, today]);
 
-        if (startDate && endDate) {
-          newUnits[property as keyof UnitsState].start = startDate.toMillis();
-          newUnits[property as keyof UnitsState].end = endDate.toMillis();
-        }
-      }
-      setAdjustedTimeFrames({ ...newUnits });
-      setNeedsAdjustment(false);
-    }
-  }, [timeUnits, needsAdjustment, workDayToggle, workDayHours]);
+  useEffect(() => {
+    setLongTerm(calculateStartEndMs(savedLongTerm));
+  }, [savedLongTerm, today]);
 
-  const today = DateTime.now().day;
-  // TODO: There has got to be a better way to do this
-  if (currentDay !== today) {
-    setCurrentDay(today);
-    setNeedsAdjustment(true);
-  } else if (workDayToggle !== scopedToWorkingHours) {
-    setWorkDayToggle(scopedToWorkingHours);
-    setNeedsAdjustment(true);
-  } else if (workDayHours !== workingHours) {
-    setWorkDayHours(workingHours);
-    setNeedsAdjustment(true);
-  }
-
-  const { shortTerm, mediumTerm, longTerm } = adjustedTimeFrames;
+  // submit start/end times for ratio calc
   return (
     <div className="time-left" id="countdownbox">
       <div className="countdown-title">Time Elapsed:</div>
@@ -89,13 +89,13 @@ export const TimeLeft = () => {
         {mediumTerm && (
           <CountDown
             ratio={getCurrentRatio(mediumTerm)}
-            unit={timeUnits.mediumTerm?.unitType || "sprint"}
+            unit={savedTimeUnits.mediumTerm?.unitType || "sprint"}
           />
         )}
         {longTerm && (
           <CountDown
             ratio={getCurrentRatio(longTerm)}
-            unit={timeUnits.longTerm?.unitType || "quarter"}
+            unit={savedTimeUnits.longTerm?.unitType || "quarter"}
           />
         )}
       </div>

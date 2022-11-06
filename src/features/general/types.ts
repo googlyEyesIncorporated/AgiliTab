@@ -88,6 +88,6 @@ export interface BooleanPayload {
   value: boolean;
 }
 
-interface ScopedToWorkingHours extends UnitType {
+export interface ScopedToWorkingHours extends UnitType {
   workingHours: WorkingHours;
 }
