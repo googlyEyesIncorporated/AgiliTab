@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectVisualSettings } from "../../features/general/settingsSlice";
 import { RestoreDefaults } from "./RestoreDefaults";
 import { SetColors } from "./SetColors";
-import { DateTimeFormat } from "./Static";
+import { DateTimeFormat } from "./DateTimeFormat";
 import { SetBooleanState } from "./types";
 import { WorkDay } from "./WorkDay";
 
@@ -50,7 +50,7 @@ export const Settings = ({
         settingsContainer={settingsContainer}
         popover={{ setIsOpen, isOpen }}
       />
-      {DateTimeFormat}
+      <DateTimeFormat />
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}
