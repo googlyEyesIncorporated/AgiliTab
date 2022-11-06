@@ -1,4 +1,5 @@
 import { DateTime, DurationObjectUnits } from "luxon";
+import { ScopedToWorkingHours, UnitType } from "../../features/general/types";
 
 type Predicate = (date: DateTime) => boolean;
 export interface CalculatedTimes {
@@ -42,4 +43,21 @@ export const durationFormatter = (duration?: string) => {
     const [qty, unit] = duration.split(" ", 2);
     return { [unit]: parseInt(qty) } as DurationObjectUnits;
   }
+};
+
+const dateIsPast = (date: DateTime) => date.diffNow().toMillis() < 0;
+
+export const calculateStartEndMs = (
+  savedShortTerm: (UnitType & ScopedToWorkingHours) | UnitType
+) => {
+  const referencePoint = DateTime.fromISO(savedShortTerm.startDate);
+  const duration = durationFormatter(savedShortTerm.duration);
+  const recalcedDate = predicateDateRecalc(
+    referencePoint,
+    duration || {},
+    dateIsPast
+  );
+  const end = recalcedDate.newDate.toMillis();
+  const start = recalcedDate.lastDate?.toMillis() || referencePoint.toMillis();
+  return { end, start, unitType: savedShortTerm.unitType };
 };

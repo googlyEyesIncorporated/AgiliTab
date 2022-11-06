@@ -1,7 +1,6 @@
 import { DateTime } from "luxon";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Popover } from "react-tiny-popover";
 import {
   selectWorkDayToggle,
   selectWorkingHours,
@@ -18,11 +17,9 @@ const handleChecked = (
 };
 
 export const WorkDay = ({
-  settingsContainer: { current },
   popover,
 }: {
   popover: { isOpen: boolean; setIsOpen: SetBooleanState };
-  settingsContainer: React.MutableRefObject<HTMLDivElement | null>;
 }) => {
   const dispatch = useAppDispatch();
 
@@ -69,43 +66,38 @@ export const WorkDay = ({
           }
           className="time-input"
         />{" "}
-        <Popover
-          isOpen={popover.isOpen}
-          positions={["bottom"]}
-          parentElement={current || undefined}
-          content={
+        <button
+          id="workday-time-save"
+          style={{ height: "24px" }}
+          onClick={() => {
+            popover.setIsOpen(false);
+            const startDate = DateTime.fromFormat(hours.start, "T").toMillis();
+            const endDate = DateTime.fromFormat(hours.end, "T").toMillis();
+            if (endDate > startDate) {
+              dispatch(setWorkDayHours(hours));
+            } else {
+              popover.setIsOpen(true);
+            }
+          }}
+        >
+          Save
+          <div style={{ position: "fixed", overflow: "visible" }}>
             <span
+              className={popover.isOpen ? "" : "hidden"}
               style={{
-                margin: "2px",
-                border: "red 1px solid",
+                margin: "5px",
+                border: "1px solid red",
                 backgroundColor: "white",
                 color: "red",
+                position: "absolute",
+                width: "max-content",
+                left: "calc(0px - 5rem)",
               }}
             >
               Check your times
             </span>
-          }
-          align={"end"}
-        >
-          <button
-            id="workday-time-save"
-            onClick={() => {
-              popover.setIsOpen(false);
-              const startDate = DateTime.fromFormat(
-                hours.start,
-                "T"
-              ).toMillis();
-              const endDate = DateTime.fromFormat(hours.end, "T").toMillis();
-              if (endDate > startDate) {
-                dispatch(setWorkDayHours(hours));
-              } else {
-                popover.setIsOpen(true);
-              }
-            }}
-          >
-            Save
-          </button>
-        </Popover>
+          </div>
+        </button>
       </div>
     </div>
   );

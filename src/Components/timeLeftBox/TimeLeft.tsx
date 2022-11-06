@@ -7,29 +7,7 @@ import {
   selectWorkingHours,
 } from "../../features/general/settingsSlice";
 import { useEffect, useState } from "react";
-import { ScopedToWorkingHours, UnitType } from "../../features/general/types";
-import {
-  durationFormatter,
-  getCurrentRatio,
-  predicateDateRecalc,
-} from "./utils";
-
-const dateIsPast = (date: DateTime) => date.diffNow().toMillis() < 0;
-
-const calculateStartEndMs = (
-  savedShortTerm: (UnitType & ScopedToWorkingHours) | UnitType
-) => {
-  const referencePoint = DateTime.fromISO(savedShortTerm.startDate);
-  const duration = durationFormatter(savedShortTerm.duration);
-  const recalcedDate = predicateDateRecalc(
-    referencePoint,
-    duration || {},
-    dateIsPast
-  );
-  const end = recalcedDate.newDate.toMillis();
-  const start = recalcedDate.lastDate?.toMillis() || referencePoint.toMillis();
-  return { end, start };
-};
+import { calculateStartEndMs, getCurrentRatio } from "./utils";
 
 // Shows time left based on settings and ...time left
 export const TimeLeft = ({ today }: { today: DayNumbers }) => {
@@ -37,9 +15,21 @@ export const TimeLeft = ({ today }: { today: DayNumbers }) => {
   const savedWorkingHours = useSelector(selectWorkingHours);
 
   // Get startTime and duration data for each term
-  const [shortTerm, setShortTerm] = useState({ start: 0, end: 0 });
-  const [mediumTerm, setMediumTerm] = useState({ start: 0, end: 0 });
-  const [longTerm, setLongTerm] = useState({ start: 0, end: 0 });
+  const [shortTerm, setShortTerm] = useState({
+    start: 0,
+    end: 0,
+    unitType: "day",
+  });
+  const [mediumTerm, setMediumTerm] = useState({
+    start: 0,
+    end: 0,
+    unitType: "month",
+  });
+  const [longTerm, setLongTerm] = useState({
+    start: 0,
+    end: 0,
+    unitType: "year",
+  });
   const savedTimeUnits = useSelector(selectAllUnits);
   const {
     shortTerm: savedShortTerm,
@@ -59,10 +49,14 @@ export const TimeLeft = ({ today }: { today: DayNumbers }) => {
   // Calculate end date and new start times (if needed)
   useEffect(() => {
     if (scopedToWorkingHours) {
-      // Supplant shortTerm start and end times if workday is selected
-      setShortTerm({ start: savedWorkingStart, end: savedWorkingEnd });
+      // Supplant shortTerm start and end times if workday is selected;
+      setShortTerm({
+        start: savedWorkingStart,
+        end: savedWorkingEnd,
+        unitType: "work day",
+      });
     } else {
-      setShortTerm(calculateStartEndMs(savedShortTerm));
+      setShortTerm(calculateStartEndMs({ ...savedShortTerm, unitType: "day" }));
     }
   }, [
     savedShortTerm,
@@ -85,17 +79,20 @@ export const TimeLeft = ({ today }: { today: DayNumbers }) => {
     <div className="time-left" id="countdownbox">
       <div className="countdown-title">Time Elapsed:</div>
       <div className="countdowns" id="countdownbox-justifier">
-        <CountDown ratio={getCurrentRatio(shortTerm)} unit={"day"} />
+        <CountDown
+          ratio={getCurrentRatio(shortTerm)}
+          unit={shortTerm.unitType}
+        />
         {mediumTerm && (
           <CountDown
             ratio={getCurrentRatio(mediumTerm)}
-            unit={savedTimeUnits.mediumTerm?.unitType || "sprint"}
+            unit={mediumTerm?.unitType}
           />
         )}
         {longTerm && (
           <CountDown
             ratio={getCurrentRatio(longTerm)}
-            unit={savedTimeUnits.longTerm?.unitType || "quarter"}
+            unit={longTerm?.unitType}
           />
         )}
       </div>

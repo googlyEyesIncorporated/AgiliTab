@@ -46,10 +46,7 @@ export const Settings = ({
       <h1 id="customize-corner-title">Customization</h1>
       <SetColors />
       <RestoreDefaults />
-      <WorkDay
-        settingsContainer={settingsContainer}
-        popover={{ setIsOpen, isOpen }}
-      />
+      <WorkDay popover={{ setIsOpen, isOpen }} />
       <DateTimeFormat />
       <div>
         <button
