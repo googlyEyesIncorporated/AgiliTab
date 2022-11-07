@@ -53,6 +53,7 @@ export const TermInputs = ({
             setTitle(e.target.value);
             setUnitType(e.target.value.toLowerCase());
           }}
+          style={{ height: "1.1875rem" }}
         >
           {Object.keys(formats.units).map((unit) => {
             if (
@@ -78,6 +79,7 @@ export const TermInputs = ({
         name={`${category}-unit-reference`}
         id={`${category}-unit-reference`}
         value={startDate}
+        style={{ height: "1.1875rem" }}
         onChange={(e) => {
           setStartDate(e.target.value);
         }}
@@ -89,7 +91,7 @@ export const TermInputs = ({
         id={`${category}-unit-qty`}
         min="1"
         max="100"
-        style={{ width: "3rem" }}
+        style={{ width: "3rem", height: "1.1875rem" }}
         value={qty}
         onChange={(e) => {
           setQty(parseInt(e.target.value));
@@ -99,6 +101,7 @@ export const TermInputs = ({
         name="date-format-input"
         id="date-format-input"
         value={unit}
+        style={{ height: "1.1875rem" }}
         onChange={(e) => {
           setUnit(e.target.value);
         }}

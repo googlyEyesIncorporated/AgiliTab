@@ -56,6 +56,7 @@ export const WorkDay = ({
           value={hours.start}
           onChange={(e) => setHours({ start: e.target.value, end: hours.end })}
           className="time-input"
+          style={{ height: "1.1875rem" }}
         />
         <span> - Workday end: </span>
         <input
@@ -67,10 +68,10 @@ export const WorkDay = ({
             setHours({ start: hours.start, end: e.target.value })
           }
           className="time-input"
+          style={{ height: "1.1875rem" }}
         />{" "}
         <button
           id="workday-time-save"
-          style={{ height: "24px" }}
           onClick={() => {
             popover.setIsOpen(false);
             const startDate = DateTime.fromFormat(hours.start, "T").toMillis();
