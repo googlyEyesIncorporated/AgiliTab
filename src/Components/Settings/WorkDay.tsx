@@ -34,17 +34,19 @@ export const WorkDay = ({
   }, [start, end]);
 
   return (
-    <div style={{ margin: "1rem 0" }}>
-      <h2>Workday:</h2>
-      <input
-        type="checkbox"
-        name="workday-on"
-        className="immune"
-        id="workday-checkbox"
-        {...(workDayEnabled ? { checked: true } : { checked: false })}
-        onChange={(e) => handleChecked(e, dispatch)}
-      />
-      <label htmlFor="workday-on">Make day timer based on my workday:</label>
+    <div style={{ margin: "0 0 0.5rem 0" }}>
+      <h2>Short-term:</h2>
+      <div style={{ margin: "0.5rem 0" }}>
+        <input
+          type="checkbox"
+          name="workday-on"
+          className="immune"
+          id="workday-checkbox"
+          {...(workDayEnabled ? { checked: true } : { checked: false })}
+          onChange={(e) => handleChecked(e, dispatch)}
+        />
+        <label htmlFor="workday-on">Make day timer based on my workday:</label>
+      </div>
       <div>
         <span>Workday start: </span>
         <input

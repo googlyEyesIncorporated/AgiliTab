@@ -54,7 +54,7 @@ export const DateTimeFormat = () => {
 
   return (
     <div style={{ margin: "1rem 0" }}>
-      <h2>Date and Time format:</h2>
+      <h2 style={{ marginBottom: "0.5rem" }}>Date and Time format:</h2>
       <span>Date format: </span>
       <select
         name="date-format-input"

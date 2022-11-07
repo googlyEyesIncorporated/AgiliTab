@@ -13,7 +13,7 @@ export const SetColors = () => {
 
   return (
     <div style={{ margin: "0 0 1rem 0" }} ref={SettingsBoundary}>
-      <h2>Colors:</h2>
+      <h2 style={{ marginBottom: "0.5rem" }}>Colors:</h2>
       <div>
         <input
           type="color"
