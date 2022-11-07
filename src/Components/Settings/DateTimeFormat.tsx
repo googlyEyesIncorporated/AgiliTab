@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
@@ -66,29 +67,29 @@ export const DateTimeFormat = () => {
       >
         <optgroup label="American">
           <option value={formats.date.american.MM_dd_yyyy}>
-            {formats.date.american.MM_dd_yyyy}
+            {DateTime.now().toFormat(formats.date.american.MM_dd_yyyy)}
           </option>
           <option value={formats.date.american.MMM_dd_yyyy}>
-            {formats.date.american.MMM_dd_yyyy}
+            {DateTime.now().toFormat(formats.date.american.MMM_dd_yyyy)}
           </option>
           <option value={formats.date.american.MMMM_dd_yyyy}>
-            {formats.date.american.MMMM_dd_yyyy}
+            {DateTime.now().toFormat(formats.date.american.MMMM_dd_yyyy)}
           </option>
         </optgroup>
         <optgroup label="International">
           <option value={formats.date.international.dd_MM_yyyy}>
-            {formats.date.international.dd_MM_yyyy}
+            {DateTime.now().toFormat(formats.date.international.dd_MM_yyyy)}
           </option>
           <option value={formats.date.international.d_MMM_yyyy}>
-            {formats.date.international.d_MMM_yyyy}
+            {DateTime.now().toFormat(formats.date.international.d_MMM_yyyy)}
           </option>
           <option value={formats.date.international.d_MMMM_yyyy}>
-            {formats.date.international.d_MMMM_yyyy}
+            {DateTime.now().toFormat(formats.date.international.d_MMMM_yyyy)}
           </option>
         </optgroup>
         <optgroup label="ISO 8601">
           <option value={formats.date.ISO_8601.yyyy_MM_dd}>
-            {formats.date.ISO_8601.yyyy_MM_dd}
+            {DateTime.now().toFormat(formats.date.ISO_8601.yyyy_MM_dd)}
           </option>
         </optgroup>
       </select>
@@ -103,18 +104,26 @@ export const DateTimeFormat = () => {
       >
         <optgroup label="12 hour">
           <option value={formats.time.hour12.h_mm_a}>
-            {formats.time.hour12.h_mm_a}
+            {DateTime.fromObject({ hour: 13 }).toFormat(
+              formats.time.hour12.h_mm_a
+            )}
           </option>
           <option value={formats.time.hour12.h_mm_ss_a}>
-            {formats.time.hour12.h_mm_ss_a}
+            {DateTime.fromObject({ hour: 13 }).toFormat(
+              formats.time.hour12.h_mm_ss_a
+            )}
           </option>
         </optgroup>
         <optgroup label="24 hour">
           <option value={formats.time.hour24.HH_mm}>
-            {formats.time.hour24.HH_mm}
+            {DateTime.fromObject({ hour: 13 }).toFormat(
+              formats.time.hour24.HH_mm
+            )}
           </option>
           <option value={formats.time.hour24.HH_mm_ss}>
-            {formats.time.hour24.HH_mm_ss}
+            {DateTime.fromObject({ hour: 13 }).toFormat(
+              formats.time.hour24.HH_mm_ss
+            )}
           </option>
         </optgroup>
       </select>{" "}
