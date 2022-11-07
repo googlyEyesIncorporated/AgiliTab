@@ -5,7 +5,7 @@ import {
   Duration,
 } from "../../features/general/types";
 
-type Predicate = (date: DateTime) => boolean;
+type Predicate = (date: DateTime, otherDate: DateTime) => boolean;
 export interface CalculatedTimes {
   start: number;
   end: number;
@@ -14,11 +14,12 @@ export interface CalculatedTimes {
 export const predicateDateRecalc = (
   date: DateTime,
   interval: DurationObjectUnits,
-  predicate: Predicate
+  predicate: Predicate,
+  otherDate: DateTime
 ) => {
   let newDate = date;
   let lastDate;
-  while (predicate(newDate)) {
+  while (predicate(newDate, otherDate)) {
     lastDate = newDate;
     newDate = newDate.plus(interval);
   }
@@ -49,7 +50,8 @@ export const durationFormatter = (duration?: Duration) => {
   }
 };
 
-const dateIsPast = (date: DateTime) => date.diffNow().toMillis() < 0;
+const dateIsPastOtherDate = (date: DateTime, otherDate: DateTime) =>
+  date.toMillis() <= otherDate.toMillis();
 
 export const calculateStartEndMs = (
   savedShortTerm: (UnitType & ScopedToWorkingHours) | UnitType
@@ -59,9 +61,19 @@ export const calculateStartEndMs = (
   const recalcedDate = predicateDateRecalc(
     referencePoint,
     duration || {},
-    dateIsPast
+    dateIsPastOtherDate,
+    DateTime.now()
   );
   const end = recalcedDate.newDate.toMillis();
   const start = recalcedDate.lastDate?.toMillis() || referencePoint.toMillis();
+  if (start === end) {
+    const newEnd = predicateDateRecalc(
+      DateTime.fromMillis(end),
+      duration || {},
+      dateIsPastOtherDate,
+      DateTime.fromMillis(start)
+    ).newDate.toMillis();
+    return { end: newEnd, start, unitType: savedShortTerm.unitType };
+  }
   return { end, start, unitType: savedShortTerm.unitType };
 };
