@@ -19,7 +19,7 @@ export const SetColors = () => {
           type="color"
           name="bgColor"
           id="bgColor-picker"
-          defaultValue={bgColor}
+          value={bgColor}
           onChange={(e) =>
             dispatch(
               setVisualSetting({ key: "bgColor", value: e.target.value })
@@ -33,7 +33,7 @@ export const SetColors = () => {
           type="color"
           name="fontColor"
           id="fontColor-picker"
-          defaultValue={fontColor}
+          value={fontColor}
           onChange={(e) =>
             dispatch(
               setVisualSetting({ key: "fontColor", value: e.target.value })
@@ -47,7 +47,7 @@ export const SetColors = () => {
           type="color"
           name="secondFontColor"
           id="secondFontColor-picker"
-          defaultValue={secondFontColor}
+          value={secondFontColor}
           onChange={(e) =>
             dispatch(
               setVisualSetting({
