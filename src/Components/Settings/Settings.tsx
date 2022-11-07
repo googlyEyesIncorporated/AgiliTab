@@ -5,7 +5,7 @@ import { RestoreDefaults } from "./RestoreDefaults";
 import { SetColors } from "./SetColors";
 import { DateTimeFormat } from "./DateTimeFormat";
 import { SetBooleanState } from "./types";
-import { WorkDay } from "./WorkDay";
+import { CustomizableUnits } from "./CustomizableUnits";
 
 const handleClickOutside =
   (
@@ -46,8 +46,9 @@ export const Settings = ({
       <h1 id="customize-corner-title">Customization</h1>
       <SetColors />
       <RestoreDefaults />
-      <WorkDay popover={{ setIsOpen, isOpen }} />
       <DateTimeFormat />
+      <hr />
+      <CustomizableUnits popover={{ setIsOpen, isOpen }} />
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}

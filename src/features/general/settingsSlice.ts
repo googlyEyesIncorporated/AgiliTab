@@ -123,6 +123,18 @@ export const unitsSlice = createSlice({
       state.visual = initalVisuals;
       updateStorage({ storageKey: "settings", val: state });
     },
+    setNotShortTerm: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        termObj: UnitType;
+        key: keyof Omit<UnitsState, "shortTerm">;
+      }>
+    ) => {
+      const { key, termObj } = payload;
+      state.units[key] = termObj;
+    },
   },
 });
 
@@ -133,6 +145,7 @@ export const {
   resetVisualSetting,
   setWorkDayHours,
   toggleWorkDay,
+  setNotShortTerm,
 } = unitsSlice.actions;
 
 export const selectWorkingHours = (state: RootState) =>
