@@ -40,7 +40,7 @@ const shortTerm: UnitType & { workingHours: WorkingHours } = {
 const mediumTerm: UnitType = {
   unitType: "month",
   title: "Month",
-  duration: { qty: 1, unit: "month" },
+  duration: { qty: 1, unit: "months" },
   startDate: referenceMonthStartDate,
 };
 

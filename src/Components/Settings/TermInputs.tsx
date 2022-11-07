@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setNotShortTerm } from "../../features/general/settingsSlice";
@@ -21,6 +22,12 @@ const Totitlecase = (string: string) => {
   return `${firstLetter.toUpperCase()}${string.slice(1, string.length)}`;
 };
 
+const formatUnit = (unitName: string) => {
+  const formattedUnit = Totitlecase(unitName);
+  const isPlural = unitName.slice(unitName.length - 1, unitName.length) === "s";
+  return `${formattedUnit}${isPlural ? "" : "s"}`;
+};
+
 export const TermInputs = ({
   category,
   termData,
@@ -38,7 +45,9 @@ export const TermInputs = ({
     setUnitType(termData.title.toLowerCase());
     setTitle(termData.title);
     setQty(termData.duration.qty);
-    setUnit(termData.duration.unit);
+    const formattedUnit = formatUnit(termData.duration.unit);
+    setUnit(`${formattedUnit}`);
+    setStartDate(DateTime.fromISO(termData.startDate).toFormat("yyyy-MM-dd"));
   }, [termData]);
   return (
     <div style={{ margin: "0.5rem 0" }}>
