@@ -21,7 +21,13 @@ const Totitlecase = (string: string) => {
   return `${firstLetter.toUpperCase()}${string.slice(1, string.length)}`;
 };
 
-export const TermInputs = (category: "medium" | "long", termData: UnitType) => {
+export const TermInputs = ({
+  category,
+  termData,
+}: {
+  category: "medium" | "long";
+  termData: UnitType;
+}) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [unitType, setUnitType] = useState("");
@@ -45,13 +51,14 @@ export const TermInputs = (category: "medium" | "long", termData: UnitType) => {
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
+            setUnitType(e.target.value.toLowerCase());
           }}
         >
           {Object.keys(formats.units).map((unit) => {
             if (
               formats.units[unit as keyof typeof formats.units] !==
               formats.units.DAY
-            )
+            ) {
               return (
                 <option
                   value={formats.units[unit as keyof typeof formats.units]}
@@ -59,6 +66,8 @@ export const TermInputs = (category: "medium" | "long", termData: UnitType) => {
                   {formats.units[unit as keyof typeof formats.units]}
                 </option>
               );
+            }
+            return null;
           })}
         </select>
       </div>

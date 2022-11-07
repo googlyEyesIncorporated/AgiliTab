@@ -16,8 +16,8 @@ export const CustomizableUnits = (props: {
     <div style={{ margin: "1rem 0" }} id="customizable-units">
       <h2 style={{ fontSize: "2em" }}>Columns:</h2>
       <WorkDay {...props} />
-      {TermInputs("medium", mediumTerm)}
-      {TermInputs("long", longTerm)}
+      <TermInputs category="medium" termData={mediumTerm} />
+      <TermInputs category="long" termData={longTerm} />
     </div>
   );
 };
