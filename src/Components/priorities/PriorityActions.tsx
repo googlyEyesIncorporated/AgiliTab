@@ -1,5 +1,5 @@
 import { SyntheticEvent, useRef } from "react";
-import { useAppDispatch, useAppSelector as useSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { add, clearAll, clearDone } from "../../features/general/itemListSlice";
 import { v4 as uuidv4 } from "uuid";
 import { selectVisualSettings } from "../../features/general/settingsSlice";
@@ -15,7 +15,7 @@ export const Options = ({
   toggleOptions: () => void;
 }) => {
   const { fontColor, secondFontColor, bgColor } =
-    useSelector(selectVisualSettings);
+    useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
   const inputRef: React.MutableRefObject<HTMLInputElement | null> =
     useRef(null);

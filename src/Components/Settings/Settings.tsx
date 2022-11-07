@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/hooks";
 import { selectVisualSettings } from "../../features/general/settingsSlice";
 import { RestoreDefaults } from "./RestoreDefaults";
 import { SetColors } from "./SetColors";
@@ -35,7 +35,7 @@ export const Settings = ({
     "click",
     handleClickOutside(setHidden, setIsOpen, settingsContainer)
   );
-  const { bgColor } = useSelector(selectVisualSettings);
+  const { bgColor } = useAppSelector(selectVisualSettings);
 
   return (
     <div

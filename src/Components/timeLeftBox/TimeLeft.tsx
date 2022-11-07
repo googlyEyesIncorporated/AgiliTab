@@ -1,6 +1,6 @@
 import { CountDown } from "./CountDown";
 import { DateTime, DayNumbers } from "luxon";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/hooks";
 import {
   selectAllUnits,
   selectWorkDayToggle,
@@ -11,8 +11,8 @@ import { calculateStartEndMs, getCurrentRatio } from "./utils";
 
 // Shows time left based on settings and ...time left
 export const TimeLeft = ({ today }: { today: DayNumbers }) => {
-  const scopedToWorkingHours = useSelector(selectWorkDayToggle);
-  const savedWorkingHours = useSelector(selectWorkingHours);
+  const scopedToWorkingHours = useAppSelector(selectWorkDayToggle);
+  const savedWorkingHours = useAppSelector(selectWorkingHours);
 
   // Get startTime and duration data for each term
   const [shortTerm, setShortTerm] = useState({
@@ -30,7 +30,7 @@ export const TimeLeft = ({ today }: { today: DayNumbers }) => {
     end: 0,
     unitType: "year",
   });
-  const savedTimeUnits = useSelector(selectAllUnits);
+  const savedTimeUnits = useAppSelector(selectAllUnits);
   const {
     shortTerm: savedShortTerm,
     mediumTerm: savedMediumTerm,

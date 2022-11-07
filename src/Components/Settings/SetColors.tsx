@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   selectVisualSettings,
   setVisualSetting,
@@ -7,9 +7,9 @@ import {
 
 export const SetColors = () => {
   const SettingsBoundary = useRef(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { fontColor, secondFontColor, bgColor } =
-    useSelector(selectVisualSettings);
+    useAppSelector(selectVisualSettings);
 
   return (
     <div style={{ margin: "0 0 1rem 0" }} ref={SettingsBoundary}>
