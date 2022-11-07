@@ -15,15 +15,11 @@ import {
   TimeFormat,
 } from "./types";
 
-const referenceSprintStartDate = DateTime.fromObject(
-  { year: 2022, month: 10, day: 10, hour: 10 },
-  { zone: "America/New_York" }
-).toISO();
+const Now = DateTime.now();
 
-const referenceQuarterStartDate = DateTime.fromObject(
-  { year: 2022, month: 8, day: 15, hour: 10 },
-  { zone: "America/New_York" }
-).toISO();
+const referenceMonthStartDate = Now.startOf("month").toISO();
+
+const referenceYearStartDate = Now.startOf("year").toISO();
 
 const WorkDay: WorkingHours = {
   times: {
@@ -42,17 +38,17 @@ const shortTerm: UnitType & { workingHours: WorkingHours } = {
 };
 
 const mediumTerm: UnitType = {
-  unitType: "sprint",
-  title: "Sprint",
-  duration: { qty: 2, unit: "weeks" },
-  startDate: referenceSprintStartDate,
+  unitType: "month",
+  title: "Month",
+  duration: { qty: 1, unit: "month" },
+  startDate: referenceMonthStartDate,
 };
 
 const longTerm: UnitType = {
-  unitType: "quarter",
-  title: "Quarter",
-  duration: { qty: 12, unit: "weeks" },
-  startDate: referenceQuarterStartDate,
+  unitType: "year",
+  title: "Year",
+  duration: { qty: 1, unit: "years" },
+  startDate: referenceYearStartDate,
 };
 
 const initialUnits: UnitsState = {
