@@ -37,8 +37,13 @@ export interface UnitsState {
   mediumTerm: UnitType;
   longTerm: UnitType;
 }
+
+export interface Duration {
+  unit: string;
+  qty: number;
+}
 export interface UnitType extends baseUnitType {
-  duration: string;
+  duration: Duration;
 }
 export interface baseUnitType {
   startDate: string;

@@ -36,7 +36,7 @@ const WorkDay: WorkingHours = {
 const shortTerm: UnitType & { workingHours: WorkingHours } = {
   unitType: "day",
   title: "Today",
-  duration: "24 hours",
+  duration: { qty: 1, unit: "days" },
   startDate: DateTime.now().startOf("day").toISO(),
   workingHours: WorkDay,
 };
@@ -44,14 +44,14 @@ const shortTerm: UnitType & { workingHours: WorkingHours } = {
 const mediumTerm: UnitType = {
   unitType: "sprint",
   title: "Sprint",
-  duration: "2 weeks",
+  duration: { qty: 2, unit: "weeks" },
   startDate: referenceSprintStartDate,
 };
 
 const longTerm: UnitType = {
   unitType: "quarter",
   title: "Quarter",
-  duration: "13 weeks",
+  duration: { qty: 12, unit: "weeks" },
   startDate: referenceQuarterStartDate,
 };
 

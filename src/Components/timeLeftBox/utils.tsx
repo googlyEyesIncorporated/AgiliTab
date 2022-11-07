@@ -1,5 +1,9 @@
 import { DateTime, DurationObjectUnits } from "luxon";
-import { ScopedToWorkingHours, UnitType } from "../../features/general/types";
+import {
+  ScopedToWorkingHours,
+  UnitType,
+  Duration,
+} from "../../features/general/types";
 
 type Predicate = (date: DateTime) => boolean;
 export interface CalculatedTimes {
@@ -38,10 +42,10 @@ export const getCurrentRatio = ({ start, end }: CalculatedTimes) => {
   return NaN;
 };
 
-export const durationFormatter = (duration?: string) => {
-  if (typeof duration === "string") {
-    const [qty, unit] = duration.split(" ", 2);
-    return { [unit]: parseInt(qty) } as DurationObjectUnits;
+export const durationFormatter = (duration?: Duration) => {
+  if (duration) {
+    const { qty, unit } = duration;
+    return { [unit]: qty } as DurationObjectUnits;
   }
 };
 
