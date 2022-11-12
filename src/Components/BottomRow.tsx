@@ -14,18 +14,15 @@ export const BottomRow = () => {
 
   const dragStart = (position: ListAndIndex) => {
     dragFrom.current = position;
-    console.log("dragStart", position);
   };
 
   const enterListItem = (position: ListAndIndex) => {
     dragTo.current = position;
-    console.log("enterListItem", position);
   };
 
   const enterList = (listKey: ListKey) => {
     if (dragTo.current?.listKey !== listKey) {
       dragTo.current = { listKey, index: 0 };
-      console.log("enterList", listKey);
     }
   };
 
@@ -37,7 +34,6 @@ export const BottomRow = () => {
       const item = mutableLists[fromKey][fromIndex];
       mutableLists[fromKey].splice(fromIndex, 1);
       mutableLists[toKey].splice(toIndex, 0, item);
-      console.log("drop", lists);
       dispatch(updateList({ listKey: toKey, itemList: mutableLists[toKey] }));
       dispatch(
         updateList({ listKey: fromKey, itemList: mutableLists[fromKey] })
