@@ -8,7 +8,7 @@ import {
   ListAndItem,
   ReplaceList,
 } from "./types";
-import { updateStorage } from "../chromeStorage/storageHelper";
+import { updateStorage } from "../utils/storageHelper";
 
 let shortTermList: ItemList = [];
 let mediumTermList: ItemList = [];

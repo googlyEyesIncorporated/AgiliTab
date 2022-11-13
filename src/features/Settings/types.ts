@@ -12,6 +12,7 @@ export interface ScopedToWorkingHours extends UnitType {
 export interface UnitType {
   startDate: string;
   endDate?: string;
+  isDuration: boolean;
   duration: DurationState;
   title: Title;
   unitType: string;

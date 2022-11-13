@@ -5,16 +5,18 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import {
   populateSettingssFromChrome,
   selectVisualSettings,
-} from "./features/general/settingsSlice";
-import { populateTasksFromChrome } from "./features/general/itemListSlice";
+} from "./features/Settings/settingsSlice";
+import { populateTasksFromChrome } from "./features/itemList/itemListSlice";
 import { SettingsWrapper } from "./Components/SettingsWrapper";
-import { ItemList, SettingsState } from "./features/general/types";
+import { ItemList } from "./features/itemList/types";
+import { SettingsState } from "./features/Settings/types";
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (chrome.storage) {
+      // chrome.storage.sync.clear();
       chrome.storage.sync.get(
         ["shortTermList", "mediumTermList", "longTermList", "settings"],
         function (result) {

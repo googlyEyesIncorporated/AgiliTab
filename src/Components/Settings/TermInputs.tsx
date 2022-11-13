@@ -1,137 +1,167 @@
-import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setNotShortTerm } from "../../features/general/settingsSlice";
-import { UnitType } from "../../features/general/types";
+import {
+  defaultLongTerm,
+  defaultMediumTerm,
+  selectVisualSettings,
+} from "../../features/Settings/settingsSlice";
+import { Duration } from "./Duration";
+import { SelectDate } from "./SelectDate";
+import { faUnlock } from "@fortawesome/free-solid-svg-icons/faUnlock";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
+import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import RadioButton from "./RadioButton";
+import { DateTime } from "luxon";
+import { UnitType } from "../../features/Settings/types";
+import { TermName } from "./TermName";
+import CheckBox from "./CheckBox";
+import { Totitlecase } from "../../features/utils/titleCase";
+import { Categories, onRepeat, saveTerm } from "../../features/Settings/utils";
 
-const formats = {
-  units: {
-    DAY: "Day",
-    WEEK: "Week",
-    SPRINT: "Sprint",
-    MONTH: "Month",
-    QUARTER: "Quarter",
-    SEMESTER: "Semester",
-    PERIOD: "Period",
-    YEAR: "Year",
-  },
-};
-
-const Totitlecase = (string: string) => {
-  const firstLetter = string.slice(0, 1);
-  return `${firstLetter.toUpperCase()}${string.slice(1, string.length)}`;
-};
-
-const formatUnit = (unitName: string) => {
-  const formattedUnit = Totitlecase(unitName);
-  const isPlural = unitName.slice(unitName.length - 1, unitName.length) === "s";
-  return `${formattedUnit}${isPlural ? "" : "s"}`;
+const defaultTerms: { mediumTerm: UnitType; longTerm: UnitType } = {
+  mediumTerm: defaultMediumTerm,
+  longTerm: defaultLongTerm,
 };
 
 export const TermInputs = ({
   category,
   termData,
 }: {
-  category: "medium" | "long";
+  category: Categories;
   termData: UnitType;
 }) => {
-  const dispatch = useDispatch();
+  const { secondFontColor } = useAppSelector(selectVisualSettings);
+  const dispatch = useAppDispatch();
   const [title, setTitle] = useState("");
+  const [enabled, setEnabled] = useState(false);
   const [unitType, setUnitType] = useState("");
-  const [qty, setQty] = useState(0);
-  const [unit, setUnit] = useState("");
+  const [isDuration, setIsDuration] = useState(true);
   const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [duration, setDuration] = useState(termData.duration);
+  const [repeat, setRepeat] = useState(true);
+  const termString = `${category}Term` as keyof typeof defaultTerms;
+
   useEffect(() => {
     setUnitType(termData.title.toLowerCase());
     setTitle(termData.title);
-    setQty(termData.duration.qty);
-    const formattedUnit = formatUnit(termData.duration.unit);
-    setUnit(`${formattedUnit}`);
-    setStartDate(DateTime.fromISO(termData.startDate).toFormat("yyyy-MM-dd"));
+    setStartDate(termData.startDate);
+    setEndDate(
+      termData?.endDate ||
+        DateTime.fromISO(termData.startDate)
+          .plus({ [termData.duration.unit]: termData.duration.qty })
+          .toISO()
+    );
+    setRepeat(termData.repeat);
   }, [termData]);
+
   return (
     <div style={{ margin: "0.5rem 0" }}>
-      <h2>{`${Totitlecase(category)}-term: `}</h2>
-      <div style={{ margin: "0.5rem 0" }}>
-        <label htmlFor={`${category}-unit-name`}>Name: </label>
-        <select
-          name="date-unit-name"
-          id="date-unit-name"
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-            setUnitType(e.target.value.toLowerCase());
+      <h2>
+        {`${Totitlecase(category)}-term: `}
+        <FontAwesomeIcon
+          onClick={() => setEnabled(!enabled)}
+          id="customize-button"
+          icon={enabled ? faUnlock : faLock}
+          title="Edit"
+          style={{
+            color: secondFontColor,
+            fontSize: "1rem",
+            float: "right",
+            margin: "0 10px",
           }}
-          style={{ height: "1.1875rem" }}
-        >
-          {Object.keys(formats.units).map((unit) => {
-            if (
-              formats.units[unit as keyof typeof formats.units] !==
-              formats.units.DAY
-            ) {
-              return (
-                <option
-                  value={formats.units[unit as keyof typeof formats.units]}
-                >
-                  {formats.units[unit as keyof typeof formats.units]}
-                </option>
-              );
-            }
-            return null;
-          })}
-        </select>
+        />
+        <FontAwesomeIcon
+          onClick={() => {
+            setStartDate(defaultTerms[termString].startDate);
+            setEndDate(defaultTerms[termString].endDate || "");
+            setUnitType(defaultTerms[termString].unitType);
+            setTitle(defaultTerms[termString].title);
+            setRepeat(defaultTerms[termString].repeat);
+          }}
+          id="restore-defaults"
+          icon={faArrowRightFromBracket}
+          title="Restore Defaults"
+          style={{ color: secondFontColor, fontSize: "1rem", float: "right" }}
+        />
+      </h2>
+      <div style={{ margin: "0.5rem 0" }}>
+        <TermName
+          category={category}
+          title={title}
+          enabled={enabled}
+          setTitle={setTitle}
+          setUnitType={setUnitType}
+        />
+        <div style={{ display: "inline-block", width: "50%" }}>
+          <RadioButton
+            enabled={enabled}
+            category={category}
+            isDuration={isDuration}
+            setIsDuration={setIsDuration}
+          />
+          &nbsp; &nbsp;
+          <CheckBox
+            nameId="repeat-duration"
+            checked={termData.repeat ? true : false}
+            onChange={onRepeat(dispatch, category)}
+            disabled={enabled && isDuration ? false : true}
+            inputStyle={{
+              visibility: "visible",
+              margin: "0px 0.3rem",
+              float: "right",
+            }}
+            labelStyle={{ float: "right" }}
+            labelText="Repeat?"
+          />
+        </div>
       </div>
-
-      <label htmlFor={`${category}-unit-reference`}>Start date: </label>
-      <input
-        type="date"
-        name={`${category}-unit-reference`}
-        id={`${category}-unit-reference`}
-        value={startDate}
-        style={{ height: "1.1875rem" }}
-        onChange={(e) => {
-          setStartDate(e.target.value);
-        }}
+      <SelectDate
+        title="Beginning"
+        category={category}
+        enabled={enabled}
+        date={startDate}
+        limit={{ max: endDate }}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
       />
-      <label htmlFor={`${category}-unit-qty`}> - Duration: </label>
-      <input
-        type="number"
-        name={`${category}-unit-qty`}
-        id={`${category}-unit-qty`}
-        min="1"
-        max="100"
-        style={{ width: "3rem", height: "1.1875rem" }}
-        value={qty}
-        onChange={(e) => {
-          setQty(parseInt(e.target.value));
-        }}
-      />
-      <select
-        name="date-format-input"
-        id="date-format-input"
-        value={unit}
-        style={{ height: "1.1875rem" }}
-        onChange={(e) => {
-          setUnit(e.target.value);
-        }}
-      >
-        <option value={formats.units.DAY + "s"}>{formats.units.DAY}s</option>
-        <option value={formats.units.WEEK + "s"}>{formats.units.WEEK}s</option>
-        <option value={formats.units.MONTH + "s"}>
-          {formats.units.MONTH}s
-        </option>
-        <option value={formats.units.YEAR + "s"}>{formats.units.YEAR}s</option>
-      </select>
+      {!isDuration && (
+        <SelectDate
+          title="End"
+          category={category}
+          enabled={enabled}
+          date={endDate}
+          limit={{ min: startDate }}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+        />
+      )}
+      {isDuration && (
+        <Duration
+          duration={duration}
+          category={category}
+          enabled={enabled}
+          setDuration={setDuration}
+        />
+      )}
       <button
         id="date-time-format-save"
-        onClick={() => {
-          dispatch(
-            setNotShortTerm({
-              key: `${category}Term`,
-              termObj: { duration: { qty, unit }, startDate, unitType, title },
-            })
-          );
-        }}
+        disabled={enabled ? false : true}
+        onClick={() =>
+          saveTerm({
+            enabled,
+            isDuration,
+            duration,
+            startDate,
+            dispatch,
+            category,
+            unitType,
+            title,
+            repeat,
+            endDate,
+          })
+        }
       >
         Save
       </button>

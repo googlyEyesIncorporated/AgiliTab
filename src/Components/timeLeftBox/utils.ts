@@ -50,7 +50,7 @@ export const calculateStartEndMs = (
   termData: (UnitType & ScopedToWorkingHours) | UnitType
 ) => {
   const referencePoint = DateTime.fromISO(termData.startDate);
-  if (termData.duration) {
+  if (termData.duration && termData.isDuration) {
     const duration = { [termData.duration.unit]: termData.duration.qty };
     if (termData.repeat) {
       const recalcedDate = predicateDateRecalc(

@@ -13,7 +13,7 @@ import {
   Visual,
   WorkingHours,
 } from "./types";
-import { updateStorage } from "../chromeStorage/storageHelper";
+import { updateStorage } from "../utils/storageHelper";
 
 const Now = DateTime.now();
 const reference = {
@@ -53,6 +53,7 @@ const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
   endDate: DateTime.now().endOf("day").toISO(),
   startDate: DateTime.now().startOf("day").toISO(),
   workingHours: reference.workDay,
+  isDuration: true,
   repeat: true,
 };
 
@@ -62,6 +63,7 @@ export const defaultMediumTerm: UnitType = {
   duration: reference.durations.mediumTerm,
   endDate: reference.month.end,
   startDate: reference.month.start,
+  isDuration: true,
   repeat: true,
 };
 
@@ -71,6 +73,7 @@ export const defaultLongTerm: UnitType = {
   duration: reference.durations.longTerm,
   endDate: reference.year.end,
   startDate: reference.year.start,
+  isDuration: true,
   repeat: true,
 };
 
@@ -133,6 +136,11 @@ export const unitsSlice = createSlice({
       state.units.shortTerm.workingHours.times = workingHours;
       updateStorage({ storageKey: "settings", val: state });
     },
+    updateDay: (state) => {
+      // state.currentDay = DateTime.fromISO(day).day;
+      state.units.shortTerm.startDate = DateTime.now().startOf("day").toISO();
+      state.units.shortTerm.endDate = DateTime.now().endOf("day").toISO();
+    },
     setVisualSetting: (
       state,
       { payload: { key, value } }: PayloadAction<KeyValuePair>
@@ -176,6 +184,7 @@ export const {
   toggleWorkDay,
   toggleRepeat,
   setNotShortTerm,
+  updateDay,
 } = unitsSlice.actions;
 
 export const selectWorkingHours = (state: RootState) =>

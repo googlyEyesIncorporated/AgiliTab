@@ -1,5 +1,5 @@
 import { CountDown } from "./CountDown";
-import { DateTime, DayNumbers } from "luxon";
+import { DateTime } from "luxon";
 import { useAppSelector } from "../../app/hooks";
 import {
   selectAllUnits,
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { calculateStartEndMs, getCurrentRatio } from "./utils";
 
 // Shows time left based on settings and ...time left
-export const TimeLeft = ({ today }: { today: DayNumbers }) => {
+export const TimeLeft = ({ today }: { today: string }) => {
   const scopedToWorkingHours = useAppSelector(selectWorkDayToggle);
   const savedWorkingHours = useAppSelector(selectWorkingHours);
 
