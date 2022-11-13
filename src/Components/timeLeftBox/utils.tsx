@@ -1,9 +1,5 @@
-import { DateTime, DurationObjectUnits } from "luxon";
-import {
-  ScopedToWorkingHours,
-  UnitType,
-  Duration,
-} from "../../features/general/types";
+import { DateTime, DurationLikeObject } from "luxon";
+import { UnitType, ScopedToWorkingHours } from "../../features/Settings/types";
 
 type Predicate = (date: DateTime, otherDate: DateTime) => boolean;
 export interface CalculatedTimes {
@@ -13,7 +9,7 @@ export interface CalculatedTimes {
 
 export const predicateDateRecalc = (
   date: DateTime,
-  interval: DurationObjectUnits,
+  interval: DurationLikeObject,
   predicate: Predicate,
   otherDate: DateTime
 ) => {
@@ -43,37 +39,48 @@ export const getCurrentRatio = ({ start, end }: CalculatedTimes) => {
   return NaN;
 };
 
-export const durationFormatter = (duration?: Duration) => {
-  if (duration) {
-    const { qty, unit } = duration;
-    return { [unit]: qty } as DurationObjectUnits;
-  }
-};
+// const durationCalculator = (start: string, end: string) => {
+//   return DateTime.fromISO(end).diff(DateTime.fromISO(start));
+// };
 
 const dateIsPastOtherDate = (date: DateTime, otherDate: DateTime) =>
   date.toMillis() <= otherDate.toMillis();
 
 export const calculateStartEndMs = (
-  savedShortTerm: (UnitType & ScopedToWorkingHours) | UnitType
+  termData: (UnitType & ScopedToWorkingHours) | UnitType
 ) => {
-  const referencePoint = DateTime.fromISO(savedShortTerm.startDate);
-  const duration = durationFormatter(savedShortTerm.duration);
-  const recalcedDate = predicateDateRecalc(
-    referencePoint,
-    duration || {},
-    dateIsPastOtherDate,
-    DateTime.now()
-  );
-  const end = recalcedDate.newDate.toMillis();
-  const start = recalcedDate.lastDate?.toMillis() || referencePoint.toMillis();
-  if (start === end) {
-    const newEnd = predicateDateRecalc(
-      DateTime.fromMillis(end),
-      duration || {},
-      dateIsPastOtherDate,
-      DateTime.fromMillis(start)
-    ).newDate.toMillis();
-    return { end: newEnd, start, unitType: savedShortTerm.unitType };
+  const referencePoint = DateTime.fromISO(termData.startDate);
+  if (termData.duration) {
+    const duration = { [termData.duration.unit]: termData.duration.qty };
+    if (termData.repeat) {
+      const recalcedDate = predicateDateRecalc(
+        referencePoint,
+        duration,
+        dateIsPastOtherDate,
+        DateTime.now()
+      );
+      const end = recalcedDate.newDate.toMillis();
+      const start =
+        recalcedDate.lastDate?.toMillis() || referencePoint.toMillis();
+      if (start === end) {
+        const newEnd = predicateDateRecalc(
+          DateTime.fromMillis(end),
+          duration || {},
+          dateIsPastOtherDate,
+          DateTime.fromMillis(start)
+        ).newDate.toMillis();
+        return { end: newEnd, start, unitType: termData.unitType };
+      }
+      return { end, start, unitType: termData.unitType };
+    }
+    const end = DateTime.fromISO(termData.startDate).plus(duration).toMillis();
+    return {
+      end,
+      start: referencePoint.toMillis(),
+      unitType: termData.unitType,
+    };
   }
-  return { end, start, unitType: savedShortTerm.unitType };
+  // If not repeat
+  const end = DateTime.fromISO(termData.endDate || "").toMillis();
+  return { end, start: referencePoint.toMillis(), unitType: termData.unitType };
 };

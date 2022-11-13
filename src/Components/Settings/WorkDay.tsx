@@ -6,7 +6,7 @@ import {
   selectWorkingHours,
   setWorkDayHours,
   toggleWorkDay,
-} from "../../features/general/settingsSlice";
+} from "../../features/Settings/settingsSlice";
 import { SetBooleanState } from "./types";
 
 const handleChecked = (

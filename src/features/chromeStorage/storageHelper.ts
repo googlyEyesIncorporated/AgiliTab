@@ -1,4 +1,7 @@
-import { ItemList, SettingsState, StorageKey } from "./types";
+import { SettingsState } from "../Settings/types";
+import { ItemList, ListKey } from "../itemList/types";
+
+type StorageKey = ListKey | "settings";
 
 export const updateStorage = ({
   storageKey,

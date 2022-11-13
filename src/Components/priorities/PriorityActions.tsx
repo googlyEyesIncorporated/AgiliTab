@@ -1,9 +1,13 @@
 import { SyntheticEvent, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { add, clearAll, clearDone } from "../../features/general/itemListSlice";
+import {
+  add,
+  clearAll,
+  clearDone,
+} from "../../features/itemList/itemListSlice";
 import { v4 as uuidv4 } from "uuid";
-import { selectVisualSettings } from "../../features/general/settingsSlice";
-import { ListKey } from "../../features/general/types";
+import { selectVisualSettings } from "../../features/Settings/settingsSlice";
+import { ListKey } from "../../features/itemList/types";
 
 export const Options = ({
   shouldShowOptions = false,

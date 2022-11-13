@@ -1,4 +1,5 @@
-import { ReplaceList, Title } from "../../features/general/types";
+import { ReplaceList } from "../../features/itemList/types";
+import { Title } from "../../features/Settings/types";
 import { List } from "./List";
 import { DragAndDrop } from "./ListItem";
 interface ColumnProps extends ReplaceList {

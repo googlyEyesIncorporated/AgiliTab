@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
-import { selectVisualSettings } from "../../features/general/settingsSlice";
+import { selectVisualSettings } from "../../features/Settings/settingsSlice";
 import { RestoreDefaults } from "./RestoreDefaults";
 import { SetColors } from "./SetColors";
 import { DateTimeFormat } from "./DateTimeFormat";

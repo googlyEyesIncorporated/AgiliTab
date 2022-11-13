@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { selectAllLists, updateList } from "../features/general/itemListSlice";
-import { selectAllUnits } from "../features/general/settingsSlice";
-import { ListAndIndex, ListKey } from "../features/general/types";
+import { selectAllLists, updateList } from "../features/itemList/itemListSlice";
+import { ListAndIndex, ListKey } from "../features/itemList/types";
+import { selectAllUnits } from "../features/Settings/settingsSlice";
 import { Column } from "./priorities/Column";
 
 export const BottomRow = () => {

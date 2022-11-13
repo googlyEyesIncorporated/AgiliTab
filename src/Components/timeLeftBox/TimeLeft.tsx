@@ -5,7 +5,7 @@ import {
   selectAllUnits,
   selectWorkDayToggle,
   selectWorkingHours,
-} from "../../features/general/settingsSlice";
+} from "../../features/Settings/settingsSlice";
 import { useEffect, useState } from "react";
 import { calculateStartEndMs, getCurrentRatio } from "./utils";
 

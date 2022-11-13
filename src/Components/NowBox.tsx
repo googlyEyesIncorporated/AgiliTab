@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../app/hooks";
-import { selectDateFormat } from "../features/general/settingsSlice";
+import { selectDateFormat } from "../features/Settings/settingsSlice";
 import { Clock } from "./currentTimeBox/Clock";
 
 export interface ClockProps {

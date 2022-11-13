@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectVisualSettings,
   setDateTimeFormats,
-} from "../../features/general/settingsSlice";
+} from "../../features/Settings/settingsSlice";
 
 interface Formats {
   timeFormat: string;

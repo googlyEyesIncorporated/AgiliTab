@@ -2,7 +2,7 @@ import { useAppSelector } from "../../app/hooks";
 import {
   selectLongTerm,
   selectMediumTerm,
-} from "../../features/general/settingsSlice";
+} from "../../features/Settings/settingsSlice";
 import { TermInputs } from "./TermInputs";
 import { SetBooleanState } from "./types";
 import { WorkDay } from "./WorkDay";

@@ -1,60 +1,83 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
 import { RootState } from "../../app/store";
-import { updateStorage } from "./storageHelper";
 import {
+  BooleanPayload,
+  DateFormat,
   KeyValuePair,
   SettingsState,
+  TimeFormat,
+  Times,
   UnitsState,
   UnitType,
   Visual,
   WorkingHours,
-  BooleanPayload,
-  Times,
-  DateFormat,
-  TimeFormat,
 } from "./types";
+import { updateStorage } from "../chromeStorage/storageHelper";
 
 const Now = DateTime.now();
-
-const referenceMonthStartDate = Now.startOf("month").toISO();
-
-const referenceYearStartDate = Now.startOf("year").toISO();
-
-const WorkDay: WorkingHours = {
-  times: {
-    start: "09:00",
-    end: "17:00",
+const reference = {
+  now: Now,
+  workDay: {
+    times: {
+      start: "09:00",
+      end: "17:00",
+    },
+    scopedToWorkingHours: true,
   },
-  scopedToWorkingHours: true,
+  month: {
+    start: Now.startOf("month").toISO(),
+    end: "",
+  },
+  year: {
+    start: Now.startOf("year").toISO(),
+    end: "",
+  },
+  durations: {
+    shortTerm: { unit: "days", qty: 1 },
+    mediumTerm: { unit: "months", qty: 1 },
+    longTerm: { unit: "years", qty: 1 },
+  },
 };
+reference.month.end = DateTime.fromISO(reference.month.start)
+  .plus({ months: 1 })
+  .toISO();
+reference.year.end = DateTime.fromISO(reference.year.start)
+  .plus({ years: 1 })
+  .toISO();
 
-const shortTerm: UnitType & { workingHours: WorkingHours } = {
+const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
   unitType: "day",
   title: "Today",
-  duration: { qty: 1, unit: "days" },
+  duration: reference.durations.shortTerm,
+  endDate: DateTime.now().endOf("day").toISO(),
   startDate: DateTime.now().startOf("day").toISO(),
-  workingHours: WorkDay,
+  workingHours: reference.workDay,
+  repeat: true,
 };
 
-const mediumTerm: UnitType = {
+export const defaultMediumTerm: UnitType = {
   unitType: "month",
   title: "Month",
-  duration: { qty: 1, unit: "months" },
-  startDate: referenceMonthStartDate,
+  duration: reference.durations.mediumTerm,
+  endDate: reference.month.end,
+  startDate: reference.month.start,
+  repeat: true,
 };
 
-const longTerm: UnitType = {
+export const defaultLongTerm: UnitType = {
   unitType: "year",
   title: "Year",
-  duration: { qty: 1, unit: "years" },
-  startDate: referenceYearStartDate,
+  duration: reference.durations.longTerm,
+  endDate: reference.year.end,
+  startDate: reference.year.start,
+  repeat: true,
 };
 
 const initialUnits: UnitsState = {
-  shortTerm: shortTerm,
-  mediumTerm: mediumTerm,
-  longTerm: longTerm,
+  shortTerm: defaultShortTerm,
+  mediumTerm: defaultMediumTerm,
+  longTerm: defaultLongTerm,
 };
 
 const initalVisuals: Visual = {
@@ -94,6 +117,15 @@ export const unitsSlice = createSlice({
       state.units.shortTerm.workingHours.scopedToWorkingHours = value;
       updateStorage({ storageKey: "settings", val: state });
     },
+    toggleRepeat: (
+      state,
+      {
+        payload: { value, key },
+      }: PayloadAction<BooleanPayload & { key: "mediumTerm" | "longTerm" }>
+    ) => {
+      state.units[key].repeat = value;
+      updateStorage({ storageKey: "settings", val: state });
+    },
     setWorkDayHours: (
       state,
       { payload: workingHours }: PayloadAction<Times>
@@ -130,6 +162,7 @@ export const unitsSlice = createSlice({
     ) => {
       const { key, termObj } = payload;
       state.units[key] = termObj;
+      updateStorage({ storageKey: "settings", val: state });
     },
   },
 });
@@ -141,6 +174,7 @@ export const {
   resetVisualSetting,
   setWorkDayHours,
   toggleWorkDay,
+  toggleRepeat,
   setNotShortTerm,
 } = unitsSlice.actions;
 
