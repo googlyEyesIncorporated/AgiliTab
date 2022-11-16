@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useAppSelector } from "../../app/hooks";
-import { selectVisualSettings } from "../../features/Settings/settingsSlice";
-import { RestoreDefaults } from "./RestoreDefaults";
-import { SetColors } from "./SetColors";
-import { DateTimeFormat } from "./DateTimeFormat";
-import { SetBooleanState } from "./types";
-import { CustomizableUnits } from "./CustomizableUnits";
+import {
+  selectLongTerm,
+  selectMediumTerm,
+  selectVisualSettings,
+} from "../../features/Settings/settingsSlice";
+import { RestoreDefaults } from "./Visual/RestoreDefaults";
+import { SetColors } from "./Visual/SetColors";
+import { DateTimeFormat } from "./Visual/DateTimeFormat";
+import { WorkDay, SetBooleanState } from "./Term/WorkDay";
+import { TermInputs } from "./Term/TermInputs";
 
 const handleClickOutside =
   (
@@ -37,6 +41,9 @@ export const Settings = ({
   );
   const { bgColor } = useAppSelector(selectVisualSettings);
 
+  const mediumTerm = useAppSelector(selectMediumTerm);
+  const longTerm = useAppSelector(selectLongTerm);
+
   return (
     <div
       id="customize-selectors"
@@ -48,7 +55,12 @@ export const Settings = ({
       <RestoreDefaults />
       <DateTimeFormat />
       <hr />
-      <CustomizableUnits popover={{ setIsOpen, isOpen }} />
+      <div style={{ margin: "1rem 0" }} id="customizable-units">
+        <h2 style={{ fontSize: "2em" }}>Columns:</h2>
+        <WorkDay popover={{ setIsOpen, isOpen }} />
+        <TermInputs category="medium" termData={mediumTerm} />
+        <TermInputs category="long" termData={longTerm} />
+      </div>{" "}
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}

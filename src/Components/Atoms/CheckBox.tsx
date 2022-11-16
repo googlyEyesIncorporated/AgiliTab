@@ -1,21 +1,20 @@
 interface CheckBoxProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
-  disabled: boolean;
   nameId: string;
-  inputStyle: React.CSSProperties;
   labelText: string;
-  labelStyle: React.CSSProperties;
+  disabled?: boolean;
+  inputStyle?: React.CSSProperties;
+  labelStyle?: React.CSSProperties;
+  className?: string;
 }
 
 const CheckBox = ({
-  checked,
-  onChange,
-  disabled,
   nameId,
-  inputStyle,
   labelText,
+  inputStyle,
   labelStyle,
+  ...rest
 }: CheckBoxProps) => {
   return (
     <>
@@ -23,10 +22,8 @@ const CheckBox = ({
         type="checkbox"
         name={nameId}
         id={nameId}
-        checked={checked}
-        onChange={onChange}
-        disabled={disabled}
         style={inputStyle}
+        {...rest}
       />
 
       <label style={labelStyle} htmlFor={nameId}>

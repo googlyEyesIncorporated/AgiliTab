@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import {
   selectVisualSettings,
   setVisualSetting,
-} from "../../features/Settings/settingsSlice";
+} from "../../../features/Settings/settingsSlice";
 
 export const SetColors = () => {
   const SettingsBoundary = useRef(null);

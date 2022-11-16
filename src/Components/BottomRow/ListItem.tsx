@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectVisualSettings } from "../../features/Settings/settingsSlice";
 import { remove, toggleChecked } from "../../features/itemList/itemListSlice";
 import { ListAndIndex, ListKey } from "../../features/itemList/types";
+import CheckBox from "../Atoms/CheckBox";
+import Icon from "../Atoms/Icon";
 
 export interface DragAndDrop {
   enterListItem: (position: ListAndIndex) => void;
@@ -31,7 +32,7 @@ export const ListItem = ({
   dragAndDrop: { dragStart, dragEnd, enterListItem },
 }: ListItemProps) => {
   const dispatch = useAppDispatch();
-  const [hidden, setHidden] = useState(true);
+  const [trashCanIsHidden, setTrashCanIsHidden] = useState(true);
   const { fontColor, secondFontColor, bgColor } =
     useAppSelector(selectVisualSettings);
   const checkboxClick = () => {
@@ -49,37 +50,32 @@ export const ListItem = ({
         borderColor: done ? secondFontColor : fontColor,
         backgroundColor: bgColor,
       }}
-      onMouseEnter={() => setHidden(false)}
-      onMouseLeave={() => setHidden(true)}
+      onMouseEnter={() => setTrashCanIsHidden(false)}
+      onMouseLeave={() => setTrashCanIsHidden(true)}
       draggable
       onDragStart={() => dragStart({ listKey, index })}
       onDragEnter={() => enterListItem({ listKey, index })}
       onDragEnd={() => dragEnd()}
     >
       <div className="squaredThree">
-        <input
-          type="checkbox"
-          name="check"
-          id={id}
+        <CheckBox
           onChange={checkboxClick}
-          key={id}
-          style={{ color: secondFontColor }}
           checked={done}
+          nameId={id}
+          labelText=""
+          inputStyle={{ color: secondFontColor }}
         />
-        <label htmlFor={id} />
       </div>
       <div className={`todo-text${done ? " todo-card-done" : ""}`}>
         {name}
-        <i
-          aria-hidden="true"
-          className={`pull-right${hidden ? " hidden" : " revealed"}`}
-        >
-          <FontAwesomeIcon
-            onClick={removeItem}
-            icon={faTrash}
-            style={{ color: done ? secondFontColor : fontColor }}
-          />
-        </i>
+        <Icon
+          onClick={removeItem}
+          icon={faTrash}
+          faStyle={{ color: done ? secondFontColor : fontColor }}
+          iconClassName={`pull-right${
+            trashCanIsHidden ? " hidden" : " revealed"
+          }`}
+        />
       </div>
     </li>
   );

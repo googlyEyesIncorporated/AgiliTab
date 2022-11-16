@@ -1,11 +1,14 @@
 import { useRef } from "react";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { selectAllLists, updateList } from "../features/itemList/itemListSlice";
-import { ListAndIndex, ListKey } from "../features/itemList/types";
-import { selectAllUnits } from "../features/Settings/settingsSlice";
-import { Column } from "./priorities/Column";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import {
+  selectAllLists,
+  updateList,
+} from "../../features/itemList/itemListSlice";
+import { ListAndIndex, ListKey } from "../../features/itemList/types";
+import { selectAllUnits } from "../../features/Settings/settingsSlice";
+import { List } from "./List";
 
-export const BottomRow = () => {
+export const DraggableLists = () => {
   const lists = useAppSelector(selectAllLists);
   const { shortTerm, mediumTerm, longTerm } = useAppSelector(selectAllUnits);
   const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
@@ -52,24 +55,30 @@ export const BottomRow = () => {
 
   return (
     <div id="bottom-row">
-      <Column
-        title={shortTerm.title}
-        itemList={lists.shortTermList}
-        listKey="shortTermList"
-        dragAndDrop={dragAndDrop}
-      />
-      <Column
-        title={mediumTerm.title}
-        itemList={lists.mediumTermList}
-        listKey="mediumTermList"
-        dragAndDrop={dragAndDrop}
-      />
-      <Column
-        title={longTerm.title}
-        itemList={lists.longTermList}
-        listKey="longTermList"
-        dragAndDrop={dragAndDrop}
-      />
+      <div className="priorities">
+        <div className="priorities-title">{shortTerm.title}</div>
+        <List
+          itemList={lists.shortTermList}
+          listKey="shortTermList"
+          dragAndDrop={dragAndDrop}
+        />
+      </div>
+      <div className="priorities">
+        <div className="priorities-title">{mediumTerm.title}</div>
+        <List
+          itemList={lists.mediumTermList}
+          listKey="mediumTermList"
+          dragAndDrop={dragAndDrop}
+        />
+      </div>
+      <div className="priorities">
+        <div className="priorities-title">{longTerm.title}</div>
+        <List
+          itemList={lists.longTermList}
+          listKey="longTermList"
+          dragAndDrop={dragAndDrop}
+        />
+      </div>
     </div>
   );
 };

@@ -1,13 +1,15 @@
 import { DateTime } from "luxon";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   selectWorkDayToggle,
   selectWorkingHours,
   setWorkDayHours,
   toggleWorkDay,
-} from "../../features/Settings/settingsSlice";
-import { SetBooleanState } from "./types";
+} from "../../../features/Settings/settingsSlice";
+import CheckBox from "../../Atoms/CheckBox";
+
+export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
 
 const handleChecked = (
   event: SyntheticEvent & { target: { checked: boolean } },
@@ -37,15 +39,13 @@ export const WorkDay = ({
     <div style={{ margin: "0 0 0.5rem 0" }}>
       <h2>Short-term:</h2>
       <div style={{ margin: "0.5rem 0" }}>
-        <input
-          type="checkbox"
-          name="workday-on"
+        <CheckBox
           className="immune"
-          id="workday-checkbox"
-          {...(workDayEnabled ? { checked: true } : { checked: false })}
+          nameId="workday-checkbox"
+          checked={workDayEnabled ? true : false}
           onChange={(e) => handleChecked(e, dispatch)}
+          labelText="Make day timer based on my workday:"
         />
-        <label htmlFor="workday-on">Make day timer based on my workday:</label>
       </div>
       <div>
         <span>Workday start: </span>

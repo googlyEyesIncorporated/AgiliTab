@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { DurationState } from "../../features/Settings/types";
-import { formats } from "../timeLeftBox/dateData";
+import { DurationState } from "../../../features/Settings/types";
+import { formats } from "../../TopRow/TimeLeftBox/dateData";
 
 interface DurationProps {
   category: string;

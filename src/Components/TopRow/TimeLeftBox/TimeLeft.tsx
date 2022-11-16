@@ -1,11 +1,11 @@
 import { CountDown } from "./CountDown";
 import { DateTime } from "luxon";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../../app/hooks";
 import {
   selectAllUnits,
   selectWorkDayToggle,
   selectWorkingHours,
-} from "../../features/Settings/settingsSlice";
+} from "../../../features/Settings/settingsSlice";
 import { useEffect, useState } from "react";
 import { calculateStartEndMs, getCurrentRatio } from "./utils";
 

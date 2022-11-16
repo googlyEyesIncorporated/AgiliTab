@@ -3,21 +3,25 @@ import {
   defaultLongTerm,
   defaultMediumTerm,
   selectVisualSettings,
-} from "../../features/Settings/settingsSlice";
+} from "../../../features/Settings/settingsSlice";
 import { Duration } from "./Duration";
 import { SelectDate } from "./SelectDate";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons/faUnlock";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import RadioButton from "./RadioButton";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import RadioButton from "../../Atoms/RadioButton";
 import { DateTime } from "luxon";
-import { UnitType } from "../../features/Settings/types";
+import { UnitType } from "../../../features/Settings/types";
 import { TermName } from "./TermName";
-import CheckBox from "./CheckBox";
-import { Totitlecase } from "../../features/utils/titleCase";
-import { Categories, onRepeat, saveTerm } from "../../features/Settings/utils";
+import CheckBox from "../../Atoms/CheckBox";
+import { titleCase } from "../../../features/utils/titleCase";
+import {
+  Categories,
+  onRepeat,
+  saveTerm,
+} from "../../../features/Settings/utils";
+import Icon from "../../Atoms/Icon";
 
 const defaultTerms: { mediumTerm: UnitType; longTerm: UnitType } = {
   mediumTerm: defaultMediumTerm,
@@ -59,20 +63,20 @@ export const TermInputs = ({
   return (
     <div style={{ margin: "0.5rem 0" }}>
       <h2>
-        {`${Totitlecase(category)}-term: `}
-        <FontAwesomeIcon
+        {`${titleCase(category)}-term: `}
+        <Icon
           onClick={() => setEnabled(!enabled)}
-          id="customize-button"
+          faId="customize-button"
           icon={enabled ? faUnlock : faLock}
           title="Edit"
-          style={{
+          faStyle={{
             color: secondFontColor,
             fontSize: "1rem",
             float: "right",
             margin: "0 10px",
           }}
         />
-        <FontAwesomeIcon
+        <Icon
           onClick={() => {
             setStartDate(defaultTerms[termString].startDate);
             setEndDate(defaultTerms[termString].endDate || "");
@@ -80,10 +84,10 @@ export const TermInputs = ({
             setTitle(defaultTerms[termString].title);
             setRepeat(defaultTerms[termString].repeat);
           }}
-          id="restore-defaults"
+          faId="restore-defaults"
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
-          style={{ color: secondFontColor, fontSize: "1rem", float: "right" }}
+          faStyle={{ color: secondFontColor, fontSize: "1rem", float: "right" }}
         />
       </h2>
       <div style={{ margin: "0.5rem 0" }}>
@@ -98,8 +102,10 @@ export const TermInputs = ({
           <RadioButton
             enabled={enabled}
             category={category}
-            isDuration={isDuration}
-            setIsDuration={setIsDuration}
+            firstRadioName="duration"
+            secondRadioName="date"
+            firstIsChecked={isDuration}
+            setIsChecked={setIsDuration}
           />
           &nbsp; &nbsp;
           <CheckBox

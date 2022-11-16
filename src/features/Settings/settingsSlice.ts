@@ -136,9 +136,9 @@ export const unitsSlice = createSlice({
       state.units.shortTerm.workingHours.times = workingHours;
       updateStorage({ storageKey: "settings", val: state });
     },
-    updateDay: (state) => {
+    updateDay: (state, { payload: startOfDay }: PayloadAction<string>) => {
       // state.currentDay = DateTime.fromISO(day).day;
-      state.units.shortTerm.startDate = DateTime.now().startOf("day").toISO();
+      state.units.shortTerm.startDate = startOfDay;
       state.units.shortTerm.endDate = DateTime.now().endOf("day").toISO();
     },
     setVisualSetting: (

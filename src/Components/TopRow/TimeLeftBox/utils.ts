@@ -1,5 +1,8 @@
 import { DateTime, DurationLikeObject } from "luxon";
-import { UnitType, ScopedToWorkingHours } from "../../features/Settings/types";
+import {
+  UnitType,
+  ScopedToWorkingHours,
+} from "../../../features/Settings/types";
 
 type Predicate = (date: DateTime, otherDate: DateTime) => boolean;
 export interface CalculatedTimes {
@@ -38,10 +41,6 @@ export const getCurrentRatio = ({ start, end }: CalculatedTimes) => {
   }
   return NaN;
 };
-
-// const durationCalculator = (start: string, end: string) => {
-//   return DateTime.fromISO(end).diff(DateTime.fromISO(start));
-// };
 
 const dateIsPastOtherDate = (date: DateTime, otherDate: DateTime) =>
   date.toMillis() <= otherDate.toMillis();

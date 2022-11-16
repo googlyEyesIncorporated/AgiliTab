@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAppSelector } from "../app/hooks";
+import { useAppSelector } from "../../app/hooks";
 
-import { selectVisualSettings } from "../features/Settings/settingsSlice";
-import { Settings } from "./Settings/Settings";
+import { selectVisualSettings } from "../../features/Settings/settingsSlice";
+import { Settings } from "./Settings";
+import Icon from "../Atoms/Icon";
 
 export const SettingsWrapper = () => {
   const { secondFontColor } = useAppSelector(selectVisualSettings);
@@ -13,12 +13,12 @@ export const SettingsWrapper = () => {
 
   return (
     <div id="customize-corner" ref={settingsContainer}>
-      <FontAwesomeIcon
+      <Icon
         onClick={() => setHidden(!hideSettings)}
-        id="customize-button"
+        faId="customize-button"
         icon={faGears}
-        style={{ color: secondFontColor }}
-        className={`${!hideSettings ? " hidden" : ""}`}
+        faStyle={{ color: secondFontColor }}
+        faClassName={`${!hideSettings ? " hidden" : ""}`}
       />
       <Settings
         settingsContainer={settingsContainer}

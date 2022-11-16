@@ -1,19 +1,22 @@
 import { useEffect } from "react";
-import { TopRow } from "./Components/TopRow";
-import { BottomRow } from "./Components/BottomRow";
+import { DraggableLists } from "./Components/BottomRow/DraggableLists";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import {
   populateSettingssFromChrome,
   selectVisualSettings,
 } from "./features/Settings/settingsSlice";
 import { populateTasksFromChrome } from "./features/itemList/itemListSlice";
-import { SettingsWrapper } from "./Components/SettingsWrapper";
+import { SettingsWrapper } from "./Components/Settings/OpenSettings";
 import { ItemList } from "./features/itemList/types";
 import { SettingsState } from "./features/Settings/types";
+import { DateTime } from "luxon";
+import { NowBox } from "./Components/TopRow/NowBox/NowBox";
+import { TimeLeft } from "./Components/TopRow/TimeLeftBox/TimeLeft";
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
+  const today = DateTime.now().toISO();
   useEffect(() => {
     if (chrome.storage) {
       // chrome.storage.sync.clear();
@@ -52,8 +55,11 @@ function App() {
 
   return (
     <div className="App" style={{ backgroundColor: bgColor, color: fontColor }}>
-      <TopRow />
-      <BottomRow />
+      <div id="top-row">
+        <NowBox />
+        <TimeLeft today={today} />
+      </div>
+      <DraggableLists />
       <SettingsWrapper />
     </div>
   );
