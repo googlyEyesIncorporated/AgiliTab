@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { populateSettingssFromChrome } from "../Settings/settingsSlice";
 import { populateTasksFromChrome } from "../itemList/itemListSlice";
 
-type StorageKey = ListKey | "settings";
+export type StorageKey = ListKey | "settings";
 
 export const updateStorage = ({
   storageKey,

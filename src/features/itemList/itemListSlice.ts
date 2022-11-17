@@ -8,7 +8,7 @@ import {
   ListAndItem,
   ReplaceList,
 } from "./types";
-import { updateStorage } from "../utils/storageHelper";
+import { updateStorage } from "../utils/storageHelpers";
 
 let shortTermList: ItemList = [];
 let mediumTermList: ItemList = [];

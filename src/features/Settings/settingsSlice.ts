@@ -13,7 +13,7 @@ import {
   Visual,
   WorkingHours,
 } from "./types";
-import { updateStorage } from "../utils/storageHelper";
+import { updateStorage } from "../utils/storageHelpers";
 
 const Now = DateTime.now();
 const reference = {
@@ -91,7 +91,7 @@ const initalVisuals: Visual = {
   timeFormat: "h:mm a",
 };
 
-const initialSettings: SettingsState = {
+export const initialSettings: SettingsState = {
   units: initialUnits,
   visual: initalVisuals,
 };
