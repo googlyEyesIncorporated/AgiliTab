@@ -62,7 +62,7 @@ export const SelectDate = ({
         {...formattedLimit}
         id={`${category}-${title}-datepicker`}
         name={`${category}-${title}-datepicker`}
-        value={DateTime.fromISO(date).toISODate()}
+        value={DateTime.fromISO(date).toISODate() || ""}
         style={{ backgroundColor: enabled ? "ButtonFace" : "darkgray" }}
         disabled={enabled ? false : true}
         onChange={(e) => {

@@ -12,40 +12,14 @@ import { SettingsState } from "./features/Settings/types";
 import { DateTime } from "luxon";
 import { NowBox } from "./Components/TopRow/NowBox/NowBox";
 import { TimeLeft } from "./Components/TopRow/TimeLeftBox/TimeLeft";
+import { getStorage } from "./features/utils/storageHelper";
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
   const today = DateTime.now().toISO();
   useEffect(() => {
-    if (chrome.storage) {
-      // chrome.storage.sync.clear();
-      chrome.storage.sync.get(
-        ["shortTermList", "mediumTermList", "longTermList", "settings"],
-        function (result) {
-          const shortTermList = result["shortTermList"]
-            ? (Object.values(result["shortTermList"]) as ItemList)
-            : [];
-          const mediumTermList = result["mediumTermList"]
-            ? (Object.values(result["mediumTermList"]) as ItemList)
-            : [];
-          const longTermList = result["longTermList"]
-            ? (Object.values(result["longTermList"]) as ItemList)
-            : [];
-          const settings = result["settings"]
-            ? (result["settings"] as SettingsState)
-            : {};
-          dispatch(populateSettingssFromChrome(settings));
-          dispatch(
-            populateTasksFromChrome({
-              shortTermList,
-              mediumTermList,
-              longTermList,
-            })
-          );
-        }
-      );
-    }
+    getStorage(dispatch);
   }, [dispatch]);
 
   useEffect(() => {
