@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { titleCase } from "../../features/utils/titleCase";
+import { Sentencecase } from "../../features/utils/Sentencecase";
 
 interface RadioButtonProps {
   enabled: boolean;
@@ -32,7 +32,7 @@ const RadioButton = ({
         onChange={handleChange}
         checked={firstIsChecked}
       />
-      <label htmlFor={`${category}-${firstRadioName}`}>{` ${titleCase(
+      <label htmlFor={`${category}-${firstRadioName}`}>{` ${Sentencecase(
         firstRadioName
       )} `}</label>
       <input
@@ -43,7 +43,7 @@ const RadioButton = ({
         onChange={handleChange}
         checked={!firstIsChecked}
       />
-      <label htmlFor={`${category}-${secondRadioName}`}>{` ${titleCase(
+      <label htmlFor={`${category}-${secondRadioName}`}>{` ${Sentencecase(
         secondRadioName
       )}`}</label>
     </>

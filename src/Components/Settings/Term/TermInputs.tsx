@@ -15,7 +15,7 @@ import { DateTime } from "luxon";
 import { UnitType } from "../../../features/Settings/types";
 import { TermName } from "./TermName";
 import CheckBox from "../../Atoms/CheckBox";
-import { titleCase } from "../../../features/utils/titleCase";
+import { Sentencecase } from "../../../features/utils/Sentencecase";
 import {
   Categories,
   onRepeat,
@@ -63,7 +63,7 @@ export const TermInputs = ({
   return (
     <div style={{ margin: "0.5rem 0" }}>
       <h2>
-        {`${titleCase(category)}-term: `}
+        {`${Sentencecase(category)}-term: `}
         <Icon
           onClick={() => setEnabled(!enabled)}
           faId="customize-button"

@@ -5,7 +5,7 @@ import {
   selectVisualSettings,
   setDateTimeFormats,
 } from "../../../features/Settings/settingsSlice";
-import { titleCase } from "../../../features/utils/titleCase";
+import { Sentencecase } from "../../../features/utils/Sentencecase";
 
 interface Formats {
   timeFormat: string;
@@ -49,12 +49,16 @@ const renderFormats = (
       const group = formatGroup[standard as keyof typeof formatGroup];
       const thisFormat = group[format as keyof typeof group];
       return (
-        <option value={thisFormat}>
+        <option value={thisFormat} key={thisFormat}>
           {DateTime.now().toFormat(thisFormat)}
         </option>
       );
     });
-    return <optgroup label={titleCase(standard)}>{listOfFormats}</optgroup>;
+    return (
+      <optgroup key={standard} label={Sentencecase(standard)}>
+        {listOfFormats}
+      </optgroup>
+    );
   });
 };
 
