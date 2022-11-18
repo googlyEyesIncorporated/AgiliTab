@@ -1,4 +1,4 @@
-import { Sentencecase } from "./Sentencecase";
+import { Sentencecase } from "../Sentencecase";
 
 describe("titleCase", () => {
   it("fails gracefully if string is undefined", () => {

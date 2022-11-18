@@ -1,7 +1,5 @@
-import { ItemList } from "../itemList/types";
-import { initialSettings } from "../Settings/settingsSlice";
-import { SettingsState } from "../Settings/types";
-import { updateStorage, getStorage, StorageKey } from "./storageHelpers";
+import { initialSettings } from "../../Settings/settingsSlice";
+import { updateStorage, getStorage, StorageKey } from "../storageHelpers";
 
 const syncSet = jest.fn();
 const syncGet = jest.fn(
@@ -21,12 +19,12 @@ const mockDispatch = jest.fn();
 const mockPopulateTasksFromChrome = jest.fn();
 const mockPopulateSettingssFromChrome = jest.fn();
 
-jest.mock("../itemList/itemListSlice", () => ({
+jest.mock("../../itemList/itemListSlice", () => ({
   populateTasksFromChrome: (...args: any[]) =>
     mockPopulateTasksFromChrome(...args),
 }));
 
-jest.mock("../Settings/settingsSlice", () => ({
+jest.mock("../../Settings/settingsSlice", () => ({
   populateSettingssFromChrome: (...args: any[]) =>
     mockPopulateSettingssFromChrome(...args),
 }));
