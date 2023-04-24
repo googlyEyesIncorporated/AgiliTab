@@ -1,12 +1,13 @@
 interface CheckBoxProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  checked: boolean;
   nameId: string;
   labelText: string;
+  checked?: boolean;
   disabled?: boolean;
   inputStyle?: React.CSSProperties;
   labelStyle?: React.CSSProperties;
   className?: string;
+  "data-testid"?: string;
 }
 
 const CheckBox = ({

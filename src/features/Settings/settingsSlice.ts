@@ -84,9 +84,9 @@ const initialUnits: UnitsState = {
 };
 
 const initalVisuals: Visual = {
-  bgColor: "#222222",
-  fontColor: "#FFFFFF",
-  secondFontColor: "#A79999",
+  bgColor: "#CFCFCF",
+  fontColor: "#4F4F4F",
+  secondFontColor: "#4F4F4F",
   dateFormat: "MMM dd, yyyy",
   timeFormat: "h:mm a",
 };
