@@ -37,30 +37,32 @@ export const NowBox = () => {
   }, [startOfDay, dispatch]);
 
   return (
-    <div
-      className="now"
-      id="nowbox"
-      style={{
-        fontSize: "3em",
-        width: "50%",
-        border: "1px solid",
-        padding: "0.5rem",
-      }}
-    >
-      <Clock date={date} />
-      <span className="date" style={{ marginTop: "1rem" }}>
-        <span
-          style={{
-            fontSize: "1.5rem",
-          }}
-        >
-          <div>
-            {DateTime.fromISO(date).weekdayLong +
-              " - " +
-              (dateFormat && DateTime.fromISO(date).toFormat(dateFormat))}
-          </div>
+    <div id="top-row">
+      <div
+        className="now"
+        id="nowbox"
+        style={{
+          fontSize: "3em",
+          width: "50%",
+          border: "1px solid",
+          padding: "0.5rem",
+        }}
+      >
+        <Clock date={date} />
+        <span className="date" style={{ marginTop: "1rem" }}>
+          <span
+            style={{
+              fontSize: "1.5rem",
+            }}
+          >
+            <div>
+              {DateTime.fromISO(date).weekdayLong +
+                " - " +
+                (dateFormat && DateTime.fromISO(date).toFormat(dateFormat))}
+            </div>
+          </span>
         </span>
-      </span>
+      </div>
     </div>
   );
 };
