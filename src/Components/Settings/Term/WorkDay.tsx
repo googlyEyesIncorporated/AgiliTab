@@ -47,8 +47,8 @@ export const WorkDay = ({
           labelText="Make day timer based on my workday:"
         />
       </div>
-      <div>
-        <span>Workday start: </span>
+      <div style={{ display: "inline-block", width: "50%" }}>
+        <div>Workday start: </div>
         <input
           type="time"
           name="workday-start"
@@ -58,7 +58,9 @@ export const WorkDay = ({
           className="time-input"
           style={{ height: "1.1875rem" }}
         />
-        <span> - Workday end: </span>
+      </div>
+      <div style={{ display: "inline-block", width: "50%" }}>
+        <div>Workday end: </div>
         <input
           type="time"
           name="workday-end"

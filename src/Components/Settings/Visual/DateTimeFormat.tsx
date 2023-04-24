@@ -79,36 +79,40 @@ export const DateTimeFormat = () => {
   return (
     <div style={{ margin: "1rem 0" }}>
       <h2 style={{ marginBottom: "0.5rem" }}>Date and Time format:</h2>
-      <span>Date format: </span>
-      <select
-        name="date-format-input"
-        id="date-format-input"
-        value={dateFormat}
-        onChange={(e) => {
-          setSelectedFormats({ dateFormat: e.target.value, timeFormat });
-        }}
-      >
-        {renderFormats(dateFormats)}
-      </select>
-      <span> Time format: </span>
-      <select
-        name="time-format-input"
-        id="time-format-input"
-        value={timeFormat}
-        onChange={(e) => {
-          setSelectedFormats({ dateFormat, timeFormat: e.target.value });
-        }}
-      >
-        {renderFormats(timeFormats)}
-      </select>{" "}
-      <button
-        id="date-time-format-save"
-        onClick={() => {
-          dispatch(setDateTimeFormats(selectedFormats));
-        }}
-      >
-        Save
-      </button>
+      <div style={{ display: "inline-block", width: "50%" }}>
+        <div>Date format: </div>
+        <select
+          name="date-format-input"
+          id="date-format-input"
+          value={dateFormat}
+          onChange={(e) => {
+            setSelectedFormats({ dateFormat: e.target.value, timeFormat });
+          }}
+        >
+          {renderFormats(dateFormats)}
+        </select>
+      </div>
+      <div style={{ display: "inline-block", width: "50%" }}>
+        <div> Time format: </div>
+        <select
+          name="time-format-input"
+          id="time-format-input"
+          value={timeFormat}
+          onChange={(e) => {
+            setSelectedFormats({ dateFormat, timeFormat: e.target.value });
+          }}
+        >
+          {renderFormats(timeFormats)}
+        </select>{" "}
+        <button
+          id="date-time-format-save"
+          onClick={() => {
+            dispatch(setDateTimeFormats(selectedFormats));
+          }}
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 };

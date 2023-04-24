@@ -56,7 +56,7 @@ export const Settings = ({
       <DateTimeFormat />
       <hr />
       <div style={{ margin: "1rem 0" }} id="customizable-units">
-        <h2 style={{ fontSize: "2em" }}>Columns:</h2>
+        <h2 style={{ fontSize: "2em" }}>Time Frames:</h2>
         <WorkDay popover={{ setIsOpen, isOpen }} />
         <TermInputs category="medium" termData={mediumTerm} />
         <TermInputs category="long" termData={longTerm} />
