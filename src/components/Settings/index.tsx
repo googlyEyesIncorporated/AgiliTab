@@ -5,11 +5,11 @@ import {
   selectMediumTerm,
   selectVisualSettings,
 } from "../../features/settings/settingsSlice";
-import { RestoreDefaults } from "./Visual/RestoreDefaults";
-import { SetColors } from "./Visual/SetColors";
-import { DateTimeFormat } from "./Visual/DateTimeFormat";
-import { WorkDay, SetBooleanState } from "./Term/WorkDay";
-import { TermInputs } from "./Term/TermInputs";
+import { RestoreDefaults } from "./visual/RestoreDefaults";
+import { SetColors } from "./visual/SetColors";
+import { DateTimeFormat } from "./visual/DateTimeFormat";
+import { WorkDay, SetBooleanState } from "./term/WorkDay";
+import { TermInputs } from "./term/TermInputs";
 
 const handleClickOutside =
   (
