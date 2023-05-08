@@ -22,16 +22,7 @@ export const NowBox = () => {
 
   return (
     <div id="top-row">
-      <div
-        className="now"
-        id="nowbox"
-        style={{
-          fontSize: "3em",
-          width: "50%",
-          border: "1px solid",
-          padding: "0.5rem",
-        }}
-      >
+      <div className="now" id="nowbox">
         <Clock date={date} />
         <span className="date" style={{ marginTop: "1rem" }}>
           <span

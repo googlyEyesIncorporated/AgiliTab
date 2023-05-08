@@ -19,7 +19,6 @@ function App() {
     document.body.style.backgroundColor = bgColor;
     document.body.style.color = fontColor;
   }, [bgColor, fontColor]);
-
   return (
     <div className="App" style={{ backgroundColor: bgColor, color: fontColor }}>
       <TimeHandler>
