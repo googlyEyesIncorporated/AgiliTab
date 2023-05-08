@@ -5,7 +5,6 @@ import {
   endOfToday,
   startOfToday,
 } from "../../features/Settings/settingsSlice";
-import { useEffect, useState } from "react";
 
 type Predicate = (date: DateTime, otherDate: DateTime) => boolean;
 export interface CalculatedTimes {
@@ -116,23 +115,18 @@ export const getRelativeDay = (
   }
 };
 
-/**
- * A custom hook that takes a term and returns a stateful value and a function to update it
- * @param savedTerm The term to be used as the basis for the start and end times
- * @returns {[StartEndUnitType, React.Dispatch<React.SetStateAction<StartEndUnitType>>]} a stateful value, and a function to update it
- */
-export const useTerm = (
-  savedTerm: UnitType,
-  preformattedTerm?: StartEndUnitType
-): [
-  StartEndUnitType,
-  React.Dispatch<React.SetStateAction<StartEndUnitType>>
-] => {
-  const [term, setTerm] = useState(
-    preformattedTerm || calculateStartEndMs(savedTerm)
-  );
-  useEffect(() => {
-    setTerm(preformattedTerm || calculateStartEndMs(savedTerm));
-  }, [savedTerm, preformattedTerm]);
-  return [term, setTerm];
+export const advanceTerm = (
+  term: StartEndUnitType,
+  setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>,
+  currentTimeMillis: number
+) => {
+  if (term && setTerm) {
+    if (currentTimeMillis > term.end) {
+      const termCopy = { ...term };
+      const duration = term.end - term.start;
+      termCopy.start = term.end + 1;
+      termCopy.end = termCopy.start + duration;
+      setTerm(termCopy);
+    }
+  }
 };

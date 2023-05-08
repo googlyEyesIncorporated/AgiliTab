@@ -1,32 +1,10 @@
-import {
-  selectAllUnits,
-  selectWorkDayToggle,
-  selectWorkingHours,
-} from "../../features/Settings/settingsSlice";
+import { selectAllUnits } from "../../features/Settings/settingsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { selectAllLists } from "../../features/itemList/itemListSlice";
 import { DraggableLists } from "./DraggableLists";
-import { useEffect, useState } from "react";
-import { DateTime } from "luxon";
 import { ListGroup } from "./ListGroup";
-import { getRelativeDay, useTerm } from "./utils";
-import { StartEndUnitType } from "../../features/itemList/types";
-
-const callback = (
-  term: StartEndUnitType,
-  setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>,
-  currentTimeMillis: number
-) => {
-  if (term && setTerm) {
-    if (currentTimeMillis > term.end) {
-      const termCopy = { ...term };
-      const duration = term.end - term.start;
-      termCopy.start = term.end + 1;
-      termCopy.end = termCopy.start + duration;
-      setTerm(termCopy);
-    }
-  }
-};
+import { advanceTerm } from "./utils";
+import { useShortTerm, useTerm } from "./hooks";
 
 // A component that recieves a date string and renders a group of draggable lists
 // Gets the current time from context, and compares it to the end of each term
@@ -37,26 +15,13 @@ const callback = (
 
 export const BottomRow = () => {
   // Short term
-  const isScopedToWorkingHours = useAppSelector(selectWorkDayToggle);
-  const {
-    times: { start, end },
-  } = useAppSelector(selectWorkingHours);
-  const workDayStart = DateTime.fromFormat(start, "T").toMillis();
-  const workDayEnd = DateTime.fromFormat(end, "T").toMillis();
   const {
     shortTerm: savedShortTerm,
     mediumTerm: savedMediumTerm,
     longTerm: savedLongTerm,
   } = useAppSelector(selectAllUnits);
 
-  const [shortTerm, setShortTerm] = useState(
-    getRelativeDay(isScopedToWorkingHours, workDayEnd, workDayStart)
-  );
-  useEffect(() => {
-    setShortTerm(
-      getRelativeDay(isScopedToWorkingHours, workDayEnd, workDayStart)
-    );
-  }, [isScopedToWorkingHours, workDayStart, workDayEnd]);
+  const [shortTerm, setShortTerm] = useShortTerm();
   const [mediumTerm, setMediumTerm] = useTerm(savedMediumTerm);
   const [longTerm, setLongTerm] = useTerm(savedLongTerm);
   const lists = useAppSelector(selectAllLists);
@@ -70,7 +35,7 @@ export const BottomRow = () => {
           setTerm={setShortTerm}
           list={lists.shortTermList}
           listKey="shortTermList"
-          callback={callback}
+          advanceTerm={advanceTerm}
         />
         <ListGroup
           title={savedMediumTerm.title}
@@ -78,7 +43,7 @@ export const BottomRow = () => {
           setTerm={setMediumTerm}
           list={lists.mediumTermList}
           listKey="mediumTermList"
-          callback={callback}
+          advanceTerm={advanceTerm}
         />
         <ListGroup
           title={savedLongTerm.title}
@@ -86,7 +51,7 @@ export const BottomRow = () => {
           setTerm={setLongTerm}
           list={lists.longTermList}
           listKey="longTermList"
-          callback={callback}
+          advanceTerm={advanceTerm}
         />
       </DraggableLists>
     </div>
