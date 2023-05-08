@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { selectVisualSettings } from "./features/Settings/settingsSlice";
-import { SettingsWrapper } from "./Components/Settings/OpenSettings";
-import { NowBox } from "./Components/TopRow/NowBox";
+import { SettingsWrapper } from "./components/Settings/OpenSettings";
+import { NowBox } from "./components/TopRow/NowBox";
 import { getStorage } from "./features/utils/storageHelpers";
-import { BottomRow } from "./Components/BottomRow";
-import TimeHandler from "./Components/TimeHandler";
+import { BottomRow } from "./components/BottomRow";
+import TimeHandler from "./components/TimeHandler";
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);
