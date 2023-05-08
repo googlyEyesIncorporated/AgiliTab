@@ -4,7 +4,7 @@ import { selectVisualSettings } from "./features/Settings/settingsSlice";
 import { SettingsWrapper } from "./Components/Settings/OpenSettings";
 import { NowBox } from "./Components/TopRow/NowBox";
 import { getStorage } from "./features/utils/storageHelpers";
-import { BottomRow } from "./Components/BottomRow/BottomRow";
+import { BottomRow } from "./Components/BottomRow";
 import TimeHandler from "./TimeHandler";
 
 function App() {
