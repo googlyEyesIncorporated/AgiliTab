@@ -2,7 +2,7 @@ import { selectAllUnits } from "../../features/Settings/settingsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { selectAllLists } from "../../features/itemList/itemListSlice";
 import { DraggableLists } from "./utils/DraggableLists";
-import { ListGroup } from "./ListGroup";
+import { ListGroup } from "./list/Group";
 import { advanceTerm } from "./utils/utils";
 import { useShortTerm, useTerm } from "./utils/hooks";
 

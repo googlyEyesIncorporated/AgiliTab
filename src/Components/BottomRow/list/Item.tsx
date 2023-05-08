@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectVisualSettings } from "../../features/Settings/settingsSlice";
-import { remove, toggleChecked } from "../../features/itemList/itemListSlice";
-import { ListAndIndex, ListKey } from "../../features/itemList/types";
-import CheckBox from "../Atoms/CheckBox";
-import Icon from "../Atoms/Icon";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { selectVisualSettings } from "../../../features/Settings/settingsSlice";
+import {
+  remove,
+  toggleChecked,
+} from "../../../features/itemList/itemListSlice";
+import { ListAndIndex, ListKey } from "../../../features/itemList/types";
+import CheckBox from "../../Atoms/CheckBox";
+import Icon from "../../Atoms/Icon";
 
 export interface DragAndDrop {
   enterListItem?: (position: ListAndIndex) => void;

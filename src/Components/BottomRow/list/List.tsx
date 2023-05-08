@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useAppSelector } from "../../app/hooks";
-import { ReplaceList } from "../../features/itemList/types";
-import { selectVisualSettings } from "../../features/Settings/settingsSlice";
-import { DragAndDrop, ListItem } from "./ListItem";
-import { Options } from "./ListOptions";
+import { useAppSelector } from "../../../app/hooks";
+import { ReplaceList } from "../../../features/itemList/types";
+import { selectVisualSettings } from "../../../features/Settings/settingsSlice";
+import { DragAndDrop, ListItem } from "./Item";
+import { Options } from "./Options";
 
 interface ListProps extends ReplaceList {
   dragAndDrop?: DragAndDrop;

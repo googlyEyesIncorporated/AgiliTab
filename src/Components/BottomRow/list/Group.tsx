@@ -1,17 +1,14 @@
-import {
-  ItemList,
-  ItemListState,
-  StartEndUnitType,
-} from "../../features/itemList/types";
-import { DragAndDrop } from "./ListItem";
+import { ItemList, StartEndUnitType } from "../../../features/itemList/types";
+import { DragAndDrop } from "./Item";
 import { List } from "./List";
-import { ElapsedTime } from "./ElapsedTime";
+import { ElapsedTime } from "../ElapsedTime";
+import { ListKey } from "../../../features/itemList/types";
 
 interface ListGroupProps {
   title: string;
   list: ItemList;
   dragAndDrop?: DragAndDrop;
-  listKey: keyof ItemListState;
+  listKey: ListKey;
   term?: StartEndUnitType;
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
   advanceTerm: (...props: any) => void;
