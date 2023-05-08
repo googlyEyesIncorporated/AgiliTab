@@ -11,7 +11,7 @@ import CheckBox from "../../Atoms/CheckBox";
 
 export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
 
-const handleChecked = (
+const handleWorkDayToggle = (
   event: SyntheticEvent & { target: { checked: boolean } },
   dispatch: ReturnType<typeof useAppDispatch>
 ) => {
@@ -43,7 +43,7 @@ export const WorkDay = ({
           className="immune"
           nameId="workday-checkbox"
           checked={workDayEnabled ? true : false}
-          onChange={(e) => handleChecked(e, dispatch)}
+          onChange={(e) => handleWorkDayToggle(e, dispatch)}
           labelText="Make day timer based on my workday:"
         />
       </div>
