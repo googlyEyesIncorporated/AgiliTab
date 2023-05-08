@@ -79,7 +79,7 @@ export const ListItem = ({
           onClick={removeItem}
           icon={faTrash}
           faStyle={{ color: done ? secondFontColor : fontColor }}
-          iconClassName={`pull-right${
+          iconClassName={`trashcan pull-right${
             trashCanIsHidden ? " hidden" : " revealed"
           }`}
         />

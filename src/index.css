@@ -436,6 +436,10 @@ input[type="checkbox"]:not(.immune) {
   opacity: 1;
 }
 
+.trashcan {
+  cursor: pointer;
+}
+
 /* KEYFRAMES */
 
 @keyframes fadeInDown {
