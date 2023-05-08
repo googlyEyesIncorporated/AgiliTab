@@ -154,20 +154,22 @@ export const TermInputs = ({
       <button
         id="date-time-format-save"
         disabled={enabled ? false : true}
-        onClick={() =>
-          saveTerm({
-            enabled,
-            isDuration,
-            duration,
-            startDate,
-            dispatch,
-            category,
-            unitType,
-            title,
-            repeat,
-            endDate,
-          })
-        }
+        onClick={() => {
+          if (duration.qty) {
+            saveTerm({
+              enabled,
+              isDuration,
+              duration,
+              startDate,
+              dispatch,
+              category,
+              unitType,
+              title,
+              repeat,
+              endDate,
+            });
+          }
+        }}
       >
         Save
       </button>
