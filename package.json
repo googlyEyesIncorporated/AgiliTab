@@ -39,8 +39,7 @@
     "build:prod": "INLINE_RUNTIME_CHUNK=false dotenv -e .env.production react-scripts build",
     "build": "echo \"Please use build:dev or build:prod \" && exit 1",
     "test": "react-app-rewired test",
-    "test:cov": "react-app-rewired test --coverage",
-    "eject": "react-app-rewired eject"
+    "test:cov": "react-app-rewired test --coverage"
   },
   "eslintConfig": {
     "extends": [
