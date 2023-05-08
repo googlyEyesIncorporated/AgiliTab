@@ -1,7 +1,7 @@
 import { ItemList, StartEndUnitType } from "../../../features/itemList/types";
 import { DragAndDrop } from "./Item";
 import { List } from "./List";
-import { ElapsedTime } from "../ElapsedTime";
+import { ElapsedTime } from "../../Atoms/ElapsedTime";
 import { ListKey } from "../../../features/itemList/types";
 
 interface ListGroupProps {
