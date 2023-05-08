@@ -10,6 +10,23 @@ import { useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { ListGroup } from "./ListGroup";
 import { getRelativeDay, useTerm } from "./utils";
+import { StartEndUnitType } from "../../features/itemList/types";
+
+const callback = (
+  term: StartEndUnitType,
+  setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>,
+  currentTimeMillis: number
+) => {
+  if (term && setTerm) {
+    if (currentTimeMillis > term.end) {
+      const termCopy = { ...term };
+      const duration = term.end - term.start;
+      termCopy.start = term.end + 1;
+      termCopy.end = termCopy.start + duration;
+      setTerm(termCopy);
+    }
+  }
+};
 
 // A component that recieves a date string and renders a group of draggable lists
 // Gets the current time from context, and compares it to the end of each term
@@ -18,7 +35,7 @@ import { getRelativeDay, useTerm } from "./utils";
 // TODO: Update this to be smart about which lists it checks next (smart polling, only the term(S) that is closest to ending)
 // TODO: Update this to be smart about when it checks next (smart polling, only when time is close to end of term)
 
-export const GroupOfLists = () => {
+export const BottomRow = () => {
   // Short term
   const isScopedToWorkingHours = useAppSelector(selectWorkDayToggle);
   const {
@@ -53,6 +70,7 @@ export const GroupOfLists = () => {
           setTerm={setShortTerm}
           list={lists.shortTermList}
           listKey="shortTermList"
+          callback={callback}
         />
         <ListGroup
           title={savedMediumTerm.title}
@@ -60,6 +78,7 @@ export const GroupOfLists = () => {
           setTerm={setMediumTerm}
           list={lists.mediumTermList}
           listKey="mediumTermList"
+          callback={callback}
         />
         <ListGroup
           title={savedLongTerm.title}
@@ -67,6 +86,7 @@ export const GroupOfLists = () => {
           setTerm={setLongTerm}
           list={lists.longTermList}
           listKey="longTermList"
+          callback={callback}
         />
       </DraggableLists>
     </div>

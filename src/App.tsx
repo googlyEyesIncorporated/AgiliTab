@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { selectVisualSettings } from "./features/Settings/settingsSlice";
 import { SettingsWrapper } from "./Components/Settings/OpenSettings";
-import { NowBox } from "./Components/TopRow/NowBox/NowBox";
+import { NowBox } from "./Components/TopRow/NowBox";
 import { getStorage } from "./features/utils/storageHelpers";
-import { GroupOfLists } from "./Components/BottomRow/GroupOfLists";
+import { BottomRow } from "./Components/BottomRow/BottomRow";
 import TimeHandler from "./TimeHandler";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
     <div className="App" style={{ backgroundColor: bgColor, color: fontColor }}>
       <TimeHandler>
         <NowBox />
-        <GroupOfLists />
+        <BottomRow />
       </TimeHandler>
       <SettingsWrapper />
     </div>

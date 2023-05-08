@@ -7,23 +7,15 @@ import { DateTime } from "luxon";
 interface IElapsedTime {
   term?: StartEndUnitType;
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
+  callback: (...props: any) => void;
 }
 
-export const ElapsedTime = ({ term, setTerm }: IElapsedTime) => {
+export const ElapsedTime = ({ term, setTerm, callback }: IElapsedTime) => {
   const date = useContext(DateContext);
+  const currentTimeMillis = DateTime.fromISO(date).toMillis();
   useEffect(() => {
-    const currentTimeMillis = DateTime.fromISO(date).toMillis();
-
-    if (term && setTerm) {
-      if (currentTimeMillis > term.end) {
-        const termCopy = { ...term };
-        const duration = term.end - term.start;
-        termCopy.start = term.end + 1;
-        termCopy.end = termCopy.start + duration;
-        setTerm(termCopy);
-      }
-    }
-  }, [term, setTerm, date]);
+    callback(term, setTerm, currentTimeMillis);
+  }, [term, setTerm, currentTimeMillis, callback]);
 
   if (term) {
     return (
