@@ -22,7 +22,7 @@ export const NowBox = () => {
 
   return (
     <div id="top-row">
-      <div className="now" id="nowbox">
+      <div className="now" id="itisnow">
         <Clock date={date} />
         <span className="date" style={{ marginTop: "1rem" }}>
           <span

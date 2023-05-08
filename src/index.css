@@ -61,7 +61,7 @@ body {
   animation: fadeInDown 1s both;
 }
 
-#nowbox {
+#itisnow {
   border: 1px solid;
   font-size: 3em;
   margin: 0.5rem auto;
@@ -362,7 +362,7 @@ input[type="text"]:focus {
   .countdown-amount {
     font-size: 2rem;
   }
-  #nowbox {
+  #itisnow {
     width: 100%;
     font-size: "3em";
     border: "1px solid";
