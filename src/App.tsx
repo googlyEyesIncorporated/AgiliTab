@@ -5,7 +5,7 @@ import { SettingsWrapper } from "./Components/Settings/OpenSettings";
 import { NowBox } from "./Components/TopRow/NowBox";
 import { getStorage } from "./features/utils/storageHelpers";
 import { BottomRow } from "./Components/BottomRow";
-import TimeHandler from "./TimeHandler";
+import TimeHandler from "./Components/TimeHandler";
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);

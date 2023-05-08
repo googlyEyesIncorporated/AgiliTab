@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { DateContext } from "../../TimeHandler";
+import { DateContext } from "../TimeHandler";
 import { StartEndUnitType } from "../../features/itemList/types";
 import { getCurrentRatio } from "../BottomRow/utils/utils";
 import { DateTime } from "luxon";
