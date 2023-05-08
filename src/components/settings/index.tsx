@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import {
   selectLongTerm,
@@ -37,10 +37,20 @@ export const Settings = ({
   setHidden: SetBooleanState;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  document.addEventListener(
-    "click",
-    handleClickOutside(setHidden, setIsOpen, settingsContainer)
-  );
+  useEffect(() => {
+    document.addEventListener(
+      "click",
+      handleClickOutside(setHidden, setIsOpen, settingsContainer)
+    );
+    return () => {
+      document.removeEventListener(
+        "click",
+        handleClickOutside(setHidden, setIsOpen, settingsContainer)
+      );
+    };
+    // run on mount only
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const { fontColor, bgColor } = useAppSelector(selectVisualSettings);
 
   const mediumTerm = useAppSelector(selectMediumTerm);
