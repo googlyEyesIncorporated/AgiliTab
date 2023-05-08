@@ -21,7 +21,7 @@ export const BottomRow = () => {
     longTerm: savedLongTerm,
   } = useAppSelector(selectAllUnits);
 
-  const [shortTerm, setShortTerm] = useShortTerm();
+  const [shortTerm, setShortTerm, isScopedToWorkingHours] = useShortTerm();
   const [mediumTerm, setMediumTerm] = useTerm(savedMediumTerm);
   const [longTerm, setLongTerm] = useTerm(savedLongTerm);
   const lists = useAppSelector(selectAllLists);
@@ -31,6 +31,7 @@ export const BottomRow = () => {
       <DraggableLists lists={lists}>
         <ListGroup
           title={savedShortTerm.title}
+          isScopedToWorkingHours={isScopedToWorkingHours}
           term={shortTerm}
           setTerm={setShortTerm}
           list={lists.shortTermList}

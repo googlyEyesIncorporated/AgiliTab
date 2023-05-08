@@ -118,17 +118,41 @@ export const getRelativeDay = (
   }
 };
 
+/**
+ * A function that updates the start and end properties of the term object, if the current time is past the end of the current day.
+ * @param currentTimeMillis current time in milliseconds
+ * @param term the term object
+ * @returns boolean indicating whether the term object was updated
+ */
+const advanceWorkingHours = (termObject: StartEndUnitType) => {
+  termObject.start = DateTime.fromMillis(termObject.start)
+    .plus({ days: 1 })
+    .toMillis();
+  termObject.end = DateTime.fromMillis(termObject.end)
+    .plus({ days: 1 })
+    .toMillis();
+};
+
+const advanceTermDay = (termObject: StartEndUnitType) => {
+  const duration = termObject.end - termObject.start;
+  termObject.start = termObject.end + 1;
+  termObject.end = termObject.start + duration;
+};
+
 export const advanceTerm = (
   term: StartEndUnitType,
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>,
-  currentTimeMillis: number
+  currentTimeMillis: number,
+  isScopedToWorkingHours?: boolean
 ) => {
   if (term && setTerm) {
-    if (currentTimeMillis > term.end) {
+    if (currentTimeMillis > endOfToday.toMillis()) {
       const termCopy = { ...term };
-      const duration = term.end - term.start;
-      termCopy.start = term.end + 1;
-      termCopy.end = termCopy.start + duration;
+      if (isScopedToWorkingHours) {
+        advanceWorkingHours(termCopy);
+      } else {
+        advanceTermDay(termCopy);
+      }
       setTerm(termCopy);
     }
   }

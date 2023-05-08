@@ -12,6 +12,7 @@ interface ListGroupProps {
   term?: StartEndUnitType;
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
   advanceTerm: (...props: any) => void;
+  isScopedToWorkingHours?: boolean;
 }
 
 export const ListGroup = ({
@@ -22,12 +23,18 @@ export const ListGroup = ({
   dragAndDrop,
   listKey,
   advanceTerm,
+  isScopedToWorkingHours,
 }: ListGroupProps) => {
   return (
     <div className="priorities">
       <div className="priorities-title">
         <span>{title}</span>
-        <ElapsedTime term={term} setTerm={setTerm} advanceTerm={advanceTerm} />
+        <ElapsedTime
+          term={term}
+          setTerm={setTerm}
+          advanceTerm={advanceTerm}
+          isScopedToWorkingHours={isScopedToWorkingHours}
+        />
       </div>
       <List itemList={list} listKey={listKey} dragAndDrop={dragAndDrop} />
     </div>

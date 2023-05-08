@@ -32,7 +32,8 @@ export const useTerm = (
 
 export const useShortTerm = (): [
   StartEndUnitType,
-  React.Dispatch<React.SetStateAction<StartEndUnitType>>
+  React.Dispatch<React.SetStateAction<StartEndUnitType>>,
+  boolean
 ] => {
   const isScopedToWorkingHours = useAppSelector(selectWorkDayToggle);
   const {
@@ -49,5 +50,5 @@ export const useShortTerm = (): [
       getRelativeDay(isScopedToWorkingHours, workDayEnd, workDayStart)
     );
   }, [isScopedToWorkingHours, workDayStart, workDayEnd]);
-  return [shortTerm, setShortTerm];
+  return [shortTerm, setShortTerm, isScopedToWorkingHours];
 };

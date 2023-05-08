@@ -8,14 +8,20 @@ interface IElapsedTime {
   term?: StartEndUnitType;
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
   advanceTerm: (...props: any) => void;
+  isScopedToWorkingHours?: boolean;
 }
 
-export const ElapsedTime = ({ term, setTerm, advanceTerm }: IElapsedTime) => {
+export const ElapsedTime = ({
+  term,
+  setTerm,
+  advanceTerm,
+  isScopedToWorkingHours,
+}: IElapsedTime) => {
   const date = useContext(DateContext);
   const currentTimeMillis = DateTime.fromISO(date).toMillis();
   useEffect(() => {
-    advanceTerm(term, setTerm, currentTimeMillis);
-  }, [term, setTerm, currentTimeMillis, advanceTerm]);
+    advanceTerm(term, setTerm, currentTimeMillis, isScopedToWorkingHours);
+  }, [term, setTerm, currentTimeMillis, isScopedToWorkingHours, advanceTerm]);
 
   if (term) {
     return (
