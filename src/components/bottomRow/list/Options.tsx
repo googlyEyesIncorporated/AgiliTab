@@ -1,4 +1,4 @@
-import { SyntheticEvent, useRef } from "react";
+import { SyntheticEvent, useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   add,
@@ -49,6 +49,12 @@ export const Options = ({
   const clearDoneTasks = () => {
     dispatch(clearDone({ listKey }));
   };
+
+  useEffect(() => {
+    if (shouldShowOptions) {
+      inputRef.current?.focus();
+    }
+  }, [shouldShowOptions]);
 
   return (
     <div className={`edit-priorities${shouldShowOptions ? "" : " hidden"}`}>
