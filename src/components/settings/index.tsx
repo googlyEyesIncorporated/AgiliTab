@@ -10,6 +10,8 @@ import { SetColors } from "./visual/SetColors";
 import { DateTimeFormat } from "./visual/DateTimeFormat";
 import { WorkDay, SetBooleanState } from "./term/WorkDay";
 import { TermInputs } from "./term/TermInputs";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons/faCircleInfo";
+import Icon from "../atoms/Icon";
 
 const handleClickOutside =
   (
@@ -39,7 +41,7 @@ export const Settings = ({
     "click",
     handleClickOutside(setHidden, setIsOpen, settingsContainer)
   );
-  const { bgColor } = useAppSelector(selectVisualSettings);
+  const { fontColor, bgColor } = useAppSelector(selectVisualSettings);
 
   const mediumTerm = useAppSelector(selectMediumTerm);
   const longTerm = useAppSelector(selectLongTerm);
@@ -50,6 +52,12 @@ export const Settings = ({
       className={hideSettings ? "hidden" : ""}
       style={{ backgroundColor: bgColor }}
     >
+      <Icon
+        onClick={() => {}}
+        icon={faCircleInfo}
+        faStyle={{ color: fontColor, fontSize: "1rem" }}
+        iconClassName={`info-circle pull-right`}
+      />
       <h1 id="customize-corner-title">Customization</h1>
       <SetColors />
       <RestoreDefaults />
