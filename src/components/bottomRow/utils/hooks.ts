@@ -7,7 +7,7 @@ import {
 } from "../../../features/settings/settingsSlice";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { calculateStartEndMs, getRelativeDay } from "./utils";
+import { calculateStartEndMs, getRelativeDay } from ".";
 
 /**
  * A custom hook that takes a term and returns a stateful value and a function to update it

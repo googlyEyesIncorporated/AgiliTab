@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { selectVisualSettings } from "./features/settings/settingsSlice";
-import { SettingsWrapper } from "./components/Settings/OpenSettings";
-import { NowBox } from "./components/TopRow/NowBox";
+import { SettingsWrapper } from "./components/settings/OpenSettings";
+import { NowBox } from "./components/topRow/NowBox";
 import { getStorage } from "./features/utils/storageHelpers";
-import { BottomRow } from "./components/BottomRow";
+import { BottomRow } from "./components/bottomRow";
 import TimeHandler from "./components/TimeHandler";
 
 function App() {

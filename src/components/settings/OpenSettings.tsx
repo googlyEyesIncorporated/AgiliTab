@@ -3,8 +3,8 @@ import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { useAppSelector } from "../../app/hooks";
 
 import { selectVisualSettings } from "../../features/settings/settingsSlice";
-import { Settings } from "./Index";
-import Icon from "../Atoms/Icon";
+import { Settings } from ".";
+import Icon from "../atoms/Icon";
 
 export const SettingsWrapper = () => {
   const { secondFontColor } = useAppSelector(selectVisualSettings);

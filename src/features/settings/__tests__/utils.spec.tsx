@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { onRepeat, saveTerm } from "../utils";
 import { render, fireEvent } from "@testing-library/react";
-import CheckBox from "../../../components/Atoms/CheckBox";
+import CheckBox from "../../../components/atoms/CheckBox";
 
 const mockDispatch = jest.fn();
 jest.mock("../settingsSlice", () => ({

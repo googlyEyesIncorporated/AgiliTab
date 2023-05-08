@@ -1,10 +1,10 @@
 import { selectAllUnits } from "../../features/settings/settingsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { selectAllLists } from "../../features/itemList/itemListSlice";
-import { DraggableLists } from "./utils/DraggableLists";
+import { DraggableLists } from "./utils";
 import { ListGroup } from "./list/Group";
-import { advanceTerm } from "./utils/utils";
-import { useShortTerm, useTerm } from "./utils/hooks";
+import { advanceTerm } from "./utils";
+import { useShortTerm, useTerm } from "./utils";
 
 // A component that recieves a date string and renders a group of draggable lists
 // Gets the current time from context, and compares it to the end of each term

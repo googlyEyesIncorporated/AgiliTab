@@ -7,7 +7,7 @@ import {
   setWorkDayHours,
   toggleWorkDay,
 } from "../../../features/settings/settingsSlice";
-import CheckBox from "../../Atoms/CheckBox";
+import CheckBox from "../../atoms/CheckBox";
 
 export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
 

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { DateContext } from "../TimeHandler";
 import { StartEndUnitType } from "../../features/itemList/types";
-import { getCurrentRatio } from "../BottomRow/utils/utils";
+import { getCurrentRatio } from "../bottomRow/utils";
 import { DateTime } from "luxon";
 
 interface IElapsedTime {

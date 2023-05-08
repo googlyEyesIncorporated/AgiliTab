@@ -10,18 +10,18 @@ import { faUnlock } from "@fortawesome/free-solid-svg-icons/faUnlock";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import RadioButton from "../../Atoms/RadioButton";
+import RadioButton from "../../atoms/RadioButton";
 import { DateTime } from "luxon";
 import { UnitType } from "../../../features/settings/types";
 import { TermName } from "./TermName";
-import CheckBox from "../../Atoms/CheckBox";
+import CheckBox from "../../atoms/CheckBox";
 import { Sentencecase } from "../../../features/utils/Sentencecase";
 import {
   Categories,
   onRepeat,
   saveTerm,
 } from "../../../features/settings/utils";
-import Icon from "../../Atoms/Icon";
+import Icon from "../../atoms/Icon";
 
 const defaultTerms: { mediumTerm: UnitType; longTerm: UnitType } = {
   mediumTerm: defaultMediumTerm,
