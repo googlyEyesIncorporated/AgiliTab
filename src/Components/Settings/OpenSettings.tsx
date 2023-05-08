@@ -3,7 +3,7 @@ import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { useAppSelector } from "../../app/hooks";
 
 import { selectVisualSettings } from "../../features/Settings/settingsSlice";
-import { Settings } from "./Settings";
+import { Settings } from "./Index";
 import Icon from "../Atoms/Icon";
 
 export const SettingsWrapper = () => {
