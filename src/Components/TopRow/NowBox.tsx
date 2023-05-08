@@ -1,12 +1,12 @@
 import { DateTime } from "luxon";
 import { useContext, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectDateFormat,
   updateDay,
-} from "../../../features/Settings/settingsSlice";
+} from "../../features/Settings/settingsSlice";
 import { Clock } from "./Clock";
-import { DateContext } from "../../../TimeHandler";
+import { DateContext } from "../../TimeHandler";
 
 export const NowBox = () => {
   const dispatch = useAppDispatch();
