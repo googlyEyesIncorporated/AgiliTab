@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import {
   selectVisualSettings,
   setVisualSetting,
-} from "../../../features/Settings/settingsSlice";
+} from "../../../features/settings/settingsSlice";
 
 export const SetColors = () => {
   const SettingsBoundary = useRef(null);

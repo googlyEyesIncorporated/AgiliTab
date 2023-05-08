@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DurationState } from "../../../features/Settings/types";
+import { DurationState } from "../../../features/settings/types";
 
 const formats = {
   units: {

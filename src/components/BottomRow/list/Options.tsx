@@ -6,7 +6,7 @@ import {
   clearDone,
 } from "../../../features/itemList/itemListSlice";
 import { v4 as uuidv4 } from "uuid";
-import { selectVisualSettings } from "../../../features/Settings/settingsSlice";
+import { selectVisualSettings } from "../../../features/settings/settingsSlice";
 import { ListKey } from "../../../features/itemList/types";
 
 export const Options = ({

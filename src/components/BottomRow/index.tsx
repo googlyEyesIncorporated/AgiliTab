@@ -1,4 +1,4 @@
-import { selectAllUnits } from "../../features/Settings/settingsSlice";
+import { selectAllUnits } from "../../features/settings/settingsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { selectAllLists } from "../../features/itemList/itemListSlice";
 import { DraggableLists } from "./utils/DraggableLists";

@@ -4,7 +4,7 @@ import {
   selectLongTerm,
   selectMediumTerm,
   selectVisualSettings,
-} from "../../features/Settings/settingsSlice";
+} from "../../features/settings/settingsSlice";
 import { RestoreDefaults } from "./Visual/RestoreDefaults";
 import { SetColors } from "./Visual/SetColors";
 import { DateTimeFormat } from "./Visual/DateTimeFormat";

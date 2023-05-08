@@ -1,10 +1,10 @@
 import { DateTime } from "luxon";
-import { UnitType } from "../../../features/Settings/types";
+import { UnitType } from "../../../features/settings/types";
 import { StartEndUnitType } from "../../../features/itemList/types";
 import {
   selectWorkDayToggle,
   selectWorkingHours,
-} from "../../../features/Settings/settingsSlice";
+} from "../../../features/settings/settingsSlice";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { calculateStartEndMs, getRelativeDay } from "./utils";

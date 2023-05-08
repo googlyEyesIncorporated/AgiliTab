@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../app/hooks";
-import { selectTimeFormat } from "../features/Settings/settingsSlice";
+import { selectTimeFormat } from "../features/settings/settingsSlice";
 import { DateTime } from "luxon";
 import { createContext } from "react";
 

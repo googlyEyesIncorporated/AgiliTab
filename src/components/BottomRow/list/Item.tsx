@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { selectVisualSettings } from "../../../features/Settings/settingsSlice";
+import { selectVisualSettings } from "../../../features/settings/settingsSlice";
 import {
   remove,
   toggleChecked,

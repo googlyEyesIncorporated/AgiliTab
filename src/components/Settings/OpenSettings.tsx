@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { useAppSelector } from "../../app/hooks";
 
-import { selectVisualSettings } from "../../features/Settings/settingsSlice";
+import { selectVisualSettings } from "../../features/settings/settingsSlice";
 import { Settings } from "./Index";
 import Icon from "../Atoms/Icon";
 

@@ -6,7 +6,7 @@ import {
   selectWorkingHours,
   setWorkDayHours,
   toggleWorkDay,
-} from "../../../features/Settings/settingsSlice";
+} from "../../../features/settings/settingsSlice";
 import CheckBox from "../../Atoms/CheckBox";
 
 export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;

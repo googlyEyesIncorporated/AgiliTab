@@ -3,7 +3,7 @@ import {
   defaultLongTerm,
   defaultMediumTerm,
   selectVisualSettings,
-} from "../../../features/Settings/settingsSlice";
+} from "../../../features/settings/settingsSlice";
 import { Duration } from "./Duration";
 import { SelectDate } from "./SelectDate";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons/faUnlock";
@@ -12,7 +12,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import RadioButton from "../../Atoms/RadioButton";
 import { DateTime } from "luxon";
-import { UnitType } from "../../../features/Settings/types";
+import { UnitType } from "../../../features/settings/types";
 import { TermName } from "./TermName";
 import CheckBox from "../../Atoms/CheckBox";
 import { Sentencecase } from "../../../features/utils/Sentencecase";
@@ -20,7 +20,7 @@ import {
   Categories,
   onRepeat,
   saveTerm,
-} from "../../../features/Settings/utils";
+} from "../../../features/settings/utils";
 import Icon from "../../Atoms/Icon";
 
 const defaultTerms: { mediumTerm: UnitType; longTerm: UnitType } = {

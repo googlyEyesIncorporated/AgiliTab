@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { selectVisualSettings } from "./features/Settings/settingsSlice";
+import { selectVisualSettings } from "./features/settings/settingsSlice";
 import { SettingsWrapper } from "./components/Settings/OpenSettings";
 import { NowBox } from "./components/TopRow/NowBox";
 import { getStorage } from "./features/utils/storageHelpers";

@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../../app/hooks";
-import { resetVisualSetting } from "../../../features/Settings/settingsSlice";
+import { resetVisualSetting } from "../../../features/settings/settingsSlice";
 
 export const RestoreDefaults = () => {
   const dispatch = useAppDispatch();

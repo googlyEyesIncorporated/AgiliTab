@@ -1,7 +1,7 @@
-import { SettingsState } from "../Settings/types";
+import { SettingsState } from "../settings/types";
 import { ItemList, ListKey } from "../itemList/types";
 import { useAppDispatch } from "../../app/hooks";
-import { populateSettingssFromChrome } from "../Settings/settingsSlice";
+import { populateSettingssFromChrome } from "../settings/settingsSlice";
 import { populateTasksFromChrome } from "../itemList/itemListSlice";
 
 export type StorageKey = ListKey | "settings";

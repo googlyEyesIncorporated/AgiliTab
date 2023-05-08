@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   selectVisualSettings,
   setDateTimeFormats,
-} from "../../../features/Settings/settingsSlice";
+} from "../../../features/settings/settingsSlice";
 import { Sentencecase } from "../../../features/utils/Sentencecase";
 
 interface Formats {

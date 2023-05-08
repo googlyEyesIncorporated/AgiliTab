@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectDateFormat,
   updateDay,
-} from "../../features/Settings/settingsSlice";
+} from "../../features/settings/settingsSlice";
 import { Clock } from "./Clock";
 import { DateContext } from "../TimeHandler";
 

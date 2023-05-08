@@ -2,12 +2,12 @@ import { DateTime, DurationLikeObject } from "luxon";
 import {
   UnitType,
   ScopedToWorkingHours,
-} from "../../../features/Settings/types";
+} from "../../../features/settings/types";
 import { StartEndUnitType } from "../../../features/itemList/types";
 import {
   endOfToday,
   startOfToday,
-} from "../../../features/Settings/settingsSlice";
+} from "../../../features/settings/settingsSlice";
 
 type Predicate = (date: DateTime, otherDate: DateTime) => boolean;
 export interface CalculatedTimes {
