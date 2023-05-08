@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
-import { useAppDispatch } from "../../app/hooks";
-import { updateList } from "../../features/itemList/itemListSlice";
+import { useAppDispatch } from "../../../app/hooks";
+import { updateList } from "../../../features/itemList/itemListSlice";
 import {
   ItemListState,
   ListAndIndex,
   ListKey,
-} from "../../features/itemList/types";
+} from "../../../features/itemList/types";
 
 export const DraggableLists = ({
   lists,
