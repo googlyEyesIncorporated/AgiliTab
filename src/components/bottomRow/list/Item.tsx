@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectVisualSettings } from "../../../features/settings/settingsSlice";
@@ -53,32 +53,34 @@ export const ListItem = ({
   const inputRef: React.MutableRefObject<HTMLInputElement | null> =
     useRef(null);
 
+  const closeAndSaveInput = useCallback(
+    (name: string) => {
+      dispatch(
+        updateListItem({
+          listKey,
+          name,
+          index,
+        })
+      );
+      setEditBoxIsHidden(true);
+    },
+    [listKey, index, dispatch]
+  );
+
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node | null)
+      ) {
+        closeAndSaveInput(inputRef.current.value);
+      }
+    };
     document.addEventListener("click", handleClickOutside, true);
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, []);
-
-  const closeAndSaveInput = (name: string) => {
-    dispatch(
-      updateListItem({
-        listKey,
-        name,
-        index,
-      })
-    );
-    setEditBoxIsHidden(true);
-  };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      inputRef.current &&
-      !inputRef.current.contains(event.target as Node | null)
-    ) {
-      closeAndSaveInput(inputRef.current.value);
-    }
-  };
+  }, [closeAndSaveInput]);
 
   const removeItem = () => {
     dispatch(remove({ listKey, index }));

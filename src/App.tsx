@@ -25,7 +25,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", CtrlZ);
     };
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     document.body.style.backgroundColor = bgColor;
