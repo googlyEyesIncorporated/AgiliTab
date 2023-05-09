@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectVisualSettings } from "../../../features/settings/settingsSlice";
 import {
   remove,
   toggleChecked,
+  updateListItem,
 } from "../../../features/itemList/itemListSlice";
 import { ListAndIndex, ListKey } from "../../../features/itemList/types";
 import CheckBox from "../../atoms/CheckBox";
 import Icon from "../../atoms/Icon";
+import { ItemList } from "../../../features/itemList/types";
 
 export interface DragAndDrop {
   enterListItem?: (position: ListAndIndex) => void;
@@ -24,6 +26,7 @@ type ListItemProps = {
   index: number;
   listKey: ListKey;
   dragAndDrop?: DragAndDrop;
+  list: ItemList;
 };
 
 export const ListItem = ({
@@ -37,19 +40,46 @@ export const ListItem = ({
     dragEnd = () => {},
     enterListItem = () => {},
   } = {},
+  list: itemList,
 }: ListItemProps) => {
   const dispatch = useAppDispatch();
   const [trashCanIsHidden, setTrashCanIsHidden] = useState(true);
+  const [editBoxIsHidden, setEditBoxIsHidden] = useState(true);
   const { fontColor, secondFontColor, bgColor } =
     useAppSelector(selectVisualSettings);
   const checkboxClick = () => {
     dispatch(toggleChecked({ listKey, index }));
   };
+  const inputRef: React.MutableRefObject<HTMLInputElement | null> =
+    useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      inputRef.current &&
+      !inputRef.current.contains(event.target as Node | null)
+    ) {
+      dispatch(
+        updateListItem({
+          listKey,
+          name: inputRef.current?.value,
+          index,
+        })
+      );
+      setEditBoxIsHidden(true);
+    }
+  };
 
   const removeItem = () => {
     dispatch(remove({ listKey, index }));
   };
-  return (
+  return editBoxIsHidden ? (
     <li
       className={`todo-card`}
       style={{
@@ -63,6 +93,10 @@ export const ListItem = ({
       onDragStart={() => dragStart({ listKey, index })}
       onDragEnter={() => enterListItem({ listKey, index })}
       onDragEnd={() => dragEnd()}
+      onDoubleClick={() => {
+        setEditBoxIsHidden(false);
+        inputRef.current?.focus();
+      }}
     >
       <div className="squaredThree">
         <CheckBox
@@ -84,6 +118,21 @@ export const ListItem = ({
           }`}
         />
       </div>
+    </li>
+  ) : (
+    <li>
+      <input
+        ref={inputRef}
+        type="text"
+        defaultValue={name}
+        style={{
+          color: fontColor,
+          backgroundColor: bgColor,
+          borderColor: fontColor,
+          width: "100%",
+        }}
+        className="todo-edit"
+      />
     </li>
   );
 };

@@ -23,6 +23,7 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
     : itemList.map((props, index, list) => (
         <ListItem
           {...props}
+          list={list}
           done={props.done}
           index={index}
           key={props.id}

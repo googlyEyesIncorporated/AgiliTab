@@ -61,6 +61,14 @@ export const itemListSlice = createSlice({
       state[listKey] = itemList;
       save && updateStorage({ storageKey: listKey, val: state[listKey] });
     },
+    updateListItem: (
+      state,
+      action: PayloadAction<JustListKey & { index: number; name: string }>
+    ) => {
+      const { listKey, name, index } = action.payload;
+      state[listKey][index].name = name;
+      updateStorage({ storageKey: listKey, val: state[listKey] });
+    },
     populateTasksFromChrome: (
       state,
       { payload }: PayloadAction<ItemListState | {}>
@@ -98,6 +106,7 @@ export const {
   clearDone,
   undoDelete,
   updateList,
+  updateListItem,
   populateTasksFromChrome,
 } = itemListSlice.actions;
 
