@@ -10,14 +10,11 @@ import {
 } from "./types";
 import { updateStorage } from "../utils/storageHelpers";
 
-let shortTermList: ItemList = [];
-let mediumTermList: ItemList = [];
-let longTermList: ItemList = [];
-
 const initialTodoListState: ItemListState = {
-  shortTermList,
-  mediumTermList,
-  longTermList,
+  shortTermList: [],
+  mediumTermList: [],
+  longTermList: [],
+  deleteHistory: [],
 };
 
 export const itemListSlice = createSlice({
@@ -32,6 +29,7 @@ export const itemListSlice = createSlice({
     },
     remove: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
+      state.deleteHistory.push({ items: [state[listKey][index]], listKey });
       state[listKey].splice(index, 1);
       updateStorage({ storageKey: listKey, val: state[listKey] });
     },
@@ -42,13 +40,19 @@ export const itemListSlice = createSlice({
     },
     clearDone: (state, action: PayloadAction<JustListKey>) => {
       const { listKey } = action.payload;
+      const deleteList: ItemList = [];
       state[listKey] = state[listKey].filter((item) => {
+        if (item.done) {
+          deleteList.push(item);
+        }
         return !item.done;
       });
+      state.deleteHistory.push({ items: deleteList, listKey });
       updateStorage({ storageKey: listKey, val: state[listKey] });
     },
     clearAll: (state, action: PayloadAction<JustListKey>) => {
       const { listKey } = action.payload;
+      state.deleteHistory.push({ items: state[listKey], listKey });
       state[listKey] = [];
       updateStorage({ storageKey: listKey, val: state[listKey] });
     },
@@ -72,6 +76,17 @@ export const itemListSlice = createSlice({
         state.longTermList = longTermList;
       }
     },
+    undoDelete: (state) => {
+      if (state.deleteHistory.length) {
+        const lastIndex = state.deleteHistory.length - 1;
+        const { listKey, items } = state.deleteHistory[lastIndex];
+        state.deleteHistory = state.deleteHistory.slice(0, lastIndex);
+        if (listKey && Array.isArray(items)) {
+          state[listKey] = [...state[listKey], ...items];
+          updateStorage({ storageKey: listKey, val: state[listKey] });
+        }
+      }
+    },
   },
 });
 
@@ -81,6 +96,7 @@ export const {
   toggleChecked,
   clearAll,
   clearDone,
+  undoDelete,
   updateList,
   populateTasksFromChrome,
 } = itemListSlice.actions;

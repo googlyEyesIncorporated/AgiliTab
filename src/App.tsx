@@ -6,6 +6,7 @@ import { NowBox } from "./components/topRow/NowBox";
 import { getStorage } from "./features/utils/storageHelpers";
 import { BottomRow } from "./components/bottomRow";
 import TimeHandler from "./components/TimeHandler";
+import { undoDelete } from "./features/itemList/itemListSlice";
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);
@@ -14,6 +15,17 @@ function App() {
   useEffect(() => {
     getStorage(dispatch);
   }, [dispatch]);
+
+  useEffect(() => {
+    function CtrlZ(e: KeyboardEvent) {
+      if (e.key === "z" && e.ctrlKey) dispatch(undoDelete());
+    }
+
+    document.addEventListener("keydown", CtrlZ);
+    return () => {
+      document.removeEventListener("keydown", CtrlZ);
+    };
+  }, []);
 
   useEffect(() => {
     document.body.style.backgroundColor = bgColor;

@@ -4,12 +4,18 @@ export interface Item {
   name: string;
   done: boolean;
 }
+
+interface IDeleteHistory {
+  items: ItemList;
+  listKey: ListKey;
+}
 export interface ItemListState {
   shortTermList: ItemList;
   mediumTermList: ItemList;
   longTermList: ItemList;
+  deleteHistory: IDeleteHistory[];
 }
-export type ListKey = keyof ItemListState;
+export type ListKey = keyof Omit<ItemListState, "deleteHistory">;
 export interface ReplaceList extends JustListKey {
   itemList: ItemList;
   save?: boolean;
