@@ -60,19 +60,23 @@ export const ListItem = ({
     };
   }, []);
 
+  const closeAndSaveInput = (name: string) => {
+    dispatch(
+      updateListItem({
+        listKey,
+        name,
+        index,
+      })
+    );
+    setEditBoxIsHidden(true);
+  };
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       inputRef.current &&
       !inputRef.current.contains(event.target as Node | null)
     ) {
-      dispatch(
-        updateListItem({
-          listKey,
-          name: inputRef.current?.value,
-          index,
-        })
-      );
-      setEditBoxIsHidden(true);
+      closeAndSaveInput(inputRef.current.value);
     }
   };
 
@@ -130,6 +134,11 @@ export const ListItem = ({
           backgroundColor: bgColor,
           borderColor: fontColor,
           width: "100%",
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && inputRef.current) {
+            closeAndSaveInput(inputRef.current.value);
+          }
         }}
         className="todo-edit"
       />
