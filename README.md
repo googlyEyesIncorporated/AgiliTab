@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Getting Started with AgiliTab
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template, and I'd do it again too! It's also written in [Typescript](https://www.typescriptlang.org/) and it's a chrome extension with a design that HEAVILY borrows from prioritab, another chrome extension on the market. In fact, I had been using prioritab for a while and I really liked it, but I wanted to make some changes to it. I wanted to be able to customize the time frames I was tracking, because I work in an agile environment with sprints and quarters. Prioritab's codebase has been pretty stale since 2017, so I rewrote it using modern libraries.
 
 ## Available Scripts
 
