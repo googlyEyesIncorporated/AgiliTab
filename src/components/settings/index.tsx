@@ -108,10 +108,12 @@ export const Settings = ({
               <img src="/logo512.png" height={64} alt="logo" />
             </div>
             <div style={{ marginTop: 10 }}>
-              <p style={{ margin: 2 }}>
-                AgiliTab - <a href="https://agilitab.com">agilitab.com</a>
-              </p>
-              <p style={{ margin: 2 }}>Developer: John Tirelli</p>
+              <ul>
+                <li>
+                  AgiliTab - <a href="https://agilitab.com">agilitab.com</a>
+                </li>
+                <li>Developer: John Tirelli</li>
+              </ul>
             </div>
           </li>
           <li>Special thanks:</li>
