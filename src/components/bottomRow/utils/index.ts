@@ -133,7 +133,7 @@ const advanceWorkingHours = (termObject: StartEndUnitType) => {
     .toMillis();
 };
 
-const advanceTermDay = (termObject: StartEndUnitType) => {
+const advanceTermGen = (termObject: StartEndUnitType) => {
   const duration = termObject.end - termObject.start;
   termObject.start = termObject.end + 1;
   termObject.end = termObject.start + duration;
@@ -146,14 +146,18 @@ export const advanceTerm = (
   isScopedToWorkingHours?: boolean
 ) => {
   if (term && setTerm) {
-    if (currentTimeMillis > endOfToday.toMillis()) {
-      const termCopy = { ...term };
+    if (currentTimeMillis > term.end) {
       if (isScopedToWorkingHours) {
-        advanceWorkingHours(termCopy);
+        if (currentTimeMillis > endOfToday.toMillis()) {
+          const termCopy = { ...term };
+          advanceWorkingHours(termCopy);
+          setTerm(termCopy);
+        }
       } else {
-        advanceTermDay(termCopy);
+        const termCopy = { ...term };
+        advanceTermGen(termCopy);
+        setTerm(termCopy);
       }
-      setTerm(termCopy);
     }
   }
 };
