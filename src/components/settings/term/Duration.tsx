@@ -52,10 +52,11 @@ export const Duration = ({
           width: "3rem",
           ...BackgroundAndHeightStyle(enabled),
         }}
+        {...(enabled ? {} : { disabled: true })}
         value={qty}
         onChange={(e) => {
           const newQty = parseInt(e.target.value);
-          if (enabled) setQty(newQty);
+          setQty(newQty);
           if (unit) setDuration({ unit, qty: newQty });
         }}
       />
@@ -64,9 +65,10 @@ export const Duration = ({
         id="date-format-input"
         value={`${unit}`}
         style={BackgroundAndHeightStyle(enabled)}
+        {...(enabled ? {} : { disabled: true })}
         onChange={(e) => {
           const newUnit = e.target.value;
-          if (enabled) setUnit(newUnit);
+          setUnit(newUnit);
           if (qty) setDuration({ unit: newUnit, qty });
         }}
       >

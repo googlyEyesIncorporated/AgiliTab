@@ -16,14 +16,16 @@ import Icon from "../atoms/Icon";
 const handleClickOutside =
   (
     setHidden: SetBooleanState,
-    setIsOpen: SetBooleanState,
+    setIsPopoverOpen: SetBooleanState,
+    setIsInfoOpen: SetBooleanState,
     { current }: React.MutableRefObject<HTMLDivElement | null>
   ) =>
   (event: Event) => {
     // @ts-ignore
     if (current && !current.contains(event.target)) {
       setHidden(true);
-      setIsOpen(false);
+      setIsPopoverOpen(false);
+      setIsInfoOpen(false);
     }
   };
 
@@ -36,23 +38,35 @@ export const Settings = ({
   hideSettings: boolean;
   setHidden: SetBooleanState;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
+
   useEffect(() => {
     document.addEventListener(
       "click",
-      handleClickOutside(setHidden, setIsOpen, settingsContainer)
+      handleClickOutside(
+        setHidden,
+        setIsPopoverOpen,
+        setIsInfoOpen,
+        settingsContainer
+      )
     );
     return () => {
       document.removeEventListener(
         "click",
-        handleClickOutside(setHidden, setIsOpen, settingsContainer)
+        handleClickOutside(
+          setHidden,
+          setIsPopoverOpen,
+          setIsInfoOpen,
+          settingsContainer
+        )
       );
     };
     // run on mount only
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { fontColor, bgColor } = useAppSelector(selectVisualSettings);
 
+  const { fontColor, bgColor } = useAppSelector(selectVisualSettings);
   const mediumTerm = useAppSelector(selectMediumTerm);
   const longTerm = useAppSelector(selectLongTerm);
 
@@ -63,11 +77,53 @@ export const Settings = ({
       style={{ backgroundColor: bgColor }}
     >
       <Icon
-        onClick={() => {}}
+        onClick={() => {
+          setIsInfoOpen(!isInfoOpen);
+        }}
         icon={faCircleInfo}
         faStyle={{ color: fontColor, fontSize: "1rem" }}
         iconClassName={`info-circle pull-right`}
       />
+      <span
+        className={`popover${isInfoOpen ? "" : " hidden"}`}
+        style={{
+          margin: 0,
+          marginTop: 35,
+          padding: 5,
+          border: `1px solid ${fontColor}`,
+          backgroundColor: bgColor,
+          color: fontColor,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          zIndex: 1,
+          height: "fit-content",
+        }}
+      >
+        <ul>
+          <li style={{ display: "grid", gridTemplateColumns: "1fr 4fr" }}>
+            <div>
+              <img src="/logo512.png" height={64} alt="logo" />
+            </div>
+            <div style={{ marginTop: 10 }}>
+              <p style={{ margin: 2 }}>
+                AgiliTab - <a href="https://agilitab.com">agilitab.com</a>
+              </p>
+              <p style={{ margin: 2 }}>Developer: John Tirelli</p>
+            </div>
+          </li>
+          <li>Special thanks:</li>
+          <li>
+            <a href="https://chrome.google.com/webstore/detail/prioritab/napbejkndjhcciibiglkimmgdlfjcbnp">
+              - Prioritab
+            </a>{" "}
+            - The primary inspiration of the design of this extension.
+          </li>
+          <li>- Zeah D. - Design Consultant</li>
+        </ul>
+      </span>
       <h1 id="customize-corner-title">Customization</h1>
       <SetColors />
       <RestoreDefaults />
@@ -75,7 +131,10 @@ export const Settings = ({
       <hr />
       <div style={{ margin: "1rem 0" }} id="customizable-units">
         <h2 style={{ fontSize: "2em" }}>Time Frames:</h2>
-        <WorkDay popover={{ setIsOpen, isOpen }} />
+        <WorkDay
+          isPopoverOpen={isPopoverOpen}
+          setIsPopoverOpen={setIsPopoverOpen}
+        />
         <TermInputs category="medium" termData={mediumTerm} />
         <TermInputs category="long" termData={longTerm} />
       </div>{" "}

@@ -19,9 +19,11 @@ const handleWorkDayToggle = (
 };
 
 export const WorkDay = ({
-  popover,
+  isPopoverOpen,
+  setIsPopoverOpen,
 }: {
-  popover: { isOpen: boolean; setIsOpen: SetBooleanState };
+  isPopoverOpen: boolean;
+  setIsPopoverOpen: SetBooleanState;
 }) => {
   const dispatch = useAppDispatch();
 
@@ -75,20 +77,20 @@ export const WorkDay = ({
         <button
           id="workday-time-save"
           onClick={() => {
-            popover.setIsOpen(false);
+            setIsPopoverOpen(false);
             const startDate = DateTime.fromFormat(hours.start, "T").toMillis();
             const endDate = DateTime.fromFormat(hours.end, "T").toMillis();
             if (endDate > startDate) {
               dispatch(setWorkDayHours(hours));
             } else {
-              popover.setIsOpen(true);
+              setIsPopoverOpen(true);
             }
           }}
         >
           Save
           <div style={{ position: "fixed", overflow: "visible" }}>
             <span
-              className={popover.isOpen ? "" : "hidden"}
+              className={`popover${isPopoverOpen ? "" : " hidden"}`}
               style={{
                 margin: "5px",
                 border: "1px solid red",
