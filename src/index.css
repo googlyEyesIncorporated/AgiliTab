@@ -63,7 +63,7 @@ body {
 
 #nowbox {
   font-size: 1.5rem;
-  margin: 0.5rem;
+  margin: 0.5rem auto;
   text-align: center;
   width: 30%;
 }
