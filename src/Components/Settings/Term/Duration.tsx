@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { DurationState } from "../../../features/Settings/types";
-import { formats } from "../../TopRow/TimeLeftBox/dateData";
 
+const formats = {
+  units: {
+    DAY: "day",
+    WEEK: "week",
+    MONTH: "month",
+    YEAR: "year",
+  },
+};
 interface DurationProps {
   category: string;
   enabled?: boolean;
