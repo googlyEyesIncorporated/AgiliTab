@@ -46,12 +46,15 @@ reference.year.end = DateTime.fromISO(reference.year.start)
   .plus({ years: 1 })
   .toISO();
 
+export const endOfToday = DateTime.now().endOf("day");
+export const startOfToday = DateTime.now().startOf("day");
+
 const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
   unitType: "day",
   title: "Today",
   duration: reference.durations.shortTerm,
-  endDate: DateTime.now().endOf("day").toISO(),
-  startDate: DateTime.now().startOf("day").toISO(),
+  endDate: endOfToday.toISO(),
+  startDate: startOfToday.toISO(),
   workingHours: reference.workDay,
   isDuration: true,
   repeat: true,

@@ -8,10 +8,10 @@ import CheckBox from "../Atoms/CheckBox";
 import Icon from "../Atoms/Icon";
 
 export interface DragAndDrop {
-  enterListItem: (position: ListAndIndex) => void;
-  dragStart: (position: ListAndIndex) => void;
-  dragEnd: () => void;
-  enterList: (listKey: ListKey) => void;
+  enterListItem?: (position: ListAndIndex) => void;
+  dragStart?: (position: ListAndIndex) => void;
+  dragEnd?: () => void;
+  enterList?: (listKey: ListKey) => void;
 }
 
 type ListItemProps = {
@@ -20,7 +20,7 @@ type ListItemProps = {
   id: string;
   index: number;
   listKey: ListKey;
-  dragAndDrop: Omit<DragAndDrop, "enterList">;
+  dragAndDrop?: DragAndDrop;
 };
 
 export const ListItem = ({
@@ -29,7 +29,11 @@ export const ListItem = ({
   done = false,
   index,
   listKey,
-  dragAndDrop: { dragStart, dragEnd, enterListItem },
+  dragAndDrop: {
+    dragStart = () => {},
+    dragEnd = () => {},
+    enterListItem = () => {},
+  } = {},
 }: ListItemProps) => {
   const dispatch = useAppDispatch();
   const [trashCanIsHidden, setTrashCanIsHidden] = useState(true);

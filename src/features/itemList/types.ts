@@ -23,3 +23,9 @@ export interface ListAndItem extends JustListKey {
 export interface JustListKey {
   listKey: ListKey;
 }
+
+export interface StartEndUnitType {
+  start: number;
+  end: number;
+  unitType: string;
+}

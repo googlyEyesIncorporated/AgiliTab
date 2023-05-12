@@ -1,33 +1,17 @@
 import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   selectDateFormat,
-  selectTimeFormat,
   updateDay,
 } from "../../../features/Settings/settingsSlice";
 import { Clock } from "./Clock";
+import { DateContext } from "../../../TimeHandler";
 
 export const NowBox = () => {
-  const [date, setDate] = useState(DateTime.now().toISO());
   const dispatch = useAppDispatch();
   const dateFormat = useAppSelector(selectDateFormat);
-  const timeFormat = useAppSelector(selectTimeFormat);
-  const withSeconds = Boolean(timeFormat.split(":")[2]);
-  useEffect(() => {
-    const delay = withSeconds ? 1000 : 5000;
-    const updateDate = () => {
-      setDate(DateTime.now().toISO());
-    };
-
-    updateDate();
-
-    const interval = setInterval(() => {
-      updateDate();
-    }, delay);
-
-    return () => clearInterval(interval);
-  }, [withSeconds]);
+  const date = useContext(DateContext);
 
   const startOfDay = DateTime.fromISO(date).startOf("day").toISO();
 

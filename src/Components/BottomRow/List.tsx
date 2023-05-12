@@ -6,17 +6,17 @@ import { DragAndDrop, ListItem } from "./ListItem";
 import { Options } from "./ListOptions";
 
 interface ListProps extends ReplaceList {
-  dragAndDrop: DragAndDrop;
+  dragAndDrop?: DragAndDrop;
 }
 
 export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
+  const { enterList = () => {} } = dragAndDrop || {};
   const [shouldShowOptions, setShouldShowOptions] = useState(false);
   const { secondFontColor } = useAppSelector(selectVisualSettings);
 
   const toggleOptions = () => {
     setShouldShowOptions(!shouldShowOptions);
   };
-  const { ...restDND } = dragAndDrop;
 
   const ListItems = !Array.isArray(itemList)
     ? null
@@ -27,16 +27,13 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
           index={index}
           key={props.id}
           listKey={listKey}
-          dragAndDrop={restDND}
+          dragAndDrop={dragAndDrop}
         />
       ));
 
   return (
     <div className="list">
-      <div
-        className="list-scrollable"
-        onDragEnter={() => dragAndDrop.enterList(listKey)}
-      >
+      <div className="list-scrollable" onDragEnter={() => enterList(listKey)}>
         <ul className="shown-items">{ListItems}</ul>
         {!shouldShowOptions && (
           <button

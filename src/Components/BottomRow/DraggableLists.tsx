@@ -1,16 +1,18 @@
-import { useRef } from "react";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import React, { useRef } from "react";
+import { useAppDispatch } from "../../app/hooks";
+import { updateList } from "../../features/itemList/itemListSlice";
 import {
-  selectAllLists,
-  updateList,
-} from "../../features/itemList/itemListSlice";
-import { ListAndIndex, ListKey } from "../../features/itemList/types";
-import { selectAllUnits } from "../../features/Settings/settingsSlice";
-import { List } from "./List";
+  ItemListState,
+  ListAndIndex,
+  ListKey,
+} from "../../features/itemList/types";
 
-export const DraggableLists = () => {
-  const lists = useAppSelector(selectAllLists);
-  const { shortTerm, mediumTerm, longTerm } = useAppSelector(selectAllUnits);
+export const DraggableLists = ({
+  lists,
+  children,
+}: React.PropsWithChildren<{
+  lists: ItemListState;
+}>) => {
   const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dragTo: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dispatch = useAppDispatch();
@@ -54,31 +56,12 @@ export const DraggableLists = () => {
   };
 
   return (
-    <div id="bottom-row">
-      <div className="priorities">
-        <div className="priorities-title">{shortTerm.title}</div>
-        <List
-          itemList={lists.shortTermList}
-          listKey="shortTermList"
-          dragAndDrop={dragAndDrop}
-        />
-      </div>
-      <div className="priorities">
-        <div className="priorities-title">{mediumTerm.title}</div>
-        <List
-          itemList={lists.mediumTermList}
-          listKey="mediumTermList"
-          dragAndDrop={dragAndDrop}
-        />
-      </div>
-      <div className="priorities">
-        <div className="priorities-title">{longTerm.title}</div>
-        <List
-          itemList={lists.longTermList}
-          listKey="longTermList"
-          dragAndDrop={dragAndDrop}
-        />
-      </div>
-    </div>
+    <>
+      {React.Children.map(children, (child) => {
+        return React.cloneElement(child as React.ReactElement<any>, {
+          dragAndDrop,
+        });
+      })}
+    </>
   );
 };
