@@ -110,7 +110,7 @@ export const Settings = ({
             <div style={{ marginTop: 10 }}>
               <ul>
                 <li>
-                  AgiliTab - <a href="https://agilitab.com">agilitab.com</a>
+                  AgiliTab - <a href="http://agilitab.com">agilitab.com</a>
                 </li>
                 <li>Developer: John Tirelli</li>
               </ul>
