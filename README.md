@@ -44,4 +44,6 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
+## Install as an extension
+
+Go to (replace link with published link) - https://chrome.google.com/webstore/category/extensions?hl=en
