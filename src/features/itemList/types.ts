@@ -14,8 +14,12 @@ export interface ItemListState {
   mediumTermList: ItemList;
   longTermList: ItemList;
   deleteHistory: IDeleteHistory[];
+  shouldShowToaster: boolean;
 }
-export type ListKey = keyof Omit<ItemListState, "deleteHistory">;
+export type ListKey = keyof Omit<
+  ItemListState,
+  "deleteHistory" | "shouldShowToaster"
+>;
 export interface ReplaceList extends JustListKey {
   itemList: ItemList;
   save?: boolean;

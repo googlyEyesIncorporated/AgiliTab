@@ -7,6 +7,9 @@ import { getStorage } from "./features/utils/storageHelpers";
 import { BottomRow } from "./components/bottomRow";
 import TimeHandler from "./components/TimeHandler";
 import { undoDelete } from "./features/itemList/itemListSlice";
+import Toaster from "./components/atoms/ToasterNotifications";
+
+const ITEM_DELETED_NOTIFICATION = `Item's removed, press "Ctrl + z" to undo.`;
 
 function App() {
   const { bgColor, fontColor } = useAppSelector(selectVisualSettings);
@@ -38,6 +41,7 @@ function App() {
         <BottomRow />
       </TimeHandler>
       <SettingsWrapper />
+      <Toaster message={ITEM_DELETED_NOTIFICATION} />
     </div>
   );
 }

@@ -15,6 +15,7 @@ const initialTodoListState: ItemListState = {
   mediumTermList: [],
   longTermList: [],
   deleteHistory: [],
+  shouldShowToaster: false,
 };
 
 export const itemListSlice = createSlice({
@@ -30,6 +31,7 @@ export const itemListSlice = createSlice({
     remove: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
       state.deleteHistory.push({ items: [state[listKey][index]], listKey });
+      state.shouldShowToaster = true;
       state[listKey].splice(index, 1);
       updateStorage({ storageKey: listKey, val: state[listKey] });
     },
@@ -48,11 +50,13 @@ export const itemListSlice = createSlice({
         return !item.done;
       });
       state.deleteHistory.push({ items: deleteList, listKey });
+      state.shouldShowToaster = true;
       updateStorage({ storageKey: listKey, val: state[listKey] });
     },
     clearAll: (state, action: PayloadAction<JustListKey>) => {
       const { listKey } = action.payload;
       state.deleteHistory.push({ items: state[listKey], listKey });
+      state.shouldShowToaster = true;
       state[listKey] = [];
       updateStorage({ storageKey: listKey, val: state[listKey] });
     },
@@ -95,6 +99,9 @@ export const itemListSlice = createSlice({
         }
       }
     },
+    toggleShouldShowToaster: (state, action: PayloadAction<boolean>) => {
+      state.shouldShowToaster = action.payload;
+    },
   },
 });
 
@@ -108,6 +115,7 @@ export const {
   updateList,
   updateListItem,
   populateTasksFromChrome,
+  toggleShouldShowToaster,
 } = itemListSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
@@ -120,5 +128,7 @@ export const selectMediumTermList = (state: RootState) =>
   state.itemList.mediumTermList;
 export const selectLongTermList = (state: RootState) =>
   state.itemList.longTermList;
+export const selectShouldShowToaster = (state: RootState) =>
+  state.itemList.shouldShowToaster;
 
 export default itemListSlice.reducer;

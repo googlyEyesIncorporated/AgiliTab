@@ -108,14 +108,6 @@ body {
   display: inline-block;
 }
 
-.countdown-segment {
-  float: left;
-  text-align: center;
-  width: 33%;
-  display: inline-block;
-  vertical-align: top;
-}
-
 .countdown-amount {
   font-size: 3rem;
 }
@@ -438,6 +430,31 @@ input[type="checkbox"]:not(.immune) {
 
 .trashcan {
   cursor: pointer;
+}
+
+.toaster {
+  position: fixed;
+  bottom: calc(1 / 3 * 100vh);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.fade-out {
+  animation: fadeOut 4s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* KEYFRAMES */
