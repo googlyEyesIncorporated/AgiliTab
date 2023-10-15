@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
-import { RootState } from "../../app/store";
+import { RootState, store } from "../../app/store";
 import {
   BooleanPayload,
   DateFormat,
@@ -99,6 +99,19 @@ export const initialSettings: SettingsState = {
   visual: initalVisuals,
 };
 
+let settingUpdateTimeoutId: NodeJS.Timeout | null = null;
+
+const localStorageDebounce = (state: SettingsState) => {
+  if (settingUpdateTimeoutId) {
+    clearTimeout(settingUpdateTimeoutId)
+    settingUpdateTimeoutId = null
+  }
+  settingUpdateTimeoutId = setTimeout(() => {
+    const state = store.getState().settings
+    updateStorage({ storageKey: "settings", val: state });
+  }, 1000)
+}
+
 export const unitsSlice = createSlice({
   name: "units",
   initialState: initialSettings,
@@ -149,7 +162,7 @@ export const unitsSlice = createSlice({
       { payload: { key, value } }: PayloadAction<KeyValuePair>
     ) => {
       state.visual[key] = value;
-      updateStorage({ storageKey: "settings", val: state });
+      localStorageDebounce(state)
     },
     setDateTimeFormats: (
       state,
@@ -171,7 +184,7 @@ export const unitsSlice = createSlice({
         key: keyof Omit<UnitsState, "shortTerm">;
       }>
     ) => {
-      const { key, termObj } = payload;
+const { key, termObj } = payload;
       state.units[key] = termObj;
       updateStorage({ storageKey: "settings", val: state });
     },
