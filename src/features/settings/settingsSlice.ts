@@ -122,8 +122,7 @@ export const unitsSlice = createSlice({
       { payload }: PayloadAction<SettingsState | {}>
     ) => {
       if ("units" in payload) {
-        const { units } = payload;
-        state.units = units;
+        state.units = payload.units;
       }
       if ("visual" in payload) {
         state.visual = payload.visual;
@@ -178,13 +177,12 @@ export const unitsSlice = createSlice({
     setNotShortTerm: (
       state,
       {
-        payload,
+        payload: { key, termObj },
       }: PayloadAction<{
         termObj: UnitType;
         key: keyof Omit<UnitsState, "shortTerm">;
       }>
     ) => {
-const { key, termObj } = payload;
       state.units[key] = termObj;
       updateStorage({ storageKey: "settings", val: state });
     },
