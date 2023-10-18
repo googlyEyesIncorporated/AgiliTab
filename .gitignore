@@ -10,6 +10,8 @@
 launch.json
 
 # production
+/agiliTab
+agiliTab.zip
 /build
 build.pem
 build.crx

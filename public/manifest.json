@@ -1,9 +1,15 @@
 {
   "name": "agiliTab",
-  "description": "A highly configurable new tab page to remind you of your priorities",
-  "version": "1.0.0",
+  "description": "A highly configurable new tab page to remind you of your priorities, and the time you have left to see the through",
+  "version": "0.0.1",
   "chrome_url_overrides": {
     "newtab": "index.html"
+  },
+  "icons": {
+    "16": "16.png",
+    "48": "48.png",
+    "128": "128.png",
+    "512": "512.png"
   },
   "manifest_version": 3,
   "permissions": ["storage"]
