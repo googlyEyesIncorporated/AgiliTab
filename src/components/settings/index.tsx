@@ -76,18 +76,6 @@ export const Settings = ({
       className={hideSettings ? "hidden" : ""}
       style={{ backgroundColor: bgColor }}
     >
-      <Icon
-        onClick={() => {
-          setIsInfoOpen(!isInfoOpen);
-        }}
-        icon={faCircleInfo}
-        faStyle={{
-          color: secondFontColor,
-          fontSize: "1rem",
-          margin: "0 10px",
-        }}
-        iconClassName={`info-circle pull-right`}
-      />
       <span
         className={`popover${isInfoOpen ? "" : " hidden"}`}
         style={{
@@ -153,6 +141,18 @@ export const Settings = ({
         >
           ( Hide )
         </button>
+        <Icon
+          onClick={() => {
+            setIsInfoOpen(!isInfoOpen);
+          }}
+          icon={faCircleInfo}
+          faStyle={{
+            color: secondFontColor,
+            fontSize: "1rem",
+            margin: "0 10px",
+          }}
+          iconClassName={`info-circle pull-right`}
+        />
       </div>
     </div>
   );
