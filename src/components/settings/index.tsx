@@ -12,6 +12,7 @@ import { WorkDay, SetBooleanState } from "./term/WorkDay";
 import { TermInputs } from "./term/TermInputs";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons/faCircleInfo";
 import Icon from "../atoms/Icon";
+import { GenerateRandomColors } from "./visual/GenerateRandomColors";
 
 const handleClickOutside =
   (
@@ -128,7 +129,10 @@ export const Settings = ({
       </span>
       <h1 id="customize-corner-title">Customization</h1>
       <SetColors />
-      <RestoreDefaults />
+      <div style={{ margin: "1rem 0" }}>
+        <RestoreDefaults /> | <GenerateRandomColors />
+      </div>
+      <hr />
       <DateTimeFormat />
       <hr />
       <div style={{ margin: "1rem 0" }} id="customizable-units">
