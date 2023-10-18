@@ -6,9 +6,9 @@ import {
 } from "../../../features/settings/settingsSlice";
 import { Duration } from "./Duration";
 import { SelectDate } from "./SelectDate";
+import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons/faUnlock";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
-import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import RadioButton from "../../atoms/RadioButton";
 import { DateTime } from "luxon";

@@ -45,19 +45,3 @@ export const generateAndDispatchRandomColors = (
     })
   );
 };
-
-export const GenerateRandomColors = () => {
-  const dispatch = useAppDispatch();
-
-  return (
-    <span>
-      <button
-        id="generate-random-colors"
-        className="cursor-pointer px-3 pt-3 pb-3 button-height"
-        onClick={() => generateAndDispatchRandomColors(dispatch)}
-      >
-        Generate random colors
-      </button>
-    </span>
-  );
-};
