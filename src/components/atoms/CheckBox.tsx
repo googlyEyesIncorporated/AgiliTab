@@ -7,6 +7,8 @@ interface CheckBoxProps {
   inputStyle?: React.CSSProperties;
   labelStyle?: React.CSSProperties;
   className?: string;
+  labelClass?: string;
+  labelOnRight?: boolean;
   "data-testid"?: string;
 }
 
@@ -15,10 +17,17 @@ const CheckBox = ({
   labelText,
   inputStyle,
   labelStyle,
+  labelClass,
+  labelOnRight,
   ...rest
 }: CheckBoxProps) => {
   return (
     <>
+      {labelOnRight && (
+        <label style={labelStyle} htmlFor={nameId} className={labelClass}>
+          {labelText}
+        </label>
+      )}
       <input
         type="checkbox"
         name={nameId}
@@ -26,10 +35,11 @@ const CheckBox = ({
         style={inputStyle}
         {...rest}
       />
-
-      <label style={labelStyle} htmlFor={nameId}>
-        {labelText}
-      </label>
+      {!labelOnRight && (
+        <label style={labelStyle} htmlFor={nameId} className={labelClass}>
+          {labelText}
+        </label>
+      )}
     </>
   );
 };

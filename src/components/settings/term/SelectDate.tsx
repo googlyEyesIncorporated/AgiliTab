@@ -63,8 +63,9 @@ export const SelectDate = ({
         id={`${category}-${title}-datepicker`}
         name={`${category}-${title}-datepicker`}
         value={DateTime.fromISO(date).toISODate() || ""}
-        style={{ backgroundColor: enabled ? "ButtonFace" : "darkgray" }}
+        style={{ backgroundColor: enabled ? "white" : "darkgray" }}
         disabled={enabled ? false : true}
+        className="pt-5 pl-3 input-height"
         onChange={(e) => {
           handleDateSelection({
             value: e.target.value,

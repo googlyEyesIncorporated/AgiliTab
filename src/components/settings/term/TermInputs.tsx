@@ -120,8 +120,9 @@ export const TermInputs = ({
               margin: "0px 0.3rem",
               float: "right",
             }}
-            labelStyle={{ float: "right" }}
+            labelClass="pull-right align-checkbox-label"
             labelText="Repeat?"
+            labelOnRight
           />
         </div>
       </div>
@@ -154,7 +155,8 @@ export const TermInputs = ({
         />
       )}
       <button
-        id="date-time-format-save"
+        id="term-inputs-format-save"
+        className="pt-5 pb-1 px-3 button-height"
         disabled={enabled ? false : true}
         onClick={() => {
           if (duration.qty) {

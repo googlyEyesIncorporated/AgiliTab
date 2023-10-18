@@ -24,6 +24,7 @@ export const TermName = ({
         type="text"
         value={title}
         disabled={enabled ? false : true}
+        className="pt-5 pb-0 pl-3 input-height"
         onChange={(e) => {
           if (enabled) {
             setTitle(e.target.value);
@@ -32,8 +33,8 @@ export const TermName = ({
         }}
         style={{
           width: "10rem",
-          height: "1.1875rem",
-          backgroundColor: enabled ? "ButtonFace" : "darkgray",
+          backgroundColor: enabled ? "white" : "darkgray",
+          lineHeight: 3,
         }}
       />
     </div>

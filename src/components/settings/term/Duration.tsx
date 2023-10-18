@@ -17,8 +17,7 @@ interface DurationProps {
 }
 
 const BackgroundAndHeightStyle = (enabled: boolean) => ({
-  height: "1.1875rem",
-  backgroundColor: enabled ? "ButtonFace" : "darkgray",
+  backgroundColor: enabled ? "white" : "darkgray",
 });
 
 export const Duration = ({
@@ -51,9 +50,11 @@ export const Duration = ({
         id={categoryUnitQty}
         min="1"
         max="100"
+        className="pt-5 pl-3 input-height"
         style={{
           width: "3rem",
           ...BackgroundAndHeightStyle(enabled),
+          lineHeight: 2,
         }}
         {...(enabled ? {} : { disabled: true })}
         value={qty}
@@ -64,6 +65,7 @@ export const Duration = ({
         }}
       />
       <select
+        className="pt-5 pb-2 v-align-top input-height"
         name={categoryDurationFormatInput}
         id={categoryDurationFormatInput}
         value={`${unit}`}

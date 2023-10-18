@@ -5,14 +5,14 @@ export const RestoreDefaults = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div style={{ margin: "1rem 0" }}>
+    <span>
       <button
         id="restore-default-colors"
-        className="cursor-pointer"
+        className="cursor-pointer px-3 pt-3 pb-3 button-height"
         onClick={() => dispatch(resetVisualSetting())}
       >
         Restore default colors
       </button>
-    </div>
+    </span>
   );
 };

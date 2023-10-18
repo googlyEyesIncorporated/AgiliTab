@@ -46,7 +46,8 @@ export const WorkDay = ({
           nameId="workday-checkbox"
           checked={workDayEnabled ? true : false}
           onChange={(e) => handleWorkDayToggle(e, dispatch)}
-          labelText="Make day timer based on my workday:"
+          labelText="Make day timer based on my workday"
+          labelClass="pl-5 align-checkbox-label"
         />
       </div>
       <div style={{ display: "inline-block", width: "50%" }}>
@@ -57,8 +58,7 @@ export const WorkDay = ({
           id="workday-start-timeinput"
           value={hours.start}
           onChange={(e) => setHours({ start: e.target.value, end: hours.end })}
-          className="time-input"
-          style={{ height: "1.1875rem" }}
+          className="time-input pt-1 pl-3"
         />
       </div>
       <div style={{ display: "inline-block", width: "50%" }}>
@@ -71,11 +71,11 @@ export const WorkDay = ({
           onChange={(e) =>
             setHours({ start: hours.start, end: e.target.value })
           }
-          className="time-input"
-          style={{ height: "1.1875rem" }}
+          className="time-input pt-1 pl-3"
         />{" "}
         <button
           id="workday-time-save"
+          className="pt-5 pb-1 px-3 v-align-top button-height"
           onClick={() => {
             setIsPopoverOpen(false);
             const startDate = DateTime.fromFormat(hours.start, "T").toMillis();

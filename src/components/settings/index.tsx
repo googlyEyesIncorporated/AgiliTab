@@ -105,7 +105,7 @@ export const Settings = ({
         <ul>
           <li style={{ display: "grid", gridTemplateColumns: "1fr 4fr" }}>
             <div>
-              <img src="/logo512.png" height={64} alt="logo" />
+              <img src="/128.png" height={64} alt="logo" />
             </div>
             <div style={{ marginTop: 10 }}>
               <ul>
@@ -132,20 +132,22 @@ export const Settings = ({
       <DateTimeFormat />
       <hr />
       <div style={{ margin: "1rem 0" }} id="customizable-units">
-        <h2 style={{ fontSize: "2em" }}>Time Frames:</h2>
+        <h2 style={{ fontSize: "2em" }}>Time Frames</h2>
         <WorkDay
           isPopoverOpen={isPopoverOpen}
           setIsPopoverOpen={setIsPopoverOpen}
         />
+        <hr />
         <TermInputs category="medium" termData={mediumTerm} />
+        <hr />
         <TermInputs category="long" termData={longTerm} />
       </div>{" "}
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}
-          className="cursor-pointer"
+          className="cursor-pointer pt-5 pb-3 px-3 button-height"
         >
-          (Hide)
+          ( Hide )
         </button>
       </div>
     </div>
