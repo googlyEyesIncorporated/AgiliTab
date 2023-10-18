@@ -28,9 +28,9 @@ export const SetColors = () => {
           faStyle={{
             color: secondFontColor,
             fontSize: "1rem",
-            float: "right",
             margin: "0 10px",
           }}
+          iconClassName={`pull-right`}
         />
         <Icon
           onClick={() => dispatch(resetVisualSetting())}

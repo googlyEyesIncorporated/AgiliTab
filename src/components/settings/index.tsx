@@ -65,7 +65,8 @@ export const Settings = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { fontColor, bgColor } = useAppSelector(selectVisualSettings);
+  const { fontColor, bgColor, secondFontColor } =
+    useAppSelector(selectVisualSettings);
   const mediumTerm = useAppSelector(selectMediumTerm);
   const longTerm = useAppSelector(selectLongTerm);
 
@@ -80,7 +81,11 @@ export const Settings = ({
           setIsInfoOpen(!isInfoOpen);
         }}
         icon={faCircleInfo}
-        faStyle={{ color: fontColor, fontSize: "1rem" }}
+        faStyle={{
+          color: secondFontColor,
+          fontSize: "1rem",
+          margin: "0 10px",
+        }}
         iconClassName={`info-circle pull-right`}
       />
       <span
