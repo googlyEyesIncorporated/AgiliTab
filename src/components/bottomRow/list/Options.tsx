@@ -60,6 +60,7 @@ export const Options = ({
     <div className={`edit-priorities${shouldShowOptions ? "" : " hidden"}`}>
       <form id={`todo-form-${listKey}`}>
         <input
+          id={`todo-input-${listKey}`}
           ref={inputRef}
           type="text"
           style={{

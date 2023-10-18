@@ -26,7 +26,7 @@ export const SetColors = () => {
             )
           }
         />
-        <label htmlFor="bgColor"> Background Color</label>
+        <label htmlFor="bgColor-picker"> Background Color</label>
       </div>
       <div>
         <input
@@ -40,7 +40,7 @@ export const SetColors = () => {
             )
           }
         />
-        <label htmlFor="fontColor"> Font Color</label>
+        <label htmlFor="fontColor-picker"> Font Color</label>
       </div>
       <div>
         <input
@@ -57,7 +57,7 @@ export const SetColors = () => {
             )
           }
         />
-        <label htmlFor="secondFontColor"> Secondary Font Color</label>
+        <label htmlFor="secondFontColor-picker"> Secondary Font Color</label>
       </div>
     </div>
   );

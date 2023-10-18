@@ -60,6 +60,8 @@ export const TermInputs = ({
     setRepeat(termData.repeat);
   }, [termData]);
 
+  const checkboxId = `${category}_repeat-duration`;
+
   return (
     <div style={{ margin: "0.5rem 0" }}>
       <h2>
@@ -109,7 +111,7 @@ export const TermInputs = ({
           />
           &nbsp; &nbsp;
           <CheckBox
-            nameId="repeat-duration"
+            nameId={checkboxId}
             checked={termData.repeat ? true : false}
             onChange={onRepeat(dispatch, category)}
             disabled={enabled && isDuration ? false : true}

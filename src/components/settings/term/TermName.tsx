@@ -14,12 +14,13 @@ export const TermName = ({
   setTitle,
   setUnitType,
 }: TermNameProps) => {
+  const categoryName = `${category}-unit-name`;
   return (
     <div style={{ display: "inline-block", width: "50%" }}>
-      <label htmlFor={`${category}-unit-name`}>Name: </label>
+      <label htmlFor={categoryName}>Name: </label>
       <input
-        id="date-unit-name"
-        name={`${category}-unit-name`}
+        id={categoryName}
+        name={categoryName}
         type="text"
         value={title}
         disabled={enabled ? false : true}

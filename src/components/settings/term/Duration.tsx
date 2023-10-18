@@ -39,13 +39,16 @@ export const Duration = ({
     if (dUnit) setUnit(dUnit);
   }, [dUnit]);
 
+  const categoryUnitQty = `${category}-unit-qty`;
+  const categoryDurationFormatInput = `${category}-duration-format-input`;
+
   return (
     <div style={{ display: "inline-block", width: "50%" }}>
-      <label htmlFor={`${category}-unit-qty`}>Duration: </label>
+      <label htmlFor={categoryUnitQty}>Duration: </label>
       <input
         type="number"
-        name={`${category}-unit-qty`}
-        id={`${category}-unit-qty`}
+        name={categoryUnitQty}
+        id={categoryUnitQty}
         min="1"
         max="100"
         style={{
@@ -61,8 +64,8 @@ export const Duration = ({
         }}
       />
       <select
-        name="date-format-input"
-        id="date-format-input"
+        name={categoryDurationFormatInput}
+        id={categoryDurationFormatInput}
         value={`${unit}`}
         style={BackgroundAndHeightStyle(enabled)}
         {...(enabled ? {} : { disabled: true })}
