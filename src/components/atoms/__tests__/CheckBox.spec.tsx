@@ -3,21 +3,19 @@ import { ChangeEvent } from "react";
 import CheckBox from "../CheckBox";
 
 const mockOnChange = jest.fn((e: ChangeEvent) => {});
-const TEST = "test";
+
+const commonProps = {
+  "data-testid": "test",
+  labelText: "labelText",
+  nameId: "nameId",
+};
 describe("CheckBox", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
   it("calls the provided onChange when clicked", () => {
-    const { container, getByTestId } = render(
-      <CheckBox
-        {...{ ["data-testid"]: "test" }}
-        labelText="labelText"
-        nameId="nameId"
-        onChange={mockOnChange}
-      />
-    );
-    const checkbox = getByTestId("test") as HTMLInputElement;
+    render(<CheckBox {...commonProps} onChange={mockOnChange} />);
+    const checkbox = screen.getByTestId("test") as HTMLInputElement; // NOSONAR
     expect(checkbox.checked).toBe(false);
     fireEvent.click(checkbox);
     expect(checkbox.checked).toBe(true);
@@ -25,41 +23,27 @@ describe("CheckBox", () => {
   });
 
   it("uses the provided labelText, className, inputStyle", () => {
-    const { getByText } = render(
+    render(
       <CheckBox
-        {...{ ["data-testid"]: "test" }}
-        labelText="labelText"
-        nameId="nameId"
+        {...commonProps}
         onChange={mockOnChange}
         labelStyle={{ backgroundColor: "red" }}
       />
     );
-    const labelByText = getByText("labelText") as HTMLInputElement;
+    const labelByText = screen.getByText("labelText") as HTMLInputElement; // NOSONAR
     expect(labelByText.getAttribute("style")).toEqual("background-color: red;");
   });
 
   it("is controlled if checked is provided", () => {
-    const { container, getByTestId, rerender } = render(
-      <CheckBox
-        {...{ ["data-testid"]: "test" }}
-        labelText="labelText"
-        nameId="nameId"
-        checked={false}
-        onChange={mockOnChange}
-      />
+    const { rerender } = render(
+      <CheckBox {...commonProps} checked={false} onChange={mockOnChange} />
     );
-    const checkbox = getByTestId("test") as HTMLInputElement;
+    const checkbox = screen.getByTestId("test") as HTMLInputElement; // NOSONAR
     expect(checkbox.checked).toBe(false);
     fireEvent.click(checkbox);
     expect(checkbox.checked).toBe(false);
     rerender(
-      <CheckBox
-        {...{ ["data-testid"]: "test" }}
-        labelText="labelText"
-        nameId="nameId"
-        checked={true}
-        onChange={mockOnChange}
-      />
+      <CheckBox {...commonProps} checked={true} onChange={mockOnChange} />
     );
     expect(checkbox.checked).toBe(true);
     fireEvent.click(checkbox);

@@ -28,6 +28,8 @@ const handleClickOutside =
     }
   };
 
+const agilitabDotCom = "http://agilitab.com"; // NOSONAR
+
 export const Settings = ({
   settingsContainer,
   hideSettings,
@@ -102,7 +104,7 @@ export const Settings = ({
             <div style={{ marginTop: 10 }}>
               <ul>
                 <li>
-                  AgiliTab - <a href="http://agilitab.com">agilitab.com</a>
+                  AgiliTab - <a href={agilitabDotCom}>agilitab.com</a>
                 </li>
                 <li>Developer: John Tirelli</li>
               </ul>

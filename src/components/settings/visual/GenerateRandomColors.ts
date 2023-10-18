@@ -1,10 +1,13 @@
 import { useAppDispatch } from "../../../app/hooks";
 import { setVisualSetting } from "../../../features/settings/settingsSlice";
 
-const rgbVal = () =>
-  `#${getHexValue(Math.floor(Math.random() * 256))}${getHexValue(
-    Math.floor(Math.random() * 256)
-  )}${getHexValue(Math.floor(Math.random() * 256))}`;
+const rgbVal = () => {
+  const r = getHexValue(Math.floor(Math.random() * 256)); // NOSONAR
+  const g = getHexValue(Math.floor(Math.random() * 256)); // NOSONAR
+  const b = getHexValue(Math.floor(Math.random() * 256)); // NOSONAR
+
+  return `#${r}${g}${b}`;
+};
 
 const hexMap: Record<number, string> = {
   10: "A",

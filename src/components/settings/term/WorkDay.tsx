@@ -44,7 +44,7 @@ export const WorkDay = ({
         <CheckBox
           className="immune"
           nameId="workday-checkbox"
-          checked={workDayEnabled ? true : false}
+          checked={workDayEnabled}
           onChange={(e) => handleWorkDayToggle(e, dispatch)}
           labelText="Make day timer based on my workday"
           labelClass="pl-5 align-checkbox-label"

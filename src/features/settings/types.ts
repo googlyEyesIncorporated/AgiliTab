@@ -1,5 +1,3 @@
-export type Title = string;
-
 export interface DurationState {
   unit: string;
   qty: number;
@@ -14,7 +12,7 @@ export interface UnitType {
   endDate?: string;
   isDuration: boolean;
   duration: DurationState;
-  title: Title;
+  title: string;
   unitType: string;
   repeat: boolean;
 }

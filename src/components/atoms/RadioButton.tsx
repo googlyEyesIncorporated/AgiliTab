@@ -19,7 +19,7 @@ const RadioButton = ({
   secondRadioName,
 }: RadioButtonProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.currentTarget.value === firstRadioName ? true : false;
+    const isChecked = e.currentTarget.value === firstRadioName;
     setIsChecked(isChecked);
   };
   return (
@@ -28,7 +28,7 @@ const RadioButton = ({
         type="radio"
         id={`${category}-${firstRadioName}`}
         value={firstRadioName}
-        disabled={enabled ? false : true}
+        disabled={!enabled}
         onChange={handleChange}
         checked={firstIsChecked}
       />
@@ -39,7 +39,7 @@ const RadioButton = ({
         type="radio"
         id={`${category}-${secondRadioName}`}
         value={secondRadioName}
-        disabled={enabled ? false : true}
+        disabled={!enabled}
         onChange={handleChange}
         checked={!firstIsChecked}
       />

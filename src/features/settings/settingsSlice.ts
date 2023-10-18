@@ -103,14 +103,14 @@ let settingUpdateTimeoutId: NodeJS.Timeout | null = null;
 
 const localStorageDebounce = (state: SettingsState) => {
   if (settingUpdateTimeoutId) {
-    clearTimeout(settingUpdateTimeoutId)
-    settingUpdateTimeoutId = null
+    clearTimeout(settingUpdateTimeoutId);
+    settingUpdateTimeoutId = null;
   }
   settingUpdateTimeoutId = setTimeout(() => {
-    const state = store.getState().settings
+    const state = store.getState().settings;
     updateStorage({ storageKey: "settings", val: state });
-  }, 1000)
-}
+  }, 1000);
+};
 
 export const unitsSlice = createSlice({
   name: "units",
@@ -152,7 +152,6 @@ export const unitsSlice = createSlice({
       updateStorage({ storageKey: "settings", val: state });
     },
     updateDay: (state, { payload: startOfDay }: PayloadAction<string>) => {
-      // state.currentDay = DateTime.fromISO(day).day;
       state.units.shortTerm.startDate = startOfDay;
       state.units.shortTerm.endDate = DateTime.now().endOf("day").toISO();
     },
@@ -161,7 +160,7 @@ export const unitsSlice = createSlice({
       { payload: { key, value } }: PayloadAction<KeyValuePair>
     ) => {
       state.visual[key] = value;
-      localStorageDebounce(state)
+      localStorageDebounce(state);
     },
     setDateTimeFormats: (
       state,

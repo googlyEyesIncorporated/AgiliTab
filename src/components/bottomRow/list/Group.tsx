@@ -1,8 +1,11 @@
-import { ItemList, StartEndUnitType } from "../../../features/itemList/types";
+import {
+  ItemList,
+  StartEndUnitType,
+  ListKey,
+} from "../../../features/itemList/types";
 import { DragAndDrop } from "./Item";
 import { List } from "./List";
 import { ElapsedTime } from "../../atoms/ElapsedTime";
-import { ListKey } from "../../../features/itemList/types";
 
 interface ListGroupProps {
   title: string;

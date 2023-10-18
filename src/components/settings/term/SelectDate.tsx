@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 
 type Limit = Partial<Record<"min" | "max", string>>;
-interface commonProps {
+interface CommonProps {
   date: string;
   title: "Beginning" | "End";
   limit: Limit;
@@ -10,10 +10,10 @@ interface commonProps {
   enabled: boolean;
 }
 
-interface SelectDateProps extends commonProps {
+interface SelectDateProps extends CommonProps {
   category: string;
 }
-interface HandleDateSelection extends commonProps {
+interface HandleDateSelection extends CommonProps {
   value: string;
 }
 
@@ -64,7 +64,7 @@ export const SelectDate = ({
         name={`${category}-${title}-datepicker`}
         value={DateTime.fromISO(date).toISODate() || ""}
         style={{ backgroundColor: enabled ? "white" : "darkgray" }}
-        disabled={enabled ? false : true}
+        disabled={!enabled}
         className="pt-5 pl-3 input-height"
         onChange={(e) => {
           handleDateSelection({

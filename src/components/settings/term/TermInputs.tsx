@@ -45,7 +45,7 @@ export const TermInputs = ({
   const [endDate, setEndDate] = useState("");
   const [duration, setDuration] = useState(termData.duration);
   const [repeat, setRepeat] = useState(true);
-  const termString = `${category}Term` as keyof typeof defaultTerms;
+  const termString = `${category}Term` as keyof typeof defaultTerms; // NOSONAR
 
   useEffect(() => {
     setUnitType(termData.title.toLowerCase());
@@ -112,9 +112,9 @@ export const TermInputs = ({
           &nbsp; &nbsp;
           <CheckBox
             nameId={checkboxId}
-            checked={termData.repeat ? true : false}
+            checked={termData.repeat}
             onChange={onRepeat(dispatch, category)}
-            disabled={enabled && isDuration ? false : true}
+            disabled={!(enabled && isDuration)}
             inputStyle={{
               visibility: "visible",
               margin: "0px 0.3rem",
@@ -157,7 +157,7 @@ export const TermInputs = ({
       <button
         id="term-inputs-format-save"
         className="pt-5 pb-1 px-3 button-height"
-        disabled={enabled ? false : true}
+        disabled={!enabled}
         onClick={() => {
           if (duration.qty) {
             saveTerm({

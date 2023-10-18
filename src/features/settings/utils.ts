@@ -70,7 +70,7 @@ export const saveTerm = ({
             duration,
             isDuration,
             startDate,
-            endDate: durationEndDate || endDate,
+            endDate: durationEndDate ?? endDate,
             unitType,
             title,
             repeat,

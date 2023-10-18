@@ -7,10 +7,13 @@ import {
   toggleChecked,
   updateListItem,
 } from "../../../features/itemList/itemListSlice";
-import { ListAndIndex, ListKey } from "../../../features/itemList/types";
+import {
+  ListAndIndex,
+  ListKey,
+  ItemList,
+} from "../../../features/itemList/types";
 import CheckBox from "../../atoms/CheckBox";
 import Icon from "../../atoms/Icon";
-import { ItemList } from "../../../features/itemList/types";
 
 export interface DragAndDrop {
   enterListItem?: (position: ListAndIndex) => void;
