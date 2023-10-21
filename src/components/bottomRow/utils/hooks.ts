@@ -22,10 +22,10 @@ export const useTerm = (
   React.Dispatch<React.SetStateAction<StartEndUnitType>>
 ] => {
   const [term, setTerm] = useState(
-    preformattedTerm || calculateStartEndMs(savedTerm)
+    preformattedTerm ?? calculateStartEndMs(savedTerm)
   );
   useEffect(() => {
-    setTerm(preformattedTerm || calculateStartEndMs(savedTerm));
+    setTerm(preformattedTerm ?? calculateStartEndMs(savedTerm));
   }, [savedTerm, preformattedTerm]);
   return [term, setTerm];
 };

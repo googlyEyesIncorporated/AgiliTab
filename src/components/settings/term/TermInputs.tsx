@@ -50,12 +50,12 @@ export const TermInputs = ({
   useEffect(() => {
     setUnitType(termData.title.toLowerCase());
     setTitle(termData.title);
-    setStartDate(termData.startDate);
+    setStartDate(termData.startDate ?? '');
     setEndDate(
-      termData?.endDate ||
-        DateTime.fromISO(termData.startDate)
+      termData?.endDate ??
+        DateTime.fromISO(termData.startDate ?? '')
           .plus({ [termData.duration.unit]: termData.duration.qty })
-          .toISO()
+          .toISO() ?? ""
     );
     setRepeat(termData.repeat);
   }, [termData]);
@@ -80,8 +80,8 @@ export const TermInputs = ({
         />
         <Icon
           onClick={() => {
-            setStartDate(defaultTerms[termString].startDate);
-            setEndDate(defaultTerms[termString].endDate || "");
+            setStartDate(defaultTerms[termString].startDate ?? '');
+            setEndDate(defaultTerms[termString].endDate ?? '');
             setUnitType(defaultTerms[termString].unitType);
             setTitle(defaultTerms[termString].title);
             setRepeat(defaultTerms[termString].repeat);

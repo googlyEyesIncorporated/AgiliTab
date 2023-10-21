@@ -32,11 +32,11 @@ const handleDateSelection = ({
         const duration = DateTime.fromISO(limit.max).diff(
           DateTime.fromISO(date)
         );
-        setStartDate(DateTime.fromISO(value).toISO());
-        setEndDate(DateTime.fromISO(value).plus(duration).toISO());
+        setStartDate(DateTime.fromISO(value).toISO() ?? '');
+        setEndDate(DateTime.fromISO(value).plus(duration).toISO() ?? '');
       }
     } else {
-      setEndDate(DateTime.fromISO(value).toISO());
+      setEndDate(DateTime.fromISO(value).toISO() ?? '');
     }
   }
 };
@@ -52,7 +52,7 @@ export const SelectDate = ({
 }: SelectDateProps) => {
   const formattedLimit: Limit = {};
   if ("min" in limit && limit.min) {
-    formattedLimit.min = DateTime.fromISO(limit.min).toISODate();
+    formattedLimit.min = DateTime.fromISO(limit.min).toISODate() ?? undefined;
   }
   return (
     <div style={{ display: "inline-block", width: "50%" }}>
@@ -62,7 +62,7 @@ export const SelectDate = ({
         {...formattedLimit}
         id={`${category}-${title}-datepicker`}
         name={`${category}-${title}-datepicker`}
-        value={DateTime.fromISO(date).toISODate() || ""}
+        value={DateTime.fromISO(date).toISODate() ?? ''}
         style={{ backgroundColor: enabled ? "white" : "darkgray" }}
         disabled={!enabled}
         className="pt-5 pl-3 input-height"

@@ -10,7 +10,6 @@ import {
 import {
   ListAndIndex,
   ListKey,
-  ItemList,
 } from "../../../features/itemList/types";
 import CheckBox from "../../atoms/CheckBox";
 import Icon from "../../atoms/Icon";
@@ -29,8 +28,99 @@ type ListItemProps = {
   index: number;
   listKey: ListKey;
   dragAndDrop?: DragAndDrop;
-  list: ItemList;
 };
+
+interface TaskProps {
+  fontColor: string;
+  bgColor: string;
+  name: string;
+  inputRef: React.MutableRefObject<HTMLInputElement | null>
+}
+
+interface EditBoxProps extends TaskProps {
+  closeAndSaveInput: (name: string) => void,
+}
+
+interface TaskItemProps extends EditBoxProps, ListItemProps {
+  removeItem: () => void;
+  secondFontColor: string;
+  checkboxClick: () => void;
+  setEditBoxIsHidden: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const EditBox = ({inputRef, name, fontColor, bgColor, closeAndSaveInput}: EditBoxProps) => {
+  return (
+    <li>
+      <input
+        ref={inputRef}
+        type="text"
+        defaultValue={name}
+        style={{
+          color: fontColor,
+          backgroundColor: bgColor,
+          borderColor: fontColor,
+          width: "100%",
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && inputRef.current) {
+            closeAndSaveInput(inputRef.current.value);
+          }
+        }}
+        className="todo-edit"
+      />
+    </li>
+  )
+}
+
+const TaskItem = ({done, id, removeItem, name, secondFontColor, checkboxClick, fontColor, bgColor, setEditBoxIsHidden, listKey, index, inputRef, dragAndDrop: {
+  dragStart = () => {},
+  dragEnd = () => {},
+  enterListItem = () => {},
+} = {}}: TaskItemProps) => {
+  const [trashCanIsHidden, setTrashCanIsHidden] = useState(true);
+
+  return (
+    <li
+      className={`todo-card`}
+      style={{
+        color: done ? secondFontColor : fontColor,
+        borderColor: done ? secondFontColor : fontColor,
+        backgroundColor: bgColor,
+      }}
+      onMouseEnter={() => setTrashCanIsHidden(false)}
+      onMouseLeave={() => setTrashCanIsHidden(true)}
+      draggable
+      onDragStart={() => dragStart({ listKey, index })}
+      onDragEnter={() => enterListItem({ listKey, index })}
+      onDragEnd={() => dragEnd()}
+      onDoubleClick={() => {
+        setEditBoxIsHidden(false);
+        inputRef.current?.focus();
+      }}
+    >
+      <div className="squaredThree">
+        <CheckBox
+          onChange={checkboxClick}
+          checked={done}
+          nameId={id}
+          labelText=""
+          inputStyle={{ color: secondFontColor }}
+        />
+      </div>
+      <div className={`todo-text${done ? " todo-card-done" : ""}`}>
+        {name}
+        <Icon
+          onClick={removeItem}
+          icon={faTrash}
+          faStyle={{ color: done ? secondFontColor : fontColor }}
+          iconClassName={`trashcan pull-right${
+            trashCanIsHidden ? " hidden" : " revealed"
+          }`}
+        />
+      </div>
+    </li>
+  )
+}
 
 export const ListItem = ({
   name,
@@ -38,15 +128,9 @@ export const ListItem = ({
   done = false,
   index,
   listKey,
-  dragAndDrop: {
-    dragStart = () => {},
-    dragEnd = () => {},
-    enterListItem = () => {},
-  } = {},
-  list: itemList,
+  dragAndDrop,
 }: ListItemProps) => {
   const dispatch = useAppDispatch();
-  const [trashCanIsHidden, setTrashCanIsHidden] = useState(true);
   const [editBoxIsHidden, setEditBoxIsHidden] = useState(true);
   const { fontColor, secondFontColor, bgColor } =
     useAppSelector(selectVisualSettings);
@@ -88,65 +172,21 @@ export const ListItem = ({
   const removeItem = () => {
     dispatch(remove({ listKey, index }));
   };
-  return editBoxIsHidden ? (
-    <li
-      className={`todo-card`}
-      style={{
-        color: done ? secondFontColor : fontColor,
-        borderColor: done ? secondFontColor : fontColor,
-        backgroundColor: bgColor,
-      }}
-      onMouseEnter={() => setTrashCanIsHidden(false)}
-      onMouseLeave={() => setTrashCanIsHidden(true)}
-      draggable
-      onDragStart={() => dragStart({ listKey, index })}
-      onDragEnter={() => enterListItem({ listKey, index })}
-      onDragEnd={() => dragEnd()}
-      onDoubleClick={() => {
-        setEditBoxIsHidden(false);
-        inputRef.current?.focus();
-      }}
-    >
-      <div className="squaredThree">
-        <CheckBox
-          onChange={checkboxClick}
-          checked={done}
-          nameId={id}
-          labelText=""
-          inputStyle={{ color: secondFontColor }}
-        />
-      </div>
-      <div className={`todo-text${done ? " todo-card-done" : ""}`}>
-        {name}
-        <Icon
-          onClick={removeItem}
-          icon={faTrash}
-          faStyle={{ color: done ? secondFontColor : fontColor }}
-          iconClassName={`trashcan pull-right${
-            trashCanIsHidden ? " hidden" : " revealed"
-          }`}
-        />
-      </div>
-    </li>
-  ) : (
-    <li>
-      <input
-        ref={inputRef}
-        type="text"
-        defaultValue={name}
-        style={{
-          color: fontColor,
-          backgroundColor: bgColor,
-          borderColor: fontColor,
-          width: "100%",
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && inputRef.current) {
-            closeAndSaveInput(inputRef.current.value);
-          }
-        }}
-        className="todo-edit"
-      />
-    </li>
-  );
+  return editBoxIsHidden ? 
+  <TaskItem 
+  closeAndSaveInput={closeAndSaveInput}
+  done={done}
+  id={id}
+  removeItem={removeItem}
+  name={name}
+  secondFontColor={secondFontColor}
+  checkboxClick={checkboxClick}
+  fontColor={fontColor}
+  bgColor={bgColor}
+  setEditBoxIsHidden={setEditBoxIsHidden}
+  listKey={listKey}
+  index={index}
+  inputRef={inputRef}
+  dragAndDrop={dragAndDrop}
+  /> : <EditBox inputRef={inputRef} name={name} fontColor={fontColor} bgColor={bgColor} closeAndSaveInput={closeAndSaveInput} />;
 };

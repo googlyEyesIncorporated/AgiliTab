@@ -37,7 +37,8 @@ export const SetColors = () => {
           faId="restore-default-colors"
           icon={faArrowRightFromBracket}
           title="Restore Default Colors"
-          faStyle={{ color: secondFontColor, fontSize: "1rem", float: "right" }}
+          faStyle={{ color: secondFontColor, fontSize: "1rem" }}
+          iconClassName={`pull-right`}
         />
       </h2>
       <div>

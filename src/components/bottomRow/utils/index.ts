@@ -74,7 +74,7 @@ export const calculateStartEndMs = (
       );
       const end = recalcedDate.newDate.toMillis();
       const start =
-        recalcedDate.lastDate?.toMillis() || referencePoint.toMillis();
+        recalcedDate.lastDate?.toMillis() ?? referencePoint.toMillis();
       if (start === end) {
         const newEnd = predicateDateRecalc(
           DateTime.fromMillis(end),
@@ -94,7 +94,7 @@ export const calculateStartEndMs = (
     };
   }
   // If not repeat
-  const end = DateTime.fromISO(termData.endDate || "").toMillis();
+  const end = DateTime.fromISO(termData.endDate ?? "").toMillis();
   return { ...commonObj, end, start: referencePoint.toMillis() };
 };
 
