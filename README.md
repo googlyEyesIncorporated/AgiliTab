@@ -46,4 +46,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Install as an extension
 
-https://chrome.google.com/webstore/detail/agilitab/fdpbnghamcgcbgmnhlalodblemabgaol
+[<img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png">](https://chrome.google.com/webstore/detail/agilitab/fdpbnghamcgcbgmnhlalodblemabgaol)
