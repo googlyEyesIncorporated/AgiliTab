@@ -3,7 +3,7 @@ import {
   StartEndUnitType,
   ListKey,
 } from "../../../features/itemList/types";
-import { DragAndDrop } from "./Item";
+import { DragAndDrop } from "./item/DumbListItem";
 import { List } from "./List";
 import { ElapsedTime } from "../../atoms/ElapsedTime";
 

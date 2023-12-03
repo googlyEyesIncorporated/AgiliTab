@@ -1,0 +1,105 @@
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
+import Icon from "../../../atoms/Icon";
+import CheckBox from "../../../atoms/CheckBox";
+import React, { useState } from "react";
+import { ListAndIndex, ListKey } from "../../../../features/itemList/types";
+import { EditBox } from "./Editbox";
+
+const itemBeingDraggedCurrentItem = (
+  { listKey, index }: ListAndIndex,
+  itemBeingDragged?: ListAndIndex
+) => itemBeingDragged?.listKey === listKey && itemBeingDragged.index === index;
+
+export const DumbListItem = ({
+  done,
+  id,
+  removeItem,
+  name,
+  secondFontColor,
+  checkboxClick,
+  fontColor,
+  bgColor,
+  setEditBoxIsHidden,
+  listKey,
+  index,
+  inputRef,
+  dragAndDrop: {
+    dragStart = () => {},
+    dragEnd = () => {},
+    enterListItem = () => {},
+    itemBeingDragged,
+  } = {},
+}: DumbListItemProps) => {
+  const [trashCanIsHidden, setTrashCanIsHidden] = useState(true);
+  return (
+    <li
+      className={`todo-card${
+        itemBeingDraggedCurrentItem({ listKey, index }, itemBeingDragged)
+          ? " low-opacity" // There's got to be a better way, find it later.
+          : ""
+      }`}
+      style={{
+        color: done ? secondFontColor : fontColor,
+        borderColor: done ? secondFontColor : fontColor,
+        backgroundColor: bgColor,
+      }}
+      onMouseEnter={() => setTrashCanIsHidden(false)}
+      onMouseLeave={() => setTrashCanIsHidden(true)}
+      draggable
+      onDragStart={() => dragStart({ listKey, index })}
+      onDragEnter={() => enterListItem({ listKey, index })}
+      onDragEnd={() => dragEnd()}
+      onDoubleClick={() => {
+        setEditBoxIsHidden(false);
+        inputRef.current?.focus();
+      }}
+    >
+      <div className="squaredThree">
+        <CheckBox
+          onChange={checkboxClick}
+          checked={done}
+          nameId={id}
+          labelText=""
+          inputStyle={{ color: secondFontColor }}
+        />
+      </div>
+      <div className={`todo-text${done ? " todo-card-done" : ""}`}>
+        {name}
+        <Icon
+          onClick={removeItem}
+          icon={faTrash}
+          faStyle={{ color: done ? secondFontColor : fontColor }}
+          iconClassName={`trashcan pull-right${
+            trashCanIsHidden ? " hidden" : " revealed"
+          }`}
+        />
+      </div>
+    </li>
+  );
+};
+
+export interface DragAndDrop {
+  enterListItem?: (position: ListAndIndex) => void;
+  dragStart?: (position: ListAndIndex) => void;
+  dragEnd?: () => void;
+  enterList?: (listKey: ListKey) => void;
+  itemBeingDragged?: ListAndIndex;
+}
+
+export type ListItemProps = {
+  name: string;
+  done: boolean;
+  id: string;
+  index: number;
+  listKey: ListKey;
+  dragAndDrop?: DragAndDrop;
+};
+
+interface DumbListItemProps
+  extends React.ComponentProps<typeof EditBox>,
+    ListItemProps {
+  removeItem: () => void;
+  secondFontColor: string;
+  checkboxClick: () => void;
+  setEditBoxIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
+}

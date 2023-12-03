@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { ReplaceList } from "../../../features/itemList/types";
 import { selectVisualSettings } from "../../../features/settings/settingsSlice";
-import { DragAndDrop, ListItem } from "./Item";
+import { SmartListItem } from "./item/Item";
 import { Options } from "./Options";
+import { DragAndDrop } from "./item/DumbListItem";
 
 interface ListProps extends ReplaceList {
   dragAndDrop?: DragAndDrop;
@@ -21,7 +22,7 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
   const ListItems = !Array.isArray(itemList)
     ? null
     : itemList.map((props, index) => (
-        <ListItem
+        <SmartListItem
           {...props}
           done={props.done}
           index={index}
