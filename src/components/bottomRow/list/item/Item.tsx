@@ -9,6 +9,10 @@ import {
 import { EditBox } from "./Editbox";
 import { DumbListItem, ListItemProps } from "./DumbListItem";
 
+const copyItem = (text: string) => {
+  navigator.clipboard.writeText(text);
+};
+
 export const SmartListItem = ({
   name,
   id,
@@ -65,6 +69,7 @@ export const SmartListItem = ({
       done={done}
       id={id}
       removeItem={removeItem}
+      copyItem={copyItem}
       name={name}
       secondFontColor={secondFontColor}
       checkboxClick={checkboxClick}

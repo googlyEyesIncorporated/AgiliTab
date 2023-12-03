@@ -1,4 +1,5 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
+import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import Icon from "../../../atoms/Icon";
 import CheckBox from "../../../atoms/CheckBox";
 import React, { useState } from "react";
@@ -14,6 +15,7 @@ export const DumbListItem = ({
   done,
   id,
   removeItem,
+  copyItem,
   name,
   secondFontColor,
   checkboxClick,
@@ -30,7 +32,9 @@ export const DumbListItem = ({
     itemBeingDragged,
   } = {},
 }: DumbListItemProps) => {
-  const [trashCanIsHidden, setTrashCanIsHidden] = useState(true);
+  const [hideIcon, setHideIcon] = useState(true);
+  const iconShowOrHide = hideIcon ? " hidden" : " revealed";
+  const iconColor = done ? secondFontColor : fontColor;
   return (
     <li
       className={`todo-card${
@@ -43,8 +47,8 @@ export const DumbListItem = ({
         borderColor: done ? secondFontColor : fontColor,
         backgroundColor: bgColor,
       }}
-      onMouseEnter={() => setTrashCanIsHidden(false)}
-      onMouseLeave={() => setTrashCanIsHidden(true)}
+      onMouseEnter={() => setHideIcon(false)}
+      onMouseLeave={() => setHideIcon(true)}
       draggable
       onDragStart={() => dragStart({ listKey, index })}
       onDragEnter={() => enterListItem({ listKey, index })}
@@ -68,10 +72,14 @@ export const DumbListItem = ({
         <Icon
           onClick={removeItem}
           icon={faTrash}
-          faStyle={{ color: done ? secondFontColor : fontColor }}
-          iconClassName={`trashcan pull-right${
-            trashCanIsHidden ? " hidden" : " revealed"
-          }`}
+          faStyle={{ color: iconColor }}
+          iconClassName={`trashcan pull-right ml-2${iconShowOrHide}`}
+        />
+        <Icon
+          onClick={() => copyItem(name)}
+          icon={faCopy}
+          faStyle={{ color: iconColor }}
+          iconClassName={`copy pull-right ml-2${iconShowOrHide}`}
         />
       </div>
     </li>
@@ -99,6 +107,7 @@ interface DumbListItemProps
   extends React.ComponentProps<typeof EditBox>,
     ListItemProps {
   removeItem: () => void;
+  copyItem: (text: string) => void;
   secondFontColor: string;
   checkboxClick: () => void;
   setEditBoxIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
