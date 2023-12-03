@@ -20,7 +20,7 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
 
   const ListItems = !Array.isArray(itemList)
     ? null
-    : itemList.map((props, index, list) => (
+    : itemList.map((props, index) => (
         <ListItem
           {...props}
           done={props.done}

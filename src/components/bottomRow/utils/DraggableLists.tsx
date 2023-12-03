@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useAppDispatch } from "../../../app/hooks";
 import { updateList } from "../../../features/itemList/itemListSlice";
 import {
@@ -16,9 +16,12 @@ export const DraggableLists = ({
   const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dragTo: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dispatch = useAppDispatch();
-
+  const [itemBeingDragged, setItemBeingDragged] = useState<null | ListAndIndex>(
+    null
+  );
   const dragStart = (position: ListAndIndex) => {
     dragFrom.current = position;
+    setItemBeingDragged(position);
   };
 
   const enterListItem = (position: ListAndIndex) => {
@@ -46,6 +49,7 @@ export const DraggableLists = ({
       dragTo.current = null;
       dragFrom.current = null;
     }
+    setItemBeingDragged(null);
   };
 
   const dragAndDrop = {
@@ -53,6 +57,7 @@ export const DraggableLists = ({
     dragStart,
     dragEnd,
     enterList,
+    itemBeingDragged,
   };
 
   return (

@@ -221,6 +221,10 @@ ul li:active {
   display: none;
 }
 
+.low-opacity {
+  opacity: 0.01;
+}
+
 .revealed {
   animation: fadeIn 1s both;
 }

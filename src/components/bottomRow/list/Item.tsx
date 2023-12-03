@@ -7,10 +7,7 @@ import {
   toggleChecked,
   updateListItem,
 } from "../../../features/itemList/itemListSlice";
-import {
-  ListAndIndex,
-  ListKey,
-} from "../../../features/itemList/types";
+import { ListAndIndex, ListKey } from "../../../features/itemList/types";
 import CheckBox from "../../atoms/CheckBox";
 import Icon from "../../atoms/Icon";
 
@@ -19,6 +16,7 @@ export interface DragAndDrop {
   dragStart?: (position: ListAndIndex) => void;
   dragEnd?: () => void;
   enterList?: (listKey: ListKey) => void;
+  itemBeingDragged?: ListAndIndex;
 }
 
 type ListItemProps = {
@@ -34,21 +32,27 @@ interface TaskProps {
   fontColor: string;
   bgColor: string;
   name: string;
-  inputRef: React.MutableRefObject<HTMLInputElement | null>
+  inputRef: React.MutableRefObject<HTMLInputElement | null>;
 }
 
 interface EditBoxProps extends TaskProps {
-  closeAndSaveInput: (name: string) => void,
+  closeAndSaveInput: (name: string) => void;
 }
 
 interface TaskItemProps extends EditBoxProps, ListItemProps {
   removeItem: () => void;
   secondFontColor: string;
   checkboxClick: () => void;
-  setEditBoxIsHidden: React.Dispatch<React.SetStateAction<boolean>>
+  setEditBoxIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EditBox = ({inputRef, name, fontColor, bgColor, closeAndSaveInput}: EditBoxProps) => {
+const EditBox = ({
+  inputRef,
+  name,
+  fontColor,
+  bgColor,
+  closeAndSaveInput,
+}: EditBoxProps) => {
   return (
     <li>
       <input
@@ -69,19 +73,42 @@ const EditBox = ({inputRef, name, fontColor, bgColor, closeAndSaveInput}: EditBo
         className="todo-edit"
       />
     </li>
-  )
-}
+  );
+};
 
-const TaskItem = ({done, id, removeItem, name, secondFontColor, checkboxClick, fontColor, bgColor, setEditBoxIsHidden, listKey, index, inputRef, dragAndDrop: {
-  dragStart = () => {},
-  dragEnd = () => {},
-  enterListItem = () => {},
-} = {}}: TaskItemProps) => {
+const itemBeingDraggedCurrentItem = (
+  { listKey, index }: ListAndIndex,
+  itemBeingDragged?: ListAndIndex
+) => itemBeingDragged?.listKey === listKey && itemBeingDragged.index === index;
+
+const TaskItem = ({
+  done,
+  id,
+  removeItem,
+  name,
+  secondFontColor,
+  checkboxClick,
+  fontColor,
+  bgColor,
+  setEditBoxIsHidden,
+  listKey,
+  index,
+  inputRef,
+  dragAndDrop: {
+    dragStart = () => {},
+    dragEnd = () => {},
+    enterListItem = () => {},
+    itemBeingDragged,
+  } = {},
+}: TaskItemProps) => {
   const [trashCanIsHidden, setTrashCanIsHidden] = useState(true);
-
   return (
     <li
-      className={`todo-card`}
+      className={`todo-card${
+        itemBeingDraggedCurrentItem({ listKey, index }, itemBeingDragged)
+          ? " low-opacity" // There's got to be a better way, find it later.
+          : ""
+      }`}
       style={{
         color: done ? secondFontColor : fontColor,
         borderColor: done ? secondFontColor : fontColor,
@@ -119,8 +146,8 @@ const TaskItem = ({done, id, removeItem, name, secondFontColor, checkboxClick, f
         />
       </div>
     </li>
-  )
-}
+  );
+};
 
 export const ListItem = ({
   name,
@@ -172,21 +199,30 @@ export const ListItem = ({
   const removeItem = () => {
     dispatch(remove({ listKey, index }));
   };
-  return editBoxIsHidden ? 
-  <TaskItem 
-  closeAndSaveInput={closeAndSaveInput}
-  done={done}
-  id={id}
-  removeItem={removeItem}
-  name={name}
-  secondFontColor={secondFontColor}
-  checkboxClick={checkboxClick}
-  fontColor={fontColor}
-  bgColor={bgColor}
-  setEditBoxIsHidden={setEditBoxIsHidden}
-  listKey={listKey}
-  index={index}
-  inputRef={inputRef}
-  dragAndDrop={dragAndDrop}
-  /> : <EditBox inputRef={inputRef} name={name} fontColor={fontColor} bgColor={bgColor} closeAndSaveInput={closeAndSaveInput} />;
+  return editBoxIsHidden ? (
+    <TaskItem
+      closeAndSaveInput={closeAndSaveInput}
+      done={done}
+      id={id}
+      removeItem={removeItem}
+      name={name}
+      secondFontColor={secondFontColor}
+      checkboxClick={checkboxClick}
+      fontColor={fontColor}
+      bgColor={bgColor}
+      setEditBoxIsHidden={setEditBoxIsHidden}
+      listKey={listKey}
+      index={index}
+      inputRef={inputRef}
+      dragAndDrop={dragAndDrop}
+    />
+  ) : (
+    <EditBox
+      inputRef={inputRef}
+      name={name}
+      fontColor={fontColor}
+      bgColor={bgColor}
+      closeAndSaveInput={closeAndSaveInput}
+    />
+  );
 };
