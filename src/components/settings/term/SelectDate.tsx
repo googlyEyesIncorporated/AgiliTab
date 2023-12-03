@@ -65,7 +65,7 @@ export const SelectDate = ({
         value={DateTime.fromISO(date).toISODate() ?? ''}
         style={{ backgroundColor: enabled ? "white" : "darkgray" }}
         disabled={!enabled}
-        className="pt-5 pl-3 input-height"
+        className="pt-5 pl-3 input-height mb-1"
         onChange={(e) => {
           handleDateSelection({
             value: e.target.value,

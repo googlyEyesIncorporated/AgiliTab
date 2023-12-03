@@ -577,6 +577,7 @@ input[type="text"]:focus {
   padding: 0.5rem;
   overflow: auto;
   box-shadow: 0 0.5rem 1rem #000;
+  min-width: 412px;
 }
 
 #workday-checkbox {

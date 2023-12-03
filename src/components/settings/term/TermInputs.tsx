@@ -110,6 +110,7 @@ export const TermInputs = ({
             firstIsChecked={isDuration}
             setIsChecked={setIsDuration}
           />
+          {/* Temporarily disabled
           &nbsp; &nbsp;
           <CheckBox
             nameId={checkboxId}
@@ -124,7 +125,7 @@ export const TermInputs = ({
             labelClass="pull-right align-checkbox-label"
             labelText="Repeat?"
             labelOnRight
-          />
+          /> */}
         </div>
       </div>
       <SelectDate
