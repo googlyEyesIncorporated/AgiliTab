@@ -85,6 +85,7 @@ export const TermInputs = ({
             setUnitType(defaultTerms[termString].unitType);
             setTitle(defaultTerms[termString].title);
             setRepeat(defaultTerms[termString].repeat);
+            setDuration(defaultTerms[termString].duration)
           }}
           faId="restore-defaults"
           icon={faArrowRightFromBracket}
