@@ -347,6 +347,10 @@ form {
   margin-left: 0.5rem;
 }
 
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 .ml-3 {
   margin-left: 3px !important;
 }
@@ -381,10 +385,6 @@ form {
 
 .mr-1 {
   margin-right: 1px !important;
-}
-
-.mr-2 {
-  margin-right: 2px !important;
 }
 
 .mr-3 {
