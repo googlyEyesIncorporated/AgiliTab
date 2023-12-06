@@ -30,7 +30,7 @@ export const SetColors = () => {
             fontSize: "1rem",
             margin: "0 10px",
           }}
-          iconClassName={`pull-right`}
+          iconClassName={`float-right`}
         />
         <Icon
           onClick={() => dispatch(resetVisualSetting())}
@@ -38,7 +38,7 @@ export const SetColors = () => {
           icon={faArrowRightFromBracket}
           title="Restore Default Colors"
           faStyle={{ color: secondFontColor, fontSize: "1rem" }}
-          iconClassName={`pull-right`}
+          iconClassName={`float-right`}
         />
       </h2>
       <div>
@@ -46,6 +46,7 @@ export const SetColors = () => {
           type="color"
           name="bgColor"
           id="bgColor-picker"
+          className="cursor-pointer"
           value={bgColor}
           onChange={(e) =>
             dispatch(
@@ -60,6 +61,7 @@ export const SetColors = () => {
           type="color"
           name="fontColor"
           id="fontColor-picker"
+          className="cursor-pointer"
           value={fontColor}
           onChange={(e) =>
             dispatch(
@@ -74,6 +76,7 @@ export const SetColors = () => {
           type="color"
           name="secondFontColor"
           id="secondFontColor-picker"
+          className="cursor-pointer"
           value={secondFontColor}
           onChange={(e) =>
             dispatch(

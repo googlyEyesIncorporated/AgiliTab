@@ -18,7 +18,10 @@ export const BottomRow = () => {
   const lists = useAppSelector(selectAllLists);
 
   return (
-    <div id="bottom-row">
+    <div
+      id="bottom-row"
+      className="flex justify-between lg:h-1/2 lg:flex-nowrap h-auto flex-wrap"
+    >
       <DraggableLists lists={lists}>
         <ListGroup
           title={savedShortTerm.title}

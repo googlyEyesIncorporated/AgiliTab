@@ -24,7 +24,7 @@ export const TermName = ({
         type="text"
         value={title}
         disabled={!enabled}
-        className="pt-5 pb-0 pl-3 input-height"
+        className="pt-2 pb-0 pl-1 h-6"
         onChange={(e) => {
           if (enabled) {
             setTitle(e.target.value);

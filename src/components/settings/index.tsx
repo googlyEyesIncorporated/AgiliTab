@@ -74,8 +74,9 @@ export const Settings = ({
 
   return (
     <div
-      id="customize-selectors"
-      className={hideSettings ? "hidden" : ""}
+      className={`p-2 overflow-auto xl:min-w-25vw text-xs leading-normal border border-current shadow-2xl${
+        hideSettings ? " hidden" : ""
+      }`}
       style={{ backgroundColor: bgColor }}
     >
       <span
@@ -139,7 +140,7 @@ export const Settings = ({
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}
-          className="cursor-pointer pt-5 pb-3 px-3 button-height"
+          className="border border-current cursor-pointer pt-0.5 px-1"
         >
           ( Hide )
         </button>
@@ -153,7 +154,7 @@ export const Settings = ({
             fontSize: "1rem",
             margin: "0 10px",
           }}
-          iconClassName={`info-circle pull-right`}
+          iconClassName={`info-circle float-right`}
         />
       </div>
     </div>

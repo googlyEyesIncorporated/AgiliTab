@@ -34,11 +34,14 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
 
   return (
     <div className="list">
-      <div className="list-scrollable" onDragEnter={() => enterList(listKey)}>
-        <ul className="shown-items">{ListItems}</ul>
+      <div
+        className="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
+        onDragEnter={() => enterList(listKey)}
+      >
+        <ul className="text-left min-h-[0.5rem]">{ListItems}</ul>
         {!shouldShowOptions && (
           <button
-            className="edit-priorities-link button-class pull-right"
+            className="no-underline m-2 text-base block button-class float-right"
             onClick={toggleOptions}
             style={{ color: secondFontColor }}
           >

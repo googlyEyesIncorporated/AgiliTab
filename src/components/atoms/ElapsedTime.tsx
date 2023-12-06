@@ -24,7 +24,7 @@ export const ElapsedTime = ({
   }, [term, setTerm, currentTimeMillis, isScopedToWorkingHours, advanceTerm]);
 
   if (term) {
-    return <span className="pull-right">{getCurrentRatio(term) + "%"}</span>;
+    return <span className="float-right">{getCurrentRatio(term) + "%"}</span>;
   }
   return null;
 };

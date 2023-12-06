@@ -12,13 +12,14 @@ export const SettingsWrapper = () => {
   const settingsContainer = useRef(null as HTMLDivElement | null);
 
   return (
-    <div id="customize-corner" ref={settingsContainer}>
+    <div className="fixed left-0 bottom-0 m-4" ref={settingsContainer}>
       <Icon
         onClick={() => setHidden(!hideSettings)}
-        faId="customize-button"
         icon={faGears}
         faStyle={{ color: secondFontColor }}
-        faClassName={`${!hideSettings ? " hidden" : ""}`}
+        faClassName={`fade-in-1s text-double cursor-pointer${
+          !hideSettings ? " hidden" : ""
+        }`}
       />
       <Settings
         settingsContainer={settingsContainer}

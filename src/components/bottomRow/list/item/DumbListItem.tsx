@@ -33,13 +33,13 @@ export const DumbListItem = ({
   } = {},
 }: DumbListItemProps) => {
   const [hideIcon, setHideIcon] = useState(true);
-  const iconShowOrHide = hideIcon ? " hidden" : " revealed";
+  const iconShowOrHide = hideIcon ? " hidden" : " fade-in-1s";
   const iconColor = done ? secondFontColor : fontColor;
   return (
     <li
-      className={`todo-card${
+      className={`flex p-2 border items-center${
         itemBeingDraggedCurrentItem({ listKey, index }, itemBeingDragged)
-          ? " low-opacity" // There's got to be a better way, find it later.
+          ? " opacity-5" // There's got to be a better way, find it later.
           : ""
       }`}
       style={{
@@ -58,28 +58,30 @@ export const DumbListItem = ({
         inputRef.current?.focus();
       }}
     >
-      <div className="squaredThree">
+      <div className="list-item-checkbox relative">
         <CheckBox
           onChange={checkboxClick}
           checked={done}
           nameId={id}
           labelText=""
+          labelClass="mr-2 w-4 h-4 left-0 border border-current rounded-sm top-[12.5%] after:opacity-0 after:left-0 after:text-2xl after:content-['✔'] after:top-[-0.5rem] after:font-['FontAwesome'] hover:after:opacity-[0.3]"
+          className="absolute"
           inputStyle={{ color: secondFontColor }}
         />
       </div>
-      <div className={`todo-text${done ? " todo-card-done" : ""}`}>
+      <div className={`grow${done ? " line-through" : ""}`}>
         {name}
         <Icon
           onClick={removeItem}
           icon={faTrash}
           faStyle={{ color: iconColor }}
-          iconClassName={`trashcan pull-right ml-2${iconShowOrHide}`}
+          iconClassName={`cursor-pointer float-right ml-2${iconShowOrHide}`}
         />
         <Icon
           onClick={() => copyItem(name)}
           icon={faCopy}
           faStyle={{ color: iconColor }}
-          iconClassName={`copy pull-right ml-2${iconShowOrHide}`}
+          iconClassName={`cursor-pointer float-right ml-2${iconShowOrHide}`}
         />
       </div>
     </li>

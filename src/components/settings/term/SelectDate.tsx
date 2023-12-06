@@ -32,11 +32,11 @@ const handleDateSelection = ({
         const duration = DateTime.fromISO(limit.max).diff(
           DateTime.fromISO(date)
         );
-        setStartDate(DateTime.fromISO(value).toISO() ?? '');
-        setEndDate(DateTime.fromISO(value).plus(duration).toISO() ?? '');
+        setStartDate(DateTime.fromISO(value).toISO() ?? "");
+        setEndDate(DateTime.fromISO(value).plus(duration).toISO() ?? "");
       }
     } else {
-      setEndDate(DateTime.fromISO(value).toISO() ?? '');
+      setEndDate(DateTime.fromISO(value).toISO() ?? "");
     }
   }
 };
@@ -62,10 +62,10 @@ export const SelectDate = ({
         {...formattedLimit}
         id={`${category}-${title}-datepicker`}
         name={`${category}-${title}-datepicker`}
-        value={DateTime.fromISO(date).toISODate() ?? ''}
+        value={DateTime.fromISO(date).toISODate() ?? ""}
         style={{ backgroundColor: enabled ? "white" : "darkgray" }}
         disabled={!enabled}
-        className="pt-5 pl-3 input-height mb-1"
+        className="pt-2 pl-1 h-6 mb-0.5"
         onChange={(e) => {
           handleDateSelection({
             value: e.target.value,

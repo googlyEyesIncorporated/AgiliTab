@@ -50,7 +50,7 @@ export const Duration = ({
         id={categoryUnitQty}
         min="1"
         max="100"
-        className="pt-5 pl-3 input-height"
+        className="pt-2 pl-1 h-6"
         style={{
           width: "3rem",
           ...BackgroundAndHeightStyle(enabled),
@@ -65,7 +65,7 @@ export const Duration = ({
         }}
       />
       <select
-        className="pt-5 pb-2 v-align-top input-height"
+        className="pt-2 pb-1 align-top h-6"
         name={categoryDurationFormatInput}
         id={categoryDurationFormatInput}
         value={`${unit}`}

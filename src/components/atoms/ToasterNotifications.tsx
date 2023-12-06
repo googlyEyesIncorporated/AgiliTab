@@ -12,7 +12,7 @@ const Notification = ({ message }: { message: string }) => {
   return (
     <div
       style={{ backgroundColor: fontColor, color: bgColor }}
-      className="fade-out toaster"
+      className="fade-out fixed left-1/2 bg-[#00000080] p-2.5 rounded-[5px] z-50  translate-x-[-50%] text-white toaster"
     >
       {message}
     </div>

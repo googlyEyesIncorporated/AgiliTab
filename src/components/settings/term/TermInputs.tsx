@@ -35,7 +35,7 @@ export const TermInputs = ({
   category: Categories;
   termData: UnitType;
 }) => {
-  const { secondFontColor } = useAppSelector(selectVisualSettings);
+  const { fontColor, secondFontColor } = useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState("");
   const [enabled, setEnabled] = useState(false);
@@ -50,25 +50,25 @@ export const TermInputs = ({
   useEffect(() => {
     setUnitType(termData.title.toLowerCase());
     setTitle(termData.title);
-    setStartDate(termData.startDate ?? '');
+    setStartDate(termData.startDate ?? "");
     setEndDate(
       termData?.endDate ??
-        DateTime.fromISO(termData.startDate ?? '')
+        DateTime.fromISO(termData.startDate ?? "")
           .plus({ [termData.duration.unit]: termData.duration.qty })
-          .toISO() ?? ""
+          .toISO() ??
+        ""
     );
     setRepeat(termData.repeat);
   }, [termData]);
 
-  const checkboxId = `${category}_repeat-duration`;
-
+  const buttonColor = enabled ? fontColor : "#b7b7b7";
   return (
     <div style={{ margin: "0.5rem 0" }}>
       <h2>
         {`${Sentencecase(category)}-term: `}
         <Icon
           onClick={() => setEnabled(!enabled)}
-          faId="customize-button"
+          faClassName="fade-in-1s text-double cursor-pointer"
           icon={enabled ? faUnlock : faLock}
           title="Edit"
           faStyle={{
@@ -80,12 +80,12 @@ export const TermInputs = ({
         />
         <Icon
           onClick={() => {
-            setStartDate(defaultTerms[termString].startDate ?? '');
-            setEndDate(defaultTerms[termString].endDate ?? '');
+            setStartDate(defaultTerms[termString].startDate ?? "");
+            setEndDate(defaultTerms[termString].endDate ?? "");
             setUnitType(defaultTerms[termString].unitType);
             setTitle(defaultTerms[termString].title);
             setRepeat(defaultTerms[termString].repeat);
-            setDuration(defaultTerms[termString].duration)
+            setDuration(defaultTerms[termString].duration);
           }}
           faId="restore-defaults"
           icon={faArrowRightFromBracket}
@@ -122,7 +122,7 @@ export const TermInputs = ({
               margin: "0px 0.3rem",
               float: "right",
             }}
-            labelClass="pull-right align-checkbox-label"
+            labelClass="float-right bottom-[-2px] align-checkbox-label align-middle relative"
             labelText="Repeat?"
             labelOnRight
           /> */}
@@ -158,7 +158,8 @@ export const TermInputs = ({
       )}
       <button
         id="term-inputs-format-save"
-        className="pt-5 pb-1 px-3 button-height"
+        className="border border-current pt-0.5 px-1"
+        style={{ color: buttonColor, borderColor: buttonColor }}
         disabled={!enabled}
         onClick={() => {
           if (duration.qty) {

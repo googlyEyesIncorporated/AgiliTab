@@ -9,6 +9,8 @@ import { v4 as uuidv4 } from "uuid";
 import { selectVisualSettings } from "../../../features/settings/settingsSlice";
 import { ListKey } from "../../../features/itemList/types";
 
+const buttonClasses = "border-none bg-transparent cursor-pointer";
+
 export const Options = ({
   shouldShowOptions = false,
   listKey,
@@ -57,8 +59,10 @@ export const Options = ({
   }, [shouldShowOptions]);
 
   return (
-    <div className={`edit-priorities${shouldShowOptions ? "" : " hidden"}`}>
-      <form id={`todo-form-${listKey}`}>
+    <div
+      className={`text-center fade-in-1s${shouldShowOptions ? "" : " hidden"}`}
+    >
+      <form id={`todo-form-${listKey}`} className="inline-block w-full mb-2">
         <input
           id={`todo-input-${listKey}`}
           ref={inputRef}
@@ -76,12 +80,12 @@ export const Options = ({
           value="Add"
           onClick={addClick}
           style={{ color: fontColor }}
-          className="add-item-button"
+          className="text-base background-none shadow-none border-none"
         />
       </form>
       <button
         id={`sweep-${listKey}`}
-        className="button-class sweep-link link"
+        className={`${buttonClasses} text-base no-underline link`}
         style={{ color: secondFontColor }}
         onClick={clearDoneTasks}
       >
@@ -91,7 +95,7 @@ export const Options = ({
       <button
         id={`clear-all-${listKey}`}
         style={{ color: secondFontColor }}
-        className="button-class clear-all-link"
+        className={`${buttonClasses} text-base no-underline`}
         onClick={clearAllTasks}
       >
         Clear All
@@ -99,7 +103,7 @@ export const Options = ({
       {" | "}
       <button
         style={{ color: secondFontColor }}
-        className="button-class hide-edit"
+        className={`${buttonClasses} text-base no-underline`}
         onClick={toggleOptions}
       >
         Hide

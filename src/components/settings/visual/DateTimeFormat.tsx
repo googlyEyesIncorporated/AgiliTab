@@ -82,7 +82,7 @@ export const DateTimeFormat = () => {
       <div style={{ display: "inline-block", width: "50%" }}>
         <div>Date format: </div>
         <select
-          className="pt-5 pb-2 pl-1 input-height"
+          className="pt-0.5 pl-0.5 h-6"
           name="date-format-input"
           id="date-format-input"
           value={dateFormat}
@@ -96,7 +96,7 @@ export const DateTimeFormat = () => {
       <div style={{ display: "inline-block", width: "50%" }}>
         <div> Time format: </div>
         <select
-          className="pt-5 pb-1 pl-1 time-format-input input-height"
+          className="pt-0.5 pl-0.5 w-32 h-6"
           name="time-format-input"
           id="time-format-input"
           value={timeFormat}
@@ -108,7 +108,7 @@ export const DateTimeFormat = () => {
         </select>{" "}
         <button
           id="date-time-format-save"
-          className="pt-5 pb-1 px-3 button-height v-align-top"
+          className="border border-current pt-0.5 pb-0.5 px-1 align-top"
           onClick={() => {
             dispatch(setDateTimeFormats(selectedFormats));
           }}

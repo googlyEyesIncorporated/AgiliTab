@@ -28,12 +28,12 @@ export const ListGroup = ({
   isScopedToWorkingHours,
 }: ListGroupProps) => {
   const [hideIcon, setHideIcon] = useState(true);
-  const iconShowOrHide = hideIcon ? " hidden" : " revealed";
+  const iconShowOrHide = hideIcon ? " hidden" : " fade-in-1s";
 
   return (
-    <div className="priorities">
+    <div className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block">
       <div
-        className="priorities-title"
+        className="pb-1 text-2xl leading-normal border-b border-current text-center"
         onMouseEnter={() => setHideIcon(false)}
         onMouseLeave={() => setHideIcon(true)}
       >
@@ -42,7 +42,7 @@ export const ListGroup = ({
             onClick={() => copyListToClipboard(list)}
             icon={faCopy}
             faStyle={{}}
-            iconClassName={`trashcan  mr-2${iconShowOrHide}`}
+            iconClassName={`cursor-pointer  mr-2${iconShowOrHide}`}
           />
         </div>
         <span>{title}</span>
