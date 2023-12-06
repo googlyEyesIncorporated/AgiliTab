@@ -24,7 +24,7 @@ jest.mock("../../itemList/itemListSlice", () => ({
     mockPopulateTasksFromChrome(...args),
 }));
 
-jest.mock("../../Settings/settingsSlice", () => ({
+jest.mock("../../settings/settingsSlice", () => ({
   populateSettingssFromChrome: (...args: any[]) =>
     mockPopulateSettingssFromChrome(...args),
 }));
@@ -53,13 +53,15 @@ describe("updateStorage", () => {
 });
 
 describe("getStorage", () => {
-  getStorage(mockDispatch);
-  expect(mockPopulateSettingssFromChrome).toHaveBeenCalledWith({
-    test: "settings",
-  });
-  expect(mockPopulateTasksFromChrome).toHaveBeenCalledWith({
-    longTermList: ["longTermList"],
-    mediumTermList: ["mediumTermList"],
-    shortTermList: ["shortTermList"],
+  it("retrieves data from local storage", () => {
+    getStorage(mockDispatch);
+    expect(mockPopulateSettingssFromChrome).toHaveBeenCalledWith({
+      test: "settings",
+    });
+    expect(mockPopulateTasksFromChrome).toHaveBeenCalledWith({
+      longTermList: ["longTermList"],
+      mediumTermList: ["mediumTermList"],
+      shortTermList: ["shortTermList"],
+    });
   });
 });
