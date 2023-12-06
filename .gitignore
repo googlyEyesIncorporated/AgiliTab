@@ -15,6 +15,7 @@ launch.json
 /build
 build.pem
 build.crx
+/public/index.css
 
 # marketing
 *.webm
