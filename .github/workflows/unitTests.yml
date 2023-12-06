@@ -1,0 +1,18 @@
+# .github/workflows/unitTests.yml
+
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install latest Yarn
+        run: corepack enable
+
+      - name: Install modules
+        run: yarn
+
+      - name: Run tests
+        run: yarn test
