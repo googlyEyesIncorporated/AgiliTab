@@ -24,6 +24,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.0.3",
     "react-app-rewired": "^2.2.1",
+    "tailwindcss": "^3.3.5",
     "ts-jest": "^29.0.3"
   },
   "dependencies": {
@@ -51,7 +52,9 @@
     "build:prod": "INLINE_RUNTIME_CHUNK=false dotenv -e .env.production react-scripts build",
     "build": "echo \"Please use build:dev or build:prod \" && exit 1",
     "test": "react-app-rewired test",
-    "test:cov": "react-app-rewired test --coverage"
+    "test:cov": "react-app-rewired test --coverage",
+    "tw": "npx tailwindcss -i ./src/index.css -o ./public/index.css",
+    "tw:watch": "yarn tw --watch"
   },
   "eslintConfig": {
     "extends": [
