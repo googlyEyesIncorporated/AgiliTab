@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const appPage = "https://127.0.0.1:3000";
+const appPage = "http://127.0.0.1:3000";
 
 test("has title", async ({ page }) => {
   await page.goto(appPage);
