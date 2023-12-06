@@ -126,7 +126,7 @@ export const Settings = ({
       <hr />
       <DateTimeFormat />
       <hr />
-      <div style={{ margin: "1rem 0" }} id="customizable-units">
+      <div style={{ margin: "1rem 0" }}>
         <h2 style={{ fontSize: "2em" }}>Time Frames</h2>
         <WorkDay
           isPopoverOpen={isPopoverOpen}

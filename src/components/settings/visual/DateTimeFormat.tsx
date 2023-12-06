@@ -84,7 +84,6 @@ export const DateTimeFormat = () => {
         <select
           className="pt-0.5 pl-0.5 h-6"
           name="date-format-input"
-          id="date-format-input"
           value={dateFormat}
           onChange={(e) => {
             setSelectedFormats({ dateFormat: e.target.value, timeFormat });
@@ -98,7 +97,6 @@ export const DateTimeFormat = () => {
         <select
           className="pt-0.5 pl-0.5 w-32 h-6"
           name="time-format-input"
-          id="time-format-input"
           value={timeFormat}
           onChange={(e) => {
             setSelectedFormats({ dateFormat, timeFormat: e.target.value });
@@ -107,7 +105,6 @@ export const DateTimeFormat = () => {
           {renderFormats(timeFormats)}
         </select>{" "}
         <button
-          id="date-time-format-save"
           className="border border-current pt-0.5 pb-0.5 px-1 align-top"
           onClick={() => {
             dispatch(setDateTimeFormats(selectedFormats));

@@ -62,9 +62,8 @@ export const Options = ({
     <div
       className={`text-center fade-in-1s${shouldShowOptions ? "" : " hidden"}`}
     >
-      <form id={`todo-form-${listKey}`} className="inline-block w-full mb-2">
+      <form className="inline-block w-full mb-2">
         <input
-          id={`todo-input-${listKey}`}
           ref={inputRef}
           type="text"
           style={{
@@ -76,7 +75,6 @@ export const Options = ({
         />{" "}
         <input
           type="submit"
-          id="submit"
           value="Add"
           onClick={addClick}
           style={{ color: fontColor }}
@@ -84,7 +82,6 @@ export const Options = ({
         />
       </form>
       <button
-        id={`sweep-${listKey}`}
         className={`${buttonClasses} text-base no-underline link`}
         style={{ color: secondFontColor }}
         onClick={clearDoneTasks}
@@ -93,7 +90,6 @@ export const Options = ({
       </button>
       {" | "}
       <button
-        id={`clear-all-${listKey}`}
         style={{ color: secondFontColor }}
         className={`${buttonClasses} text-base no-underline`}
         onClick={clearAllTasks}

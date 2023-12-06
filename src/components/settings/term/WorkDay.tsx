@@ -55,7 +55,6 @@ export const WorkDay = ({
         <input
           type="time"
           name="workday-start"
-          id="workday-start-timeinput"
           value={hours.start}
           onChange={(e) => setHours({ start: e.target.value, end: hours.end })}
           className="items-end w-32 pt-0.5 pl-1"
@@ -66,7 +65,6 @@ export const WorkDay = ({
         <input
           type="time"
           name="workday-end"
-          id="workday-end-timeinput"
           value={hours.end}
           onChange={(e) =>
             setHours({ start: hours.start, end: e.target.value })
@@ -74,7 +72,6 @@ export const WorkDay = ({
           className="items-end w-32 pt-0.5 pl-1"
         />{" "}
         <button
-          id="workday-time-save"
           className="border border-current pt-0.5 px-1 align-top"
           onClick={() => {
             setIsPopoverOpen(false);

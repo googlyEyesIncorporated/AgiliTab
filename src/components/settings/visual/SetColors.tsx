@@ -22,7 +22,6 @@ export const SetColors = () => {
         Colors:
         <Icon
           onClick={() => generateAndDispatchRandomColors(dispatch)}
-          faId="generate-random-colors"
           icon={faRandom}
           title="Generate Random Colors"
           faStyle={{
@@ -34,7 +33,6 @@ export const SetColors = () => {
         />
         <Icon
           onClick={() => dispatch(resetVisualSetting())}
-          faId="restore-default-colors"
           icon={faArrowRightFromBracket}
           title="Restore Default Colors"
           faStyle={{ color: secondFontColor, fontSize: "1rem" }}

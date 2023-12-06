@@ -54,14 +54,15 @@ export const SelectDate = ({
   if ("min" in limit && limit.min) {
     formattedLimit.min = DateTime.fromISO(limit.min).toISODate() ?? undefined;
   }
+  const categoryDatePicker = `${category}-${title}-datepicker`;
   return (
     <div style={{ display: "inline-block", width: "50%" }}>
-      <label htmlFor={`${category}-${title}-datepicker`}> {title}: </label>
+      <label htmlFor={categoryDatePicker}> {title}: </label>
       <input
         type="date"
         {...formattedLimit}
-        id={`${category}-${title}-datepicker`}
-        name={`${category}-${title}-datepicker`}
+        id={categoryDatePicker}
+        name={categoryDatePicker}
         value={DateTime.fromISO(date).toISODate() ?? ""}
         style={{ backgroundColor: enabled ? "white" : "darkgray" }}
         disabled={!enabled}

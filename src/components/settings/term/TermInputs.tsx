@@ -87,7 +87,6 @@ export const TermInputs = ({
             setRepeat(defaultTerms[termString].repeat);
             setDuration(defaultTerms[termString].duration);
           }}
-          faId="restore-defaults"
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
           faStyle={{ color: secondFontColor, fontSize: "1rem", float: "right" }}
@@ -157,7 +156,6 @@ export const TermInputs = ({
         />
       )}
       <button
-        id="term-inputs-format-save"
         className="border border-current pt-0.5 px-1"
         style={{ color: buttonColor, borderColor: buttonColor }}
         disabled={!enabled}
