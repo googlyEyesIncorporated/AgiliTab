@@ -153,6 +153,7 @@ export const Settings = ({
             fontSize: "1rem",
             margin: "0 10px",
           }}
+          data-testid="info-icon"
           iconClassName={`info-circle pull-right`}
         />
       </div>

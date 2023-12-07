@@ -3,16 +3,41 @@ import { appPage, setTime } from "./utils";
 import { Locator } from "playwright-core";
 
 test.describe("Settings", () => {
+  //  Locators:
   let settingsButton: Locator,
     bgColorPicker: Locator,
     dateFormatPicker: Locator,
-    timeFormatPicker: Locator;
+    timeFormatPicker: Locator,
+    infoIcon: Locator,
+    mediumLock: Locator,
+    mediumDurationFormatInput: Locator,
+    mediumDate: Locator,
+    maskTimeFormatWithSeconds: Locator;
+
+  // mediumUnlock: Locator,
+  // mediumRestoreDefaults: Locator,
+  // mediumDuration: Locator,
+  // longDuration: Locator,
+  // longDate: Locator;
   test.beforeEach(async ({ page }) => {
-    //  Locators:
     settingsButton = page.getByTestId("settings");
     bgColorPicker = page.getByTestId("bgColor-picker");
     dateFormatPicker = page.getByTestId("date-format-input");
     timeFormatPicker = page.getByTestId("time-format-input");
+    mediumDate = page.getByTestId("medium-date");
+    mediumLock = page.getByTestId("medium-lock");
+    mediumDurationFormatInput = page.getByTestId(
+      "medium-duration-format-input"
+    );
+    maskTimeFormatWithSeconds = page.getByTestId("date-time-format-h:mm:ss a");
+    infoIcon = page.getByTestId("info-icon");
+
+    // mediumDuration = page.getByTestId("medium-duration");
+    // mediumUnlock = page.getByTestId("medium-unlock");
+    // mediumDurationFormatInput = page.getByTestId("medium-duration-format-input");
+    // longDuration = page.getByTestId("long-duration");
+    // longDate = page.getByTestId("long-date");
+
     // Update the Date accordingly in your test pages
     await setTime(page);
     // Go to the starting url before each test.
@@ -39,18 +64,26 @@ test.describe("Settings", () => {
   test("open time format picker", async ({ page }) => {
     await settingsButton.click();
     await timeFormatPicker.click();
+    await expect(page).toHaveScreenshot({ mask: [maskTimeFormatWithSeconds] });
+  });
+
+  test("open medium term duration format", async ({ page }) => {
+    await settingsButton.click();
+    await mediumLock.click();
+    await mediumDurationFormatInput.click();
+    await expect(page).toHaveScreenshot();
+  });
+
+  test("switch to medium term date format", async ({ page }) => {
+    await settingsButton.click();
+    await mediumLock.click();
+    await mediumDate.click();
+    await expect(page).toHaveScreenshot();
+  });
+
+  test("open info box", async ({ page }) => {
+    await settingsButton.click();
+    await infoIcon.click();
     await expect(page).toHaveScreenshot();
   });
 });
-
-// xtest("get started link", async ({ page }) => {
-//   await page.goto(appPage);
-
-//   // Click the get started link.
-//   await page.getByRole("link", { name: "Get started" }).click();
-
-//   // Expects page to have a heading with the name of Installation.
-//   await expect(
-//     page.getByRole("heading", { name: "Installation" })
-//   ).toBeVisible();
-// });

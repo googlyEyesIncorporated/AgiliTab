@@ -49,7 +49,11 @@ const renderFormats = (
       const group = formatGroup[standard as keyof typeof formatGroup];
       const thisFormat = group[format as keyof typeof group];
       return (
-        <option value={thisFormat} key={thisFormat}>
+        <option
+          value={thisFormat}
+          data-testid={`date-time-format-${thisFormat}`}
+          key={thisFormat}
+        >
           {DateTime.now().toFormat(thisFormat)}
         </option>
       );
