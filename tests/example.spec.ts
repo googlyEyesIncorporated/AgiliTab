@@ -9,6 +9,11 @@ test("has title", async ({ page }) => {
   await expect(page).toHaveTitle(/AgiliTab/);
 });
 
+test("passes visual regression", async ({ page }) => {
+  await page.goto(appPage);
+  await expect(page).toHaveScreenshot();
+});
+
 // xtest("get started link", async ({ page }) => {
 //   await page.goto(appPage);
 
