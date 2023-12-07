@@ -120,7 +120,7 @@ export const Settings = ({
           <li>- Zeah D. - Design Consultant</li>
         </ul>
       </span>
-      <h1 id="customize-corner-title">Customization</h1>
+      <h1 id="settings-title">Customization</h1>
       <SetColors />
       <hr />
       <DateTimeFormat />

@@ -12,7 +12,7 @@ export const SettingsWrapper = () => {
   const settingsContainer = useRef(null as HTMLDivElement | null);
 
   return (
-    <div id="customize-corner" ref={settingsContainer}>
+    <div id="settings" data-testid="settings" ref={settingsContainer}>
       <Icon
         onClick={() => setHidden(!hideSettings)}
         faId="customize-button"
