@@ -85,6 +85,7 @@ export const DateTimeFormat = () => {
           className="pt-5 pb-2 pl-1 input-height"
           name="date-format-input"
           id="date-format-input"
+          data-testid="date-format-input"
           value={dateFormat}
           onChange={(e) => {
             setSelectedFormats({ dateFormat: e.target.value, timeFormat });
@@ -99,6 +100,7 @@ export const DateTimeFormat = () => {
           className="pt-5 pb-1 pl-1 time-format-input input-height"
           name="time-format-input"
           id="time-format-input"
+          data-testid="time-format-input"
           value={timeFormat}
           onChange={(e) => {
             setSelectedFormats({ dateFormat, timeFormat: e.target.value });
