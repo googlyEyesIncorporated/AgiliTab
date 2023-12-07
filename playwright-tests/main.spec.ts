@@ -1,9 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { setTime } from "./utils";
-const appPage = "http://127.0.0.1:3000";
-
-// Pick the new/fake "now" for you test pages.
-const fakeNow = new Date("September 25 2023 12:20:00").valueOf();
+import { appPage, setTime } from "./utils";
 
 test("has title", async ({ page }) => {
   await page.goto(appPage);
