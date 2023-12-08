@@ -71,6 +71,7 @@ export const TermInputs = ({
           faClassName="fade-in-1s text-double cursor-pointer"
           icon={enabled ? faUnlock : faLock}
           title="Edit"
+          data-testid={`${category}-${enabled ? "unlock" : "lock"}`}
           faStyle={{
             color: secondFontColor,
             fontSize: "1rem",
@@ -87,6 +88,7 @@ export const TermInputs = ({
             setRepeat(defaultTerms[termString].repeat);
             setDuration(defaultTerms[termString].duration);
           }}
+          data-testid={`${category}-restore-defaults`}
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
           faStyle={{ color: secondFontColor, fontSize: "1rem", float: "right" }}

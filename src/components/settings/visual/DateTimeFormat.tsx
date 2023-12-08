@@ -49,7 +49,11 @@ const renderFormats = (
       const group = formatGroup[standard as keyof typeof formatGroup];
       const thisFormat = group[format as keyof typeof group];
       return (
-        <option value={thisFormat} key={thisFormat}>
+        <option
+          value={thisFormat}
+          data-testid={`date-time-format-${thisFormat}`}
+          key={thisFormat}
+        >
           {DateTime.now().toFormat(thisFormat)}
         </option>
       );
@@ -84,6 +88,8 @@ export const DateTimeFormat = () => {
         <select
           className="pt-0.5 pl-0.5 h-6"
           name="date-format-input"
+          id="date-format-input"
+          data-testid="date-format-input"
           value={dateFormat}
           onChange={(e) => {
             setSelectedFormats({ dateFormat: e.target.value, timeFormat });
@@ -97,6 +103,8 @@ export const DateTimeFormat = () => {
         <select
           className="pt-0.5 pl-0.5 w-32 h-6"
           name="time-format-input"
+          id="time-format-input"
+          data-testid="time-format-input"
           value={timeFormat}
           onChange={(e) => {
             setSelectedFormats({ dateFormat, timeFormat: e.target.value });

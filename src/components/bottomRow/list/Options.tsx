@@ -64,6 +64,7 @@ export const Options = ({
     >
       <form className="inline-block w-full mb-2">
         <input
+          data-testid={`todo-input-${listKey}`}
           ref={inputRef}
           type="text"
           style={{
@@ -75,6 +76,7 @@ export const Options = ({
         />{" "}
         <input
           type="submit"
+          data-testid={`${listKey}-add-item-button`}
           value="Add"
           onClick={addClick}
           style={{ color: fontColor }}

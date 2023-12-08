@@ -67,6 +67,8 @@ export const Duration = ({
       <select
         className="pt-2 pb-1 align-top h-6"
         name={categoryDurationFormatInput}
+        id={categoryDurationFormatInput}
+        data-testid={categoryDurationFormatInput}
         value={`${unit}`}
         style={BackgroundAndHeightStyle(enabled)}
         {...(enabled ? {} : { disabled: true })}

@@ -121,7 +121,7 @@ export const Settings = ({
           <li>- Zeah D. - Design Consultant</li>
         </ul>
       </span>
-      <h1 id="customize-corner-title">Customization</h1>
+      <h1 id="settings-title">Customization</h1>
       <SetColors />
       <hr />
       <DateTimeFormat />
@@ -155,6 +155,7 @@ export const Settings = ({
             margin: "0 10px",
           }}
           iconClassName={`info-circle float-right`}
+          data-testid="info-icon"
         />
       </div>
     </div>

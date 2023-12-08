@@ -45,6 +45,7 @@ export const SetColors = () => {
           name="bgColor"
           id="bgColor-picker"
           className="cursor-pointer"
+          data-testid="bgColor-picker"
           value={bgColor}
           onChange={(e) =>
             dispatch(

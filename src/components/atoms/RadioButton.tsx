@@ -29,6 +29,7 @@ const RadioButton = ({
       <input
         type="radio"
         id={firstRadioCategory}
+        data-testid={firstRadioCategory}
         value={firstRadioName}
         disabled={!enabled}
         onChange={handleChange}
@@ -40,6 +41,7 @@ const RadioButton = ({
       <input
         type="radio"
         id={secondRadioCategory}
+        data-testid={secondRadioCategory}
         value={secondRadioName}
         disabled={!enabled}
         onChange={handleChange}

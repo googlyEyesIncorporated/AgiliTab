@@ -42,6 +42,7 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
         {!shouldShowOptions && (
           <button
             className="no-underline m-2 text-base block button-class float-right"
+            data-testid={`${listKey}-edit-priorities-link`}
             onClick={toggleOptions}
             style={{ color: secondFontColor }}
           >
