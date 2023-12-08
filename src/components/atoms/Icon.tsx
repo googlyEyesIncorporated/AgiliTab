@@ -17,6 +17,7 @@ const Icon = ({
   iconClassName,
   faId,
   faClassName,
+  // "data-testid": testId,
   ...rest
 }: IconProps) => {
   return (
