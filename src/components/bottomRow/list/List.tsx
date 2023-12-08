@@ -39,6 +39,7 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
         {!shouldShowOptions && (
           <button
             className="edit-priorities-link button-class pull-right"
+            data-testid={`${listKey}-edit-priorities-link`}
             onClick={toggleOptions}
             style={{ color: secondFontColor }}
           >

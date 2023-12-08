@@ -44,46 +44,50 @@ test.describe("Settings", () => {
     await page.goto(appPage);
   });
 
-  test("open settings panel", async ({ page }) => {
-    await settingsButton.click();
-    await expect(page).toHaveScreenshot();
-  });
+  test.describe("Visual Regression", () => {
+    test("open settings panel", async ({ page }) => {
+      await settingsButton.click();
+      await expect(page).toHaveScreenshot();
+    });
 
-  test("open color picker", async ({ page }) => {
-    await settingsButton.click();
-    await bgColorPicker.click();
-    await expect(page).toHaveScreenshot();
-  });
+    test("open color picker", async ({ page }) => {
+      await settingsButton.click();
+      await bgColorPicker.click();
+      await expect(page).toHaveScreenshot();
+    });
 
-  test("open date format picker", async ({ page }) => {
-    await settingsButton.click();
-    await dateFormatPicker.click();
-    await expect(page).toHaveScreenshot();
-  });
+    test("open date format picker", async ({ page }) => {
+      await settingsButton.click();
+      await dateFormatPicker.click();
+      await expect(page).toHaveScreenshot();
+    });
 
-  test("open time format picker", async ({ page }) => {
-    await settingsButton.click();
-    await timeFormatPicker.click();
-    await expect(page).toHaveScreenshot({ mask: [maskTimeFormatWithSeconds] });
-  });
+    test("open time format picker", async ({ page }) => {
+      await settingsButton.click();
+      await timeFormatPicker.click();
+      await expect(page).toHaveScreenshot({
+        mask: [maskTimeFormatWithSeconds],
+      });
+    });
 
-  test("open medium term duration format", async ({ page }) => {
-    await settingsButton.click();
-    await mediumLock.click();
-    await mediumDurationFormatInput.click();
-    await expect(page).toHaveScreenshot();
-  });
+    test("open medium term duration format", async ({ page }) => {
+      await settingsButton.click();
+      await mediumLock.click();
+      await mediumDurationFormatInput.click();
+      await expect(page).toHaveScreenshot();
+    });
 
-  test("switch to medium term date format", async ({ page }) => {
-    await settingsButton.click();
-    await mediumLock.click();
-    await mediumDate.click();
-    await expect(page).toHaveScreenshot();
-  });
+    test("switch to medium term date format", async ({ page }) => {
+      await settingsButton.click();
+      await mediumLock.click();
+      await mediumDate.click();
+      await expect(page).toHaveScreenshot();
+    });
 
-  test("open info box", async ({ page }) => {
-    await settingsButton.click();
-    await infoIcon.click();
-    await expect(page).toHaveScreenshot();
+    test("open info box", async ({ page }) => {
+      await settingsButton.click();
+      await infoIcon.click();
+      await expect(page).toHaveScreenshot();
+    });
   });
 });
