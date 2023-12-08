@@ -87,6 +87,7 @@ export const SmartListItem = ({
       name={name}
       fontColor={fontColor}
       bgColor={bgColor}
+      index={index}
       closeAndSaveInput={closeAndSaveInput}
     />
   );

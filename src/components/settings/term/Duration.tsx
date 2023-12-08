@@ -68,6 +68,7 @@ export const Duration = ({
         className="pt-5 pb-2 v-align-top input-height"
         name={categoryDurationFormatInput}
         id={categoryDurationFormatInput}
+        data-testid={categoryDurationFormatInput}
         value={`${unit}`}
         style={BackgroundAndHeightStyle(enabled)}
         {...(enabled ? {} : { disabled: true })}

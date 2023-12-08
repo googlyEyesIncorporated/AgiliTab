@@ -50,12 +50,13 @@ export const TermInputs = ({
   useEffect(() => {
     setUnitType(termData.title.toLowerCase());
     setTitle(termData.title);
-    setStartDate(termData.startDate ?? '');
+    setStartDate(termData.startDate ?? "");
     setEndDate(
       termData?.endDate ??
-        DateTime.fromISO(termData.startDate ?? '')
+        DateTime.fromISO(termData.startDate ?? "")
           .plus({ [termData.duration.unit]: termData.duration.qty })
-          .toISO() ?? ""
+          .toISO() ??
+        ""
     );
     setRepeat(termData.repeat);
   }, [termData]);
@@ -71,6 +72,7 @@ export const TermInputs = ({
           faId="customize-button"
           icon={enabled ? faUnlock : faLock}
           title="Edit"
+          data-testid={`${category}-${enabled ? "unlock" : "lock"}`}
           faStyle={{
             color: secondFontColor,
             fontSize: "1rem",
@@ -80,13 +82,14 @@ export const TermInputs = ({
         />
         <Icon
           onClick={() => {
-            setStartDate(defaultTerms[termString].startDate ?? '');
-            setEndDate(defaultTerms[termString].endDate ?? '');
+            setStartDate(defaultTerms[termString].startDate ?? "");
+            setEndDate(defaultTerms[termString].endDate ?? "");
             setUnitType(defaultTerms[termString].unitType);
             setTitle(defaultTerms[termString].title);
             setRepeat(defaultTerms[termString].repeat);
-            setDuration(defaultTerms[termString].duration)
+            setDuration(defaultTerms[termString].duration);
           }}
+          data-testid={`${category}-restore-defaults`}
           faId="restore-defaults"
           icon={faArrowRightFromBracket}
           title="Restore Defaults"

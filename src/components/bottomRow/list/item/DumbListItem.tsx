@@ -57,6 +57,7 @@ export const DumbListItem = ({
         setEditBoxIsHidden(false);
         inputRef.current?.focus();
       }}
+      data-testid={`list-item-${index}`}
     >
       <div className="squaredThree">
         <CheckBox
@@ -64,6 +65,7 @@ export const DumbListItem = ({
           checked={done}
           nameId={id}
           labelText=""
+          data-testid={`list-item-checkbox-${index}`}
           inputStyle={{ color: secondFontColor }}
         />
       </div>
@@ -73,12 +75,14 @@ export const DumbListItem = ({
           onClick={removeItem}
           icon={faTrash}
           faStyle={{ color: iconColor }}
+          data-testid={`list-item-delete-${index}`}
           iconClassName={`trashcan pull-right ml-2${iconShowOrHide}`}
         />
         <Icon
           onClick={() => copyItem(name)}
           icon={faCopy}
           faStyle={{ color: iconColor }}
+          data-testid={`list-item-copy-${index}`}
           iconClassName={`copy pull-right ml-2${iconShowOrHide}`}
         />
       </div>

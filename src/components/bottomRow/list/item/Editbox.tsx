@@ -3,12 +3,14 @@ export const EditBox = ({
   name,
   fontColor,
   bgColor,
+  index,
   closeAndSaveInput,
 }: EditBoxProps) => {
   return (
     <li>
       <input
         ref={inputRef}
+        data-testid={`todo-edit-${index}`}
         type="text"
         defaultValue={name}
         style={{
@@ -33,6 +35,7 @@ interface EditBoxProps extends TaskProps {
 }
 
 interface TaskProps {
+  index: number;
   fontColor: string;
   bgColor: string;
   name: string;

@@ -46,6 +46,7 @@ export const SetColors = () => {
           type="color"
           name="bgColor"
           id="bgColor-picker"
+          data-testid="bgColor-picker"
           value={bgColor}
           onChange={(e) =>
             dispatch(

@@ -61,6 +61,7 @@ export const Options = ({
       <form id={`todo-form-${listKey}`}>
         <input
           id={`todo-input-${listKey}`}
+          data-testid={`todo-input-${listKey}`}
           ref={inputRef}
           type="text"
           style={{
@@ -73,6 +74,7 @@ export const Options = ({
         <input
           type="submit"
           id="submit"
+          data-testid={`${listKey}-add-item-button`}
           value="Add"
           onClick={addClick}
           style={{ color: fontColor }}
