@@ -14,13 +14,8 @@ import RadioButton from "../../atoms/RadioButton";
 import { DateTime } from "luxon";
 import { UnitType } from "../../../features/settings/types";
 import { TermName } from "./TermName";
-import CheckBox from "../../atoms/CheckBox";
 import { Sentencecase } from "../../../features/utils/Sentencecase";
-import {
-  Categories,
-  onRepeat,
-  saveTerm,
-} from "../../../features/settings/utils";
+import { Categories, saveTerm } from "../../../features/settings/utils";
 import Icon from "../../atoms/Icon";
 
 const defaultTerms: { mediumTerm: UnitType; longTerm: UnitType } = {
