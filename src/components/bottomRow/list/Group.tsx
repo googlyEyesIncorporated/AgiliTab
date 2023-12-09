@@ -33,7 +33,7 @@ export const ListGroup = ({
   return (
     <div className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block">
       <div
-        className="pb-1 text-2xl leading-normal border-b border-current text-center"
+        className="pb-1 text-2xl border-b border-current text-center"
         onMouseEnter={() => setHideIcon(false)}
         onMouseLeave={() => setHideIcon(true)}
       >
@@ -45,8 +45,9 @@ export const ListGroup = ({
             iconClassName={`cursor-pointer  mr-2${iconShowOrHide}`}
           />
         </div>
-        <span>{title}</span>
+        <span className="text-[1.6875rem]">{title}</span>
         <ElapsedTime
+          className="text-[1.6875rem]"
           term={term}
           setTerm={setTerm}
           advanceTerm={advanceTerm}

@@ -22,14 +22,10 @@ export const NowBox = () => {
 
   return (
     <div className="fade-in-down-1s flex flex-wrap lg:flex-nowrap mt-4 lg:mt-12 mb-8 justify-between">
-      <div className="now text-5xl leading-relaxed border border-current border-solid my-2 mx-auto p-2 w-full lg:max-w-1/2 lg:w-3/10 text-center">
+      <div className="now leading-none text-[3.375rem] border border-current border-solid my-2 mx-auto p-2 w-full lg:max-w-1/2 lg:w-3/10 text-center">
         <Clock date={date} />
-        <span className="date" style={{ marginTop: "1rem" }}>
-          <span
-            style={{
-              fontSize: "1.5rem",
-            }}
-          >
+        <span className="date">
+          <span className="text-2xl">
             <div>
               {DateTime.fromISO(date).weekdayLong +
                 " - " +
