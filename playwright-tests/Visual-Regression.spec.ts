@@ -12,7 +12,7 @@ const viewports = [
   { width: 1280, height: 720 },
 ];
 for (const viewport of viewports) {
-  test.describe(`Visual Regression Testing (${viewport.width} x ${viewport.height})`, async () => {
+  test.describe(`Visual Regression Testing`, async () => {
     test.use({ viewport: viewport });
     //  Locators:
     let settingsButton: Locator,
@@ -73,75 +73,101 @@ for (const viewport of viewports) {
       test.beforeEach("", async () => {
         await settingsButton.click();
       });
-      test("open settings panel", async ({ page }) => {
+      test(`open settings panel  (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         await expect(page).toHaveScreenshot();
       });
 
-      test("open color picker", async ({ page }) => {
+      test(`open color picker  (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         await bgColorPicker.click();
         await expect(page).toHaveScreenshot();
       });
 
-      test("open date format picker", async ({ page }) => {
+      test(`open date format picker (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         await dateFormatPicker.click();
         await expect(page).toHaveScreenshot();
       });
 
-      test("open time format picker", async ({ page }) => {
+      test(`open time format picker (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         await timeFormatPicker.click();
         await expect(page).toHaveScreenshot({
           mask: [maskTimeFormatWithSeconds],
         });
       });
 
-      test("open medium term duration format", async ({ page }) => {
+      test(`open medium term duration format (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         await mediumLock.click();
         await mediumDurationFormatInput.click();
         await expect(page).toHaveScreenshot();
       });
 
-      test("switch to medium term date format", async ({ page }) => {
+      test(`switch to medium term date format (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         await mediumLock.click();
         await mediumDate.click();
         await expect(page).toHaveScreenshot();
       });
 
-      test("open info box", async ({ page }) => {
+      test(`open info box (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         await infoIcon.click();
         await expect(page).toHaveScreenshot();
       });
     });
     test.describe("Todo", () => {
-      test.beforeEach("", async () => {
+      test.beforeEach(async () => {
         await mediumEditPriorities.click();
       });
-      test("open todo input", async ({ page }) => {
+      test(`open todo input (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         await expect(page).toHaveScreenshot();
       });
-      test("input text", async ({ page }) => {
+      test(`input text (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         todoInputMedium.fill("Todo 1");
         await expect(page).toHaveScreenshot();
       });
-      test("input text and add item", async ({ page }) => {
+      test(`input text and add item (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         todoInputMedium.fill("Todo 1");
         mediumAddItemButton.click();
         await expect(page).toHaveScreenshot();
       });
-      test("input text and add item and edit item", async ({ page }) => {
+      test(`input text and add item and edit item (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         todoInputMedium.fill("Todo 1");
         mediumAddItemButton.click();
-        await page.waitForSelector(".todo-text");
+        await page.waitForSelector('[data-testid="todo-text"]');
         await listItem0.dblclick();
         await expect(page).toHaveScreenshot();
       });
-      test("input text and add items and mark done", async ({ page }) => {
+      test(`input text and add items and mark done (${viewport.width} x ${viewport.height})`, async ({
+        page,
+      }) => {
         todoInputMedium.fill("Todo 1");
         mediumAddItemButton.click();
         await listItemCheckbox0.click({ force: true });
         await expect(page).toHaveScreenshot();
       });
     });
-    test("Main page", async ({ page }) => {
+    test(`Main page (${viewport.width} x ${viewport.height})`, async ({
+      page,
+    }) => {
       // Update the Date accordingly in your test pages
       await expect(page).toHaveScreenshot();
     });
