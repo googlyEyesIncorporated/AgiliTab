@@ -14,8 +14,13 @@ import RadioButton from "../../atoms/RadioButton";
 import { DateTime } from "luxon";
 import { UnitType } from "../../../features/settings/types";
 import { TermName } from "./TermName";
+// import CheckBox from "../../atoms/CheckBox";
 import { Sentencecase } from "../../../features/utils/Sentencecase";
-import { Categories, saveTerm } from "../../../features/settings/utils";
+import {
+  Categories,
+  // onRepeat,
+  saveTerm,
+} from "../../../features/settings/utils";
 import Icon from "../../atoms/Icon";
 
 const defaultTerms: { mediumTerm: UnitType; longTerm: UnitType } = {
@@ -57,6 +62,8 @@ export const TermInputs = ({
   }, [termData]);
 
   const buttonColor = enabled ? fontColor : "#b7b7b7";
+  // const checkboxId = `${category}_repeat-duration`;
+
   return (
     <div style={{ margin: "0.5rem 0" }}>
       <h2>
