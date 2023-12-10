@@ -69,7 +69,10 @@ export const DumbListItem = ({
           inputStyle={{ color: secondFontColor }}
         />
       </div>
-      <div className={`todo-text${done ? " todo-card-done" : ""}`}>
+      <div
+        data-testid="todo-text"
+        className={`todo-text${done ? " todo-card-done" : ""}`}
+      >
         {name}
         <Icon
           onClick={removeItem}
