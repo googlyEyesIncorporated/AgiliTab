@@ -14,11 +14,11 @@ import RadioButton from "../../atoms/RadioButton";
 import { DateTime } from "luxon";
 import { UnitType } from "../../../features/settings/types";
 import { TermName } from "./TermName";
-import CheckBox from "../../atoms/CheckBox";
+// import CheckBox from "../../atoms/CheckBox";
 import { Sentencecase } from "../../../features/utils/Sentencecase";
 import {
   Categories,
-  onRepeat,
+  // onRepeat,
   saveTerm,
 } from "../../../features/settings/utils";
 import Icon from "../../atoms/Icon";
@@ -61,7 +61,7 @@ export const TermInputs = ({
     setRepeat(termData.repeat);
   }, [termData]);
 
-  const checkboxId = `${category}_repeat-duration`;
+  // const checkboxId = `${category}_repeat-duration`;
 
   return (
     <div style={{ margin: "0.5rem 0" }}>
