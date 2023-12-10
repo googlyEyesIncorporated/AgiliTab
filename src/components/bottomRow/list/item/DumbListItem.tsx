@@ -37,7 +37,7 @@ export const DumbListItem = ({
   const iconColor = done ? secondFontColor : fontColor;
   return (
     <li
-      className={`flex p-2 border items-center${
+      className={`flex p-2 border leading-none items-center${
         itemBeingDraggedCurrentItem({ listKey, index }, itemBeingDragged)
           ? " opacity-5" // There's got to be a better way, find it later.
           : ""
@@ -65,13 +65,16 @@ export const DumbListItem = ({
           checked={done}
           nameId={id}
           labelText=""
-          labelClass="mr-2 w-4 h-4 left-0 border border-current rounded-sm top-[12.5%] after:opacity-0 after:left-0 after:text-2xl after:content-['✔'] after:top-[-0.5rem] after:font-['FontAwesome'] hover:after:opacity-[0.3]"
+          labelClass="mr-2 w-4 h-4 left-0 border border-current rounded-sm top-[12.5%] after:opacity-0 after:left-0 after:text-2xl after:leading-none after:content-['✔'] after:top-[-0.5rem] after:font-['FontAwesome'] hover:after:opacity-[0.3]"
           className="absolute"
           data-testid={`list-item-checkbox-${index}`}
           inputStyle={{ color: secondFontColor }}
         />
       </div>
-      <div className={`grow${done ? " line-through" : ""}`}>
+      <div
+        className={`grow${done ? " line-through" : ""}`}
+        data-testid="todo-text"
+      >
         {name}
         <Icon
           onClick={removeItem}

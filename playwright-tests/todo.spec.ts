@@ -36,7 +36,7 @@ test.describe("Todo", () => {
     test("input text and add item and edit item", async ({ page }) => {
       todoInputMedium.fill("Todo 1");
       mediumAddItemButton.click();
-      await page.waitForSelector(".todo-text");
+      await page.waitForSelector(`[data-testid="todo-text"]`);
       await listItem0.dblclick();
       await expect(page).toHaveScreenshot();
     });

@@ -72,7 +72,7 @@ export const Options = ({
             backgroundColor: bgColor,
             borderColor: fontColor,
           }}
-          className="todo"
+          className="todo leading-none"
         />{" "}
         <input
           type="submit"
