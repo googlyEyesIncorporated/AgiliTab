@@ -41,7 +41,6 @@ export const ListGroup = ({
           <Icon
             onClick={() => copyListToClipboard(list)}
             icon={faCopy}
-            faStyle={{}}
             iconClassName={`cursor-pointer  mr-2${iconShowOrHide}`}
           />
         </div>
