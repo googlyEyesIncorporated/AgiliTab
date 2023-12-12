@@ -17,28 +17,24 @@ export const SetColors = () => {
     useAppSelector(selectVisualSettings);
 
   return (
-    <div style={{ margin: "0 0 1rem 0" }} ref={SettingsBoundary}>
-      <h2 style={{ marginBottom: "0.5rem" }}>
+    <div className="mt-0 mb-4 mx-0" ref={SettingsBoundary}>
+      <h2 className="mb-2 text-lg font-bold leading-none">
         Colors:
         <Icon
           onClick={() => generateAndDispatchRandomColors(dispatch)}
-          faId="generate-random-colors"
           icon={faRandom}
           title="Generate Random Colors"
           faStyle={{
             color: secondFontColor,
-            fontSize: "1rem",
-            margin: "0 10px",
           }}
-          iconClassName={`pull-right`}
+          iconClassName="float-right text-base leading-none my-0 mx-2.5"
         />
         <Icon
           onClick={() => dispatch(resetVisualSetting())}
-          faId="restore-default-colors"
           icon={faArrowRightFromBracket}
           title="Restore Default Colors"
-          faStyle={{ color: secondFontColor, fontSize: "1rem" }}
-          iconClassName={`pull-right`}
+          faStyle={{ color: secondFontColor }}
+          iconClassName="float-right text-base leading-none"
         />
       </h2>
       <div>
@@ -46,6 +42,7 @@ export const SetColors = () => {
           type="color"
           name="bgColor"
           id="bgColor-picker"
+          className="cursor-pointer"
           data-testid="bgColor-picker"
           value={bgColor}
           onChange={(e) =>
@@ -61,6 +58,7 @@ export const SetColors = () => {
           type="color"
           name="fontColor"
           id="fontColor-picker"
+          className="cursor-pointer"
           value={fontColor}
           onChange={(e) =>
             dispatch(
@@ -75,6 +73,7 @@ export const SetColors = () => {
           type="color"
           name="secondFontColor"
           id="secondFontColor-picker"
+          className="cursor-pointer"
           value={secondFontColor}
           onChange={(e) =>
             dispatch(

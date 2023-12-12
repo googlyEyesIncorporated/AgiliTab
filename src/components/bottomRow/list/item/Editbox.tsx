@@ -17,14 +17,13 @@ export const EditBox = ({
           color: fontColor,
           backgroundColor: bgColor,
           borderColor: fontColor,
-          width: "100%",
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter" && inputRef.current) {
             closeAndSaveInput(inputRef.current.value);
           }
         }}
-        className="todo-edit"
+        className="todo-edit w-full"
       />
     </li>
   );

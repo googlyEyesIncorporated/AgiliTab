@@ -7,27 +7,14 @@ interface IconProps {
   onClick?: MouseEventHandler<SVGSVGElement>;
   faStyle?: CSSProperties;
   iconClassName?: string;
-  faId?: string;
   faClassName?: string;
   title?: string;
 }
 
-const Icon = ({
-  faStyle,
-  iconClassName,
-  faId,
-  faClassName,
-  // "data-testid": testId,
-  ...rest
-}: IconProps) => {
+const Icon = ({ faStyle, iconClassName, faClassName, ...rest }: IconProps) => {
   return (
     <i aria-hidden="true" className={iconClassName}>
-      <FontAwesomeIcon
-        style={faStyle}
-        id={faId}
-        className={faClassName}
-        {...rest}
-      />
+      <FontAwesomeIcon style={faStyle} className={faClassName} {...rest} />
     </i>
   );
 };

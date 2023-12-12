@@ -35,7 +35,7 @@ export const TermInputs = ({
   category: Categories;
   termData: UnitType;
 }) => {
-  const { secondFontColor } = useAppSelector(selectVisualSettings);
+  const { fontColor, secondFontColor } = useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState("");
   const [enabled, setEnabled] = useState(false);
@@ -61,23 +61,21 @@ export const TermInputs = ({
     setRepeat(termData.repeat);
   }, [termData]);
 
+  const buttonColor = enabled ? fontColor : "#b7b7b7";
   // const checkboxId = `${category}_repeat-duration`;
 
   return (
-    <div style={{ margin: "0.5rem 0" }}>
-      <h2>
+    <div className="my-2 mx-0">
+      <h2 className="font-bold text-lg">
         {`${Sentencecase(category)}-term: `}
         <Icon
           onClick={() => setEnabled(!enabled)}
-          faId="customize-button"
+          faClassName="fade-in-1s cursor-pointer text-base leading-none float-right my-0 mx-2.5"
           icon={enabled ? faUnlock : faLock}
           title="Edit"
           data-testid={`${category}-${enabled ? "unlock" : "lock"}`}
           faStyle={{
             color: secondFontColor,
-            fontSize: "1rem",
-            float: "right",
-            margin: "0 10px",
           }}
         />
         <Icon
@@ -90,13 +88,13 @@ export const TermInputs = ({
             setDuration(defaultTerms[termString].duration);
           }}
           data-testid={`${category}-restore-defaults`}
-          faId="restore-defaults"
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
-          faStyle={{ color: secondFontColor, fontSize: "1rem", float: "right" }}
+          faClassName="text-base float-right"
+          faStyle={{ color: secondFontColor }}
         />
       </h2>
-      <div style={{ margin: "0.5rem 0" }}>
+      <div className="my-2 mx-0">
         <TermName
           category={category}
           title={title}
@@ -104,7 +102,7 @@ export const TermInputs = ({
           setTitle={setTitle}
           setUnitType={setUnitType}
         />
-        <div style={{ display: "inline-block", width: "50%" }}>
+        <div className="inline-block w-1/2">
           <RadioButton
             enabled={enabled}
             category={category}
@@ -125,7 +123,7 @@ export const TermInputs = ({
               margin: "0px 0.3rem",
               float: "right",
             }}
-            labelClass="pull-right align-checkbox-label"
+            labelClass="float-right bottom-[-2px] align-checkbox-label align-middle relative"
             labelText="Repeat?"
             labelOnRight
           /> */}
@@ -160,8 +158,8 @@ export const TermInputs = ({
         />
       )}
       <button
-        id="term-inputs-format-save"
-        className="pt-5 pb-1 px-3 button-height"
+        className="border border-current pt-0.5 px-1"
+        style={{ color: buttonColor, borderColor: buttonColor }}
         disabled={!enabled}
         onClick={() => {
           if (duration.qty) {

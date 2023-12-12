@@ -8,21 +8,26 @@ import Icon from "../atoms/Icon";
 
 export const SettingsWrapper = () => {
   const { secondFontColor } = useAppSelector(selectVisualSettings);
-  const [hideSettings, setHidden] = useState(true);
+  const [hidden, setHidden] = useState(true);
   const settingsContainer = useRef(null as HTMLDivElement | null);
 
   return (
-    <div id="settings" data-testid="settings" ref={settingsContainer}>
+    <div
+      data-testid="settings"
+      className="fixed left-0 bottom-0 m-4"
+      ref={settingsContainer}
+    >
       <Icon
-        onClick={() => setHidden(!hideSettings)}
-        faId="customize-button"
+        onClick={() => setHidden(!hidden)}
         icon={faGears}
         faStyle={{ color: secondFontColor }}
-        faClassName={`${!hideSettings ? " hidden" : ""}`}
+        faClassName={`fade-in-1s text-double cursor-pointer${
+          !hidden ? " hidden" : ""
+        }`}
       />
       <Settings
         settingsContainer={settingsContainer}
-        hideSettings={hideSettings}
+        hideSettings={hidden}
         setHidden={setHidden}
       />
     </div>

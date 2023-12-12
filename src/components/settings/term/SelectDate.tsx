@@ -32,11 +32,11 @@ const handleDateSelection = ({
         const duration = DateTime.fromISO(limit.max).diff(
           DateTime.fromISO(date)
         );
-        setStartDate(DateTime.fromISO(value).toISO() ?? '');
-        setEndDate(DateTime.fromISO(value).plus(duration).toISO() ?? '');
+        setStartDate(DateTime.fromISO(value).toISO() ?? "");
+        setEndDate(DateTime.fromISO(value).plus(duration).toISO() ?? "");
       }
     } else {
-      setEndDate(DateTime.fromISO(value).toISO() ?? '');
+      setEndDate(DateTime.fromISO(value).toISO() ?? "");
     }
   }
 };
@@ -54,18 +54,19 @@ export const SelectDate = ({
   if ("min" in limit && limit.min) {
     formattedLimit.min = DateTime.fromISO(limit.min).toISODate() ?? undefined;
   }
+  const categoryDatePicker = `${category}-${title}-datepicker`;
   return (
-    <div style={{ display: "inline-block", width: "50%" }}>
-      <label htmlFor={`${category}-${title}-datepicker`}> {title}: </label>
+    <div className="inline-block w-1/2">
+      <label htmlFor={categoryDatePicker}> {title}: </label>
       <input
         type="date"
         {...formattedLimit}
-        id={`${category}-${title}-datepicker`}
-        name={`${category}-${title}-datepicker`}
-        value={DateTime.fromISO(date).toISODate() ?? ''}
+        id={categoryDatePicker}
+        name={categoryDatePicker}
+        value={DateTime.fromISO(date).toISODate() ?? ""}
         style={{ backgroundColor: enabled ? "white" : "darkgray" }}
         disabled={!enabled}
-        className="pt-5 pl-3 input-height mb-1"
+        className="pt-2 pl-1 h-6 mb-0.5"
         onChange={(e) => {
           handleDateSelection({
             value: e.target.value,

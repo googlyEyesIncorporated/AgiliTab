@@ -74,34 +74,27 @@ export const Settings = ({
 
   return (
     <div
-      id="customize-selectors"
-      className={hideSettings ? "hidden" : ""}
+      className={`p-2 overflow-auto xl:min-w-25vw text-xs leading-normal border border-current shadow-2xl${
+        hideSettings ? " hidden" : ""
+      }`}
       style={{ backgroundColor: bgColor }}
     >
       <span
-        className={`popover${isInfoOpen ? "" : " hidden"}`}
+        className={`popover z-10 h-fit absolute p-[5px] mx-0 mb-0 mt-[35px] left-0 right-0 top-0 bottom-0 border ${
+          isInfoOpen ? "" : " hidden"
+        }`}
         style={{
-          margin: 0,
-          marginTop: 35,
-          padding: 5,
-          border: `1px solid ${fontColor}`,
+          borderColor: fontColor,
           backgroundColor: bgColor,
           color: fontColor,
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-          zIndex: 1,
-          height: "fit-content",
         }}
       >
         <ul>
-          <li style={{ display: "grid", gridTemplateColumns: "1fr 4fr" }}>
+          <li className="grid" style={{ gridTemplateColumns: "1fr 4fr" }}>
             <div>
               <img src="/128.png" height={64} alt="logo" />
             </div>
-            <div style={{ marginTop: 10 }}>
+            <div className="mt-2.5">
               <ul>
                 <li>
                   AgiliTab - <a href={agilitabDotCom}>agilitab.com</a>
@@ -120,13 +113,15 @@ export const Settings = ({
           <li>- Zeah D. - Design Consultant</li>
         </ul>
       </span>
-      <h1 id="settings-title">Customization</h1>
+      <h1 className="font-bold text-2xl leading-none" id="settings-title">
+        Customization
+      </h1>
       <SetColors />
       <hr />
       <DateTimeFormat />
       <hr />
-      <div style={{ margin: "1rem 0" }} id="customizable-units">
-        <h2 style={{ fontSize: "2em" }}>Time Frames</h2>
+      <div className="my-4 mx-0">
+        <h2 className="font-bold leading-none text-2xl">Time Frames</h2>
         <WorkDay
           isPopoverOpen={isPopoverOpen}
           setIsPopoverOpen={setIsPopoverOpen}
@@ -139,7 +134,7 @@ export const Settings = ({
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}
-          className="cursor-pointer pt-5 pb-3 px-3 button-height"
+          className="border border-current cursor-pointer pt-0.5 px-1"
         >
           ( Hide )
         </button>
@@ -148,13 +143,12 @@ export const Settings = ({
             setIsInfoOpen(!isInfoOpen);
           }}
           icon={faCircleInfo}
+          faClassName="text-base my-0 mx-2.5"
           faStyle={{
             color: secondFontColor,
-            fontSize: "1rem",
-            margin: "0 10px",
           }}
+          iconClassName={`info-circle float-right`}
           data-testid="info-icon"
-          iconClassName={`info-circle pull-right`}
         />
       </div>
     </div>

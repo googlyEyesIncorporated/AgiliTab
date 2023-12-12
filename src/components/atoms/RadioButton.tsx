@@ -22,30 +22,32 @@ const RadioButton = ({
     const isChecked = e.currentTarget.value === firstRadioName;
     setIsChecked(isChecked);
   };
+  const firstRadioCategory = `${category}-${firstRadioName}`;
+  const secondRadioCategory = `${category}-${secondRadioName}`;
   return (
     <>
       <input
         type="radio"
-        id={`${category}-${firstRadioName}`}
-        data-testid={`${category}-${firstRadioName}`}
+        id={firstRadioCategory}
+        data-testid={firstRadioCategory}
         value={firstRadioName}
         disabled={!enabled}
         onChange={handleChange}
         checked={firstIsChecked}
       />
-      <label htmlFor={`${category}-${firstRadioName}`}>{` ${Sentencecase(
+      <label htmlFor={firstRadioCategory}>{` ${Sentencecase(
         firstRadioName
       )} `}</label>
       <input
         type="radio"
-        id={`${category}-${secondRadioName}`}
-        data-testid={`${category}-${secondRadioName}`}
+        id={secondRadioCategory}
+        data-testid={secondRadioCategory}
         value={secondRadioName}
         disabled={!enabled}
         onChange={handleChange}
         checked={!firstIsChecked}
       />
-      <label htmlFor={`${category}-${secondRadioName}`}>{` ${Sentencecase(
+      <label htmlFor={secondRadioCategory}>{` ${Sentencecase(
         secondRadioName
       )}`}</label>
     </>

@@ -24,7 +24,11 @@ const CheckBox = ({
   return (
     <>
       {labelOnRight && (
-        <label style={labelStyle} htmlFor={nameId} className={labelClass}>
+        <label
+          style={labelStyle}
+          htmlFor={nameId}
+          className={`cursor-pointer ${labelClass ?? ""}`}
+        >
           {labelText}
         </label>
       )}
