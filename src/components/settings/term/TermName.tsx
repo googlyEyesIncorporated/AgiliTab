@@ -32,7 +32,7 @@ export const TermName = ({
           }
         }}
         style={{
-          width: "10rem",
+          width: "9rem",
           backgroundColor: enabled ? "white" : "darkgray",
           lineHeight: 3,
         }}

@@ -121,13 +121,17 @@ export const Settings = ({
           <li>- Zeah D. - Design Consultant</li>
         </ul>
       </span>
-      <h1 id="settings-title">Customization</h1>
+      <h1 className="font-bold text-2xl leading-none" id="settings-title">
+        Customization
+      </h1>
       <SetColors />
       <hr />
       <DateTimeFormat />
       <hr />
       <div style={{ margin: "1rem 0" }}>
-        <h2 style={{ fontSize: "2em" }}>Time Frames</h2>
+        <h2 className="font-bold leading-none" style={{ fontSize: "2em" }}>
+          Time Frames
+        </h2>
         <WorkDay
           isPopoverOpen={isPopoverOpen}
           setIsPopoverOpen={setIsPopoverOpen}

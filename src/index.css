@@ -28,6 +28,10 @@ ul {
   margin: 0.5rem;
 }
 
+a {
+  @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-800;
+}
+
 li a {
   text-decoration: none;
 }

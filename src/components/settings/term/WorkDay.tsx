@@ -39,8 +39,8 @@ export const WorkDay = ({
 
   return (
     <div style={{ margin: "0 0 0.5rem 0" }}>
-      <h2>Short-term:</h2>
-      <div style={{ margin: "0.5rem 0" }}>
+      <h2 className="font-bold text-lg leading-none">Short-term:</h2>
+      <div className="my-2 mx-0 leading-none">
         <CheckBox
           className="immune align-middle"
           nameId="workday-checkbox"

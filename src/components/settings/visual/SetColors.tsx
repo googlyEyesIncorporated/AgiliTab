@@ -18,7 +18,7 @@ export const SetColors = () => {
 
   return (
     <div style={{ margin: "0 0 1rem 0" }} ref={SettingsBoundary}>
-      <h2 style={{ marginBottom: "0.5rem" }}>
+      <h2 className="mb-2 text-lg font-bold leading-none">
         Colors:
         <Icon
           onClick={() => generateAndDispatchRandomColors(dispatch)}

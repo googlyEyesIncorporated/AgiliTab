@@ -66,7 +66,7 @@ export const TermInputs = ({
 
   return (
     <div style={{ margin: "0.5rem 0" }}>
-      <h2>
+      <h2 className="font-bold text-lg">
         {`${Sentencecase(category)}-term: `}
         <Icon
           onClick={() => setEnabled(!enabled)}
