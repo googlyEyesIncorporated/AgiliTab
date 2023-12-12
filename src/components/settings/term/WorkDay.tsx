@@ -38,7 +38,7 @@ export const WorkDay = ({
   }, [start, end]);
 
   return (
-    <div style={{ margin: "0 0 0.5rem 0" }}>
+    <div className="mt-0 mx-0 mb-2">
       <h2 className="font-bold text-lg leading-none">Short-term:</h2>
       <div className="my-2 mx-0 leading-none">
         <CheckBox
@@ -50,7 +50,7 @@ export const WorkDay = ({
           labelClass="pl-2 bottom-[-2px] align-middle relative"
         />
       </div>
-      <div style={{ display: "inline-block", width: "50%" }}>
+      <div className="w-1/2 inline-block">
         <div>Workday start: </div>
         <input
           type="time"
@@ -60,7 +60,7 @@ export const WorkDay = ({
           className="items-end w-32 pt-0.5 pl-1"
         />
       </div>
-      <div style={{ display: "inline-block", width: "50%" }}>
+      <div className="w-1/2 inline-block">
         <div>Workday end: </div>
         <input
           type="time"
@@ -85,16 +85,12 @@ export const WorkDay = ({
           }}
         >
           Save
-          <div style={{ position: "fixed", overflow: "visible" }}>
+          <div className="fixed overflow-visible">
             <span
-              className={`popover${isPopoverOpen ? "" : " hidden"}`}
+              className={`popover absolute border w-max m-[5px] bg-white border-red-500 text-red-500${
+                isPopoverOpen ? "" : " hidden"
+              }`}
               style={{
-                margin: "5px",
-                border: "1px solid red",
-                backgroundColor: "white",
-                color: "red",
-                position: "absolute",
-                width: "max-content",
                 left: "calc(0px - 5rem)",
               }}
             >

@@ -56,7 +56,7 @@ export const SelectDate = ({
   }
   const categoryDatePicker = `${category}-${title}-datepicker`;
   return (
-    <div style={{ display: "inline-block", width: "50%" }}>
+    <div className="inline-block w-1/2">
       <label htmlFor={categoryDatePicker}> {title}: </label>
       <input
         type="date"

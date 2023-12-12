@@ -17,7 +17,7 @@ export const SetColors = () => {
     useAppSelector(selectVisualSettings);
 
   return (
-    <div style={{ margin: "0 0 1rem 0" }} ref={SettingsBoundary}>
+    <div className="mt-0 mb-4 mx-0" ref={SettingsBoundary}>
       <h2 className="mb-2 text-lg font-bold leading-none">
         Colors:
         <Icon
@@ -26,17 +26,15 @@ export const SetColors = () => {
           title="Generate Random Colors"
           faStyle={{
             color: secondFontColor,
-            fontSize: "1rem",
-            margin: "0 10px",
           }}
-          iconClassName={`float-right`}
+          iconClassName="float-right text-base leading-none my-0 mx-2.5"
         />
         <Icon
           onClick={() => dispatch(resetVisualSetting())}
           icon={faArrowRightFromBracket}
           title="Restore Default Colors"
-          faStyle={{ color: secondFontColor, fontSize: "1rem" }}
-          iconClassName={`float-right`}
+          faStyle={{ color: secondFontColor }}
+          iconClassName="float-right text-base leading-none"
         />
       </h2>
       <div>

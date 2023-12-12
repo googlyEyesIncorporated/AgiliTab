@@ -16,7 +16,7 @@ export const TermName = ({
 }: TermNameProps) => {
   const categoryName = `${category}-unit-name`;
   return (
-    <div style={{ display: "inline-block", width: "50%" }}>
+    <div className="inline-block w-1/2">
       <label htmlFor={categoryName}>Name: </label>
       <input
         id={categoryName}
@@ -24,7 +24,7 @@ export const TermName = ({
         type="text"
         value={title}
         disabled={!enabled}
-        className="pt-2 pb-0 pl-1 h-6"
+        className="pt-2 pb-0 pl-1 h-6 w-36"
         onChange={(e) => {
           if (enabled) {
             setTitle(e.target.value);
@@ -32,7 +32,6 @@ export const TermName = ({
           }
         }}
         style={{
-          width: "9rem",
           backgroundColor: enabled ? "white" : "darkgray",
           lineHeight: 3,
         }}

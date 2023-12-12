@@ -37,7 +37,7 @@ export const ListGroup = ({
         onMouseEnter={() => setHideIcon(false)}
         onMouseLeave={() => setHideIcon(true)}
       >
-        <div style={{ minWidth: "2rem", display: "inline-block" }}>
+        <div className="min-w-8 inline-block">
           <Icon
             onClick={() => copyListToClipboard(list)}
             icon={faCopy}

@@ -65,20 +65,17 @@ export const TermInputs = ({
   // const checkboxId = `${category}_repeat-duration`;
 
   return (
-    <div style={{ margin: "0.5rem 0" }}>
+    <div className="my-2 mx-0">
       <h2 className="font-bold text-lg">
         {`${Sentencecase(category)}-term: `}
         <Icon
           onClick={() => setEnabled(!enabled)}
-          faClassName="fade-in-1s text-double cursor-pointer"
+          faClassName="fade-in-1s cursor-pointer text-base leading-none float-right my-0 mx-2.5"
           icon={enabled ? faUnlock : faLock}
           title="Edit"
           data-testid={`${category}-${enabled ? "unlock" : "lock"}`}
           faStyle={{
             color: secondFontColor,
-            fontSize: "1rem",
-            float: "right",
-            margin: "0 10px",
           }}
         />
         <Icon
@@ -93,10 +90,11 @@ export const TermInputs = ({
           data-testid={`${category}-restore-defaults`}
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
-          faStyle={{ color: secondFontColor, fontSize: "1rem", float: "right" }}
+          faClassName="text-base float-right"
+          faStyle={{ color: secondFontColor }}
         />
       </h2>
-      <div style={{ margin: "0.5rem 0" }}>
+      <div className="my-2 mx-0">
         <TermName
           category={category}
           title={title}
@@ -104,7 +102,7 @@ export const TermInputs = ({
           setTitle={setTitle}
           setUnitType={setUnitType}
         />
-        <div style={{ display: "inline-block", width: "50%" }}>
+        <div className="inline-block w-1/2">
           <RadioButton
             enabled={enabled}
             category={category}

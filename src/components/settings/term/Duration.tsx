@@ -16,7 +16,7 @@ interface DurationProps {
   duration: DurationState;
 }
 
-const BackgroundAndHeightStyle = (enabled: boolean) => ({
+const getBackgroundColor = (enabled: boolean) => ({
   backgroundColor: enabled ? "white" : "darkgray",
 });
 
@@ -42,7 +42,7 @@ export const Duration = ({
   const categoryDurationFormatInput = `${category}-duration-format-input`;
 
   return (
-    <div style={{ display: "inline-block", width: "50%" }}>
+    <div className="inline-block w-1/2">
       <label htmlFor={categoryUnitQty}>Duration: </label>
       <input
         type="number"
@@ -50,11 +50,9 @@ export const Duration = ({
         id={categoryUnitQty}
         min="1"
         max="100"
-        className="pt-2 pl-1 h-6"
+        className="pt-2 pl-1 h-6 w-12 leading-loose"
         style={{
-          width: "3rem",
-          ...BackgroundAndHeightStyle(enabled),
-          lineHeight: 2,
+          ...getBackgroundColor(enabled),
         }}
         {...(enabled ? {} : { disabled: true })}
         value={qty}
@@ -70,7 +68,7 @@ export const Duration = ({
         id={categoryDurationFormatInput}
         data-testid={categoryDurationFormatInput}
         value={`${unit}`}
-        style={BackgroundAndHeightStyle(enabled)}
+        style={getBackgroundColor(enabled)}
         {...(enabled ? {} : { disabled: true })}
         onChange={(e) => {
           const newUnit = e.target.value;
