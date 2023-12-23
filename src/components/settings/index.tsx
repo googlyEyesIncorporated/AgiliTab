@@ -77,6 +77,7 @@ export const Settings = ({
       className={`p-2 overflow-auto xl:min-w-25vw text-xs leading-normal border border-current shadow-2xl${
         hideSettings ? " hidden" : ""
       }`}
+      data-testid="hideable-settings"
       style={{ backgroundColor: bgColor }}
     >
       <span
@@ -127,14 +128,23 @@ export const Settings = ({
           setIsPopoverOpen={setIsPopoverOpen}
         />
         <hr />
-        <TermInputs category="medium" termData={mediumTerm} />
+        <TermInputs
+          hideSettings={hideSettings}
+          category="medium"
+          termData={mediumTerm}
+        />
         <hr />
-        <TermInputs category="long" termData={longTerm} />
+        <TermInputs
+          hideSettings={hideSettings}
+          category="long"
+          termData={longTerm}
+        />
       </div>{" "}
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}
           className="border border-current cursor-pointer pt-0.5 px-1"
+          data-testid="hide-button"
         >
           ( Hide )
         </button>
