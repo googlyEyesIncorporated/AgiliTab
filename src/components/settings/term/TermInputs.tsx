@@ -31,9 +31,11 @@ const defaultTerms: { mediumTerm: UnitType; longTerm: UnitType } = {
 export const TermInputs = ({
   category,
   termData,
+  hideSettings,
 }: {
   category: Categories;
   termData: UnitType;
+  hideSettings: boolean;
 }) => {
   const { fontColor, secondFontColor } = useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
@@ -60,6 +62,12 @@ export const TermInputs = ({
     );
     setRepeat(termData.repeat);
   }, [termData]);
+
+  useEffect(() => {
+    if (hideSettings && enabled) {
+      setEnabled(false);
+    }
+  }, [hideSettings, enabled]);
 
   const buttonColor = enabled ? fontColor : "#b7b7b7";
   // const checkboxId = `${category}_repeat-duration`;

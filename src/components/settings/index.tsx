@@ -127,9 +127,17 @@ export const Settings = ({
           setIsPopoverOpen={setIsPopoverOpen}
         />
         <hr />
-        <TermInputs category="medium" termData={mediumTerm} />
+        <TermInputs
+          hideSettings={hideSettings}
+          category="medium"
+          termData={mediumTerm}
+        />
         <hr />
-        <TermInputs category="long" termData={longTerm} />
+        <TermInputs
+          hideSettings={hideSettings}
+          category="long"
+          termData={longTerm}
+        />
       </div>{" "}
       <div>
         <button
