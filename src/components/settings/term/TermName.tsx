@@ -20,6 +20,7 @@ export const TermName = ({
       <label htmlFor={categoryName}>Name: </label>
       <input
         id={categoryName}
+        data-testid={categoryName}
         name={categoryName}
         type="text"
         value={title}
