@@ -13,6 +13,7 @@ test.describe("Settings", () => {
     mediumBeginningDatepicker: Locator,
     mediumEndDatepicker: Locator,
     mediumUnitQuantity: Locator,
+    mediumRestoreDefaults: Locator,
     hideButton: Locator,
     settingsPanel: Locator;
 
@@ -29,6 +30,8 @@ test.describe("Settings", () => {
     mediumDurationFormatInput = page.getByTestId(
       "medium-duration-format-input"
     );
+    mediumRestoreDefaults = page.getByTestId("medium-restore-defaults");
+
     hideButton = page.getByTestId("hide-button");
     settingsPanel = page.getByTestId("hideable-settings");
 
@@ -93,6 +96,28 @@ test.describe("Settings", () => {
         await expect(mediumUnitName).toHaveAttribute("disabled");
         await expect(mediumBeginningDatepicker).toHaveAttribute("disabled");
         await expect(mediumEndDatepicker).toHaveAttribute("disabled");
+      });
+      test(`locking termInput also prevents resetting values`, async () => {
+        // Unlock termInput settings
+        await mediumLock.click();
+
+        // set a new value for Unit Name
+        mediumUnitName.fill("NewValue");
+        await expect(mediumUnitName).toHaveValue("NewValue");
+
+        // re-lock TermInput
+        await mediumUnlock.click();
+
+        // attempt to reset values, but fail
+        await mediumRestoreDefaults.click();
+        await expect(mediumUnitName).toHaveValue("NewValue");
+
+        // unlock TermInput again
+        await mediumLock.click();
+
+        // attempt to reset values and succeed
+        await mediumRestoreDefaults.click();
+        await expect(mediumUnitName).toHaveValue("Month");
       });
     });
   });
