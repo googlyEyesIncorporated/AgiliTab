@@ -88,12 +88,14 @@ export const TermInputs = ({
         />
         <Icon
           onClick={() => {
-            setStartDate(defaultTerms[termString].startDate ?? "");
-            setEndDate(defaultTerms[termString].endDate ?? "");
-            setUnitType(defaultTerms[termString].unitType);
-            setTitle(defaultTerms[termString].title);
-            setRepeat(defaultTerms[termString].repeat);
-            setDuration(defaultTerms[termString].duration);
+            if (enabled) {
+              setStartDate(defaultTerms[termString].startDate ?? "");
+              setEndDate(defaultTerms[termString].endDate ?? "");
+              setUnitType(defaultTerms[termString].unitType);
+              setTitle(defaultTerms[termString].title);
+              setRepeat(defaultTerms[termString].repeat);
+              setDuration(defaultTerms[termString].duration);
+            }
           }}
           data-testid={`${category}-restore-defaults`}
           icon={faArrowRightFromBracket}

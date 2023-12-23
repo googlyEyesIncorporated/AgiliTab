@@ -48,6 +48,7 @@ export const Duration = ({
         type="number"
         name={categoryUnitQty}
         id={categoryUnitQty}
+        data-testid={categoryUnitQty}
         min="1"
         max="100"
         className="pt-2 pl-1 h-6 w-12 leading-loose"
