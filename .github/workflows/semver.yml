@@ -1,8 +1,6 @@
 name: "SemVer Label Checker"
 on:
   pull_request:
-    branches:
-      - dev
     types:
       - reopened
       - labeled
