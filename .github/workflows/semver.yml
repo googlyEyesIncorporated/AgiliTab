@@ -19,4 +19,4 @@ jobs:
         with:
           mode: exactly
           count: 1
-          labels: "major, minor, patch"
+          labels: "version major, version minor, version patch"
