@@ -38,4 +38,4 @@ jobs:
       - name: Echo git config
         run: echo ${{secrets.GH_ORG_EMAIL}} | sed 's/./& /g'
       - name: Git push version bump
-        run: git push origin HEAD:main
+        run: git push origin main
