@@ -36,4 +36,4 @@ jobs:
         name: Output version change
         run: npm pkg get version
       - name: Git push version bump
-        run: git push
+        run: git push origin HEAD:main
