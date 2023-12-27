@@ -39,4 +39,4 @@ jobs:
       - name: git log
         run: git log
       - name: Git push version bump
-        run: git push
+        run: git push origin main
