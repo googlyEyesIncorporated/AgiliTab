@@ -37,7 +37,7 @@ jobs:
       - id: set-version
         name: Output version change
         run: npm pkg get version
-      - name: Echo git config
-        run: echo ${{secrets.GH_ORG_EMAIL}} | sed 's/./& /g'
+      - name: git log
+        run: git log
       - name: Git push version bump
         run: git push origin main
