@@ -2,6 +2,8 @@ name: "SemVer Label Checker"
 on:
   pull_request:
     types:
+      - opened
+      - ready_for_review
       - reopened
       - labeled
       - unlabeled
