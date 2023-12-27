@@ -23,15 +23,13 @@ jobs:
           git config --global user.name "${{ secrets.GH_ORG_NAME }}"
       - name: Apply version bump (major)
         if: contains(github.event.pull_request.labels.*.name, 'version major')
-        run: npm version major
+        run: npm version major && git push
       - name: Apply version bump (minor)
         if: contains(github.event.pull_request.labels.*.name, 'version minor')
-        run: npm version minor
+        run: npm version minor && git push
       - name: Apply version bump (patch)
         if: contains(github.event.pull_request.labels.*.name, 'version patch')
-        run: npm version patch
-      - name: Git push version bump
-        run: git push
+        run: npm version patch && git push
       - id: set-version
         name: Output version change
         run: npm pkg get version

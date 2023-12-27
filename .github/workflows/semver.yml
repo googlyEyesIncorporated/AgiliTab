@@ -2,6 +2,8 @@ name: "SemVer Label Checker"
 on:
   pull_request:
     types:
+      - opened
+      - ready_for_review
       - reopened
       - labeled
       - unlabeled
@@ -17,4 +19,4 @@ jobs:
         with:
           mode: exactly
           count: 1
-          labels: "version major, version minor, version patch"
+          labels: "version major, version minor, version patch, version none"
