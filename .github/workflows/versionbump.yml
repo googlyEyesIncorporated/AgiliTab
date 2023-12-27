@@ -17,6 +17,8 @@ jobs:
         with:
           node-version: "16.x"
           cache: "npm"
+      - name: Git pull
+        run: git pull
       - name: Git config
         run: |
           git config --global user.email "${{ secrets.GH_ORG_EMAIL }}"
