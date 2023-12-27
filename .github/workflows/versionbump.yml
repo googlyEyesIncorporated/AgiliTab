@@ -2,6 +2,7 @@ name: "Version Bump"
 on:
   pull_request:
     types:
+      - labeled # Temporary, just to test workflow.
       - closed
 jobs:
   merge_pr:
@@ -25,7 +26,9 @@ jobs:
         run: npm version major
       - name: Apply version bump (minor)
         if: contains(github.event.pull_request.labels.*.name, 'minor')
-        run: npm version minor
+        # run: npm version minor
+        # ^TEMP use patch just for testing
+        run: npm version patch
       - name: Apply version bump (patch)
         if: contains(github.event.pull_request.labels.*.name, 'patch')
         run: npm version patch
