@@ -37,6 +37,7 @@ export interface WorkingHours {
 }
 
 export interface UnitsState {
+  terms: UnitType[];
   shortTerm: UnitType & ScopedToWorkingHours;
   mediumTerm: UnitType;
   longTerm: UnitType;

@@ -11,7 +11,7 @@ interface CommonProps {
 }
 
 interface SelectDateProps extends CommonProps {
-  category: string;
+  groupId: number;
 }
 interface HandleDateSelection extends CommonProps {
   value: string;
@@ -44,7 +44,7 @@ const handleDateSelection = ({
 export const SelectDate = ({
   date,
   title,
-  category,
+  groupId,
   limit,
   setStartDate,
   setEndDate,
@@ -54,7 +54,7 @@ export const SelectDate = ({
   if ("min" in limit && limit.min) {
     formattedLimit.min = DateTime.fromISO(limit.min).toISODate() ?? undefined;
   }
-  const categoryDatePicker = `${category}-${title.toLowerCase()}-datepicker`;
+  const categoryDatePicker = `group-${groupId}-${title.toLowerCase()}-datepicker`;
   return (
     <div className="inline-block w-1/2">
       <label htmlFor={categoryDatePicker}> {title}: </label>

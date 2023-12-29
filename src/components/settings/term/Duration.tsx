@@ -10,7 +10,7 @@ const formats = {
   },
 };
 interface DurationProps {
-  category: string;
+  groupId: number;
   enabled?: boolean;
   setDuration: React.Dispatch<React.SetStateAction<DurationState>>;
   duration: DurationState;
@@ -21,7 +21,7 @@ const getBackgroundColor = (enabled: boolean) => ({
 });
 
 export const Duration = ({
-  category,
+  groupId,
   enabled = true,
   setDuration,
   duration,
@@ -38,8 +38,8 @@ export const Duration = ({
     if (dUnit) setUnit(dUnit);
   }, [dUnit]);
 
-  const categoryUnitQty = `${category}-unit-qty`;
-  const categoryDurationFormatInput = `${category}-duration-format-input`;
+  const categoryUnitQty = `group-${groupId}-unit-qty`;
+  const categoryDurationFormatInput = `group-${groupId}-duration-format-input`;
 
   return (
     <div className="inline-block w-1/2">

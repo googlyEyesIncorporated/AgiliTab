@@ -4,22 +4,22 @@ import {
   defaultMediumTerm,
   selectVisualSettings,
 } from "../../../features/settings/settingsSlice";
-import { Duration } from "./Duration";
-import { SelectDate } from "./SelectDate";
+// import { Duration } from "./Duration";
+// import { SelectDate } from "./SelectDate";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons/faUnlock";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import RadioButton from "../../atoms/RadioButton";
+// import RadioButton from "../../atoms/RadioButton";
 import { DateTime } from "luxon";
 import { UnitType } from "../../../features/settings/types";
-import { TermName } from "./TermName";
+// import { TermName } from "./TermName";
 // import CheckBox from "../../atoms/CheckBox";
 import { Sentencecase } from "../../../features/utils/Sentencecase";
 import {
   Categories,
   // onRepeat,
-  saveTerm,
+  // saveTerm,
 } from "../../../features/settings/utils";
 import Icon from "../../atoms/Icon";
 
@@ -38,7 +38,7 @@ export const TermInputs = ({
   hideSettings: boolean;
 }) => {
   const { fontColor, secondFontColor } = useAppSelector(selectVisualSettings);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const [title, setTitle] = useState("");
   const [enabled, setEnabled] = useState(false);
   const [unitType, setUnitType] = useState("");
@@ -105,22 +105,22 @@ export const TermInputs = ({
         />
       </h2>
       <div className="my-2 mx-0">
-        <TermName
+        {/* <TermName
           category={category}
           title={title}
           enabled={enabled}
           setTitle={setTitle}
           setUnitType={setUnitType}
-        />
+        /> */}
         <div className="inline-block w-1/2">
-          <RadioButton
+          {/* <RadioButton
             enabled={enabled}
             category={category}
             firstRadioName="duration"
             secondRadioName="date"
             firstIsChecked={isDuration}
             setIsChecked={setIsDuration}
-          />
+          /> */}
           {/* Temporarily disabled
           &nbsp; &nbsp;
           <CheckBox
@@ -139,7 +139,7 @@ export const TermInputs = ({
           /> */}
         </div>
       </div>
-      <SelectDate
+      {/* <SelectDate
         title="Beginning"
         category={category}
         enabled={enabled}
@@ -147,44 +147,46 @@ export const TermInputs = ({
         limit={{ max: endDate }}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
-      />
-      {!isDuration && (
-        <SelectDate
-          title="End"
-          category={category}
-          enabled={enabled}
-          date={endDate}
-          limit={{ min: startDate }}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-        />
-      )}
-      {isDuration && (
-        <Duration
-          duration={duration}
-          category={category}
-          enabled={enabled}
-          setDuration={setDuration}
-        />
-      )}
+      /> */}
+      {!isDuration &&
+        true
+        // <SelectDate
+        //   title="End"
+        //   category={category}
+        //   enabled={enabled}
+        //   date={endDate}
+        //   limit={{ min: startDate }}
+        //   setStartDate={setStartDate}
+        //   setEndDate={setEndDate}
+        // />
+      }
+      {isDuration &&
+        true
+        // <Duration
+        //   duration={duration}
+        //   category={category}
+        //   enabled={enabled}
+        //   setDuration={setDuration}
+        // />
+      }
       <button
         className="border border-current pt-0.5 px-1"
         style={{ color: buttonColor, borderColor: buttonColor }}
         disabled={!enabled}
         onClick={() => {
           if (duration.qty) {
-            saveTerm({
-              enabled,
-              isDuration,
-              duration,
-              startDate,
-              dispatch,
-              category,
-              unitType,
-              title,
-              repeat,
-              endDate,
-            });
+            // saveTerm({
+            //   enabled,
+            //   isDuration,
+            //   duration,
+            //   startDate,
+            //   dispatch,
+            //   category,
+            //   unitType,
+            //   title,
+            //   repeat,
+            //   endDate,
+            // });
           }
         }}
       >

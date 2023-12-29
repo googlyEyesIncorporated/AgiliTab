@@ -6,11 +6,8 @@ import { advanceTerm, useShortTerm, useTerm, DraggableLists } from "./utils";
 
 export const BottomRow = () => {
   // Short term
-  const {
-    shortTerm: savedShortTerm,
-    mediumTerm: savedMediumTerm,
-    longTerm: savedLongTerm,
-  } = useAppSelector(selectAllUnits);
+  const [savedShortTerm, savedMediumTerm, savedLongTerm] =
+    useAppSelector(selectAllUnits);
 
   const [shortTerm, setShortTerm, isScopedToWorkingHours] = useShortTerm();
   const [mediumTerm, setMediumTerm] = useTerm(savedMediumTerm);
@@ -21,6 +18,7 @@ export const BottomRow = () => {
     <div className="flex justify-between lg:h-1/2 lg:flex-nowrap h-auto flex-wrap">
       <DraggableLists lists={lists}>
         <ListGroup
+          groupId={0}
           title={savedShortTerm.title}
           isScopedToWorkingHours={isScopedToWorkingHours}
           term={shortTerm}
@@ -30,6 +28,7 @@ export const BottomRow = () => {
           advanceTerm={advanceTerm}
         />
         <ListGroup
+          groupId={1}
           title={savedMediumTerm.title}
           term={mediumTerm}
           setTerm={setMediumTerm}
@@ -38,6 +37,7 @@ export const BottomRow = () => {
           advanceTerm={advanceTerm}
         />
         <ListGroup
+          groupId={2}
           title={savedLongTerm.title}
           term={longTerm}
           setTerm={setLongTerm}

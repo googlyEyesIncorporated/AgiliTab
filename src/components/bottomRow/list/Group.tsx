@@ -7,8 +7,10 @@ import { DragAndDrop } from "./item/DumbListItem";
 import { List } from "./List";
 import { ElapsedTime } from "../../atoms/ElapsedTime";
 import Icon from "../../atoms/Icon";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
+import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
+import { ColumnSettings } from "../../settings/ColumnSettings";
 
 const createNameList = (list: ListGroupProps["list"]) =>
   list.map((item) => item.name);
@@ -26,22 +28,36 @@ export const ListGroup = ({
   listKey,
   advanceTerm,
   isScopedToWorkingHours,
+  groupId,
 }: ListGroupProps) => {
   const [hideIcon, setHideIcon] = useState(true);
+  const [hideSettings, setHideSettings] = useState(true);
   const iconShowOrHide = hideIcon ? " hidden" : " fade-in-1s";
+  const settingsContainer = useRef(null as HTMLDivElement | null);
+  const settingsIcon = useRef(null as HTMLElement | null);
 
   return (
     <div className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block">
       <div
         className="pb-1 text-2xl border-b border-current text-center"
+        role="columnheader"
+        tabIndex={0}
         onMouseEnter={() => setHideIcon(false)}
         onMouseLeave={() => setHideIcon(true)}
       >
+        <div className="min-w-10 inline-block">
+          <Icon
+            ref={settingsIcon}
+            onClick={() => setHideSettings(false)}
+            icon={faGears}
+            iconClassName={`cursor-pointer mr-2${iconShowOrHide}`}
+          />
+        </div>
         <div className="min-w-8 inline-block">
           <Icon
             onClick={() => copyListToClipboard(list)}
             icon={faCopy}
-            iconClassName={`cursor-pointer  mr-2${iconShowOrHide}`}
+            iconClassName={`cursor-pointer mr-2${iconShowOrHide}`}
           />
         </div>
         <span className="text-[1.6875rem]">{title}</span>
@@ -53,7 +69,19 @@ export const ListGroup = ({
           isScopedToWorkingHours={isScopedToWorkingHours}
         />
       </div>
-      <List itemList={list} listKey={listKey} dragAndDrop={dragAndDrop} />
+      {hideSettings ? (
+        <List itemList={list} listKey={listKey} dragAndDrop={dragAndDrop} />
+      ) : (
+        <div data-testid="column-settings" ref={settingsContainer}>
+          <ColumnSettings
+            settingsIcon={settingsIcon}
+            settingsContainer={settingsContainer}
+            hideSettings={hideSettings}
+            setHideSettings={setHideSettings}
+            groupId={groupId}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -67,4 +95,5 @@ interface ListGroupProps {
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
   advanceTerm: (...props: any) => void;
   isScopedToWorkingHours?: boolean;
+  groupId: number;
 }

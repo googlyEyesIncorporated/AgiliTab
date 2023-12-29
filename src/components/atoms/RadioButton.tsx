@@ -3,7 +3,7 @@ import { Sentencecase } from "../../features/utils/Sentencecase";
 
 interface RadioButtonProps {
   enabled: boolean;
-  category: string;
+  groupId: number;
   firstIsChecked: boolean;
   setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
   firstRadioName: string;
@@ -12,7 +12,7 @@ interface RadioButtonProps {
 
 const RadioButton = ({
   enabled,
-  category,
+  groupId,
   firstIsChecked,
   setIsChecked,
   firstRadioName,
@@ -22,8 +22,8 @@ const RadioButton = ({
     const isChecked = e.currentTarget.value === firstRadioName;
     setIsChecked(isChecked);
   };
-  const firstRadioCategory = `${category}-${firstRadioName}`;
-  const secondRadioCategory = `${category}-${secondRadioName}`;
+  const firstRadioCategory = `group-${groupId}-${firstRadioName}`;
+  const secondRadioCategory = `group-${groupId}-${secondRadioName}`;
   return (
     <>
       <input

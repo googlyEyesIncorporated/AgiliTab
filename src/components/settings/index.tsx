@@ -120,8 +120,8 @@ export const Settings = ({
       <SetColors />
       <hr />
       <DateTimeFormat />
-      <hr />
-      <div className="my-4 mx-0">
+      {/* <hr /> */}
+      {/* <div className="my-4 mx-0">
         <h2 className="font-bold leading-none text-2xl">Time Frames</h2>
         <WorkDay
           isPopoverOpen={isPopoverOpen}
@@ -139,7 +139,7 @@ export const Settings = ({
           category="long"
           termData={longTerm}
         />
-      </div>{" "}
+      </div>{" "} */}
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}
