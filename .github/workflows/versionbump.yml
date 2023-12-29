@@ -2,19 +2,17 @@ name: "Version Bump"
 on:
   pull_request:
     types:
-      - unlabeled # temp for testing
-      - labeled # temp for testing
       - closed
 jobs:
   merge_pr:
     name: "Version Bump"
-    # if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_ORG_PAT }}
-        #   ref: main
+          ref: main
       - uses: actions/setup-node@v2
         with:
           node-version: "16.x"
@@ -32,8 +30,7 @@ jobs:
         run: npm version major && git push
       - name: Apply version bump (minor)
         if: contains(github.event.pull_request.labels.*.name, 'version minor')
-        # run: npm version minor && git push
-        run: npm version patch && git push
+        run: npm version minor && git push
       - name: Apply version bump (patch)
         if: contains(github.event.pull_request.labels.*.name, 'version patch')
         run: npm version patch && git push
