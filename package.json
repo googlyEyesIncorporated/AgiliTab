@@ -13,6 +13,7 @@
     "@types/chrome": "^0.0.199",
     "@types/luxon": "^3.0.2",
     "@types/uuid": "^8.3.4",
+    "auto-changelog": "^2.4.0",
     "eslint": "^8.51.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-node": "^4.1.0",
@@ -55,7 +56,8 @@
     "test": "react-app-rewired test",
     "test:cov": "react-app-rewired test --coverage",
     "tw": "npx tailwindcss -i ./src/index.css -o ./public/index.css",
-    "tw:watch": "yarn tw --watch"
+    "tw:watch": "yarn tw --watch",
+    "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "eslintConfig": {
     "extends": [
