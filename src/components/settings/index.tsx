@@ -14,8 +14,7 @@ const handleClickOutside =
     { current }: React.MutableRefObject<HTMLDivElement | null>
   ) =>
   (event: Event) => {
-    // @ts-ignore
-    if (current && !current.contains(event.target)) {
+    if (current && !current.contains(event.target as Node)) {
       setHidden(true);
       setIsInfoOpen(false);
     }
