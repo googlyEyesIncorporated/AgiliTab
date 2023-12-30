@@ -7,7 +7,7 @@ interface CommonProps {
   limit: Limit;
   setStartDate: React.Dispatch<React.SetStateAction<string>>;
   setEndDate: React.Dispatch<React.SetStateAction<string>>;
-  enabled: boolean;
+  onChange: (changed: any) => void;
 }
 
 interface SelectDateProps extends CommonProps {
@@ -19,25 +19,26 @@ interface HandleDateSelection extends CommonProps {
 
 const handleDateSelection = ({
   value,
-  enabled,
   title,
   date,
   setStartDate,
   setEndDate,
   limit,
+  onChange,
 }: HandleDateSelection) => {
-  if (enabled) {
-    if (title === "Beginning") {
-      if (limit.max) {
-        const duration = DateTime.fromISO(limit.max).diff(
-          DateTime.fromISO(date)
-        );
-        setStartDate(DateTime.fromISO(value).toISO() ?? "");
-        setEndDate(DateTime.fromISO(value).plus(duration).toISO() ?? "");
-      }
-    } else {
-      setEndDate(DateTime.fromISO(value).toISO() ?? "");
+  if (title === "Beginning") {
+    if (limit.max) {
+      const startDate = DateTime.fromISO(value).toISO() ?? "";
+      const duration = DateTime.fromISO(limit.max).diff(DateTime.fromISO(date));
+      const endDate = DateTime.fromISO(value).plus(duration).toISO() ?? "";
+      setStartDate(startDate);
+      setEndDate(endDate);
+      onChange({ startDate, endDate });
     }
+  } else {
+    const endDate = DateTime.fromISO(value).toISO() ?? "";
+    setEndDate(endDate);
+    onChange({ endDate });
   }
 };
 
@@ -48,7 +49,7 @@ export const SelectDate = ({
   limit,
   setStartDate,
   setEndDate,
-  enabled = true,
+  onChange,
 }: SelectDateProps) => {
   const formattedLimit: Limit = {};
   if ("min" in limit && limit.min) {
@@ -65,18 +66,17 @@ export const SelectDate = ({
         data-testid={categoryDatePicker}
         name={categoryDatePicker}
         value={DateTime.fromISO(date).toISODate() ?? ""}
-        style={{ backgroundColor: enabled ? "white" : "darkgray" }}
-        disabled={!enabled}
+        style={{ backgroundColor: "white" }}
         className="pt-2 pl-1 h-6 mb-0.5"
         onChange={(e) => {
           handleDateSelection({
             value: e.target.value,
-            enabled,
             title,
             date,
             setStartDate,
             setEndDate,
             limit,
+            onChange,
           });
         }}
       />

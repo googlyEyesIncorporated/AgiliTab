@@ -14,6 +14,7 @@ interface DurationProps {
   enabled?: boolean;
   setDuration: React.Dispatch<React.SetStateAction<DurationState>>;
   duration: DurationState;
+  onChange: (change: any) => void;
 }
 
 const getBackgroundColor = (enabled: boolean) => ({
@@ -25,6 +26,7 @@ export const Duration = ({
   enabled = true,
   setDuration,
   duration,
+  onChange,
 }: DurationProps) => {
   const { qty: dQty, unit: dUnit } = duration;
   const [qty, setQty] = useState(dQty);
@@ -60,7 +62,11 @@ export const Duration = ({
         onChange={(e) => {
           const newQty = parseInt(e.target.value);
           setQty(newQty);
-          if (unit) setDuration({ unit, qty: newQty });
+          const durationObj = { unit, qty: newQty };
+          if (unit) {
+            setDuration(durationObj);
+            onChange({ duration: durationObj });
+          }
         }}
       />
       <select
@@ -74,7 +80,12 @@ export const Duration = ({
         onChange={(e) => {
           const newUnit = e.target.value;
           setUnit(newUnit);
-          if (qty) setDuration({ unit: newUnit, qty });
+          const durationObj = { unit: newUnit, qty };
+
+          if (qty) {
+            setDuration(durationObj);
+            onChange(durationObj);
+          }
         }}
       >
         <option value={formats.units.DAY + "s"}>{formats.units.DAY}s</option>
