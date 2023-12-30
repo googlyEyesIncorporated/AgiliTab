@@ -1,21 +1,15 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
-import {
-  selectLongTerm,
-  selectMediumTerm,
-  selectVisualSettings,
-} from "../../features/settings/settingsSlice";
+import { selectVisualSettings } from "../../features/settings/settingsSlice";
 import { SetColors } from "./visual/SetColors";
 import { DateTimeFormat } from "./visual/DateTimeFormat";
-import { WorkDay, SetBooleanState } from "./term/WorkDay";
-import { TermInputs } from "./term/TermInputs";
+import { SetBooleanState } from "./term/WorkDay";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons/faCircleInfo";
 import Icon from "../atoms/Icon";
 
 const handleClickOutside =
   (
     setHidden: SetBooleanState,
-    setIsPopoverOpen: SetBooleanState,
     setIsInfoOpen: SetBooleanState,
     { current }: React.MutableRefObject<HTMLDivElement | null>
   ) =>
@@ -23,7 +17,6 @@ const handleClickOutside =
     // @ts-ignore
     if (current && !current.contains(event.target)) {
       setHidden(true);
-      setIsPopoverOpen(false);
       setIsInfoOpen(false);
     }
   };
@@ -39,28 +32,17 @@ export const Settings = ({
   hideSettings: boolean;
   setHidden: SetBooleanState;
 }) => {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
 
   useEffect(() => {
     document.addEventListener(
       "click",
-      handleClickOutside(
-        setHidden,
-        setIsPopoverOpen,
-        setIsInfoOpen,
-        settingsContainer
-      )
+      handleClickOutside(setHidden, setIsInfoOpen, settingsContainer)
     );
     return () => {
       document.removeEventListener(
         "click",
-        handleClickOutside(
-          setHidden,
-          setIsPopoverOpen,
-          setIsInfoOpen,
-          settingsContainer
-        )
+        handleClickOutside(setHidden, setIsInfoOpen, settingsContainer)
       );
     };
     // run on mount only
@@ -69,8 +51,6 @@ export const Settings = ({
 
   const { fontColor, bgColor, secondFontColor } =
     useAppSelector(selectVisualSettings);
-  const mediumTerm = useAppSelector(selectMediumTerm);
-  const longTerm = useAppSelector(selectLongTerm);
 
   return (
     <div
@@ -120,26 +100,6 @@ export const Settings = ({
       <SetColors />
       <hr style={{ borderColor: "inherit" }} />
       <DateTimeFormat />
-      {/* <hr style={{ borderColor: "inherit" }} />
-      <div className="my-4 mx-0">
-        <h2 className="font-bold leading-none text-2xl">Time Frames</h2>
-        <WorkDay
-          isPopoverOpen={isPopoverOpen}
-          setIsPopoverOpen={setIsPopoverOpen}
-        />
-      <hr style={{ borderColor: "inherit" }} />
-        <TermInputs
-          hideSettings={hideSettings}
-          category="medium"
-          termData={mediumTerm}
-        />
-      <hr style={{ borderColor: "inherit" }} />
-        <TermInputs
-          hideSettings={hideSettings}
-          category="long"
-          termData={longTerm}
-        />
-      </div>{" "} */}
       <div>
         <button
           onClick={() => setHidden(!hideSettings)}
