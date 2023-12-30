@@ -34,12 +34,13 @@ export const ListGroup = ({
   const [hideSettings, setHideSettings] = useState(true);
   const iconShowOrHide = hideIcon ? " hidden" : " fade-in-1s";
   const settingsContainer = useRef(null as HTMLDivElement | null);
-  const settingsIcon = useRef(null as HTMLElement | null);
 
   return (
     <div className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block">
       <div
-        className="pb-1 text-2xl border-b border-current text-center"
+        className={`pb-1 text-2xl border-current text-center${
+          hideSettings ? " border-b" : ""
+        }`}
         role="columnheader"
         tabIndex={0}
         onMouseEnter={() => setHideIcon(false)}
@@ -47,8 +48,10 @@ export const ListGroup = ({
       >
         <div className="min-w-10 inline-block">
           <Icon
-            ref={settingsIcon}
-            onClick={() => setHideSettings(false)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setHideSettings(!hideSettings);
+            }}
             icon={faGears}
             iconClassName={`cursor-pointer mr-2${iconShowOrHide}`}
           />
@@ -74,7 +77,6 @@ export const ListGroup = ({
       ) : (
         <div data-testid="column-settings" ref={settingsContainer}>
           <ColumnSettings
-            settingsIcon={settingsIcon}
             settingsContainer={settingsContainer}
             hideSettings={hideSettings}
             setHideSettings={setHideSettings}
