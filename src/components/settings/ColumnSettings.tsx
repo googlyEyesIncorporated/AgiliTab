@@ -7,7 +7,7 @@ import {
   selectVisualSettings,
 } from "../../features/settings/settingsSlice";
 import { SetBooleanState } from "./term/WorkDay";
-import { saveTerm } from "../../features/settings/utils";
+import { OnSaveProps, saveTerm } from "../../features/settings/utils";
 import { DateTime } from "luxon";
 import Icon from "../atoms/Icon";
 import { UnitType } from "../../features/settings/types";
@@ -82,7 +82,7 @@ export const ColumnSettings = ({
 
   // const checkboxId = `${category}_repeat-duration`;
 
-  const onChange = (changed: Parameters<typeof saveTerm>) => {
+  const onChange = (changed: Partial<OnSaveProps>) => {
     if (duration.qty) {
       saveTerm({
         enabled: true,
@@ -109,15 +109,22 @@ export const ColumnSettings = ({
       style={{ backgroundColor: bgColor }}
     >
       <h1 className="font-bold text-2xl leading-none" id="settings-title">
-        Customization
+        List Customization
         <Icon
           onClick={() => {
-            setStartDate(defaultTerms[groupId].startDate ?? "");
-            setEndDate(defaultTerms[groupId].endDate ?? "");
-            setUnitType(defaultTerms[groupId].unitType);
-            setTitle(defaultTerms[groupId].title);
-            setRepeat(defaultTerms[groupId].repeat);
-            setDuration(defaultTerms[groupId].duration);
+            const startDate = defaultTerms[groupId].startDate ?? "";
+            const endDate = defaultTerms[groupId].endDate ?? "";
+            const unitType = defaultTerms[groupId].unitType;
+            const title = defaultTerms[groupId].title;
+            const repeat = defaultTerms[groupId].repeat;
+            const duration = defaultTerms[groupId].duration;
+            setStartDate(startDate);
+            setEndDate(endDate);
+            setUnitType(unitType);
+            setTitle(title);
+            setRepeat(repeat);
+            setDuration(duration);
+            onChange({ startDate, endDate, unitType, title, repeat, duration });
           }}
           data-testid={`${groupId}-restore-defaults`}
           icon={faArrowRightFromBracket}
@@ -126,7 +133,7 @@ export const ColumnSettings = ({
           faStyle={{ color: secondFontColor }}
         />
       </h1>
-      <hr />
+      <hr style={{ borderColor: "inherit" }} />
       <div className="my-4 mx-0">
         <div className="my-2 mx-0">
           <div className="my-2 mx-0">

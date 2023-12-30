@@ -118,22 +118,22 @@ export const Settings = ({
         Customization
       </h1>
       <SetColors />
-      <hr />
+      <hr style={{ borderColor: "inherit" }} />
       <DateTimeFormat />
-      {/* <hr /> */}
-      {/* <div className="my-4 mx-0">
+      {/* <hr style={{ borderColor: "inherit" }} />
+      <div className="my-4 mx-0">
         <h2 className="font-bold leading-none text-2xl">Time Frames</h2>
         <WorkDay
           isPopoverOpen={isPopoverOpen}
           setIsPopoverOpen={setIsPopoverOpen}
         />
-        <hr />
+      <hr style={{ borderColor: "inherit" }} />
         <TermInputs
           hideSettings={hideSettings}
           category="medium"
           termData={mediumTerm}
         />
-        <hr />
+      <hr style={{ borderColor: "inherit" }} />
         <TermInputs
           hideSettings={hideSettings}
           category="long"

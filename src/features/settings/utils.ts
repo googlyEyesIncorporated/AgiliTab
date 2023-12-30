@@ -5,7 +5,7 @@ import { DurationState } from "./types";
 
 export type Categories = "medium" | "long";
 
-interface OnSaveProps {
+export interface OnSaveProps {
   enabled: boolean;
   isDuration: boolean;
   duration: DurationState;
