@@ -80,21 +80,25 @@ export const DateTimeFormat = () => {
     });
   }, [savedDateFormat, savedTimeFormat]);
 
+  const onChange = (newFormat: Formats) => {
+    setSelectedFormats(newFormat);
+    dispatch(setDateTimeFormats(newFormat));
+  };
+
   return (
-    <div className="my-4 mx-0">
+    <div className="my-2 mx-0">
       <h2 className="mb-2 text-lg font-bold leading-none">
         Date and Time format:
       </h2>
       <div className="inline-block w-1/2">
         <div>Date format: </div>
         <select
-          className="pt-0.5 pl-0.5 h-6"
           name="date-format-input"
           id="date-format-input"
           data-testid="date-format-input"
           value={dateFormat}
           onChange={(e) => {
-            setSelectedFormats({ dateFormat: e.target.value, timeFormat });
+            onChange({ dateFormat: e.target.value, timeFormat });
           }}
         >
           {renderFormats(dateFormats)}
@@ -103,25 +107,16 @@ export const DateTimeFormat = () => {
       <div className="inline-block w-1/2">
         <div> Time format: </div>
         <select
-          className="pt-0.5 pl-0.5 w-32 h-6"
           name="time-format-input"
           id="time-format-input"
           data-testid="time-format-input"
           value={timeFormat}
           onChange={(e) => {
-            setSelectedFormats({ dateFormat, timeFormat: e.target.value });
+            onChange({ dateFormat, timeFormat: e.target.value });
           }}
         >
           {renderFormats(timeFormats)}
-        </select>{" "}
-        <button
-          className="border border-current pt-0.5 pb-0.5 px-1 align-top"
-          onClick={() => {
-            dispatch(setDateTimeFormats(selectedFormats));
-          }}
-        >
-          Save
-        </button>
+        </select>
       </div>
     </div>
   );
