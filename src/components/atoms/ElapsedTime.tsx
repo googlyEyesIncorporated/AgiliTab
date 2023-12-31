@@ -23,7 +23,9 @@ const AdvanceTerm = ({
   const date = useContext(DateContext);
   const currentTimeMillis = DateTime.fromISO(date).toMillis();
   useEffect(() => {
-    advanceTerm(term, setTerm, currentTimeMillis, isScopedToWorkingHours);
+    if (currentTimeMillis > term.end) {
+      advanceTerm(term, setTerm, currentTimeMillis, isScopedToWorkingHours);
+    }
   }, [term, setTerm, currentTimeMillis, isScopedToWorkingHours]);
 
   return <>{children}</>;
