@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  defaultLongTerm,
+  defaultShortTerm,
   defaultMediumTerm,
+  defaultLongTerm,
   selectTerm,
   selectVisualSettings,
 } from "../../features/settings/settingsSlice";
@@ -19,6 +20,7 @@ import { Duration } from "./term/Duration";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
 
 const defaultTerms: Record<number, UnitType> = {
+  0: defaultShortTerm,
   1: defaultMediumTerm,
   2: defaultLongTerm,
 };

@@ -49,7 +49,7 @@ reference.year.end =
 export const endOfToday = DateTime.now().endOf("day");
 export const startOfToday = DateTime.now().startOf("day");
 
-const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
+export const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
   unitType: "day",
   title: "Today",
   duration: reference.durations.shortTerm,
