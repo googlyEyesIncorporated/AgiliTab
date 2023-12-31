@@ -7,19 +7,7 @@ import { SetBooleanState } from "./term/WorkDay";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons/faCircleInfo";
 import Icon from "../atoms/Icon";
 import { InfoBox } from "./info";
-
-const handleClickOutside =
-  (
-    setHidden: SetBooleanState,
-    setIsInfoOpen: SetBooleanState,
-    { current }: React.MutableRefObject<HTMLDivElement | null>
-  ) =>
-  (event: Event) => {
-    if (current && !current.contains(event.target as Node)) {
-      setHidden(true);
-      setIsInfoOpen(false);
-    }
-  };
+import { handleClickOutside } from "../../features/utils/handleClickOutside";
 
 export const Settings = ({
   settingsContainer,
@@ -33,14 +21,18 @@ export const Settings = ({
   const [isInfoOpen, setIsInfoOpen] = useState(false);
 
   useEffect(() => {
+    const handleClick = () => {
+      setHidden(true);
+      setIsInfoOpen(false);
+    };
     document.addEventListener(
       "click",
-      handleClickOutside(setHidden, setIsInfoOpen, settingsContainer)
+      handleClickOutside(handleClick, settingsContainer)
     );
     return () => {
       document.removeEventListener(
         "click",
-        handleClickOutside(setHidden, setIsInfoOpen, settingsContainer)
+        handleClickOutside(handleClick, settingsContainer)
       );
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- run on mount only

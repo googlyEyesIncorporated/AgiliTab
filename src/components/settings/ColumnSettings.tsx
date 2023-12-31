@@ -16,22 +16,12 @@ import { TermName } from "./term/TermName";
 import RadioButton from "../atoms/RadioButton";
 import { SelectDate } from "./term/SelectDate";
 import { Duration } from "./term/Duration";
+import { handleClickOutside } from "../../features/utils/handleClickOutside";
 
 const defaultTerms: Record<number, UnitType> = {
   1: defaultMediumTerm,
   2: defaultLongTerm,
 };
-
-const handleClickOutside =
-  (
-    setHideSettings: SetBooleanState,
-    { current: currentSettings }: React.MutableRefObject<HTMLDivElement | null>
-  ) =>
-  (event: Event) => {
-    if (currentSettings && !currentSettings.contains(event.target as Node)) {
-      setHideSettings(true);
-    }
-  };
 
 export const ColumnSettings = ({
   settingsContainer,
@@ -45,7 +35,11 @@ export const ColumnSettings = ({
   groupId: number;
 }) => {
   useEffect(() => {
-    const clickHandler = handleClickOutside(setHideSettings, settingsContainer);
+    const clickHandler = handleClickOutside(
+      setHideSettings,
+      settingsContainer,
+      true
+    );
     document.addEventListener("click", clickHandler);
     return () => {
       document.removeEventListener("click", clickHandler);
