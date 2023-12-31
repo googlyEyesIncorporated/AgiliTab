@@ -2,7 +2,7 @@ import { selectAllUnits } from "../../features/settings/settingsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { selectAllLists } from "../../features/itemList/itemListSlice";
 import { ListGroup } from "./list/Group";
-import { advanceTerm, useShortTerm, useTerm } from "./utils";
+import { useShortTerm, useTerm } from "./utils";
 import { DraggableLists } from "./list/DraggableLists";
 
 export const BottomRow = () => {
@@ -26,7 +26,6 @@ export const BottomRow = () => {
           setTerm={setShortTerm}
           list={lists.shortTermList}
           listKey="shortTermList"
-          advanceTerm={advanceTerm}
         />
         <ListGroup
           groupId={1}
@@ -35,7 +34,6 @@ export const BottomRow = () => {
           setTerm={setMediumTerm}
           list={lists.mediumTermList}
           listKey="mediumTermList"
-          advanceTerm={advanceTerm}
         />
         <ListGroup
           groupId={2}
@@ -44,7 +42,6 @@ export const BottomRow = () => {
           setTerm={setLongTerm}
           list={lists.longTermList}
           listKey="longTermList"
-          advanceTerm={advanceTerm}
         />
       </DraggableLists>
     </div>

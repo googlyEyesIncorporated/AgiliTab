@@ -26,7 +26,6 @@ export const ListGroup = ({
   list,
   dragAndDrop,
   listKey,
-  advanceTerm,
   isScopedToWorkingHours,
   groupId,
 }: ListGroupProps) => {
@@ -68,7 +67,6 @@ export const ListGroup = ({
           className="text-[1.6875rem]"
           term={term}
           setTerm={setTerm}
-          advanceTerm={advanceTerm}
           isScopedToWorkingHours={isScopedToWorkingHours}
         />
       </div>
@@ -95,7 +93,6 @@ interface ListGroupProps {
   listKey: ListKey;
   term: StartEndUnitType;
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
-  advanceTerm: (...props: any) => void;
   isScopedToWorkingHours?: boolean;
   groupId: number;
 }

@@ -1,13 +1,12 @@
 import React, { PropsWithChildren, useContext, useEffect } from "react";
 import { DateContext } from "../TimeHandler";
 import { StartEndUnitType } from "../../features/itemList/types";
-import { getCurrentRatio } from "../bottomRow/utils";
+import { advanceTerm, getCurrentRatio } from "../bottomRow/utils";
 import { DateTime } from "luxon";
 
 interface IAdvanceTerm {
   term: StartEndUnitType;
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
-  advanceTerm: (...props: any) => void;
   isScopedToWorkingHours?: boolean;
 }
 
@@ -18,7 +17,6 @@ interface IElapsedTime extends IAdvanceTerm {
 const AdvanceTerm = ({
   term,
   setTerm,
-  advanceTerm,
   isScopedToWorkingHours,
   children,
 }: PropsWithChildren<IAdvanceTerm>) => {
@@ -26,7 +24,7 @@ const AdvanceTerm = ({
   const currentTimeMillis = DateTime.fromISO(date).toMillis();
   useEffect(() => {
     advanceTerm(term, setTerm, currentTimeMillis, isScopedToWorkingHours);
-  }, [term, setTerm, currentTimeMillis, isScopedToWorkingHours, advanceTerm]);
+  }, [term, setTerm, currentTimeMillis, isScopedToWorkingHours]);
 
   return <>{children}</>;
 };
@@ -34,13 +32,11 @@ const AdvanceTerm = ({
 export const ElapsedTime = ({
   term,
   setTerm,
-  advanceTerm,
   isScopedToWorkingHours,
   className,
 }: IElapsedTime) => (
   <AdvanceTerm
     setTerm={setTerm}
-    advanceTerm={advanceTerm}
     isScopedToWorkingHours={isScopedToWorkingHours}
     term={term}
   >
