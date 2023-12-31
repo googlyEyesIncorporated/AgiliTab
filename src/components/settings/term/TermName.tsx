@@ -1,40 +1,43 @@
 import React from "react";
 
 interface TermNameProps {
-  category: string;
+  groupId: number;
   title: string;
   enabled: boolean;
   setTitle: (value: React.SetStateAction<string>) => void;
   setUnitType: (value: React.SetStateAction<string>) => void;
+  onChange: (changed: any) => void;
 }
 export const TermName = ({
-  category,
+  groupId,
   title,
   enabled,
   setTitle,
   setUnitType,
+  onChange,
 }: TermNameProps) => {
-  const categoryName = `${category}-unit-name`;
+  const groupIdName = `group-${groupId}-unit-name`;
   return (
-    <div className="inline-block w-1/2">
-      <label htmlFor={categoryName}>Name: </label>
+    <div className="inline-block">
+      <label className="inline-block w-[61px]" htmlFor={groupIdName}>
+        Name:{" "}
+      </label>
       <input
-        id={categoryName}
-        data-testid={categoryName}
-        name={categoryName}
+        id={groupIdName}
+        data-testid={groupIdName}
+        name={groupIdName}
         type="text"
         value={title}
         disabled={!enabled}
-        className="pt-2 pb-0 pl-1 h-6 w-36"
+        className="p-0 w-[107px]"
         onChange={(e) => {
           if (enabled) {
-            setTitle(e.target.value);
-            setUnitType(e.target.value.toLowerCase());
+            const title = e.target.value;
+            const unitType = title.toLowerCase();
+            setTitle(title);
+            setUnitType(unitType);
+            onChange({ title, unitType });
           }
-        }}
-        style={{
-          backgroundColor: enabled ? "white" : "darkgray",
-          lineHeight: 3,
         }}
       />
     </div>

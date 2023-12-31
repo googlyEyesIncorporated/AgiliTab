@@ -1,36 +1,49 @@
-import { useContext, useEffect } from "react";
+import React, { PropsWithChildren, useContext, useEffect } from "react";
 import { DateContext } from "../TimeHandler";
 import { StartEndUnitType } from "../../features/itemList/types";
-import { getCurrentRatio } from "../bottomRow/utils";
+import { advanceTerm, getCurrentRatio } from "../bottomRow/utils";
 import { DateTime } from "luxon";
 
-interface IElapsedTime {
-  term?: StartEndUnitType;
+interface IAdvanceTerm {
+  term: StartEndUnitType;
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
-  advanceTerm: (...props: any) => void;
   isScopedToWorkingHours?: boolean;
+}
+
+interface IElapsedTime extends IAdvanceTerm {
   className?: string;
 }
+
+const AdvanceTerm = ({
+  term,
+  setTerm,
+  isScopedToWorkingHours,
+  children,
+}: PropsWithChildren<IAdvanceTerm>) => {
+  const date = useContext(DateContext);
+  const currentTimeMillis = DateTime.fromISO(date).toMillis();
+  useEffect(() => {
+    if (currentTimeMillis > term.end) {
+      advanceTerm(term, setTerm, currentTimeMillis, isScopedToWorkingHours);
+    }
+  }, [term, setTerm, currentTimeMillis, isScopedToWorkingHours]);
+
+  return <>{children}</>;
+};
 
 export const ElapsedTime = ({
   term,
   setTerm,
-  advanceTerm,
   isScopedToWorkingHours,
   className,
-}: IElapsedTime) => {
-  const date = useContext(DateContext);
-  const currentTimeMillis = DateTime.fromISO(date).toMillis();
-  useEffect(() => {
-    advanceTerm(term, setTerm, currentTimeMillis, isScopedToWorkingHours);
-  }, [term, setTerm, currentTimeMillis, isScopedToWorkingHours, advanceTerm]);
-
-  if (term) {
-    return (
-      <span className={`float-right ${className}`}>
-        {getCurrentRatio(term) + "%"}
-      </span>
-    );
-  }
-  return null;
-};
+}: IElapsedTime) => (
+  <AdvanceTerm
+    setTerm={setTerm}
+    isScopedToWorkingHours={isScopedToWorkingHours}
+    term={term}
+  >
+    <span className={`float-right ${className}`}>
+      {getCurrentRatio(term) + "%"}
+    </span>
+  </AdvanceTerm>
+);

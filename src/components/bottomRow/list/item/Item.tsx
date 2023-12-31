@@ -32,11 +32,11 @@ export const SmartListItem = ({
     useRef(null);
 
   const closeAndSaveInput = useCallback(
-    (name: string) => {
+    (name?: string) => {
       dispatch(
         updateListItem({
           listKey,
-          name,
+          name: name ?? "",
           index,
         })
       );

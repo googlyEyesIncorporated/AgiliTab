@@ -5,13 +5,13 @@ import { DurationState } from "./types";
 
 export type Categories = "medium" | "long";
 
-interface OnSaveProps {
+export interface OnSaveProps {
   enabled: boolean;
   isDuration: boolean;
   duration: DurationState;
   startDate: string;
   dispatch: ReturnType<typeof useAppDispatch>;
-  category: Categories;
+  groupId: number;
   unitType: string;
   title: string;
   repeat: boolean;
@@ -35,7 +35,7 @@ export const saveTerm = ({
   duration,
   startDate,
   dispatch,
-  category,
+  groupId,
   unitType,
   title,
   repeat,
@@ -51,7 +51,7 @@ export const saveTerm = ({
 
       dispatch(
         setNotShortTerm({
-          key: `${category}Term`,
+          key: groupId,
           termObj: {
             duration: { unit, qty },
             isDuration,
@@ -65,7 +65,7 @@ export const saveTerm = ({
     } else {
       dispatch(
         setNotShortTerm({
-          key: `${category}Term`,
+          key: groupId,
           termObj: {
             duration,
             isDuration,

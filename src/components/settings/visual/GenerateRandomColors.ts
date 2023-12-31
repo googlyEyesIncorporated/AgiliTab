@@ -21,8 +21,8 @@ const hexMap: Record<number, string> = {
 const getHexValue = (value: number) => {
   const valueSixteenth = Math.floor(value / 16);
   const secondValueSixteenth = value % 16;
-  const firstValue = hexMap[valueSixteenth] || valueSixteenth;
-  const secondValue = hexMap[secondValueSixteenth] || secondValueSixteenth;
+  const firstValue = hexMap[valueSixteenth] ?? valueSixteenth;
+  const secondValue = hexMap[secondValueSixteenth] ?? secondValueSixteenth;
   return `${firstValue}${secondValue}`;
 };
 

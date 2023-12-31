@@ -26,7 +26,7 @@ const reference = {
     scopedToWorkingHours: true,
   },
   month: {
-    start: Now.startOf("month").toISO() || '',
+    start: Now.startOf("month").toISO() ?? "",
     end: "",
   },
   year: {
@@ -39,22 +39,22 @@ const reference = {
     longTerm: { unit: "years", qty: 1 },
   },
 };
-reference.month.end = DateTime.fromISO(reference.month.start)
-  .plus({ months: 1 })
-  .toISO() || '';
-reference.year.end = DateTime.fromISO(reference.year.start || '')
-  .plus({ years: 1 })
-  .toISO() || '';
+reference.month.end =
+  DateTime.fromISO(reference.month.start).plus({ months: 1 }).toISO() ?? "";
+reference.year.end =
+  DateTime.fromISO(reference.year.start ?? "")
+    .plus({ years: 1 })
+    .toISO() ?? "";
 
 export const endOfToday = DateTime.now().endOf("day");
 export const startOfToday = DateTime.now().startOf("day");
 
-const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
+export const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
   unitType: "day",
   title: "Today",
   duration: reference.durations.shortTerm,
-  endDate: endOfToday.toISO() ?? '',
-  startDate: startOfToday.toISO() ?? '',
+  endDate: endOfToday.toISO() ?? "",
+  startDate: startOfToday.toISO() ?? "",
   workingHours: reference.workDay,
   isDuration: true,
   repeat: true,
@@ -75,12 +75,13 @@ export const defaultLongTerm: UnitType = {
   title: "Year",
   duration: reference.durations.longTerm,
   endDate: reference.year.end,
-  startDate: reference.year.start || '',
+  startDate: reference.year.start ?? "",
   isDuration: true,
   repeat: true,
 };
 
 const initialUnits: UnitsState = {
+  terms: [defaultShortTerm, defaultMediumTerm, defaultLongTerm],
   shortTerm: defaultShortTerm,
   mediumTerm: defaultMediumTerm,
   longTerm: defaultLongTerm,
@@ -101,10 +102,9 @@ export const initialSettings: SettingsState = {
 
 let settingUpdateTimeoutId: NodeJS.Timeout | null = null;
 
-const localStorageDebounce = (state: SettingsState) => {
+const localStorageDebounce = () => {
   if (settingUpdateTimeoutId) {
     clearTimeout(settingUpdateTimeoutId);
-    settingUpdateTimeoutId = null;
   }
   settingUpdateTimeoutId = setTimeout(() => {
     const state = store.getState().settings;
@@ -151,10 +151,14 @@ export const unitsSlice = createSlice({
       state.units.shortTerm.workingHours.times = workingHours;
       updateStorage({ storageKey: "settings", val: state });
     },
-    updateDay: (state, { payload: startOfDay }: PayloadAction<string | null>) => {
+    updateDay: (
+      state,
+      { payload: startOfDay }: PayloadAction<string | null>
+    ) => {
       if (startOfDay) {
         state.units.shortTerm.startDate = startOfDay;
-        state.units.shortTerm.endDate = DateTime.now().endOf("day").toISO() || '';
+        state.units.shortTerm.endDate =
+          DateTime.now().endOf("day").toISO() ?? "";
       }
     },
     setVisualSetting: (
@@ -162,7 +166,7 @@ export const unitsSlice = createSlice({
       { payload: { key, value } }: PayloadAction<KeyValuePair>
     ) => {
       state.visual[key] = value;
-      localStorageDebounce(state);
+      localStorageDebounce();
     },
     setDateTimeFormats: (
       state,
@@ -181,10 +185,10 @@ export const unitsSlice = createSlice({
         payload: { key, termObj },
       }: PayloadAction<{
         termObj: UnitType;
-        key: keyof Omit<UnitsState, "shortTerm">;
+        key: number;
       }>
     ) => {
-      state.units[key] = termObj;
+      state.units.terms[key] = termObj;
       updateStorage({ storageKey: "settings", val: state });
     },
   },
@@ -210,7 +214,9 @@ export const selectDateFormat = (state: RootState) =>
   state.settings.visual.dateFormat;
 export const selectWorkDayToggle = (state: RootState) =>
   state.settings.units.shortTerm.workingHours.scopedToWorkingHours;
-export const selectAllUnits = (state: RootState) => state.settings.units;
+export const selectAllUnits = (state: RootState) => state.settings.units.terms;
+export const selectTerm = (termIndex: number) => (state: RootState) =>
+  state.settings.units.terms[termIndex];
 export const selectShortTerm = (state: RootState) =>
   state.settings.units.shortTerm;
 export const selectMediumTerm = (state: RootState) =>

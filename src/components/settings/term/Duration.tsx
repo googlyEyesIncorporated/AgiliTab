@@ -10,10 +10,11 @@ const formats = {
   },
 };
 interface DurationProps {
-  category: string;
+  groupId: number;
   enabled?: boolean;
   setDuration: React.Dispatch<React.SetStateAction<DurationState>>;
   duration: DurationState;
+  onChange: (change: any) => void;
 }
 
 const getBackgroundColor = (enabled: boolean) => ({
@@ -21,10 +22,11 @@ const getBackgroundColor = (enabled: boolean) => ({
 });
 
 export const Duration = ({
-  category,
+  groupId,
   enabled = true,
   setDuration,
   duration,
+  onChange,
 }: DurationProps) => {
   const { qty: dQty, unit: dUnit } = duration;
   const [qty, setQty] = useState(dQty);
@@ -38,12 +40,14 @@ export const Duration = ({
     if (dUnit) setUnit(dUnit);
   }, [dUnit]);
 
-  const categoryUnitQty = `${category}-unit-qty`;
-  const categoryDurationFormatInput = `${category}-duration-format-input`;
+  const categoryUnitQty = `group-${groupId}-unit-qty`;
+  const categoryDurationFormatInput = `group-${groupId}-duration-format-input`;
 
   return (
-    <div className="inline-block w-1/2">
-      <label htmlFor={categoryUnitQty}>Duration: </label>
+    <div className="inline-block h-[18px]">
+      <label className="inline-block w-[61px]" htmlFor={categoryUnitQty}>
+        Duration:
+      </label>
       <input
         type="number"
         name={categoryUnitQty}
@@ -51,7 +55,7 @@ export const Duration = ({
         data-testid={categoryUnitQty}
         min="1"
         max="100"
-        className="pt-2 pl-1 h-6 w-12 leading-loose"
+        className="w-[2.5rem]"
         style={{
           ...getBackgroundColor(enabled),
         }}
@@ -60,11 +64,15 @@ export const Duration = ({
         onChange={(e) => {
           const newQty = parseInt(e.target.value);
           setQty(newQty);
-          if (unit) setDuration({ unit, qty: newQty });
+          const durationObj = { unit, qty: newQty };
+          if (unit) {
+            setDuration(durationObj);
+            onChange({ duration: durationObj });
+          }
         }}
       />
       <select
-        className="pt-2 pb-1 align-top h-6"
+        className="h-full ml-1"
         name={categoryDurationFormatInput}
         id={categoryDurationFormatInput}
         data-testid={categoryDurationFormatInput}
@@ -74,7 +82,12 @@ export const Duration = ({
         onChange={(e) => {
           const newUnit = e.target.value;
           setUnit(newUnit);
-          if (qty) setDuration({ unit: newUnit, qty });
+          const durationObj = { unit: newUnit, qty };
+
+          if (qty) {
+            setDuration(durationObj);
+            onChange(durationObj);
+          }
         }}
       >
         <option value={formats.units.DAY + "s"}>{formats.units.DAY}s</option>
