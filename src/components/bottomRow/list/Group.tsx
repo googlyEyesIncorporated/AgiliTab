@@ -93,7 +93,7 @@ interface ListGroupProps {
   list: ItemList;
   dragAndDrop?: DragAndDrop;
   listKey: ListKey;
-  term?: StartEndUnitType;
+  term: StartEndUnitType;
   setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
   advanceTerm: (...props: any) => void;
   isScopedToWorkingHours?: boolean;
