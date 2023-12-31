@@ -53,7 +53,7 @@ export const calculateStartEndMs = (
       if (start === end) {
         const newEnd = recalcDateIfInPast(
           DateTime.fromMillis(end),
-          duration || {},
+          duration ?? {},
           DateTime.fromMillis(start)
         ).newDate.toMillis();
         return { ...commonObj, end: newEnd, start };

@@ -26,7 +26,7 @@ const reference = {
     scopedToWorkingHours: true,
   },
   month: {
-    start: Now.startOf("month").toISO() || "",
+    start: Now.startOf("month").toISO() ?? "",
     end: "",
   },
   year: {
@@ -40,11 +40,11 @@ const reference = {
   },
 };
 reference.month.end =
-  DateTime.fromISO(reference.month.start).plus({ months: 1 }).toISO() || "";
+  DateTime.fromISO(reference.month.start).plus({ months: 1 }).toISO() ?? "";
 reference.year.end =
-  DateTime.fromISO(reference.year.start || "")
+  DateTime.fromISO(reference.year.start ?? "")
     .plus({ years: 1 })
-    .toISO() || "";
+    .toISO() ?? "";
 
 export const endOfToday = DateTime.now().endOf("day");
 export const startOfToday = DateTime.now().startOf("day");
@@ -102,10 +102,9 @@ export const initialSettings: SettingsState = {
 
 let settingUpdateTimeoutId: NodeJS.Timeout | null = null;
 
-const localStorageDebounce = (state: SettingsState) => {
+const localStorageDebounce = () => {
   if (settingUpdateTimeoutId) {
     clearTimeout(settingUpdateTimeoutId);
-    settingUpdateTimeoutId = null;
   }
   settingUpdateTimeoutId = setTimeout(() => {
     const state = store.getState().settings;
@@ -167,7 +166,7 @@ export const unitsSlice = createSlice({
       { payload: { key, value } }: PayloadAction<KeyValuePair>
     ) => {
       state.visual[key] = value;
-      localStorageDebounce(state);
+      localStorageDebounce();
     },
     setDateTimeFormats: (
       state,
