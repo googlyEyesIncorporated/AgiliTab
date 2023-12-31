@@ -35,7 +35,7 @@ const RadioButton = ({
         onChange={handleChange}
         checked={firstIsChecked}
       />
-      <label htmlFor={firstRadioCategory}>{` ${Sentencecase(
+      <label htmlFor={firstRadioCategory} className="text-xs">{` ${Sentencecase(
         firstRadioName
       )} `}</label>
       <input
@@ -47,9 +47,10 @@ const RadioButton = ({
         onChange={handleChange}
         checked={!firstIsChecked}
       />
-      <label htmlFor={secondRadioCategory}>{` ${Sentencecase(
-        secondRadioName
-      )}`}</label>
+      <label
+        htmlFor={secondRadioCategory}
+        className="text-xs"
+      >{` ${Sentencecase(secondRadioName)}`}</label>
     </>
   );
 };

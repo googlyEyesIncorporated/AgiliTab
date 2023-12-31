@@ -57,8 +57,13 @@ export const SelectDate = ({
   }
   const categoryDatePicker = `group-${groupId}-${title.toLowerCase()}-datepicker`;
   return (
-    <div className="inline-block w-1/2">
-      <label htmlFor={categoryDatePicker}> {title}: </label>
+    <div className="mx-auto">
+      <label
+        className="inline-block w-[61px] my-auto"
+        htmlFor={categoryDatePicker}
+      >
+        {title}:
+      </label>
       <input
         type="date"
         {...formattedLimit}
@@ -67,7 +72,6 @@ export const SelectDate = ({
         name={categoryDatePicker}
         value={DateTime.fromISO(date).toISODate() ?? ""}
         style={{ backgroundColor: "white" }}
-        className="pt-2 pl-1 h-6 mb-0.5"
         onChange={(e) => {
           handleDateSelection({
             value: e.target.value,

@@ -44,8 +44,10 @@ export const Duration = ({
   const categoryDurationFormatInput = `group-${groupId}-duration-format-input`;
 
   return (
-    <div className="inline-block w-1/2">
-      <label htmlFor={categoryUnitQty}>Duration: </label>
+    <div className="inline-block h-[18px]">
+      <label className="inline-block w-[61px]" htmlFor={categoryUnitQty}>
+        Duration:
+      </label>
       <input
         type="number"
         name={categoryUnitQty}
@@ -53,7 +55,7 @@ export const Duration = ({
         data-testid={categoryUnitQty}
         min="1"
         max="100"
-        className="pt-2 pl-1 h-6 w-12 leading-loose"
+        className="w-[2.5rem]"
         style={{
           ...getBackgroundColor(enabled),
         }}
@@ -70,7 +72,7 @@ export const Duration = ({
         }}
       />
       <select
-        className="pt-2 pb-1 align-top h-6"
+        className="h-full ml-1"
         name={categoryDurationFormatInput}
         id={categoryDurationFormatInput}
         data-testid={categoryDurationFormatInput}

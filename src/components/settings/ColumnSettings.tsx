@@ -102,14 +102,23 @@ export const ColumnSettings = ({
 
   return (
     <div
-      className={`p-2 overflow-auto xl:min-w-25vw text-xs leading-normal border border-current shadow-2xl${
+      className={`p-2 overflow-auto xl:w-25vw text-xs leading-normal border border-current shadow-2xl${
         hideSettings ? " hidden" : ""
       }`}
       data-testid="hideable-settings"
       style={{ backgroundColor: bgColor }}
     >
-      <h1 className="font-bold text-2xl leading-none" id="settings-title">
-        List Customization
+      <h1 className="text-xl" id="settings-title">
+        <div className="inline-block ml-2">
+          <RadioButton
+            enabled={true}
+            groupId={groupId}
+            firstRadioName="duration"
+            secondRadioName="date"
+            firstIsChecked={isDuration}
+            setIsChecked={setIsDuration}
+          />
+        </div>
         <Icon
           onClick={() => {
             const startDate = defaultTerms[groupId].startDate ?? "";
@@ -129,49 +138,23 @@ export const ColumnSettings = ({
           data-testid={`${groupId}-restore-defaults`}
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
-          faClassName="text-base float-right"
+          iconClassName="float-right mr-2"
           faStyle={{ color: secondFontColor }}
         />
       </h1>
       <hr style={{ borderColor: "inherit" }} />
-      <div className="my-4 mx-0">
-        <div className="my-2 mx-0">
-          <div className="my-2 mx-0">
-            <TermName
-              groupId={groupId}
-              title={title}
-              enabled={true}
-              setTitle={setTitle}
-              setUnitType={setUnitType}
-              onChange={onChange}
-            />
-            <div className="inline-block w-1/2">
-              <RadioButton
-                enabled={true}
-                groupId={groupId}
-                firstRadioName="duration"
-                secondRadioName="date"
-                firstIsChecked={isDuration}
-                setIsChecked={setIsDuration}
-              />
-              {/* Temporarily disabled
-          &nbsp; &nbsp;
-          <CheckBox
-            nameId={checkboxId}
-            checked={termData.repeat}
-            onChange={onRepeat(dispatch, category)}
-            disabled={!(enabled && isDuration)}
-            inputStyle={{
-              visibility: "visible",
-              margin: "0px 0.3rem",
-              float: "right",
-            }}
-            labelClass="float-right bottom-[-2px] align-checkbox-label align-middle relative"
-            labelText="Repeat?"
-            labelOnRight
-          /> */}
-            </div>
-          </div>
+      <div className="my-2 w-fit flex flex-wrap mx-auto">
+        <div className="mb-1 inline-block ml-2 min-w-[10.5rem]">
+          <TermName
+            groupId={groupId}
+            title={title}
+            enabled={true}
+            setTitle={setTitle}
+            setUnitType={setUnitType}
+            onChange={onChange}
+          />
+        </div>
+        <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2">
           <SelectDate
             title="Beginning"
             groupId={groupId}
@@ -181,6 +164,8 @@ export const ColumnSettings = ({
             setEndDate={setEndDate}
             onChange={onChange}
           />
+        </div>
+        <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2">
           {!isDuration && (
             <SelectDate
               title="End"

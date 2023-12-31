@@ -17,7 +17,7 @@ export const SetColors = () => {
     useAppSelector(selectVisualSettings);
 
   return (
-    <div className="mt-0 mb-4 mx-0" ref={SettingsBoundary}>
+    <div className="mt-2 mb-4 mx-0" ref={SettingsBoundary}>
       <h2 className="mb-2 text-lg font-bold leading-none">
         Colors:
         <Icon

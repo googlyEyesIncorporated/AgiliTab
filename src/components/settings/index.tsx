@@ -57,20 +57,8 @@ export const Settings = ({
       style={{ backgroundColor: bgColor }}
     >
       {isInfoOpen && <InfoBox />}
-      <h1 className="font-bold text-2xl leading-none" id="settings-title">
+      <h1 className="text-xl" id="settings-title">
         Customization
-      </h1>
-      <SetColors />
-      <hr style={{ borderColor: "inherit" }} />
-      <DateTimeFormat />
-      <div>
-        <button
-          onClick={() => setHidden(!hideSettings)}
-          className="border border-current cursor-pointer pt-0.5 px-1"
-          data-testid="hide-button"
-        >
-          ( Hide )
-        </button>
         <Icon
           onClick={() => {
             setIsInfoOpen(!isInfoOpen);
@@ -83,7 +71,11 @@ export const Settings = ({
           iconClassName={`info-circle float-right`}
           data-testid="info-icon"
         />
-      </div>
+      </h1>
+      <hr style={{ borderColor: "inherit" }} />
+      <SetColors />
+      <hr style={{ borderColor: "inherit" }} />
+      <DateTimeFormat />
     </div>
   );
 };
