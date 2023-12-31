@@ -22,9 +22,9 @@ const Icon = forwardRef(
     ref?: ForwardedRef<HTMLElement | null>
   ) => {
     return (
-      <i ref={ref} aria-hidden="true" className={iconClassName}>
+      <span ref={ref} aria-hidden="true" className={iconClassName}>
         <FontAwesomeIcon style={faStyle} className={faClassName} {...rest} />
-      </i>
+      </span>
     );
   }
 );
