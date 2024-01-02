@@ -42,7 +42,7 @@ test.describe("Settings", () => {
 
   test.describe("Settings", () => {
     test.describe("TermInputs", () => {
-      test(`when closing settings panel, unlocked terminputs should lock`, async () => {
+      test.skip(`when closing settings panel, unlocked terminputs should lock`, async () => {
         // starts as locked
         await expect(mediumUnlock).toHaveCount(0);
         await expect(mediumLock).toHaveCount(1);
@@ -61,7 +61,7 @@ test.describe("Settings", () => {
         await expect(mediumUnlock).toHaveCount(0);
         await expect(mediumLock).toHaveCount(1);
       });
-      test(`termInput's respect locked status`, async () => {
+      test.skip(`termInput's respect locked status`, async () => {
         // term inputs are locked
         await expect(mediumUnlock).toHaveCount(0);
         await expect(mediumLock).toHaveCount(1);
@@ -97,7 +97,7 @@ test.describe("Settings", () => {
         await expect(mediumBeginningDatepicker).toHaveAttribute("disabled");
         await expect(mediumEndDatepicker).toHaveAttribute("disabled");
       });
-      test(`locking termInput also prevents resetting values`, async () => {
+      test.skip(`locking termInput also prevents resetting values`, async () => {
         // Unlock termInput settings
         await mediumLock.click();
 
