@@ -98,7 +98,7 @@ export const ColumnSettings = ({
 
   return (
     <div
-      className={`p-2 overflow-auto xl:w-25vw text-xs leading-normal border border-current shadow-2xl${
+      className={`p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl${
         hideSettings ? " hidden" : ""
       }`}
       data-testid="hideable-settings"
