@@ -12,6 +12,7 @@ interface IAdvanceTerm {
 
 interface IElapsedTime extends IAdvanceTerm {
   className?: string;
+  groupId: number;
 }
 
 const AdvanceTerm = ({
@@ -36,13 +37,17 @@ export const ElapsedTime = ({
   setTerm,
   isScopedToWorkingHours,
   className,
+  groupId,
 }: IElapsedTime) => (
   <AdvanceTerm
     setTerm={setTerm}
     isScopedToWorkingHours={isScopedToWorkingHours}
     term={term}
   >
-    <span className={`float-right ${className}`}>
+    <span
+      className={`float-right ${className}`}
+      data-testid={`group-${groupId}-elapsed-time`}
+    >
       {getCurrentRatio(term) + "%"}
     </span>
   </AdvanceTerm>
