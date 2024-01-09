@@ -131,7 +131,7 @@ export const ColumnSettings = ({
             setDuration(duration);
             onChange({ startDate, endDate, unitType, title, repeat, duration });
           }}
-          data-testid={`${groupId}-restore-defaults`}
+          data-testid={`group-${groupId}-restore-defaults`}
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
           iconClassName="float-right mr-2"
