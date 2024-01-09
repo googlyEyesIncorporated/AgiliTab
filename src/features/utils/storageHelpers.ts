@@ -1,22 +1,8 @@
 import { SettingsState } from "../settings/types";
-import { ItemList, ListKey } from "../itemList/types";
+import { ItemList } from "../itemList/types";
 import { useAppDispatch } from "../../app/hooks";
 import { populateSettingssFromChrome } from "../settings/settingsSlice";
 import { populateTasksFromChrome } from "../itemList/itemListSlice";
-
-export type StorageKey = ListKey | "settings";
-
-export const updateStorage = ({
-  storageKey,
-  val,
-}: {
-  storageKey: StorageKey;
-  val: ItemList | SettingsState;
-}) => {
-  if (typeof chrome !== "undefined" && chrome.storage) {
-    chrome.storage.sync.set({ [storageKey]: val });
-  }
-};
 
 export const getStorage = (dispatch: ReturnType<typeof useAppDispatch>) => {
   if (typeof chrome !== "undefined" && chrome.storage) {

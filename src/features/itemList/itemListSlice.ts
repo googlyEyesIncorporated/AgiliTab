@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
 import {
   ItemList,
   ItemListState,
@@ -8,7 +7,8 @@ import {
   ListAndItem,
   ReplaceList,
 } from "./types";
-import { updateStorage } from "../utils/storageHelpers";
+import { updateStorage } from "../utils/updateStorage";
+import { RootState } from "../../app/commonTypes";
 
 const initialTodoListState: ItemListState = {
   shortTermList: [],
