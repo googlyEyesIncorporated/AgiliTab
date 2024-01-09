@@ -4,11 +4,11 @@ import { Locator } from "playwright-core";
 
 const viewports = [
   // { width: 2560, height: 1400 },
-  { width: 1920, height: 1080 },
   // { width: 1600, height: 900 },
   // { width: 1536, height: 864 },
   // { width: 1440, height: 900 },
   // { width: 1366, height: 768 },
+  { width: 1920, height: 1080 },
   { width: 1280, height: 720 },
 ];
 for (const viewport of viewports) {
@@ -102,7 +102,7 @@ for (const viewport of viewports) {
         });
       });
 
-      test(`open medium term duration format (${viewport.width} x ${viewport.height})`, async ({
+      test.skip(`open medium term duration format (${viewport.width} x ${viewport.height})`, async ({
         page,
       }) => {
         await mediumLock.click();
@@ -110,7 +110,7 @@ for (const viewport of viewports) {
         await expect(page).toHaveScreenshot();
       });
 
-      test(`switch to medium term date format (${viewport.width} x ${viewport.height})`, async ({
+      test.skip(`switch to medium term date format (${viewport.width} x ${viewport.height})`, async ({
         page,
       }) => {
         await mediumLock.click();

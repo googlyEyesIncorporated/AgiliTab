@@ -5,7 +5,7 @@ export const appPage = "http://127.0.0.1:3000";
 
 export const setTime = async (page: Page, epochTime = fakeNow) => {
   await page.addInitScript(`{
-        // Extend Date constructor to default to fakeNow
+        // Extend Date constructor to default to epochTime
         Date = class extends Date {
           constructor(...args) {
             if (args.length === 0) {
@@ -15,7 +15,7 @@ export const setTime = async (page: Page, epochTime = fakeNow) => {
             }
           }
         }
-        // Override Date.now() to start from fakeNow
+        // Override Date.now() to start from epochTime
         const __DateNowOffset = ${epochTime} - Date.now();
         const __DateNow = Date.now;
         Date.now = () => __DateNow() + __DateNowOffset;

@@ -28,9 +28,10 @@ const handleDateSelection = ({
 }: HandleDateSelection) => {
   if (title === "Beginning") {
     if (limit.max) {
-      const startDate = DateTime.fromISO(value).toISO() ?? "";
+      const startDate = DateTime.fromISO(value).startOf("day").toISO() ?? "";
       const duration = DateTime.fromISO(limit.max).diff(DateTime.fromISO(date));
-      const endDate = DateTime.fromISO(value).plus(duration).toISO() ?? "";
+      const endDate =
+        DateTime.fromISO(startDate).plus(duration).endOf("day").toISO() ?? "";
       setStartDate(startDate);
       setEndDate(endDate);
       onChange({ startDate, endDate });

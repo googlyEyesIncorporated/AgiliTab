@@ -86,7 +86,7 @@ export const Duration = ({
 
           if (qty) {
             setDuration(durationObj);
-            onChange(durationObj);
+            onChange({ duration: durationObj });
           }
         }}
       >

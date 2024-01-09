@@ -1,19 +1,21 @@
 import { DateTime } from "luxon";
 import { CalculatedTimes } from "./calculateStartEndMs";
 
-const MaxPercentage = 100;
-const MinPercentage = 0;
-const PercentScaler = 100;
+export const getRatioOfTimeElapsed = (
+  start: number,
+  now: number,
+  end: number
+) => (now - start) / (end - start); // timeElapsed/totalTime
 
-export const getCurrentRatio = ({ start, end }: CalculatedTimes) => {
-  const timeElapsed = DateTime.now().toMillis() - start;
-  const totalTime = end - start;
-  const ratio = timeElapsed / totalTime;
-  if (totalTime) {
-    return Math.min(
-      Math.max(Math.floor(ratio * PercentScaler), MinPercentage),
-      MaxPercentage
-    );
+export const getCurrentRatio = (
+  { start, end }: CalculatedTimes,
+  shouldCapToRange = true
+) => {
+  if (end !== start) {
+    const ratio = getRatioOfTimeElapsed(start, DateTime.now().toMillis(), end);
+    const ratiox100 = Math.round(ratio * 100);
+    const percentage = shouldCapToRange ? Math.min(ratiox100, 100) : ratiox100;
+    return Math.max(percentage, 0);
   }
   return NaN;
 };

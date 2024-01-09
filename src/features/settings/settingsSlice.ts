@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
-import { RootState, store } from "../../app/store";
 import {
   BooleanPayload,
   DateFormat,
@@ -13,7 +12,9 @@ import {
   Visual,
   WorkingHours,
 } from "./types";
-import { updateStorage } from "../utils/storageHelpers";
+import { updateStorage } from "../utils/updateStorage";
+import { RootState } from "../../app/commonTypes";
+// import { localStorageDebounce } from "../utils/localStorageDebounce";
 
 const Now = DateTime.now();
 const reference = {
@@ -100,18 +101,6 @@ export const initialSettings: SettingsState = {
   visual: initalVisuals,
 };
 
-let settingUpdateTimeoutId: NodeJS.Timeout | null = null;
-
-const localStorageDebounce = () => {
-  if (settingUpdateTimeoutId) {
-    clearTimeout(settingUpdateTimeoutId);
-  }
-  settingUpdateTimeoutId = setTimeout(() => {
-    const state = store.getState().settings;
-    updateStorage({ storageKey: "settings", val: state });
-  }, 1000);
-};
-
 export const unitsSlice = createSlice({
   name: "units",
   initialState: initialSettings,
@@ -166,7 +155,8 @@ export const unitsSlice = createSlice({
       { payload: { key, value } }: PayloadAction<KeyValuePair>
     ) => {
       state.visual[key] = value;
-      localStorageDebounce();
+      // TODO: This removes the debounce function
+      // localStorageDebounce();
     },
     setDateTimeFormats: (
       state,

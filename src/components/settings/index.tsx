@@ -42,7 +42,7 @@ export const Settings = ({
 
   return (
     <div
-      className={`p-2 overflow-auto xl:min-w-25vw text-xs leading-normal border border-current shadow-2xl${
+      className={`p-2 overflow-auto min-w-72 text-xs leading-normal border border-current shadow-2xl${
         hideSettings ? " hidden" : ""
       }`}
       data-testid="hideable-settings"

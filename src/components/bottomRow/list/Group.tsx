@@ -11,6 +11,7 @@ import { useRef, useState } from "react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { ColumnSettings } from "../../settings/ColumnSettings";
+import { AdvanceTerm } from "../../atoms/AdvanceTerm";
 
 const createNameList = (list: ListGroupProps["list"]) =>
   list.map((item) => item.name);
@@ -42,10 +43,14 @@ export const ListGroup = ({
         }`}
         role="columnheader"
         tabIndex={0}
+        data-testid={`group-${groupId}-header`}
         onMouseEnter={() => setHideIcon(false)}
         onMouseLeave={() => setHideIcon(true)}
       >
-        <div className="min-w-10 inline-block">
+        <div
+          className="min-w-10 inline-block"
+          data-testid={`group-${groupId}-settings`}
+        >
           <Icon
             onClick={(e) => {
               e.stopPropagation();
@@ -62,13 +67,24 @@ export const ListGroup = ({
             iconClassName={`cursor-pointer mr-2${iconShowOrHide}`}
           />
         </div>
-        <span className="text-[1.6875rem]">{title}</span>
-        <ElapsedTime
+        <span
+          data-testid={`group-${groupId}-title`}
           className="text-[1.6875rem]"
-          term={term}
+        >
+          {title}
+        </span>
+        <AdvanceTerm
           setTerm={setTerm}
           isScopedToWorkingHours={isScopedToWorkingHours}
-        />
+          term={term}
+        >
+          <ElapsedTime
+            className="text-[1.6875rem]"
+            term={term}
+            groupId={groupId}
+            isScopedToWorkingHours={isScopedToWorkingHours}
+          />
+        </AdvanceTerm>
       </div>
       {hideSettings ? (
         <List itemList={list} listKey={listKey} dragAndDrop={dragAndDrop} />

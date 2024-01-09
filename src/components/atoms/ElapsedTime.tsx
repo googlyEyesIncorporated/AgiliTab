@@ -1,49 +1,27 @@
-import React, { PropsWithChildren, useContext, useEffect } from "react";
-import { DateContext } from "../TimeHandler";
+import React from "react";
 import { StartEndUnitType } from "../../features/itemList/types";
-import { advanceTerm, getCurrentRatio } from "../bottomRow/utils";
-import { DateTime } from "luxon";
+import { getCurrentRatio } from "../bottomRow/utils";
 
-interface IAdvanceTerm {
+interface IElapsedTime {
+  className?: string;
+  groupId: number;
   term: StartEndUnitType;
-  setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
   isScopedToWorkingHours?: boolean;
 }
 
-interface IElapsedTime extends IAdvanceTerm {
-  className?: string;
-}
-
-const AdvanceTerm = ({
-  term,
-  setTerm,
-  isScopedToWorkingHours,
-  children,
-}: PropsWithChildren<IAdvanceTerm>) => {
-  const date = useContext(DateContext);
-  const currentTimeMillis = DateTime.fromISO(date).toMillis();
-  useEffect(() => {
-    if (currentTimeMillis > term.end) {
-      advanceTerm(term, setTerm, currentTimeMillis, isScopedToWorkingHours);
-    }
-  }, [term, setTerm, currentTimeMillis, isScopedToWorkingHours]);
-
-  return <>{children}</>;
-};
-
 export const ElapsedTime = ({
   term,
-  setTerm,
-  isScopedToWorkingHours,
   className,
-}: IElapsedTime) => (
-  <AdvanceTerm
-    setTerm={setTerm}
-    isScopedToWorkingHours={isScopedToWorkingHours}
-    term={term}
-  >
-    <span className={`float-right ${className}`}>
-      {getCurrentRatio(term) + "%"}
+  groupId,
+  isScopedToWorkingHours,
+}: IElapsedTime) => {
+  const shouldCapToRange = Boolean(isScopedToWorkingHours);
+  return (
+    <span
+      className={`float-right ${className}`}
+      data-testid={`group-${groupId}-elapsed-time`}
+    >
+      {getCurrentRatio(term, shouldCapToRange) + "%"}
     </span>
-  </AdvanceTerm>
-);
+  );
+};

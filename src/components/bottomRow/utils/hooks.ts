@@ -7,7 +7,8 @@ import {
 } from "../../../features/settings/settingsSlice";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { calculateStartEndMs, getRelativeDay } from ".";
+import { calculateStartEndMs } from "./calculateStartEndMs";
+import { getRelativeDay } from "./getRelativeDay";
 
 /**
  * A custom hook that takes a term and returns a stateful value and a function to update it
@@ -19,7 +20,7 @@ export const useTerm = (
   preformattedTerm?: StartEndUnitType
 ): [
   StartEndUnitType,
-  React.Dispatch<React.SetStateAction<StartEndUnitType>>
+  React.Dispatch<React.SetStateAction<StartEndUnitType>>,
 ] => {
   const [term, setTerm] = useState(
     preformattedTerm ?? calculateStartEndMs(savedTerm)
@@ -33,7 +34,7 @@ export const useTerm = (
 export const useShortTerm = (): [
   StartEndUnitType,
   React.Dispatch<React.SetStateAction<StartEndUnitType>>,
-  boolean
+  boolean,
 ] => {
   const isScopedToWorkingHours = useAppSelector(selectWorkDayToggle);
   const {
