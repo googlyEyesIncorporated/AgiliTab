@@ -82,6 +82,7 @@ export const ListGroup = ({
             className="text-[1.6875rem]"
             term={term}
             groupId={groupId}
+            isScopedToWorkingHours={isScopedToWorkingHours}
           />
         </AdvanceTerm>
       </div>
