@@ -1,4 +1,3 @@
-import { SettingsState } from "../settings/types";
 import { ItemList } from "../itemList/types";
 import { useAppDispatch } from "../../app/hooks";
 import { populateSettingssFromChrome } from "../settings/settingsSlice";
@@ -20,9 +19,9 @@ export const getStorage = (dispatch: ReturnType<typeof useAppDispatch>) => {
           ? (Object.values(result["longTermList"]) as ItemList)
           : [];
         const settings = result["settings"]
-          ? (result["settings"] as SettingsState)
-          : {};
-        dispatch(populateSettingssFromChrome(settings));
+          ? (result["settings"] as string)
+          : "{}";
+        dispatch(populateSettingssFromChrome(JSON.parse(settings)));
         dispatch(
           populateTasksFromChrome({
             shortTermList,
