@@ -1,0 +1,75 @@
+{
+  "units": {
+    "terms": [
+      {
+        "unitType": "day",
+        "title": "Today",
+        "duration": { "unit": "days", "qty": 1 },
+        "endDate": "2024-01-10T23:59:59.999-05:00",
+        "startDate": "2024-01-10T00:00:00.000-05:00",
+        "workingHours": {
+          "times": { "start": "09:00", "end": "17:00" },
+          "scopedToWorkingHours": true
+        },
+        "isDuration": true,
+        "repeat": true
+      },
+      {
+        "unitType": "month",
+        "title": "Month",
+        "duration": { "unit": "months", "qty": 1 },
+        "endDate": "2024-02-01T00:00:00.000-05:00",
+        "startDate": "2024-01-01T00:00:00.000-05:00",
+        "isDuration": true,
+        "repeat": true
+      },
+      {
+        "unitType": "year",
+        "title": "Year",
+        "duration": { "unit": "years", "qty": 1 },
+        "endDate": "2025-01-01T00:00:00.000-05:00",
+        "startDate": "2024-01-01T00:00:00.000-05:00",
+        "isDuration": true,
+        "repeat": true
+      }
+    ],
+    "shortTerm": {
+      "unitType": "day",
+      "title": "Today",
+      "duration": { "unit": "days", "qty": 1 },
+      "endDate": "2024-01-10T23:59:59.999-05:00",
+      "startDate": "2024-01-10T00:00:00.000-05:00",
+      "workingHours": {
+        "times": { "start": "09:00", "end": "17:00" },
+        "scopedToWorkingHours": true
+      },
+      "isDuration": true,
+      "repeat": true
+    },
+    "mediumTerm": {
+      "unitType": "month",
+      "title": "Month",
+      "duration": { "unit": "months", "qty": 1 },
+      "endDate": "2024-02-01T00:00:00.000-05:00",
+      "startDate": "2024-01-01T00:00:00.000-05:00",
+      "isDuration": true,
+      "repeat": true
+    },
+    "longTerm": {
+      "unitType": "year",
+      "title": "Year",
+      "duration": { "unit": "years", "qty": 1 },
+      "endDate": "2025-01-01T00:00:00.000-05:00",
+      "startDate": "2024-01-01T00:00:00.000-05:00",
+      "isDuration": true,
+      "repeat": true
+    }
+  },
+  "visual": {
+    "bgColor": "#CFCFCF",
+    "fontColor": "#4F4F4F",
+    "secondFontColor": "#4F4F4F",
+    "dateFormat": "MMM dd, yyyy",
+    "timeFormat": "h:mm a"
+  }
+}
