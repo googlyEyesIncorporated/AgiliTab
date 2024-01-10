@@ -7,7 +7,7 @@ export const updateStorage = ({
   val,
 }: {
   storageKey: StorageKey;
-  val: ItemList | SettingsState;
+  val: ItemList | SettingsState | string;
 }) => {
   if (typeof chrome !== "undefined" && chrome.storage) {
     chrome.storage.sync.set({ [storageKey]: val });

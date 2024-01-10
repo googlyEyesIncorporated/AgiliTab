@@ -14,7 +14,7 @@ import {
 } from "./types";
 import { updateStorage } from "../utils/updateStorage";
 import { RootState } from "../../app/commonTypes";
-// import { localStorageDebounce } from "../utils/localStorageDebounce";
+import { localStorageDebounce } from "../utils/localStorageDebounce";
 
 const Now = DateTime.now();
 const reference = {
@@ -155,8 +155,7 @@ export const unitsSlice = createSlice({
       { payload: { key, value } }: PayloadAction<KeyValuePair>
     ) => {
       state.visual[key] = value;
-      // TODO: This removes the debounce function
-      // localStorageDebounce();
+      localStorageDebounce(state);
     },
     setDateTimeFormats: (
       state,

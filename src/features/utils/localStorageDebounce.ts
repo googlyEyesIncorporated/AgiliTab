@@ -1,14 +1,14 @@
-import { store } from "../../app/store";
+import { SettingsState } from "../settings/types";
 import { updateStorage } from "./updateStorage";
 
 let settingUpdateTimeoutId: NodeJS.Timeout | null = null;
 
-export const localStorageDebounce = () => {
+export const localStorageDebounce = (settings: SettingsState) => {
   if (settingUpdateTimeoutId) {
     clearTimeout(settingUpdateTimeoutId);
   }
+  const settingsString = JSON.stringify(settings);
   settingUpdateTimeoutId = setTimeout(() => {
-    const state = store.getState().settings;
-    updateStorage({ storageKey: "settings", val: state });
+    updateStorage({ storageKey: "settings", val: settingsString });
   }, 1000);
 };
