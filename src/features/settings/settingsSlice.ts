@@ -155,7 +155,7 @@ export const unitsSlice = createSlice({
       { payload: { key, value } }: PayloadAction<KeyValuePair>
     ) => {
       state.visual[key] = value;
-      localStorageDebounce(state);
+      localStorageDebounce(state, "settings");
     },
     setDateTimeFormats: (
       state,
