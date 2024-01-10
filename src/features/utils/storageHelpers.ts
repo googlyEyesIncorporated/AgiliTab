@@ -1,4 +1,3 @@
-import { SettingsState } from "../settings/types";
 import { ItemList } from "../itemList/types";
 import { useAppDispatch } from "../../app/hooks";
 import { populateSettingssFromChrome } from "../settings/settingsSlice";
