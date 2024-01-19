@@ -28,9 +28,8 @@ export const ListGroup = ({
   isScopedToWorkingHours,
   groupId,
 }: ListGroupProps) => {
-  const [hideIcon, setHideIcon] = useState(true);
+  const [iconVisibility, setIconVisibility] = useState("hidden");
   const [hideSettings, setHideSettings] = useState(true);
-  const iconShowOrHide = hideIcon ? " hidden" : " fade-in-1s";
   const settingsContainer = useRef(null as HTMLDivElement | null);
 
   return (
@@ -42,8 +41,8 @@ export const ListGroup = ({
         role="columnheader"
         tabIndex={0}
         data-testid={`group-${groupId}-header`}
-        onMouseEnter={() => setHideIcon(false)}
-        onMouseLeave={() => setHideIcon(true)}
+        onMouseEnter={() => setIconVisibility("fade-in-1s")}
+        onMouseLeave={() => setIconVisibility("hidden")}
       >
         <div
           className="min-w-10 inline-block"
@@ -55,14 +54,14 @@ export const ListGroup = ({
               setHideSettings(!hideSettings);
             }}
             icon={faGears}
-            iconClassName={`cursor-pointer mr-2${iconShowOrHide}`}
+            iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
           />
         </div>
         <div className="min-w-8 inline-block">
           <Icon
             onClick={() => copyListToClipboard(list)}
             icon={faCopy}
-            iconClassName={`cursor-pointer mr-2${iconShowOrHide}`}
+            iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
           />
         </div>
         <span
