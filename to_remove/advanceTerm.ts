@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
-import { StartEndUnitType } from "../../../features/itemList/types";
-import { isNewDay } from "../../../features/utils/isNewDay";
+import { StartEndUnitType } from "../src/features/itemList/types";
+import { isNewDay } from "../src/features/utils/isNewDay";
 
 const OneDay = { days: 1 };
 const advanceTermGen = (termObject: StartEndUnitType) => {

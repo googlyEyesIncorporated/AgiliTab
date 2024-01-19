@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, useContext, useEffect } from "react";
-import { DateContext } from "../TimeHandler";
-import { StartEndUnitType } from "../../features/itemList/types";
-import { advanceTerm } from "../bottomRow/utils";
+import { DateContext } from "../src/components/TimeHandler";
+import { StartEndUnitType } from "../src/features/itemList/types";
 import { DateTime } from "luxon";
+import { advanceTerm } from "./advanceTerm";
 
 interface IAdvanceTerm {
   term: StartEndUnitType;
