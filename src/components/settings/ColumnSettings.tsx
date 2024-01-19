@@ -28,12 +28,10 @@ const defaultTerms: Record<number, UnitType> = {
 
 export const ColumnSettings = ({
   settingsContainer,
-  hideSettings,
   setHideSettings,
   groupId,
 }: {
   settingsContainer: React.MutableRefObject<HTMLDivElement | null>;
-  hideSettings: boolean;
   setHideSettings: SetBooleanState;
   groupId: number;
 }) => {
@@ -99,9 +97,7 @@ export const ColumnSettings = ({
 
   return (
     <div
-      className={`p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl${
-        hideSettings ? " hidden" : ""
-      }`}
+      className={`p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl`}
       data-testid="hideable-settings"
       style={{ backgroundColor: bgColor }}
     >

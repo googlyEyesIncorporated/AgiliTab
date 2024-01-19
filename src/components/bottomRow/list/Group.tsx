@@ -83,7 +83,6 @@ export const ListGroup = ({
         <div data-testid="column-settings" ref={settingsContainer}>
           <ColumnSettings
             settingsContainer={settingsContainer}
-            hideSettings={hideSettings}
             setHideSettings={setHideSettings}
             groupId={groupId}
           />
