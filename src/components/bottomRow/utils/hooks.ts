@@ -18,24 +18,17 @@ import { getRelativeDay } from "./getRelativeDay";
 export const useTerm = (
   savedTerm: UnitType,
   preformattedTerm?: StartEndUnitType
-): [
-  StartEndUnitType,
-  React.Dispatch<React.SetStateAction<StartEndUnitType>>,
-] => {
+): [StartEndUnitType] => {
   const [term, setTerm] = useState(
     preformattedTerm ?? calculateStartEndMs(savedTerm)
   );
   useEffect(() => {
     setTerm(preformattedTerm ?? calculateStartEndMs(savedTerm));
   }, [savedTerm, preformattedTerm]);
-  return [term, setTerm];
+  return [term];
 };
 
-export const useShortTerm = (): [
-  StartEndUnitType,
-  React.Dispatch<React.SetStateAction<StartEndUnitType>>,
-  boolean,
-] => {
+export const useShortTerm = (): [StartEndUnitType, boolean] => {
   const isScopedToWorkingHours = useAppSelector(selectWorkDayToggle);
   const {
     times: { start, end },
@@ -51,5 +44,5 @@ export const useShortTerm = (): [
       getRelativeDay(isScopedToWorkingHours, workDayEnd, workDayStart)
     );
   }, [isScopedToWorkingHours, workDayStart, workDayEnd]);
-  return [shortTerm, setShortTerm, isScopedToWorkingHours];
+  return [shortTerm, isScopedToWorkingHours];
 };

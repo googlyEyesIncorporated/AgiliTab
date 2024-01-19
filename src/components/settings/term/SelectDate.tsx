@@ -1,47 +1,19 @@
 import { DateTime } from "luxon";
+import { DATE_TIME_NO_SECONDS } from "../../../commonUtils";
 
 type Limit = Partial<Record<"min" | "max", string>>;
 interface CommonProps {
-  date: string;
-  title: "Beginning" | "End";
-  limit: Limit;
-  setStartDate: React.Dispatch<React.SetStateAction<string>>;
-  setEndDate: React.Dispatch<React.SetStateAction<string>>;
   onChange: (changed: any) => void;
 }
 
 interface SelectDateProps extends CommonProps {
+  title: "Beginning" | "End";
+  setStartDate: React.Dispatch<React.SetStateAction<string>>;
+  setEndDate: React.Dispatch<React.SetStateAction<string>>;
   groupId: number;
+  date: string;
+  limit: Limit;
 }
-interface HandleDateSelection extends CommonProps {
-  value: string;
-}
-
-const handleDateSelection = ({
-  value,
-  title,
-  date,
-  setStartDate,
-  setEndDate,
-  limit,
-  onChange,
-}: HandleDateSelection) => {
-  if (title === "Beginning") {
-    if (limit.max) {
-      const startDate = DateTime.fromISO(value).startOf("day").toISO() ?? "";
-      const duration = DateTime.fromISO(limit.max).diff(DateTime.fromISO(date));
-      const endDate =
-        DateTime.fromISO(startDate).plus(duration).endOf("day").toISO() ?? "";
-      setStartDate(startDate);
-      setEndDate(endDate);
-      onChange({ startDate, endDate });
-    }
-  } else {
-    const endDate = DateTime.fromISO(value).toISO() ?? "";
-    setEndDate(endDate);
-    onChange({ endDate });
-  }
-};
 
 export const SelectDate = ({
   date,
@@ -54,7 +26,8 @@ export const SelectDate = ({
 }: SelectDateProps) => {
   const formattedLimit: Limit = {};
   if ("min" in limit && limit.min) {
-    formattedLimit.min = DateTime.fromISO(limit.min).toISODate() ?? undefined;
+    formattedLimit.min =
+      DateTime.fromISO(limit.min).toFormat(DATE_TIME_NO_SECONDS) ?? undefined;
   }
   const categoryDatePicker = `group-${groupId}-${title.toLowerCase()}-datepicker`;
   return (
@@ -66,23 +39,22 @@ export const SelectDate = ({
         {title}:
       </label>
       <input
-        type="date"
+        type="datetime-local"
         {...formattedLimit}
         id={categoryDatePicker}
         data-testid={categoryDatePicker}
         name={categoryDatePicker}
-        value={DateTime.fromISO(date).toISODate() ?? ""}
+        value={date ?? ""}
         style={{ backgroundColor: "white" }}
         onChange={(e) => {
-          handleDateSelection({
-            value: e.target.value,
-            title,
-            date,
-            setStartDate,
-            setEndDate,
-            limit,
-            onChange,
-          });
+          if (DateTime.fromISO(e.target.value).isValid)
+            if (title === "Beginning") {
+              setStartDate(e.target.value);
+              onChange({ startDate: e.target.value });
+            } else {
+              setEndDate(e.target.value);
+              onChange({ endDate: e.target.value });
+            }
         }}
       />
     </div>

@@ -4,23 +4,31 @@ import { Locator } from "playwright-core";
 import { epochTimes } from "../src/commonTestData.json";
 import { DateTime } from "luxon";
 
+import { DATE_TIME_NO_SECONDS } from "../src/commonUtils";
 const { Sep012023, Sep152023 } = epochTimes;
 
 const zeroDaysLater =
-  DateTime.fromMillis(Sep012023).toISODate() ?? "09/01/2023";
+  DateTime.fromMillis(Sep012023).toFormat(DATE_TIME_NO_SECONDS) ?? "09/01/2023";
 
 const twentyFiveDaysLater =
-  DateTime.fromMillis(Sep012023).plus({ days: 25 }).toISODate() || "";
+  DateTime.fromMillis(Sep012023)
+    .plus({ days: 25 })
+    .toFormat(DATE_TIME_NO_SECONDS) || "";
 
 const fiftyDaysLater =
-  DateTime.fromMillis(Sep012023).plus({ days: 50 }).toISODate() || "";
+  DateTime.fromMillis(Sep012023)
+    .plus({ days: 50 })
+    .toFormat(DATE_TIME_NO_SECONDS) || "";
 
 const seventyFiveDaysLater =
-  DateTime.fromMillis(Sep012023).plus({ days: 75 }).toISODate() || "";
+  DateTime.fromMillis(Sep012023)
+    .plus({ days: 75 })
+    .toFormat(DATE_TIME_NO_SECONDS) || "";
 
 const hundredDaysLater =
-  DateTime.fromMillis(Sep012023).plus({ days: 100 }).toISODate() ||
-  "12/10/2023";
+  DateTime.fromMillis(Sep012023)
+    .plus({ days: 100 })
+    .toFormat(DATE_TIME_NO_SECONDS) || "12/10/2023";
 
 test.describe("Settings", () => {
   let groupOneDate: Locator,

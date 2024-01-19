@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 import { useAppDispatch } from "../../app/hooks";
 import { setNotShortTerm, toggleRepeat } from "./settingsSlice";
 import { DurationState } from "./types";
+import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 
 export type Categories = "medium" | "long";
 
@@ -47,7 +48,7 @@ export const saveTerm = ({
       const { unit, qty } = duration;
       durationEndDate = DateTime.fromISO(startDate)
         .plus({ [unit]: qty })
-        .toISO();
+        .toFormat(DATE_TIME_NO_SECONDS);
 
       dispatch(
         setNotShortTerm({

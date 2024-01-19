@@ -18,6 +18,7 @@ import RadioButton from "../atoms/RadioButton";
 import { SelectDate } from "./term/SelectDate";
 import { Duration } from "./term/Duration";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
+import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 
 const defaultTerms: Record<number, UnitType> = {
   0: defaultShortTerm,
@@ -70,7 +71,7 @@ export const ColumnSettings = ({
       termData?.endDate ??
         DateTime.fromISO(termData.startDate ?? "")
           .plus({ [termData.duration.unit]: termData.duration.qty })
-          .toISO() ??
+          .toFormat(DATE_TIME_NO_SECONDS) ??
         ""
     );
     setRepeat(termData.repeat);

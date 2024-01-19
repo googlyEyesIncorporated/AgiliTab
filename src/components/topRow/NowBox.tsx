@@ -7,13 +7,16 @@ import {
 } from "../../features/settings/settingsSlice";
 import { Clock } from "./Clock";
 import { DateContext } from "../TimeHandler";
+import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 
 export const NowBox = () => {
   const dispatch = useAppDispatch();
   const dateFormat = useAppSelector(selectDateFormat);
   const date = useContext(DateContext);
 
-  const startOfDay = DateTime.fromISO(date).startOf("day").toISO();
+  const startOfDay = DateTime.fromISO(date)
+    .startOf("day")
+    .toFormat(DATE_TIME_NO_SECONDS);
 
   // Update day start/end times
   useEffect(() => {

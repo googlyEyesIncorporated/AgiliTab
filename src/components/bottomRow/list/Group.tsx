@@ -11,7 +11,6 @@ import { useRef, useState } from "react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { ColumnSettings } from "../../settings/ColumnSettings";
-import { AdvanceTerm } from "../../atoms/AdvanceTerm";
 
 const createNameList = (list: ListGroupProps["list"]) =>
   list.map((item) => item.name);
@@ -23,7 +22,6 @@ const copyListToClipboard = (list: ListGroupProps["list"]) => {
 export const ListGroup = ({
   title,
   term,
-  setTerm,
   list,
   dragAndDrop,
   listKey,
@@ -73,18 +71,12 @@ export const ListGroup = ({
         >
           {title}
         </span>
-        <AdvanceTerm
-          setTerm={setTerm}
-          isScopedToWorkingHours={isScopedToWorkingHours}
+        <ElapsedTime
+          className="text-[1.6875rem]"
           term={term}
-        >
-          <ElapsedTime
-            className="text-[1.6875rem]"
-            term={term}
-            groupId={groupId}
-            isScopedToWorkingHours={isScopedToWorkingHours}
-          />
-        </AdvanceTerm>
+          groupId={groupId}
+          isScopedToWorkingHours={isScopedToWorkingHours}
+        />
       </div>
       {hideSettings ? (
         <List itemList={list} listKey={listKey} dragAndDrop={dragAndDrop} />
@@ -108,7 +100,6 @@ interface ListGroupProps {
   dragAndDrop?: DragAndDrop;
   listKey: ListKey;
   term: StartEndUnitType;
-  setTerm: React.Dispatch<React.SetStateAction<StartEndUnitType>>;
   isScopedToWorkingHours?: boolean;
   groupId: number;
 }

@@ -11,14 +11,17 @@ export const DateContext = createContext("");
 
 const oneSecond = 1000;
 
-function TimeHandler({ specifiedTime = 5000, children }: ITimeHandler) {
-  const [date, setDate] = useState(DateTime.now().toISO() ?? '');
+function TimeHandler({
+  specifiedTime = 5000,
+  children,
+}: Readonly<ITimeHandler>) {
+  const [date, setDate] = useState(DateTime.now().toISO() ?? "");
   const timeFormat = useAppSelector(selectTimeFormat);
   const shouldUpdateEverySecond = Boolean(timeFormat.split(":")[2]);
   const delay = shouldUpdateEverySecond ? oneSecond : specifiedTime;
   useEffect(() => {
     const updateDate = () => {
-      setDate(DateTime.now().toISO() ?? '');
+      setDate(DateTime.now().toISO() ?? "");
     };
 
     updateDate();

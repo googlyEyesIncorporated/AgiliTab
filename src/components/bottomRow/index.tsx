@@ -10,9 +10,9 @@ export const BottomRow = () => {
   const [savedShortTerm, savedMediumTerm, savedLongTerm] =
     useAppSelector(selectAllUnits);
 
-  const [shortTerm, setShortTerm, isScopedToWorkingHours] = useShortTerm();
-  const [mediumTerm, setMediumTerm] = useTerm(savedMediumTerm);
-  const [longTerm, setLongTerm] = useTerm(savedLongTerm);
+  const [shortTerm, isScopedToWorkingHours] = useShortTerm();
+  const [mediumTerm] = useTerm(savedMediumTerm);
+  const [longTerm] = useTerm(savedLongTerm);
   const lists = useAppSelector(selectAllLists);
 
   return (
@@ -23,7 +23,6 @@ export const BottomRow = () => {
           title={savedShortTerm.title}
           isScopedToWorkingHours={isScopedToWorkingHours}
           term={shortTerm}
-          setTerm={setShortTerm}
           list={lists.shortTermList}
           listKey="shortTermList"
         />
@@ -31,7 +30,6 @@ export const BottomRow = () => {
           groupId={1}
           title={savedMediumTerm.title}
           term={mediumTerm}
-          setTerm={setMediumTerm}
           list={lists.mediumTermList}
           listKey="mediumTermList"
         />
@@ -39,7 +37,6 @@ export const BottomRow = () => {
           groupId={2}
           title={savedLongTerm.title}
           term={longTerm}
-          setTerm={setLongTerm}
           list={lists.longTermList}
           listKey="longTermList"
         />

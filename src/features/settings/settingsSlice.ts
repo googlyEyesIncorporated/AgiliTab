@@ -15,6 +15,7 @@ import {
 import { updateStorage } from "../utils/updateStorage";
 import { RootState } from "../../app/commonTypes";
 import { localStorageDebounce } from "../utils/localStorageDebounce";
+import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 
 const Now = DateTime.now();
 const reference = {
@@ -27,11 +28,11 @@ const reference = {
     scopedToWorkingHours: true,
   },
   month: {
-    start: Now.startOf("month").toISO() ?? "",
+    start: Now.startOf("month").toFormat(DATE_TIME_NO_SECONDS) ?? "",
     end: "",
   },
   year: {
-    start: Now.startOf("year").toISO(),
+    start: Now.startOf("year").toFormat(DATE_TIME_NO_SECONDS),
     end: "",
   },
   durations: {
@@ -41,11 +42,13 @@ const reference = {
   },
 };
 reference.month.end =
-  DateTime.fromISO(reference.month.start).plus({ months: 1 }).toISO() ?? "";
+  DateTime.fromISO(reference.month.start)
+    .plus({ months: 1 })
+    .toFormat(DATE_TIME_NO_SECONDS) ?? "";
 reference.year.end =
   DateTime.fromISO(reference.year.start ?? "")
     .plus({ years: 1 })
-    .toISO() ?? "";
+    .toFormat(DATE_TIME_NO_SECONDS) ?? "";
 
 export const endOfToday = DateTime.now().endOf("day");
 export const startOfToday = DateTime.now().startOf("day");
@@ -54,8 +57,8 @@ export const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
   unitType: "day",
   title: "Today",
   duration: reference.durations.shortTerm,
-  endDate: endOfToday.toISO() ?? "",
-  startDate: startOfToday.toISO() ?? "",
+  endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
+  startDate: startOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
   workingHours: reference.workDay,
   isDuration: true,
   repeat: true,
@@ -147,7 +150,7 @@ export const unitsSlice = createSlice({
       if (startOfDay) {
         state.units.shortTerm.startDate = startOfDay;
         state.units.shortTerm.endDate =
-          DateTime.now().endOf("day").toISO() ?? "";
+          DateTime.now().endOf("day").toFormat(DATE_TIME_NO_SECONDS) ?? "";
       }
     },
     setVisualSetting: (
