@@ -12,11 +12,8 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { ColumnSettings } from "../../settings/ColumnSettings";
 
-const createNameList = (list: ListGroupProps["list"]) =>
-  list.map((item) => item.name);
-
 const copyListToClipboard = (list: ListGroupProps["list"]) => {
-  const itemList = createNameList(list).join("\r\n");
+  const itemList = list.map((item) => item.name).join("\r\n");
   navigator.clipboard.writeText(itemList);
 };
 export const ListGroup = ({
@@ -33,7 +30,10 @@ export const ListGroup = ({
   const settingsContainer = useRef(null as HTMLDivElement | null);
 
   return (
-    <div className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block">
+    <div
+      className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block"
+      data-testid="group-container"
+    >
       <div
         className={`pb-1 text-2xl border-current text-center${
           hideSettings ? " border-b" : ""
@@ -57,7 +57,10 @@ export const ListGroup = ({
             iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
           />
         </div>
-        <div className="min-w-8 inline-block">
+        <div
+          className="min-w-8 inline-block"
+          data-testid={`group-${groupId}-copy`}
+        >
           <Icon
             onClick={() => copyListToClipboard(list)}
             icon={faCopy}
