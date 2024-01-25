@@ -36,7 +36,7 @@ function App() {
   }, [bgColor, fontColor]);
   return (
     <div className="App" style={{ backgroundColor: bgColor, color: fontColor }}>
-      <TimeHandler>
+      <TimeHandler specifiedPeriod={5000}>
         <NowBox />
         <BottomRow />
       </TimeHandler>
