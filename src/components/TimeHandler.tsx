@@ -1,7 +1,9 @@
 import { useEffect, useState, createContext, PropsWithChildren } from "react";
+import { DateTime } from "luxon";
+
 import { useAppSelector } from "../app/hooks";
 import { selectTimeFormat } from "../features/settings/settingsSlice";
-import { DateTime } from "luxon";
+import { callFunctionPeriodically } from "../utils/callFunctionPeriodically";
 
 interface ITimeHandler {
   specifiedPeriod?: number;
@@ -24,12 +26,7 @@ function TimeHandler({
     };
 
     updateDate();
-
-    const interval = setInterval(() => {
-      updateDate();
-    }, delay);
-
-    return () => clearInterval(interval);
+    return callFunctionPeriodically(delay, updateDate);
   }, [delay]);
 
   return <DateContext.Provider value={date} {...props} />;
