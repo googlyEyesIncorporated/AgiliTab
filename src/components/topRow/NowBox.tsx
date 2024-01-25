@@ -6,7 +6,7 @@ import {
   updateDay,
 } from "../../features/settings/settingsSlice";
 import { Clock } from "./Clock";
-import { DateContext } from "../TimeHandler";
+import { DateContext } from "../TimeProvider";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 
 export const NowBox = () => {

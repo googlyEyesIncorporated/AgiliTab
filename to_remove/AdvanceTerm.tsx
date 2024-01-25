@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useContext, useEffect } from "react";
-import { DateContext } from "../src/components/TimeHandler";
+import { DateContext } from "../src/components/TimeProvider";
 import { StartEndUnitType } from "../src/features/itemList/types";
 import { DateTime } from "luxon";
 import { advanceTerm } from "./advanceTerm";
