@@ -75,7 +75,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         class="float-right text-[1.6875rem]"
         data-testid="group-0-elapsed-time"
       >
-        1%
+        0%
       </span>
     </div>
     <div
@@ -209,7 +209,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         class="float-right text-[1.6875rem]"
         data-testid="group-1-elapsed-time"
       >
-        87%
+        0%
       </span>
     </div>
     <div
@@ -343,7 +343,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         class="float-right text-[1.6875rem]"
         data-testid="group-2-elapsed-time"
       >
-        7%
+        0%
       </span>
     </div>
     <div
