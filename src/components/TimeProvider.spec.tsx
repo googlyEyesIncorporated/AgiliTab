@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "../app/store";
 
 const ISOFormat =
-  /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)((-(\d{2}):(\d{2})|Z)?)$/;
+  /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)((-(\d{2}):(\d{2})|Z)?(\+(\d{2}):(\d{2}))?)$/;
 
 const TestChild = () => {
   return <div data-testid="test-child">{useContext(DateContext)}</div>;
