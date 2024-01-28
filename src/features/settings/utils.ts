@@ -1,10 +1,6 @@
-import { DateTime } from "luxon";
 import { useAppDispatch } from "../../app/hooks";
 import { setNotShortTerm } from "./settingsSlice";
 import { DurationState } from "./types";
-import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
-
-export type Categories = "medium" | "long";
 
 export interface OnSaveProps {
   enabled: boolean;
@@ -30,18 +26,12 @@ export const saveTerm = ({
   endDate,
 }: OnSaveProps) => {
   if (enabled) {
-    let durationEndDate;
     if (isDuration) {
-      const { unit, qty } = duration;
-      durationEndDate = DateTime.fromISO(startDate)
-        .plus({ [unit]: qty })
-        .toFormat(DATE_TIME_NO_SECONDS);
-
       dispatch(
         setNotShortTerm({
           key: groupId,
           termObj: {
-            duration: { unit, qty },
+            duration,
             isDuration,
             startDate,
             unitType,
@@ -56,7 +46,7 @@ export const saveTerm = ({
           termObj: {
             isDuration,
             startDate,
-            endDate: durationEndDate ?? endDate,
+            endDate,
             unitType,
             title,
           },
