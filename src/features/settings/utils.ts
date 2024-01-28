@@ -54,7 +54,6 @@ export const saveTerm = ({
         setNotShortTerm({
           key: groupId,
           termObj: {
-            duration,
             isDuration,
             startDate,
             endDate: durationEndDate ?? endDate,

@@ -3,14 +3,31 @@ export interface DurationState {
   qty: number;
 }
 
-export interface UnitType {
+// export interface UnitType {
+//   startDate: string;
+//   endDate?: string;
+//   isDuration: boolean;
+//   duration: DurationState;
+//   title: string;
+//   unitType: string;
+// }
+
+interface UnitTypeWithDuration<T extends boolean>
+  extends UnitTypeWithoutDuration<T> {
+  duration: DurationState;
+}
+
+export interface UnitTypeWithoutDuration<T extends boolean> {
   startDate: string;
   endDate?: string;
-  isDuration: boolean;
-  duration: DurationState;
+  isDuration: T;
   title: string;
   unitType: string;
 }
+
+export type UnitType<T extends boolean = true> = T extends true
+  ? UnitTypeWithDuration<T>
+  : UnitTypeWithoutDuration<T>;
 
 export interface SettingsState {
   units: UnitsState;

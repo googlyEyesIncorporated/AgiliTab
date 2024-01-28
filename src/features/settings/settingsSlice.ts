@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
 import {
-  BooleanPayload,
   DateFormat,
   KeyValuePair,
   SettingsState,
@@ -141,16 +140,16 @@ export const unitsSlice = createSlice({
       state.visual = initalVisuals;
       updateStorage({ storageKey: "settings", val: state });
     },
-    setNotShortTerm: (
-      state,
+    setNotShortTerm: <T extends boolean>(
+      state: SettingsState,
       {
         payload: { key, termObj },
       }: PayloadAction<{
-        termObj: UnitType;
+        termObj: UnitType<T>;
         key: number;
       }>
     ) => {
-      state.units.terms[key] = termObj;
+      (state.units.terms[key] as UnitType<T>) = termObj;
       updateStorage({ storageKey: "settings", val: state });
     },
   },
