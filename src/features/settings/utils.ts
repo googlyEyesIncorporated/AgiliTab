@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { useAppDispatch } from "../../app/hooks";
-import { setNotShortTerm, toggleRepeat } from "./settingsSlice";
+import { setNotShortTerm } from "./settingsSlice";
 import { DurationState } from "./types";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 
@@ -15,20 +15,8 @@ export interface OnSaveProps {
   groupId: number;
   unitType: string;
   title: string;
-  repeat: boolean;
   endDate: string;
 }
-
-export const onRepeat =
-  (dispatch: ReturnType<typeof useAppDispatch>, category: Categories) =>
-  (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      toggleRepeat({
-        key: `${category}Term`,
-        value: e.target.checked,
-      })
-    );
-  };
 
 export const saveTerm = ({
   enabled,
@@ -39,7 +27,6 @@ export const saveTerm = ({
   groupId,
   unitType,
   title,
-  repeat,
   endDate,
 }: OnSaveProps) => {
   if (enabled) {
@@ -59,7 +46,6 @@ export const saveTerm = ({
             startDate,
             unitType,
             title,
-            repeat,
           },
         })
       );
@@ -74,7 +60,6 @@ export const saveTerm = ({
             endDate: durationEndDate ?? endDate,
             unitType,
             title,
-            repeat,
           },
         })
       );

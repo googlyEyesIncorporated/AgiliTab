@@ -10,7 +10,6 @@ export interface UnitType {
   duration: DurationState;
   title: string;
   unitType: string;
-  repeat: boolean;
 }
 
 export interface SettingsState {

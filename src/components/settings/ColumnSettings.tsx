@@ -59,7 +59,6 @@ export const ColumnSettings = ({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [duration, setDuration] = useState(termData.duration);
-  const [repeat, setRepeat] = useState(true);
 
   useEffect(() => {
     setUnitType(termData.title.toLowerCase());
@@ -72,7 +71,6 @@ export const ColumnSettings = ({
           .toFormat(DATE_TIME_NO_SECONDS) ??
         ""
     );
-    setRepeat(termData.repeat);
   }, [termData]);
 
   // const checkboxId = `${category}_repeat-duration`;
@@ -88,7 +86,6 @@ export const ColumnSettings = ({
         groupId,
         unitType,
         title,
-        repeat,
         endDate,
         ...changed,
       });
@@ -118,15 +115,13 @@ export const ColumnSettings = ({
             const endDate = defaultTerms[groupId].endDate ?? "";
             const unitType = defaultTerms[groupId].unitType;
             const title = defaultTerms[groupId].title;
-            const repeat = defaultTerms[groupId].repeat;
             const duration = defaultTerms[groupId].duration;
             setStartDate(startDate);
             setEndDate(endDate);
             setUnitType(unitType);
             setTitle(title);
-            setRepeat(repeat);
             setDuration(duration);
-            onChange({ startDate, endDate, unitType, title, repeat, duration });
+            onChange({ startDate, endDate, unitType, title, duration });
           }}
           data-testid={`group-${groupId}-restore-defaults`}
           icon={faArrowRightFromBracket}

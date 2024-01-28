@@ -57,7 +57,6 @@ export const defaultShortTerm: UnitType = {
   endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
   startDate: startOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
   isDuration: true,
-  repeat: true,
 };
 
 export const defaultMediumTerm: UnitType = {
@@ -67,7 +66,6 @@ export const defaultMediumTerm: UnitType = {
   endDate: reference.month.end,
   startDate: reference.month.start,
   isDuration: true,
-  repeat: true,
 };
 
 export const defaultLongTerm: UnitType = {
@@ -77,7 +75,6 @@ export const defaultLongTerm: UnitType = {
   endDate: reference.year.end,
   startDate: reference.year.start ?? "",
   isDuration: true,
-  repeat: true,
 };
 
 const initialUnits: UnitsState = {
@@ -115,15 +112,6 @@ export const unitsSlice = createSlice({
       if ("visual" in payload) {
         state.visual = payload.visual;
       }
-    },
-    toggleRepeat: (
-      state,
-      {
-        payload: { value, key },
-      }: PayloadAction<BooleanPayload & { key: "mediumTerm" | "longTerm" }>
-    ) => {
-      state.units[key].repeat = value;
-      updateStorage({ storageKey: "settings", val: state });
     },
     updateDay: (
       state,
@@ -173,7 +161,6 @@ export const {
   setVisualSetting,
   setDateTimeFormats,
   resetVisualSetting,
-  toggleRepeat,
   setNotShortTerm,
   updateDay,
 } = unitsSlice.actions;
