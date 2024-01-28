@@ -5,3 +5,5 @@ export interface RootState {
   itemList: ItemListState;
   settings: SettingsState;
 }
+
+export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;

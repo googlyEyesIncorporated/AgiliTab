@@ -3,10 +3,6 @@ export interface DurationState {
   qty: number;
 }
 
-export interface ScopedToWorkingHours extends UnitType {
-  workingHours: WorkingHours;
-}
-
 export interface UnitType {
   startDate: string;
   endDate?: string;
@@ -26,19 +22,9 @@ export interface BooleanPayload {
   value: boolean;
 }
 
-export interface Times {
-  start: string;
-  end: string;
-}
-
-export interface WorkingHours {
-  times: Times;
-  scopedToWorkingHours: boolean;
-}
-
 export interface UnitsState {
   terms: UnitType[];
-  shortTerm: UnitType & ScopedToWorkingHours;
+  shortTerm: UnitType;
   mediumTerm: UnitType;
   longTerm: UnitType;
 }

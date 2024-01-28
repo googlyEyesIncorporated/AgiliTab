@@ -6,11 +6,9 @@ import {
   KeyValuePair,
   SettingsState,
   TimeFormat,
-  Times,
   UnitsState,
   UnitType,
   Visual,
-  WorkingHours,
 } from "./types";
 import { updateStorage } from "../utils/updateStorage";
 import { RootState } from "../../app/commonTypes";
@@ -25,7 +23,6 @@ const reference = {
       start: "09:00",
       end: "17:00",
     },
-    scopedToWorkingHours: true,
   },
   month: {
     start: Now.startOf("month").toFormat(DATE_TIME_NO_SECONDS) ?? "",
@@ -53,13 +50,12 @@ reference.year.end =
 export const endOfToday = DateTime.now().endOf("day");
 export const startOfToday = DateTime.now().startOf("day");
 
-export const defaultShortTerm: UnitType & { workingHours: WorkingHours } = {
+export const defaultShortTerm: UnitType = {
   unitType: "day",
   title: "Today",
   duration: reference.durations.shortTerm,
   endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
   startDate: startOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
-  workingHours: reference.workDay,
   isDuration: true,
   repeat: true,
 };
@@ -120,13 +116,6 @@ export const unitsSlice = createSlice({
         state.visual = payload.visual;
       }
     },
-    toggleWorkDay: (
-      state,
-      { payload: { value } }: PayloadAction<BooleanPayload>
-    ) => {
-      state.units.shortTerm.workingHours.scopedToWorkingHours = value;
-      updateStorage({ storageKey: "settings", val: state });
-    },
     toggleRepeat: (
       state,
       {
@@ -134,13 +123,6 @@ export const unitsSlice = createSlice({
       }: PayloadAction<BooleanPayload & { key: "mediumTerm" | "longTerm" }>
     ) => {
       state.units[key].repeat = value;
-      updateStorage({ storageKey: "settings", val: state });
-    },
-    setWorkDayHours: (
-      state,
-      { payload: workingHours }: PayloadAction<Times>
-    ) => {
-      state.units.shortTerm.workingHours.times = workingHours;
       updateStorage({ storageKey: "settings", val: state });
     },
     updateDay: (
@@ -191,21 +173,15 @@ export const {
   setVisualSetting,
   setDateTimeFormats,
   resetVisualSetting,
-  setWorkDayHours,
-  toggleWorkDay,
   toggleRepeat,
   setNotShortTerm,
   updateDay,
 } = unitsSlice.actions;
 
-export const selectWorkingHours = (state: RootState) =>
-  state.settings.units.shortTerm.workingHours;
 export const selectTimeFormat = (state: RootState) =>
   state.settings.visual.timeFormat;
 export const selectDateFormat = (state: RootState) =>
   state.settings.visual.dateFormat;
-export const selectWorkDayToggle = (state: RootState) =>
-  state.settings.units.shortTerm.workingHours.scopedToWorkingHours;
 export const selectAllUnits = (state: RootState) => state.settings.units.terms;
 export const selectTerm = (termIndex: number) => (state: RootState) =>
   state.settings.units.terms[termIndex];

@@ -7,7 +7,6 @@ import {
   selectTerm,
   selectVisualSettings,
 } from "../../features/settings/settingsSlice";
-import { SetBooleanState } from "./term/WorkDay";
 import { OnSaveProps, saveTerm } from "../../features/settings/utils";
 import { DateTime } from "luxon";
 import Icon from "../atoms/Icon";
@@ -19,6 +18,7 @@ import { SelectDate } from "./term/SelectDate";
 import { Duration } from "./term/Duration";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
+import { SetBooleanState } from "../../app/commonTypes";
 
 const defaultTerms: Record<number, UnitType> = {
   0: defaultShortTerm,

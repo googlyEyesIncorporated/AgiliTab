@@ -1,8 +1,5 @@
 import { DateTime, DurationLikeObject } from "luxon";
-import {
-  UnitType,
-  ScopedToWorkingHours,
-} from "../../../features/settings/types";
+import { UnitType } from "../../../features/settings/types";
 
 export interface CalculatedTimes {
   start: number;
@@ -31,9 +28,7 @@ const dateIsPastOtherDate = (date: DateTime, otherDate: DateTime) =>
  * @param termData
  * @returns
  */
-export const calculateStartEndMs = (
-  termData: (UnitType & ScopedToWorkingHours) | UnitType
-) => {
+export const calculateStartEndMs = (termData: UnitType | UnitType) => {
   // DateTime object created from termData.startDate
   const referencePoint = DateTime.fromISO(termData.startDate);
   // object with unitType

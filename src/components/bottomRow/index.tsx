@@ -2,15 +2,14 @@ import { selectAllUnits } from "../../features/settings/settingsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { selectAllLists } from "../../features/itemList/itemListSlice";
 import { ListGroup } from "./list/Group";
-import { useShortTerm, useTerm } from "./utils";
+import { useTerm } from "./utils";
 import { DraggableLists } from "./list/DraggableLists";
 
 export const BottomRow = () => {
-  // Short term
   const [savedShortTerm, savedMediumTerm, savedLongTerm] =
     useAppSelector(selectAllUnits);
 
-  const [shortTerm, isScopedToWorkingHours] = useShortTerm();
+  const [shortTerm] = useTerm(savedShortTerm);
   const [mediumTerm] = useTerm(savedMediumTerm);
   const [longTerm] = useTerm(savedLongTerm);
   const lists = useAppSelector(selectAllLists);
@@ -21,7 +20,6 @@ export const BottomRow = () => {
         <ListGroup
           groupId={0}
           title={savedShortTerm.title}
-          isScopedToWorkingHours={isScopedToWorkingHours}
           term={shortTerm}
           list={lists.shortTermList}
           listKey="shortTermList"

@@ -38,7 +38,6 @@ const props = {
     },
   },
   listKey: "shortTermList" as const,
-  isScopedToWorkingHours: false,
   groupId: 1,
 };
 

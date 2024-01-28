@@ -22,7 +22,6 @@ export const ListGroup = ({
   list,
   dragAndDrop,
   listKey,
-  isScopedToWorkingHours,
   groupId,
 }: ListGroupProps) => {
   const [iconVisibility, setIconVisibility] = useState("hidden");
@@ -77,7 +76,6 @@ export const ListGroup = ({
           className="text-[1.6875rem]"
           term={term}
           groupId={groupId}
-          isScopedToWorkingHours={isScopedToWorkingHours}
         />
       </div>
       {hideSettings ? (
@@ -101,6 +99,5 @@ interface ListGroupProps {
   dragAndDrop?: DragAndDrop;
   listKey: ListKey;
   term: StartEndUnitType;
-  isScopedToWorkingHours?: boolean;
   groupId: number;
 }
