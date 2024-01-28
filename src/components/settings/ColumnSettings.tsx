@@ -37,50 +37,21 @@ export const ColumnSettings = ({
   setHideSettings: SetBooleanState;
   groupId: number;
 }) => {
-  useEffect(() => {
-    const clickHandler = handleClickOutside(
-      setHideSettings,
-      settingsContainer,
-      true
-    );
-    document.addEventListener("click", clickHandler);
-    return () => {
-      document.removeEventListener("click", clickHandler);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- run on mount only
-  }, []);
-
-  const { bgColor } = useAppSelector(selectVisualSettings);
-  const termData = useAppSelector(selectTerm(groupId));
-
-  const { secondFontColor } = useAppSelector(selectVisualSettings);
   const dispatch = useAppDispatch();
+  const termData = useAppSelector(selectTerm(groupId));
+  const { bgColor } = useAppSelector(selectVisualSettings);
+  const { secondFontColor } = useAppSelector(selectVisualSettings);
+
   const [title, setTitle] = useState("");
-  const [unitType, setUnitType] = useState("");
-  const [isDuration, setIsDuration] = useState(true);
-  const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [unitType, setUnitType] = useState("");
   const [duration, setDuration] = useState(termData.duration);
+  const [startDate, setStartDate] = useState("");
+  const [isDuration, setIsDuration] = useState(true);
 
   const defaultTerm = defaultTerms[groupId];
-
-  useEffect(() => {
-    setUnitType(termData.title.toLowerCase());
-    setTitle(termData.title);
-    setStartDate(termData.startDate ?? "");
-    setEndDate(
-      termData?.endDate ??
-        DateTime.fromISO(termData.startDate ?? "")
-          .plus({ [termData.duration.unit]: termData.duration.qty })
-          .toFormat(DATE_TIME_NO_SECONDS) ??
-        ""
-    );
-  }, [termData]);
-
-  // const checkboxId = `${category}_repeat-duration`;
-
   const onChange = (changed: Partial<OnSaveProps>) => {
-    if (duration.qty) {
+    if (duration?.qty) {
       saveTerm({
         enabled: true,
         isDuration,
@@ -95,6 +66,36 @@ export const ColumnSettings = ({
       });
     }
   };
+
+  useEffect(() => {
+    const clickHandler = handleClickOutside(
+      setHideSettings,
+      settingsContainer,
+      true
+    );
+    document.addEventListener("click", clickHandler);
+    return () => {
+      document.removeEventListener("click", clickHandler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run on mount only
+  }, []);
+
+  useEffect(() => {
+    setUnitType(termData.title.toLowerCase());
+    setTitle(termData.title);
+    setStartDate(termData.startDate ?? "");
+    if (termData.endDate) {
+      setEndDate(termData.endDate);
+    } else if (termData.duration) {
+      setEndDate(
+        DateTime.fromISO(termData.startDate ?? "")
+          .plus({ [termData.duration.unit]: termData.duration.qty })
+          .toFormat(DATE_TIME_NO_SECONDS) ?? ""
+      );
+    }
+  }, [termData]);
+
+  // const checkboxId = `${category}_repeat-duration`;
 
   return (
     <div
@@ -171,7 +172,7 @@ export const ColumnSettings = ({
               onChange={onChange}
             />
           )}
-          {isDuration && (
+          {isDuration && duration && (
             <Duration
               duration={duration}
               groupId={groupId}
