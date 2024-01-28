@@ -1,12 +1,12 @@
 import { ItemListState } from "../itemList/types";
-import { SettingsState } from "../settings/types";
+import { LoadedSettingState } from "../settings/initialData";
 import { StorageKey } from "./types";
 import { updateStorage } from "./updateStorage";
 
 let storageUpdateTimeoutId: NodeJS.Timeout | null = null;
 
 export const localStorageDebounce = (
-  settings: SettingsState | ItemListState,
+  settings: LoadedSettingState | ItemListState,
   storageKey: StorageKey
 ) => {
   if (storageUpdateTimeoutId) {

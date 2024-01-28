@@ -1,100 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
-import {
-  DateFormat,
-  KeyValuePair,
-  SettingsState,
-  TimeFormat,
-  UnitsState,
-  UnitType,
-  Visual,
-} from "./types";
+import { DateFormat, KeyValuePair, TimeFormat, UnitType } from "./types";
 import { updateStorage } from "../utils/updateStorage";
 import { RootState } from "../../app/commonTypes";
 import { localStorageDebounce } from "../utils/localStorageDebounce";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
-
-const Now = DateTime.now();
-const reference = {
-  now: Now,
-  workDay: {
-    times: {
-      start: "09:00",
-      end: "17:00",
-    },
-  },
-  month: {
-    start: Now.startOf("month").toFormat(DATE_TIME_NO_SECONDS) ?? "",
-    end: "",
-  },
-  year: {
-    start: Now.startOf("year").toFormat(DATE_TIME_NO_SECONDS),
-    end: "",
-  },
-  durations: {
-    shortTerm: { unit: "days", qty: 1 },
-    mediumTerm: { unit: "months", qty: 1 },
-    longTerm: { unit: "years", qty: 1 },
-  },
-};
-reference.month.end =
-  DateTime.fromISO(reference.month.start)
-    .plus({ months: 1 })
-    .toFormat(DATE_TIME_NO_SECONDS) ?? "";
-reference.year.end =
-  DateTime.fromISO(reference.year.start ?? "")
-    .plus({ years: 1 })
-    .toFormat(DATE_TIME_NO_SECONDS) ?? "";
-
-export const endOfToday = DateTime.now().endOf("day");
-export const startOfToday = DateTime.now().startOf("day");
-
-export const defaultShortTerm: UnitType = {
-  unitType: "day",
-  title: "Today",
-  duration: reference.durations.shortTerm,
-  endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
-  startDate: startOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
-  isDuration: true,
-};
-
-export const defaultMediumTerm: UnitType = {
-  unitType: "month",
-  title: "Month",
-  duration: reference.durations.mediumTerm,
-  endDate: reference.month.end,
-  startDate: reference.month.start,
-  isDuration: true,
-};
-
-export const defaultLongTerm: UnitType = {
-  unitType: "year",
-  title: "Year",
-  duration: reference.durations.longTerm,
-  endDate: reference.year.end,
-  startDate: reference.year.start ?? "",
-  isDuration: true,
-};
-
-const initialUnits: UnitsState = {
-  terms: [defaultShortTerm, defaultMediumTerm, defaultLongTerm],
-  shortTerm: defaultShortTerm,
-  mediumTerm: defaultMediumTerm,
-  longTerm: defaultLongTerm,
-};
-
-const initalVisuals: Visual = {
-  bgColor: "#CFCFCF",
-  fontColor: "#4F4F4F",
-  secondFontColor: "#4F4F4F",
-  dateFormat: "MMM dd, yyyy",
-  timeFormat: "h:mm a",
-};
-
-export const initialSettings: SettingsState = {
-  units: initialUnits,
-  visual: initalVisuals,
-};
+import {
+  initalVisuals,
+  initialSettings,
+  LoadedSettingState,
+} from "./initialData";
 
 export const unitsSlice = createSlice({
   name: "units",
@@ -103,7 +18,7 @@ export const unitsSlice = createSlice({
   reducers: {
     populateSettingssFromChrome: (
       state,
-      { payload }: PayloadAction<SettingsState | {}>
+      { payload }: PayloadAction<LoadedSettingState | {}>
     ) => {
       if ("units" in payload) {
         state.units = payload.units;
@@ -141,7 +56,7 @@ export const unitsSlice = createSlice({
       updateStorage({ storageKey: "settings", val: state });
     },
     setNotShortTerm: <T extends boolean>(
-      state: SettingsState,
+      state: LoadedSettingState,
       {
         payload: { key, termObj },
       }: PayloadAction<{

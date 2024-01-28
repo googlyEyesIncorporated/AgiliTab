@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  defaultShortTerm,
-  defaultMediumTerm,
-  defaultLongTerm,
   selectTerm,
   selectVisualSettings,
 } from "../../features/settings/settingsSlice";
@@ -19,8 +16,13 @@ import { Duration } from "./term/Duration";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 import { SetBooleanState } from "../../app/commonTypes";
+import {
+  defaultLongTerm,
+  defaultMediumTerm,
+  defaultShortTerm,
+} from "../../features/settings/initialData";
 
-const defaultTerms: Record<number, UnitType> = {
+const defaultTerms: Record<number, UnitType | UnitType<false>> = {
   0: defaultShortTerm,
   1: defaultMediumTerm,
   2: defaultLongTerm,
@@ -59,6 +61,8 @@ export const ColumnSettings = ({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [duration, setDuration] = useState(termData.duration);
+
+  const defaultTerm = defaultTerms[groupId];
 
   useEffect(() => {
     setUnitType(termData.title.toLowerCase());
@@ -111,16 +115,18 @@ export const ColumnSettings = ({
         </div>
         <Icon
           onClick={() => {
-            const startDate = defaultTerms[groupId].startDate ?? "";
-            const endDate = defaultTerms[groupId].endDate ?? "";
-            const unitType = defaultTerms[groupId].unitType;
-            const title = defaultTerms[groupId].title;
-            const duration = defaultTerms[groupId].duration;
+            const startDate = defaultTerm.startDate ?? "";
+            const endDate = defaultTerm.endDate ?? "";
+            const unitType = defaultTerm.unitType;
+            const title = defaultTerm.title;
             setStartDate(startDate);
             setEndDate(endDate);
             setUnitType(unitType);
             setTitle(title);
-            setDuration(duration);
+            if (defaultTerm.isDuration && "duration" in defaultTerm) {
+              const duration = defaultTerm.duration;
+              setDuration(duration);
+            }
             onChange({ startDate, endDate, unitType, title, duration });
           }}
           data-testid={`group-${groupId}-restore-defaults`}

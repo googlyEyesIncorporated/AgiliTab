@@ -3,15 +3,6 @@ export interface DurationState {
   qty: number;
 }
 
-// export interface UnitType {
-//   startDate: string;
-//   endDate?: string;
-//   isDuration: boolean;
-//   duration: DurationState;
-//   title: string;
-//   unitType: string;
-// }
-
 interface UnitTypeWithDuration<T extends boolean>
   extends UnitTypeWithoutDuration<T> {
   duration: DurationState;
@@ -29,8 +20,12 @@ export type UnitType<T extends boolean = true> = T extends true
   ? UnitTypeWithDuration<T>
   : UnitTypeWithoutDuration<T>;
 
-export interface SettingsState {
-  units: UnitsState;
+export interface SettingsState<
+  T extends boolean,
+  U extends boolean,
+  V extends boolean,
+> {
+  units: UnitsState<T, U, V>;
   visual: Visual;
 }
 
@@ -38,11 +33,15 @@ export interface BooleanPayload {
   value: boolean;
 }
 
-export interface UnitsState {
-  terms: UnitType[];
-  shortTerm: UnitType;
-  mediumTerm: UnitType;
-  longTerm: UnitType;
+export interface UnitsState<
+  T extends boolean,
+  U extends boolean,
+  V extends boolean,
+> {
+  terms: UnitType<T & U & V>[];
+  shortTerm: UnitType<T>;
+  mediumTerm: UnitType<U>;
+  longTerm: UnitType<V>;
 }
 
 export interface DateFormat {

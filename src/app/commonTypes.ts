@@ -1,9 +1,9 @@
 import { ItemListState } from "../features/itemList/types";
-import { SettingsState } from "../features/settings/types";
+import { LoadedSettingState } from "../features/settings/initialData";
 
 export interface RootState {
   itemList: ItemListState;
-  settings: SettingsState;
+  settings: LoadedSettingState;
 }
 
 export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
