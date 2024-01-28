@@ -7,3 +7,8 @@ export interface RootState {
 }
 
 export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
+
+export interface startAndEnd {
+  start: number;
+  end: number;
+}

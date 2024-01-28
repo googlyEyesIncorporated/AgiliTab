@@ -1,12 +1,7 @@
 import { DateTime, DurationLikeObject } from "luxon";
 import { UnitType } from "../../../features/settings/types";
 
-export interface CalculatedTimes {
-  start: number;
-  end: number;
-}
-
-const recalcDateIfInPast = (
+export const recalcDateIfInPast = (
   date: DateTime,
   interval: DurationLikeObject,
   otherDate: DateTime

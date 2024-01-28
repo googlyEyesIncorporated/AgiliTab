@@ -1,3 +1,5 @@
+import { startAndEnd } from "../../app/commonTypes";
+
 export type ItemList = Item[];
 export interface Item {
   id: string;
@@ -34,8 +36,6 @@ export interface JustListKey {
   listKey: ListKey;
 }
 
-export interface StartEndUnitType {
-  start: number;
-  end: number;
+export interface StartEndUnitType extends startAndEnd {
   unitType: string;
 }
