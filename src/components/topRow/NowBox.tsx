@@ -1,27 +1,13 @@
 import { DateTime } from "luxon";
-import { useContext, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  selectDateFormat,
-  updateDay,
-} from "../../features/settings/settingsSlice";
+import { useContext } from "react";
+import { useAppSelector } from "../../app/hooks";
+import { selectDateFormat } from "../../features/settings/settingsSlice";
 import { Clock } from "./Clock";
 import { DateContext } from "../TimeProvider";
-import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 
 export const NowBox = () => {
-  const dispatch = useAppDispatch();
   const dateFormat = useAppSelector(selectDateFormat);
   const date = useContext(DateContext);
-
-  const startOfDay = DateTime.fromISO(date)
-    .startOf("day")
-    .toFormat(DATE_TIME_NO_SECONDS);
-
-  // Update day start/end times
-  useEffect(() => {
-    dispatch(updateDay(startOfDay));
-  }, [startOfDay, dispatch]);
 
   return (
     <div className="fade-in-down-1s flex flex-wrap lg:flex-nowrap mt-4 lg:mt-12 mb-8 justify-between">
