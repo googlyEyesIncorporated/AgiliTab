@@ -9,6 +9,7 @@ import {
   initalVisuals,
   initialSettings,
   LoadedSettingState,
+  PotentialSettingState,
 } from "./initialData";
 
 export const unitsSlice = createSlice({
@@ -67,6 +68,18 @@ export const unitsSlice = createSlice({
       (state.units.terms[key] as UnitType<T>) = termObj;
       updateStorage({ storageKey: "settings", val: state });
     },
+    setPartialTerm: <T extends boolean>(
+      state: PotentialSettingState,
+      {
+        payload: { key, termPart },
+      }: PayloadAction<{
+        termPart: Partial<UnitType<T>>;
+        key: number;
+      }>
+    ) => {
+      state.units.terms[key] = { ...state.units.terms[key], ...termPart };
+      updateStorage({ storageKey: "settings", val: state });
+    },
   },
 });
 
@@ -76,6 +89,7 @@ export const {
   setDateTimeFormats,
   resetVisualSetting,
   setNotShortTerm,
+  setPartialTerm,
   updateDay,
 } = unitsSlice.actions;
 

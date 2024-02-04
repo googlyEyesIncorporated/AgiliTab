@@ -1,5 +1,5 @@
 import { ItemList } from "../itemList/types";
-import { LoadedSettingState } from "../settings/initialData";
+import { PotentialSettingState } from "../settings/initialData";
 import { StorageKey } from "./types";
 
 export const updateStorage = ({
@@ -7,7 +7,7 @@ export const updateStorage = ({
   val,
 }: {
   storageKey: StorageKey;
-  val: ItemList | LoadedSettingState | string;
+  val: ItemList | PotentialSettingState | string;
 }) => {
   if (typeof chrome !== "undefined" && chrome.storage) {
     chrome.storage.sync.set({ [storageKey]: val });

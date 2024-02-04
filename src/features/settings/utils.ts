@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../app/hooks";
-import { setNotShortTerm } from "./settingsSlice";
+import { setNotShortTerm, setPartialTerm } from "./settingsSlice";
 import { DurationState } from "./types";
 
 export interface OnSaveProps {
@@ -12,6 +12,20 @@ export interface OnSaveProps {
   unitType: string;
   title: string;
   endDate: string;
+}
+
+export interface OnSave2Props {
+  enabled: boolean;
+  groupId: number;
+  dispatch: ReturnType<typeof useAppDispatch>;
+  termPart: {
+    isDuration?: boolean;
+    duration?: DurationState;
+    startDate?: string;
+    unitType?: string;
+    title?: string;
+    endDate?: string;
+  };
 }
 
 export const saveTerm = ({
@@ -53,5 +67,21 @@ export const saveTerm = ({
         })
       );
     }
+  }
+};
+
+export const saveTerm2 = ({
+  enabled,
+  groupId,
+  dispatch,
+  termPart,
+}: OnSave2Props) => {
+  if (enabled) {
+    dispatch(
+      setPartialTerm({
+        key: groupId,
+        termPart,
+      })
+    );
   }
 };

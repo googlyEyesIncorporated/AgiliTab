@@ -93,3 +93,5 @@ export type LoadedSettingState = SettingsState<
   (typeof initialUnits.mediumTerm)["isDuration"],
   (typeof initialUnits.longTerm)["isDuration"]
 >;
+
+export type PotentialSettingState = SettingsState<boolean, boolean, boolean>;
