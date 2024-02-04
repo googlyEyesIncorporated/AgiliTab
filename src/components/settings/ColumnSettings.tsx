@@ -3,10 +3,10 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectTerm,
   selectVisualSettings,
+  setPartialTerm,
 } from "../../features/settings/settingsSlice";
-import { OnSaveProps, saveTerm2 } from "../../features/settings/utils";
 import Icon from "../atoms/Icon";
-import { UnitType, UnitTypeWithDuration } from "../../features/settings/types";
+import { UnitType } from "../../features/settings/types";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { TermName } from "./term/TermName";
 import { SelectDate } from "./term/SelectDate";
@@ -41,10 +41,15 @@ export const ColumnSettings = ({
   const { secondFontColor } = useAppSelector(selectVisualSettings);
 
   const defaultTerm = defaultTerms[groupId];
-  const onChange = (changed: Partial<OnSaveProps>) => {
-    if ((termData as UnitTypeWithDuration<true>).duration?.qty) {
-      saveTerm2({ enabled: true, groupId, dispatch, termPart: changed });
-    }
+  const onChange = (
+    termPart: Parameters<typeof setPartialTerm>[0]["termPart"]
+  ) => {
+    dispatch(
+      setPartialTerm({
+        key: groupId,
+        termPart,
+      })
+    );
   };
 
   useEffect(() => {
