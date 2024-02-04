@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { Sentencecase } from "../../features/utils/Sentencecase";
 
 export const RadioButtons = ({
-  enabled,
+  enabled = true,
   groupId,
   firstIsChecked,
   onChange,
@@ -43,7 +43,7 @@ export const RadioButtons = ({
 };
 
 interface RadioButtonsProps {
-  enabled: boolean;
+  enabled?: boolean;
   groupId: number;
   firstIsChecked: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;

@@ -64,7 +64,6 @@ export const ColumnSettings = ({
       <h1 className="text-xl" id="settings-title">
         <div className="inline-block ml-2">
           <RadioButtons
-            enabled={true}
             groupId={groupId}
             firstRadioName="duration"
             secondRadioName="date"
@@ -91,7 +90,6 @@ export const ColumnSettings = ({
           <TermName
             groupId={groupId}
             title={termData.title}
-            enabled={true}
             onChange={onChange}
           />
         </div>
@@ -118,7 +116,6 @@ export const ColumnSettings = ({
             <Duration
               duration={termData.duration}
               groupId={groupId}
-              enabled={true}
               onChange={onChange}
             />
           )}

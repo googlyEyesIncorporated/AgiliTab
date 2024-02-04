@@ -3,13 +3,13 @@ import React from "react";
 interface TermNameProps {
   groupId: number;
   title: string;
-  enabled: boolean;
+  enabled?: boolean;
   onChange: (changed: any) => void;
 }
 export const TermName = ({
   groupId,
   title,
-  enabled,
+  enabled = true,
   onChange,
 }: TermNameProps) => {
   const groupIdName = `group-${groupId}-unit-name`;
