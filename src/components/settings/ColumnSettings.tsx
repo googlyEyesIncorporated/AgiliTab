@@ -6,25 +6,14 @@ import {
   setPartialTerm,
 } from "../../features/settings/settingsSlice";
 import Icon from "../atoms/Icon";
-import { UnitType } from "../../features/settings/types";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { TermName } from "./term/TermName";
 import { SelectDate } from "./term/SelectDate";
 import { Duration } from "./term/Duration";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
 import { SetBooleanState } from "../../app/commonTypes";
-import {
-  defaultLongTerm,
-  defaultMediumTerm,
-  defaultShortTerm,
-} from "../../features/settings/initialData";
+import { defaultTerms } from "../../features/settings/initialData";
 import { RadioButtons } from "../atoms/RadioButton";
-
-const defaultTerms: Record<number, UnitType | UnitType<false>> = {
-  0: defaultShortTerm,
-  1: defaultMediumTerm,
-  2: defaultLongTerm,
-};
 
 export const ColumnSettings = ({
   settingsContainer,

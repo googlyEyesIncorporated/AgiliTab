@@ -72,6 +72,12 @@ export const defaultLongTerm: UnitType = {
   isDuration: true,
 };
 
+export const defaultTerms: Record<number, UnitType | UnitType<false>> = {
+  0: defaultShortTerm,
+  1: defaultMediumTerm,
+  2: defaultLongTerm,
+};
+
 const initialUnits: UnitsState<
   (typeof defaultShortTerm)["isDuration"],
   (typeof defaultMediumTerm)["isDuration"],
