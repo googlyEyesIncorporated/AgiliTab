@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectTerm,
@@ -43,12 +43,11 @@ export const ColumnSettings = ({
   const { secondFontColor } = useAppSelector(selectVisualSettings);
 
   const [endDate, setEndDate] = useState("");
-  const [duration, setDuration] = useState(termData.duration);
   const [startDate, setStartDate] = useState("");
 
   const defaultTerm = defaultTerms[groupId];
   const onChange = (changed: Partial<OnSaveProps>) => {
-    if (duration?.qty) {
+    if (termData.duration?.qty) {
       saveTerm2({ enabled: true, groupId, dispatch, termPart: changed });
     }
   };
@@ -110,9 +109,10 @@ export const ColumnSettings = ({
             setEndDate(endDate);
             if (defaultTerm.isDuration && "duration" in defaultTerm) {
               const duration = defaultTerm.duration;
-              setDuration(duration);
+              onChange({ startDate, endDate, unitType, title, duration });
+            } else {
+              onChange({ startDate, endDate, unitType, title });
             }
-            onChange({ startDate, endDate, unitType, title, duration });
           }}
           data-testid={`group-${groupId}-restore-defaults`}
           icon={faArrowRightFromBracket}
@@ -154,12 +154,11 @@ export const ColumnSettings = ({
               onChange={onChange}
             />
           )}
-          {termData.isDuration && duration && (
+          {termData.isDuration && termData.duration && (
             <Duration
-              duration={duration}
+              duration={termData.duration}
               groupId={groupId}
               enabled={true}
-              setDuration={setDuration}
               onChange={onChange}
             />
           )}

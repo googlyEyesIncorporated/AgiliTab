@@ -12,7 +12,6 @@ const formats = {
 interface DurationProps {
   groupId: number;
   enabled?: boolean;
-  setDuration: React.Dispatch<React.SetStateAction<DurationState>>;
   duration: DurationState;
   onChange: (change: any) => void;
 }
@@ -24,7 +23,6 @@ const getBackgroundColor = (enabled: boolean) => ({
 export const Duration = ({
   groupId,
   enabled = true,
-  setDuration,
   duration,
   onChange,
 }: DurationProps) => {
@@ -66,7 +64,6 @@ export const Duration = ({
           setQty(newQty);
           const durationObj = { unit, qty: newQty };
           if (unit) {
-            setDuration(durationObj);
             onChange({ duration: durationObj });
           }
         }}
@@ -85,7 +82,6 @@ export const Duration = ({
           const durationObj = { unit: newUnit, qty };
 
           if (qty) {
-            setDuration(durationObj);
             onChange({ duration: durationObj });
           }
         }}
