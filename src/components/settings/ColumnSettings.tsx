@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectTerm,
   selectVisualSettings,
 } from "../../features/settings/settingsSlice";
-import { OnSaveProps, saveTerm } from "../../features/settings/utils";
+import { OnSaveProps, saveTerm2 } from "../../features/settings/utils";
 import { DateTime } from "luxon";
 import Icon from "../atoms/Icon";
 import { UnitType } from "../../features/settings/types";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { TermName } from "./term/TermName";
-import RadioButton from "../atoms/RadioButton";
 import { SelectDate } from "./term/SelectDate";
 import { Duration } from "./term/Duration";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
@@ -21,6 +20,7 @@ import {
   defaultMediumTerm,
   defaultShortTerm,
 } from "../../features/settings/initialData";
+import { RadioButtons } from "../atoms/RadioButton";
 
 const defaultTerms: Record<number, UnitType | UnitType<false>> = {
   0: defaultShortTerm,
@@ -47,23 +47,11 @@ export const ColumnSettings = ({
   const [unitType, setUnitType] = useState("");
   const [duration, setDuration] = useState(termData.duration);
   const [startDate, setStartDate] = useState("");
-  const [isDuration, setIsDuration] = useState(true);
 
   const defaultTerm = defaultTerms[groupId];
   const onChange = (changed: Partial<OnSaveProps>) => {
     if (duration?.qty) {
-      saveTerm({
-        enabled: true,
-        isDuration,
-        duration,
-        startDate,
-        dispatch,
-        groupId,
-        unitType,
-        title,
-        endDate,
-        ...changed,
-      });
+      saveTerm2({ enabled: true, groupId, dispatch, termPart: changed });
     }
   };
 
@@ -105,13 +93,15 @@ export const ColumnSettings = ({
     >
       <h1 className="text-xl" id="settings-title">
         <div className="inline-block ml-2">
-          <RadioButton
+          <RadioButtons
             enabled={true}
             groupId={groupId}
             firstRadioName="duration"
             secondRadioName="date"
-            firstIsChecked={isDuration}
-            setIsChecked={setIsDuration}
+            firstIsChecked={termData.isDuration}
+            onChange={(e) => {
+              onChange({ isDuration: e.currentTarget.value === "duration" });
+            }}
           />
         </div>
         <Icon
@@ -161,7 +151,7 @@ export const ColumnSettings = ({
           />
         </div>
         <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2">
-          {!isDuration && (
+          {!termData.isDuration && (
             <SelectDate
               title="End"
               groupId={groupId}
@@ -172,7 +162,7 @@ export const ColumnSettings = ({
               onChange={onChange}
             />
           )}
-          {isDuration && duration && (
+          {termData.isDuration && duration && (
             <Duration
               duration={duration}
               groupId={groupId}
