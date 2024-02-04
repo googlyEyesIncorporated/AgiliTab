@@ -87,16 +87,7 @@ export const ColumnSettings = ({
         </div>
         <Icon
           onClick={() => {
-            const startDate = defaultTerm.startDate ?? "";
-            const endDate = defaultTerm.endDate ?? "";
-            const unitType = defaultTerm.unitType;
-            const title = defaultTerm.title;
-            if (defaultTerm.isDuration && "duration" in defaultTerm) {
-              const duration = defaultTerm.duration;
-              onChange({ startDate, endDate, unitType, title, duration });
-            } else {
-              onChange({ startDate, endDate, unitType, title });
-            }
+            onChange(defaultTerm);
           }}
           data-testid={`group-${groupId}-restore-defaults`}
           icon={faArrowRightFromBracket}
