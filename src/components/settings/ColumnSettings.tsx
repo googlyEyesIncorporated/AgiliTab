@@ -103,19 +103,18 @@ export const ColumnSettings = ({
           />
         </div>
         <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2">
-          {!termData.isDuration && (
+          {termData.isDuration ? (
+            <Duration
+              duration={termData.duration}
+              groupId={groupId}
+              onChange={onChange}
+            />
+          ) : (
             <SelectDate
               title="End"
               groupId={groupId}
               date={termData.endDate}
               limit={{ min: termData.startDate }}
-              onChange={onChange}
-            />
-          )}
-          {termData.isDuration && termData.duration && (
-            <Duration
-              duration={termData.duration}
-              groupId={groupId}
               onChange={onChange}
             />
           )}
