@@ -42,7 +42,6 @@ export const ColumnSettings = ({
   const { bgColor } = useAppSelector(selectVisualSettings);
   const { secondFontColor } = useAppSelector(selectVisualSettings);
 
-  const [title, setTitle] = useState("");
   const [endDate, setEndDate] = useState("");
   const [duration, setDuration] = useState(termData.duration);
   const [startDate, setStartDate] = useState("");
@@ -68,7 +67,6 @@ export const ColumnSettings = ({
   }, []);
 
   useEffect(() => {
-    setTitle(termData.title);
     setStartDate(termData.startDate ?? "");
     if (termData.endDate) {
       setEndDate(termData.endDate);
@@ -110,7 +108,6 @@ export const ColumnSettings = ({
             const title = defaultTerm.title;
             setStartDate(startDate);
             setEndDate(endDate);
-            setTitle(title);
             if (defaultTerm.isDuration && "duration" in defaultTerm) {
               const duration = defaultTerm.duration;
               setDuration(duration);
@@ -129,9 +126,8 @@ export const ColumnSettings = ({
         <div className="mb-1 inline-block ml-2 min-w-[10.5rem]">
           <TermName
             groupId={groupId}
-            title={title}
+            title={termData.title}
             enabled={true}
-            setTitle={setTitle}
             onChange={onChange}
           />
         </div>

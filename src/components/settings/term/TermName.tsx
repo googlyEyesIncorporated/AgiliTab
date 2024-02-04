@@ -4,14 +4,12 @@ interface TermNameProps {
   groupId: number;
   title: string;
   enabled: boolean;
-  setTitle: (value: React.SetStateAction<string>) => void;
   onChange: (changed: any) => void;
 }
 export const TermName = ({
   groupId,
   title,
   enabled,
-  setTitle,
   onChange,
 }: TermNameProps) => {
   const groupIdName = `group-${groupId}-unit-name`;
@@ -32,7 +30,6 @@ export const TermName = ({
           if (enabled) {
             const title = e.target.value;
             const unitType = title.toLowerCase();
-            setTitle(title);
             onChange({ title, unitType });
           }
         }}
