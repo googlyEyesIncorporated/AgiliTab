@@ -44,7 +44,6 @@ export const ColumnSettings = ({
 
   const [title, setTitle] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [unitType, setUnitType] = useState("");
   const [duration, setDuration] = useState(termData.duration);
   const [startDate, setStartDate] = useState("");
 
@@ -69,7 +68,6 @@ export const ColumnSettings = ({
   }, []);
 
   useEffect(() => {
-    setUnitType(termData.title.toLowerCase());
     setTitle(termData.title);
     setStartDate(termData.startDate ?? "");
     if (termData.endDate) {
@@ -112,7 +110,6 @@ export const ColumnSettings = ({
             const title = defaultTerm.title;
             setStartDate(startDate);
             setEndDate(endDate);
-            setUnitType(unitType);
             setTitle(title);
             if (defaultTerm.isDuration && "duration" in defaultTerm) {
               const duration = defaultTerm.duration;
@@ -135,7 +132,6 @@ export const ColumnSettings = ({
             title={title}
             enabled={true}
             setTitle={setTitle}
-            setUnitType={setUnitType}
             onChange={onChange}
           />
         </div>
