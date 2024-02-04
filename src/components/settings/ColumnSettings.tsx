@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectTerm,
@@ -40,8 +40,6 @@ export const ColumnSettings = ({
   const { bgColor } = useAppSelector(selectVisualSettings);
   const { secondFontColor } = useAppSelector(selectVisualSettings);
 
-  const [startDate, setStartDate] = useState("");
-
   const defaultTerm = defaultTerms[groupId];
   const onChange = (changed: Partial<OnSaveProps>) => {
     if ((termData as UnitTypeWithDuration<true>).duration?.qty) {
@@ -59,12 +57,7 @@ export const ColumnSettings = ({
     return () => {
       document.removeEventListener("click", clickHandler);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- run on mount only
   }, []);
-
-  useEffect(() => {
-    setStartDate(termData.startDate ?? "");
-  }, [termData]);
 
   // const checkboxId = `${category}_repeat-duration`;
 
@@ -93,7 +86,6 @@ export const ColumnSettings = ({
             const endDate = defaultTerm.endDate ?? "";
             const unitType = defaultTerm.unitType;
             const title = defaultTerm.title;
-            setStartDate(startDate);
             if (defaultTerm.isDuration && "duration" in defaultTerm) {
               const duration = defaultTerm.duration;
               onChange({ startDate, endDate, unitType, title, duration });
@@ -122,9 +114,8 @@ export const ColumnSettings = ({
           <SelectDate
             title="Beginning"
             groupId={groupId}
-            date={startDate}
+            date={termData.startDate}
             limit={{ max: termData.endDate }}
-            setStartDate={setStartDate}
             onChange={onChange}
           />
         </div>
@@ -134,8 +125,7 @@ export const ColumnSettings = ({
               title="End"
               groupId={groupId}
               date={termData.endDate}
-              limit={{ min: startDate }}
-              setStartDate={setStartDate}
+              limit={{ min: termData.startDate }}
               onChange={onChange}
             />
           )}
