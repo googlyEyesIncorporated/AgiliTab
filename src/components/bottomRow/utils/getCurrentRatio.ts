@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { startAndEnd } from "../../../app/commonTypes";
+import { StartAndEnd } from "../../../app/commonTypes";
 
 export const getRatioOfTimeElapsed = (
   start: number,
@@ -8,7 +8,7 @@ export const getRatioOfTimeElapsed = (
 ) => (now - start) / (end - start); // timeElapsed/totalTime
 
 export const getCurrentRatio = (
-  { start, end }: startAndEnd,
+  { start, end }: StartAndEnd,
   shouldCapToRange = true
 ) => {
   if (end !== start) {

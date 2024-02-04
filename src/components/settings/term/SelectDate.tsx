@@ -9,7 +9,6 @@ interface CommonProps {
 interface SelectDateProps extends CommonProps {
   title: "Beginning" | "End";
   setStartDate: React.Dispatch<React.SetStateAction<string>>;
-  setEndDate: React.Dispatch<React.SetStateAction<string>>;
   groupId: number;
   date: string;
   limit: Limit;
@@ -21,7 +20,6 @@ export const SelectDate = ({
   groupId,
   limit,
   setStartDate,
-  setEndDate,
   onChange,
 }: SelectDateProps) => {
   const formattedLimit: Limit = {};
@@ -52,7 +50,6 @@ export const SelectDate = ({
               setStartDate(e.target.value);
               onChange({ startDate: e.target.value });
             } else {
-              setEndDate(e.target.value);
               onChange({ endDate: e.target.value });
             }
         }}

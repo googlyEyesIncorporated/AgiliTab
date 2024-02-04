@@ -3,17 +3,22 @@ export interface DurationState {
   qty: number;
 }
 
-interface UnitTypeWithDuration<T extends boolean>
-  extends UnitTypeWithoutDuration<T> {
+export interface UnitTypeWithDuration<T extends boolean>
+  extends CommonUnitTypeProps<T> {
   duration: DurationState;
 }
 
-export interface UnitTypeWithoutDuration<T extends boolean> {
+export interface CommonUnitTypeProps<T extends boolean> {
   startDate: string;
   endDate?: string;
   isDuration: T;
   title: string;
   unitType: string;
+}
+
+export interface UnitTypeWithoutDuration<T extends boolean>
+  extends CommonUnitTypeProps<T> {
+  endDate: string;
 }
 
 export type UnitType<T extends boolean = true> = T extends true

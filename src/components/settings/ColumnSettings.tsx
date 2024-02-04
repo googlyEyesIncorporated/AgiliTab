@@ -5,15 +5,13 @@ import {
   selectVisualSettings,
 } from "../../features/settings/settingsSlice";
 import { OnSaveProps, saveTerm2 } from "../../features/settings/utils";
-import { DateTime } from "luxon";
 import Icon from "../atoms/Icon";
-import { UnitType } from "../../features/settings/types";
+import { UnitType, UnitTypeWithDuration } from "../../features/settings/types";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { TermName } from "./term/TermName";
 import { SelectDate } from "./term/SelectDate";
 import { Duration } from "./term/Duration";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
-import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 import { SetBooleanState } from "../../app/commonTypes";
 import {
   defaultLongTerm,
@@ -42,12 +40,11 @@ export const ColumnSettings = ({
   const { bgColor } = useAppSelector(selectVisualSettings);
   const { secondFontColor } = useAppSelector(selectVisualSettings);
 
-  const [endDate, setEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
 
   const defaultTerm = defaultTerms[groupId];
   const onChange = (changed: Partial<OnSaveProps>) => {
-    if (termData.duration?.qty) {
+    if ((termData as UnitTypeWithDuration<true>).duration?.qty) {
       saveTerm2({ enabled: true, groupId, dispatch, termPart: changed });
     }
   };
@@ -67,15 +64,6 @@ export const ColumnSettings = ({
 
   useEffect(() => {
     setStartDate(termData.startDate ?? "");
-    if (termData.endDate) {
-      setEndDate(termData.endDate);
-    } else if (termData.duration) {
-      setEndDate(
-        DateTime.fromISO(termData.startDate ?? "")
-          .plus({ [termData.duration.unit]: termData.duration.qty })
-          .toFormat(DATE_TIME_NO_SECONDS) ?? ""
-      );
-    }
   }, [termData]);
 
   // const checkboxId = `${category}_repeat-duration`;
@@ -106,7 +94,6 @@ export const ColumnSettings = ({
             const unitType = defaultTerm.unitType;
             const title = defaultTerm.title;
             setStartDate(startDate);
-            setEndDate(endDate);
             if (defaultTerm.isDuration && "duration" in defaultTerm) {
               const duration = defaultTerm.duration;
               onChange({ startDate, endDate, unitType, title, duration });
@@ -136,9 +123,8 @@ export const ColumnSettings = ({
             title="Beginning"
             groupId={groupId}
             date={startDate}
-            limit={{ max: endDate }}
+            limit={{ max: termData.endDate }}
             setStartDate={setStartDate}
-            setEndDate={setEndDate}
             onChange={onChange}
           />
         </div>
@@ -147,10 +133,9 @@ export const ColumnSettings = ({
             <SelectDate
               title="End"
               groupId={groupId}
-              date={endDate}
+              date={termData.endDate}
               limit={{ min: startDate }}
               setStartDate={setStartDate}
-              setEndDate={setEndDate}
               onChange={onChange}
             />
           )}
