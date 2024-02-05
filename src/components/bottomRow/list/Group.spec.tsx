@@ -10,7 +10,6 @@ const props = {
   term: {
     start: 0,
     end: 100,
-    unitType: "type 1",
   },
   list: [
     {

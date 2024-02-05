@@ -1,10 +1,10 @@
-import { StartEndUnitType } from "../../features/itemList/types";
+import { StartAndEnd } from "../../app/commonTypes";
 import { getCurrentRatio } from "../bottomRow/utils";
 
 interface IElapsedTime {
   className?: string;
   groupId: number;
-  term: StartEndUnitType;
+  term: StartAndEnd;
 }
 
 export const ElapsedTime = ({ term, className, groupId }: IElapsedTime) => {

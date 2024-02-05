@@ -7,7 +7,6 @@ const Jan21970 = 86400000;
 
 const commonParams = {
   startDate: DateTime.fromMillis(Jan11970).toISO() as string,
-  unitType: "test",
 };
 
 const paramsWithEndDate: UnitType<false> = {
@@ -29,14 +28,12 @@ describe("calculateStartEndMs", () => {
     expect(calculateStartEndMs(paramsWithEndDate)).toEqual({
       end: Jan21970,
       start: Jan11970,
-      unitType: paramsWithEndDate.unitType,
     });
   });
   it("should calculate accurate end time based on duration", () => {
     expect(calculateStartEndMs(paramsWithDuration)).toEqual({
       end: Jan21970,
       start: Jan11970,
-      unitType: paramsWithEndDate.unitType,
     });
   });
 });

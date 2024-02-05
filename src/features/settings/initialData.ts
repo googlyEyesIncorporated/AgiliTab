@@ -46,7 +46,6 @@ export const initalVisuals: Visual = {
 };
 
 export const defaultShortTerm: UnitType = {
-  unitType: "day",
   title: "Today",
   duration: reference.durations.shortTerm,
   endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
@@ -55,7 +54,6 @@ export const defaultShortTerm: UnitType = {
 };
 
 export const defaultMediumTerm: UnitType = {
-  unitType: "month",
   title: "Month",
   duration: reference.durations.mediumTerm,
   endDate: reference.month.end,
@@ -64,7 +62,6 @@ export const defaultMediumTerm: UnitType = {
 };
 
 export const defaultLongTerm: UnitType = {
-  unitType: "year",
   title: "Year",
   duration: reference.durations.longTerm,
   endDate: reference.year.end,

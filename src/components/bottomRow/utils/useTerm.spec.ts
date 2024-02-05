@@ -8,7 +8,6 @@ const Jan21970 = 86400000;
 
 const commonParams = {
   startDate: DateTime.fromMillis(Jan11970).toISO() as string,
-  unitType: "test",
 };
 
 const paramsWithEndDate: UnitType<false> = {
@@ -21,11 +20,10 @@ const paramsWithEndDate: UnitType<false> = {
 const expectedUnitType = {
   end: Jan21970,
   start: Jan11970,
-  unitType: commonParams.unitType,
 };
 
 describe("useTerm", () => {
-  it("should return an object with end, start and unitType", () => {
+  it("should return an object with end and start", () => {
     const { result } = renderHook(() => useTerm(paramsWithEndDate));
     expect(result).toEqual({
       current: [expectedUnitType],
@@ -36,7 +34,6 @@ describe("useTerm", () => {
     const altExpectedUnitType = {
       end: Jan11970,
       start: Jan21970,
-      unitType: expectedUnitType.unitType,
     };
     const { result } = renderHook(() =>
       useTerm(paramsWithEndDate, altExpectedUnitType)

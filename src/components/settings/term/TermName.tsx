@@ -28,9 +28,7 @@ export const TermName = ({
         className="p-0 w-[107px]"
         onChange={(e) => {
           if (enabled) {
-            const title = e.target.value;
-            const unitType = title.toLowerCase();
-            onChange({ title, unitType });
+            onChange({ title: e.target.value });
           }
         }}
       />

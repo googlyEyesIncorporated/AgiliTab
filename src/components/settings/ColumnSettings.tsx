@@ -53,8 +53,6 @@ export const ColumnSettings = ({
     };
   }, []);
 
-  // const checkboxId = `${category}_repeat-duration`;
-
   return (
     <div
       className={`p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl`}
