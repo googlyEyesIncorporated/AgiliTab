@@ -5,10 +5,13 @@ import { epochTimes } from "../src/commonTestData.json";
 import { DateTime } from "luxon";
 
 import { DATE_TIME_NO_SECONDS } from "../src/commonUtils";
-const { Sep012023, Sep152023 } = epochTimes;
+const { Sep012023 } = epochTimes;
 
+const oneDayBefore = DateTime.fromMillis(Sep012023)
+  .minus({ days: 1 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 const zeroDaysLater =
-  DateTime.fromMillis(Sep012023).toFormat(DATE_TIME_NO_SECONDS) ?? "09/01/2023";
+  DateTime.fromMillis(Sep012023).toFormat(DATE_TIME_NO_SECONDS);
 
 const twentyFiveDaysLater = DateTime.fromMillis(Sep012023)
   .plus({ days: 25 })
@@ -147,7 +150,20 @@ test.describe("Settings", () => {
         await expect(groupEndDatepicker).toBeVisible();
         await expect(groupOneUnitQuantity).not.toBeVisible();
       });
+      test(`user is prevented from setting an end date that is prior to the beginning date`, async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await groupBeginningDatepicker.fill(zeroDaysLater);
 
+        // set and min is set
+        await groupOneDate.click();
+        await expect(groupEndDatepicker).toHaveAttribute("min", zeroDaysLater);
+      });
       test(`changing end date updates the total elapsed time percentage`, async ({
         page,
       }) => {
