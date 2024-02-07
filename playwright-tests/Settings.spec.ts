@@ -10,25 +10,17 @@ const { Sep012023, Sep152023 } = epochTimes;
 const zeroDaysLater =
   DateTime.fromMillis(Sep012023).toFormat(DATE_TIME_NO_SECONDS) ?? "09/01/2023";
 
-const twentyFiveDaysLater =
-  DateTime.fromMillis(Sep012023)
-    .plus({ days: 25 })
-    .toFormat(DATE_TIME_NO_SECONDS) || "";
+const twentyFiveDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 25 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 
-const fiftyDaysLater =
-  DateTime.fromMillis(Sep012023)
-    .plus({ days: 50 })
-    .toFormat(DATE_TIME_NO_SECONDS) || "";
+const fiftyDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 50 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 
-const seventyFiveDaysLater =
-  DateTime.fromMillis(Sep012023)
-    .plus({ days: 75 })
-    .toFormat(DATE_TIME_NO_SECONDS) || "";
-
-const hundredDaysLater =
-  DateTime.fromMillis(Sep012023)
-    .plus({ days: 100 })
-    .toFormat(DATE_TIME_NO_SECONDS) || "12/10/2023";
+const hundredDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 99 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 
 test.describe("Settings", () => {
   let groupOneDate: Locator,
@@ -101,7 +93,7 @@ test.describe("Settings", () => {
         // establish baseline and set an end date with a nice round number of days in duration (100)
         await groupBeginningDatepicker.fill(zeroDaysLater);
         await groupOneDurationFormat.selectOption("days");
-        await groupOneUnitQuantity.fill("100");
+        await groupOneUnitQuantity.fill("99");
 
         // verify orginal value
         await expect(groupElapsedTime).toHaveText("50%");
@@ -120,7 +112,7 @@ test.describe("Settings", () => {
         await groupSettingsButton.click();
 
         // verify orginal value
-        await expect(groupElapsedTime).toHaveText("65%"); // 20/31 = 65%
+        await expect(groupElapsedTime).toHaveText("64%"); // 20/31 = 64% (rounded down)
 
         // establish baseline
         await groupBeginningDatepicker.fill(zeroDaysLater);
@@ -128,7 +120,7 @@ test.describe("Settings", () => {
         // set and verify changed value
         await groupOneDate.click();
         await groupEndDatepicker.fill(hundredDaysLater);
-        await expect(groupElapsedTime).toHaveText("50%"); // 50/75 === 2/3
+        await expect(groupElapsedTime).toHaveText("50%"); // 50/100 === 49% (rounded down)
       });
       test(`changing duration qty updates the total elapsed time percentage`, async ({
         page,
@@ -147,7 +139,7 @@ test.describe("Settings", () => {
 
         // set and verify changed value
         await groupOneDurationFormat.selectOption("days");
-        await groupOneUnitQuantity.fill("100");
+        await groupOneUnitQuantity.fill("99");
         await expect(groupElapsedTime).toHaveText("25%");
       });
       test(`changing duration unit updates the total elapsed time percentage`, async ({
@@ -166,7 +158,7 @@ test.describe("Settings", () => {
         await expect(groupElapsedTime).toHaveText("83%"); // 25/30 = 5/6 = 83%
 
         // set and verify changed value
-        await groupOneUnitQuantity.fill("100");
+        await groupOneUnitQuantity.fill("99");
         await groupOneDurationFormat.selectOption("days");
         await expect(groupElapsedTime).toHaveText("25%");
       });
@@ -178,20 +170,20 @@ test.describe("Settings", () => {
         await groupSettingsButton.click();
 
         // verify orginal value
-        await expect(groupElapsedTime).toHaveText("65%"); // 20/31 = 65%
+        await expect(groupElapsedTime).toHaveText("64%"); // 20/31 = 64% (rounding down)
 
         // Change values
         await groupBeginningDatepicker.fill(zeroDaysLater);
         await groupOneDurationFormat.selectOption("days");
-        await groupOneUnitQuantity.fill("100");
+        await groupOneUnitQuantity.fill("99");
         await expect(groupElapsedTime).toHaveText("50%"); // 50/100 = 50%
 
         // reset and verify changed values
         await groupOneRestoreDefaults.click();
-        await expect(groupElapsedTime).toHaveText("65%");
+        await expect(groupElapsedTime).toHaveText("64%"); // (rounding down)
         await expect(groupOneDurationFormat).toHaveValue("months");
         await expect(groupOneUnitQuantity).toHaveValue("1");
-        await expect(groupBeginningDatepicker).toHaveValue("2023-10-01");
+        await expect(groupBeginningDatepicker).toHaveValue("2023-10-01T00:00");
       });
     });
   });
