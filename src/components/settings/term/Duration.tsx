@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { DurationState } from "../../../features/settings/types";
 
 const formats = {
@@ -26,17 +25,7 @@ export const Duration = ({
   duration,
   onChange,
 }: DurationProps) => {
-  const { qty: dQty, unit: dUnit } = duration;
-  const [qty, setQty] = useState(dQty);
-  const [unit, setUnit] = useState(dUnit);
-
-  useEffect(() => {
-    if (dQty) setQty(dQty);
-  }, [dQty]);
-
-  useEffect(() => {
-    if (dUnit) setUnit(dUnit);
-  }, [dUnit]);
+  const { qty, unit } = duration;
 
   const categoryUnitQty = `group-${groupId}-unit-qty`;
   const categoryDurationFormatInput = `group-${groupId}-duration-format-input`;
@@ -60,9 +49,7 @@ export const Duration = ({
         {...(enabled ? {} : { disabled: true })}
         value={qty}
         onChange={(e) => {
-          const newQty = parseInt(e.target.value);
-          setQty(newQty);
-          const durationObj = { unit, qty: newQty };
+          const durationObj = { unit, qty: parseInt(e.target.value) };
           if (unit) {
             onChange({ duration: durationObj });
           }
@@ -73,13 +60,11 @@ export const Duration = ({
         name={categoryDurationFormatInput}
         id={categoryDurationFormatInput}
         data-testid={categoryDurationFormatInput}
-        value={`${unit}`}
+        value={unit}
         style={getBackgroundColor(enabled)}
         {...(enabled ? {} : { disabled: true })}
         onChange={(e) => {
-          const newUnit = e.target.value;
-          setUnit(newUnit);
-          const durationObj = { unit: newUnit, qty };
+          const durationObj = { unit: e.target.value, qty };
 
           if (qty) {
             onChange({ duration: durationObj });
