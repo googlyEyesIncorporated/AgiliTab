@@ -10,20 +10,20 @@ interface SelectDateProps extends CommonProps {
   title: "Beginning" | "End";
   groupId: number;
   date: string;
-  limit: Limit;
+  min?: string;
 }
 
 export const SelectDate = ({
   date,
   title,
   groupId,
-  limit,
+  min,
   onChange,
 }: SelectDateProps) => {
   const formattedLimit: Limit = {};
-  if ("min" in limit && limit.min) {
+  if (min) {
     formattedLimit.min =
-      DateTime.fromISO(limit.min).toFormat(DATE_TIME_NO_SECONDS) ?? undefined;
+      DateTime.fromISO(min).toFormat(DATE_TIME_NO_SECONDS) ?? undefined;
   }
   const categoryDatePicker = `group-${groupId}-${title.toLowerCase()}-datepicker`;
   return (

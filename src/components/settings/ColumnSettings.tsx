@@ -96,7 +96,6 @@ export const ColumnSettings = ({
             title="Beginning"
             groupId={groupId}
             date={termData.startDate}
-            limit={{ max: termData.endDate }}
             onChange={onChange}
           />
         </div>
@@ -112,7 +111,7 @@ export const ColumnSettings = ({
               title="End"
               groupId={groupId}
               date={termData.endDate}
-              limit={{ min: termData.startDate }}
+              min={termData.startDate}
               onChange={onChange}
             />
           )}
