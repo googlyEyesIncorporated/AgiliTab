@@ -35,7 +35,11 @@ function App() {
     document.body.style.color = fontColor;
   }, [bgColor, fontColor]);
   return (
-    <div className="App" style={{ backgroundColor: bgColor, color: fontColor }}>
+    <div
+      className="App"
+      data-testid="App"
+      style={{ backgroundColor: bgColor, color: fontColor }}
+    >
       <TimeProvider specifiedPeriod={5000}>
         <NowBox />
         <BottomRow />

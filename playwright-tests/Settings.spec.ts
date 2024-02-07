@@ -32,7 +32,8 @@ test.describe("Settings", () => {
     groupBeginningDatepicker: Locator,
     groupElapsedTime: Locator,
     groupSettingsButton: Locator,
-    groupOneDurationFormat: Locator;
+    groupOneDurationFormat: Locator,
+    app: Locator;
 
   test.beforeEach(async ({ page }) => {
     groupSettingsButton = page.getByTestId("group-1-settings");
@@ -45,6 +46,7 @@ test.describe("Settings", () => {
     groupOneUnitQuantity = page.getByTestId("group-1-unit-qty");
     groupOneDurationFormat = page.getByTestId("group-1-duration-format-input");
     groupOneRestoreDefaults = page.getByTestId("group-1-restore-defaults");
+    app = page.getByTestId("App");
   });
 
   test.describe("Settings", () => {
@@ -52,8 +54,6 @@ test.describe("Settings", () => {
       test(`clicking the gear icon opens the settings dialogue`, async ({
         page,
       }) => {
-        // Update the Date accordingly in your test pages
-        await setTime(page, Sep152023);
         // Go to the starting url before each test.
         await page.goto(appPage);
 
@@ -62,9 +62,30 @@ test.describe("Settings", () => {
 
         await expect(groupOneUnitName).toBeVisible();
       });
+      test(`clicking anywhere that is not inside of the settings box closes the settings dialogue`, async ({
+        page,
+      }) => {
+        // Go to the starting url before each test.
+        await page.goto(appPage);
+
+        // Setup
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).toBeVisible();
+
+        // Close the settings by clicking the gears icon again
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).not.toBeVisible();
+
+        // Setup again
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).toBeVisible();
+
+        // Close the settings by clicking the outside of the settings box
+        await app.click();
+        await expect(groupOneUnitName).not.toBeVisible();
+      });
       test(`changing group name updates the title`, async ({ page }) => {
-        // Update the Date accordingly in your test pages
-        await setTime(page, Sep152023);
         // Go to the starting url before each test.
         await page.goto(appPage);
 
@@ -102,6 +123,31 @@ test.describe("Settings", () => {
         await groupBeginningDatepicker.fill(twentyFiveDaysLater);
         await expect(groupElapsedTime).toHaveText("25%");
       });
+      test(`date mode is retained after closing the settings dialogue`, async ({
+        page,
+      }) => {
+        // Go to the starting url before each test.
+        await page.goto(appPage);
+
+        // Setup
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupOneUnitQuantity).toBeVisible();
+        await groupOneDate.click();
+        await expect(groupEndDatepicker).toBeVisible();
+        await expect(groupOneUnitQuantity).not.toBeVisible();
+
+        // Close the settings
+        await app.click();
+        await expect(groupEndDatepicker).not.toBeVisible();
+
+        // Open again and assert that date can be seen once again
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupEndDatepicker).toBeVisible();
+        await expect(groupOneUnitQuantity).not.toBeVisible();
+      });
+
       test(`changing end date updates the total elapsed time percentage`, async ({
         page,
       }) => {
