@@ -56,18 +56,6 @@ export const unitsSlice = createSlice({
       state.visual = initalVisuals;
       updateStorage({ storageKey: "settings", val: state });
     },
-    setNotShortTerm: <T extends boolean>(
-      state: LoadedSettingState,
-      {
-        payload: { key, termObj },
-      }: PayloadAction<{
-        termObj: UnitType<T>;
-        key: number;
-      }>
-    ) => {
-      (state.units.terms[key] as UnitType<T>) = termObj;
-      updateStorage({ storageKey: "settings", val: state });
-    },
     setPartialTerm: <T extends boolean>(
       state: PotentialSettingState,
       {
@@ -88,7 +76,6 @@ export const {
   setVisualSetting,
   setDateTimeFormats,
   resetVisualSetting,
-  setNotShortTerm,
   setPartialTerm,
   updateDay,
 } = unitsSlice.actions;
