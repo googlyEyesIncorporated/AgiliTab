@@ -40,7 +40,6 @@ describe("SelectDate", () => {
     fireEvent.change(screen.getByTestId("group-0-end-datepicker"), {
       target: { value: newDate },
     });
-    screen.debug();
     expect(endProps.onChange).toHaveBeenCalledWith({
       endDate: newDate,
     });
