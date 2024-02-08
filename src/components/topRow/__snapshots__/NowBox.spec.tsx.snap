@@ -10,6 +10,7 @@ exports[`NowBox should render the current date/time 1`] = `
   >
     <span
       class="clock"
+      data-testid="clock"
     >
       12:00 AM
     </span>
@@ -19,7 +20,9 @@ exports[`NowBox should render the current date/time 1`] = `
       <span
         class="text-2xl"
       >
-        <div>
+        <div
+          data-testid="date-display"
+        >
           Friday - Sep 01, 2023
         </div>
       </span>
