@@ -5,7 +5,7 @@ import { SettingsWrapper } from "./components/settings/OpenSettings";
 import { NowBox } from "./components/topRow/NowBox";
 import { getStorage } from "./features/utils/storageHelpers";
 import { BottomRow } from "./components/bottomRow";
-import TimeHandler from "./components/TimeHandler";
+import TimeProvider from "./components/TimeProvider";
 import { undoDelete } from "./features/itemList/itemListSlice";
 import Toaster from "./components/atoms/ToasterNotifications";
 
@@ -35,11 +35,15 @@ function App() {
     document.body.style.color = fontColor;
   }, [bgColor, fontColor]);
   return (
-    <div className="App" style={{ backgroundColor: bgColor, color: fontColor }}>
-      <TimeHandler>
+    <div
+      className="App"
+      data-testid="App"
+      style={{ backgroundColor: bgColor, color: fontColor }}
+    >
+      <TimeProvider specifiedPeriod={5000}>
         <NowBox />
         <BottomRow />
-      </TimeHandler>
+      </TimeProvider>
       <SettingsWrapper />
       <Toaster message={ITEM_DELETED_NOTIFICATION} />
     </div>

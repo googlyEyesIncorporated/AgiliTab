@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "to_remove/advanceTerm.ts", "to_remove/AdvanceTerm.tsx"]
 }

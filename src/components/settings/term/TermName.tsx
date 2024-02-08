@@ -3,17 +3,13 @@ import React from "react";
 interface TermNameProps {
   groupId: number;
   title: string;
-  enabled: boolean;
-  setTitle: (value: React.SetStateAction<string>) => void;
-  setUnitType: (value: React.SetStateAction<string>) => void;
+  enabled?: boolean;
   onChange: (changed: any) => void;
 }
 export const TermName = ({
   groupId,
   title,
-  enabled,
-  setTitle,
-  setUnitType,
+  enabled = true,
   onChange,
 }: TermNameProps) => {
   const groupIdName = `group-${groupId}-unit-name`;
@@ -32,11 +28,7 @@ export const TermName = ({
         className="p-0 w-[107px]"
         onChange={(e) => {
           if (enabled) {
-            const title = e.target.value;
-            const unitType = title.toLowerCase();
-            setTitle(title);
-            setUnitType(unitType);
-            onChange({ title, unitType });
+            onChange({ title: e.target.value });
           }
         }}
       />

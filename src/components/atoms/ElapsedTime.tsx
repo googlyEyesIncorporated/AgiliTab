@@ -1,21 +1,14 @@
-import React from "react";
-import { StartEndUnitType } from "../../features/itemList/types";
+import { StartAndEnd } from "../../app/commonTypes";
 import { getCurrentRatio } from "../bottomRow/utils";
 
 interface IElapsedTime {
   className?: string;
   groupId: number;
-  term: StartEndUnitType;
-  isScopedToWorkingHours?: boolean;
+  term: StartAndEnd;
 }
 
-export const ElapsedTime = ({
-  term,
-  className,
-  groupId,
-  isScopedToWorkingHours,
-}: IElapsedTime) => {
-  const shouldCapToRange = Boolean(isScopedToWorkingHours);
+export const ElapsedTime = ({ term, className, groupId }: IElapsedTime) => {
+  const shouldCapToRange = false;
   return (
     <span
       className={`float-right ${className}`}

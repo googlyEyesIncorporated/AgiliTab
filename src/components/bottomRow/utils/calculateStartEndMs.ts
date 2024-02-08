@@ -1,73 +1,21 @@
-import { DateTime, DurationLikeObject } from "luxon";
-import {
-  UnitType,
-  ScopedToWorkingHours,
-} from "../../../features/settings/types";
-
-export interface CalculatedTimes {
-  start: number;
-  end: number;
-}
-
-const recalcDateIfInPast = (
-  date: DateTime,
-  interval: DurationLikeObject,
-  otherDate: DateTime
-) => {
-  let newDate = date;
-  let lastDate;
-  while (dateIsPastOtherDate(newDate, otherDate)) {
-    lastDate = newDate;
-    newDate = newDate.plus(interval);
-  }
-  return { newDate, lastDate };
-};
-
-const dateIsPastOtherDate = (date: DateTime, otherDate: DateTime) =>
-  date.toMillis() <= otherDate.toMillis();
+import { DateTime } from "luxon";
+import { UnitType } from "../../../features/settings/types";
 
 /**
- *
- * @param termData
- * @returns
+ * Calculates Start/end MS based on either duration or end date
+ * @param {UnitType} termData data describing the term
+ * @returns object \{ start, end }
  */
-export const calculateStartEndMs = (
-  termData: (UnitType & ScopedToWorkingHours) | UnitType
+export const calculateStartEndMs = <T extends boolean>(
+  termData: UnitType<T>
 ) => {
-  // DateTime object created from termData.startDate
-  const referencePoint = DateTime.fromISO(termData.startDate);
-  // object with unitType
-  const commonObj = { unitType: termData.unitType };
-  // If based on duration and not an end date
-  if (termData.duration && termData.isDuration) {
+  const start = DateTime.fromISO(termData.startDate).toMillis();
+  let end;
+  if (termData.isDuration && termData.duration) {
     const duration = { [termData.duration.unit]: termData.duration.qty };
-    if (termData.repeat) {
-      const recalcedDate = recalcDateIfInPast(
-        referencePoint,
-        duration,
-        DateTime.now()
-      );
-      const end = recalcedDate.newDate.toMillis();
-      const start =
-        recalcedDate.lastDate?.toMillis() ?? referencePoint.toMillis();
-      if (start === end) {
-        const newEnd = recalcDateIfInPast(
-          DateTime.fromMillis(end),
-          duration ?? {},
-          DateTime.fromMillis(start)
-        ).newDate.toMillis();
-        return { ...commonObj, end: newEnd, start };
-      }
-      return { ...commonObj, end, start };
-    }
-    const end = DateTime.fromISO(termData.startDate).plus(duration).toMillis();
-    return {
-      ...commonObj,
-      end,
-      start: referencePoint.toMillis(),
-    };
+    end = DateTime.fromISO(termData.startDate).plus(duration).toMillis();
+  } else {
+    end = DateTime.fromISO(termData.endDate ?? "").toMillis();
   }
-  // If not repeat
-  const end = DateTime.fromISO(termData.endDate ?? "").toMillis();
-  return { ...commonObj, end, start: referencePoint.toMillis() };
+  return { end, start };
 };

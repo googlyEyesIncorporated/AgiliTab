@@ -4,23 +4,26 @@ import { Locator } from "playwright-core";
 import { epochTimes } from "../src/commonTestData.json";
 import { DateTime } from "luxon";
 
-const { Sep012023, Sep152023 } = epochTimes;
+import { DATE_TIME_NO_SECONDS } from "../src/commonUtils";
+const { Sep012023 } = epochTimes;
 
+const oneDayBefore = DateTime.fromMillis(Sep012023)
+  .minus({ days: 1 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 const zeroDaysLater =
-  DateTime.fromMillis(Sep012023).toISODate() ?? "09/01/2023";
+  DateTime.fromMillis(Sep012023).toFormat(DATE_TIME_NO_SECONDS);
 
-const twentyFiveDaysLater =
-  DateTime.fromMillis(Sep012023).plus({ days: 25 }).toISODate() || "";
+const twentyFiveDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 25 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 
-const fiftyDaysLater =
-  DateTime.fromMillis(Sep012023).plus({ days: 50 }).toISODate() || "";
+const fiftyDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 50 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 
-const seventyFiveDaysLater =
-  DateTime.fromMillis(Sep012023).plus({ days: 75 }).toISODate() || "";
-
-const hundredDaysLater =
-  DateTime.fromMillis(Sep012023).plus({ days: 100 }).toISODate() ||
-  "12/10/2023";
+const hundredDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 99 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 
 test.describe("Settings", () => {
   let groupOneDate: Locator,
@@ -32,7 +35,13 @@ test.describe("Settings", () => {
     groupBeginningDatepicker: Locator,
     groupElapsedTime: Locator,
     groupSettingsButton: Locator,
-    groupOneDurationFormat: Locator;
+    groupOneDurationFormat: Locator,
+    dateFormatPicker: Locator,
+    timeFormatPicker: Locator,
+    settingsButton: Locator,
+    clock: Locator,
+    dateDisplay: Locator,
+    app: Locator;
 
   test.beforeEach(async ({ page }) => {
     groupSettingsButton = page.getByTestId("group-1-settings");
@@ -45,6 +54,13 @@ test.describe("Settings", () => {
     groupOneUnitQuantity = page.getByTestId("group-1-unit-qty");
     groupOneDurationFormat = page.getByTestId("group-1-duration-format-input");
     groupOneRestoreDefaults = page.getByTestId("group-1-restore-defaults");
+    dateFormatPicker = page.getByTestId("date-format-input");
+    timeFormatPicker = page.getByTestId("time-format-input");
+    clock = page.getByTestId("clock");
+    dateDisplay = page.getByTestId("date-display");
+    settingsButton = page.getByTestId("settings");
+
+    app = page.getByTestId("App");
   });
 
   test.describe("Settings", () => {
@@ -52,8 +68,6 @@ test.describe("Settings", () => {
       test(`clicking the gear icon opens the settings dialogue`, async ({
         page,
       }) => {
-        // Update the Date accordingly in your test pages
-        await setTime(page, Sep152023);
         // Go to the starting url before each test.
         await page.goto(appPage);
 
@@ -62,9 +76,30 @@ test.describe("Settings", () => {
 
         await expect(groupOneUnitName).toBeVisible();
       });
+      test(`clicking anywhere that is not inside of the settings box closes the settings dialogue`, async ({
+        page,
+      }) => {
+        // Go to the starting url before each test.
+        await page.goto(appPage);
+
+        // Setup
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).toBeVisible();
+
+        // Close the settings by clicking the gears icon again
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).not.toBeVisible();
+
+        // Setup again
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).toBeVisible();
+
+        // Close the settings by clicking the outside of the settings box
+        await app.click();
+        await expect(groupOneUnitName).not.toBeVisible();
+      });
       test(`changing group name updates the title`, async ({ page }) => {
-        // Update the Date accordingly in your test pages
-        await setTime(page, Sep152023);
         // Go to the starting url before each test.
         await page.goto(appPage);
 
@@ -84,7 +119,7 @@ test.describe("Settings", () => {
       test(`changing beginning date updates the total elapsed time percentage`, async ({
         page,
       }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
@@ -93,7 +128,7 @@ test.describe("Settings", () => {
         // establish baseline and set an end date with a nice round number of days in duration (100)
         await groupBeginningDatepicker.fill(zeroDaysLater);
         await groupOneDurationFormat.selectOption("days");
-        await groupOneUnitQuantity.fill("100");
+        await groupOneUnitQuantity.fill("99");
 
         // verify orginal value
         await expect(groupElapsedTime).toHaveText("50%");
@@ -102,17 +137,55 @@ test.describe("Settings", () => {
         await groupBeginningDatepicker.fill(twentyFiveDaysLater);
         await expect(groupElapsedTime).toHaveText("25%");
       });
+      test(`date mode is retained after closing the settings dialogue`, async ({
+        page,
+      }) => {
+        // Go to the starting url before each test.
+        await page.goto(appPage);
+
+        // Setup
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupOneUnitQuantity).toBeVisible();
+        await groupOneDate.click();
+        await expect(groupEndDatepicker).toBeVisible();
+        await expect(groupOneUnitQuantity).not.toBeVisible();
+
+        // Close the settings
+        await app.click();
+        await expect(groupEndDatepicker).not.toBeVisible();
+
+        // Open again and assert that date can be seen once again
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupEndDatepicker).toBeVisible();
+        await expect(groupOneUnitQuantity).not.toBeVisible();
+      });
+      test(`user is prevented from setting an end date that is prior to the beginning date`, async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await groupBeginningDatepicker.fill(zeroDaysLater);
+
+        // set and min is set
+        await groupOneDate.click();
+        await expect(groupEndDatepicker).toHaveAttribute("min", zeroDaysLater);
+      });
       test(`changing end date updates the total elapsed time percentage`, async ({
         page,
       }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
         await groupSettingsButton.click();
 
         // verify orginal value
-        await expect(groupElapsedTime).toHaveText("65%"); // 20/31 = 65%
+        await expect(groupElapsedTime).toHaveText("64%"); // 20/31 = 64% (rounded down)
 
         // establish baseline
         await groupBeginningDatepicker.fill(zeroDaysLater);
@@ -120,12 +193,12 @@ test.describe("Settings", () => {
         // set and verify changed value
         await groupOneDate.click();
         await groupEndDatepicker.fill(hundredDaysLater);
-        await expect(groupElapsedTime).toHaveText("50%"); // 50/75 === 2/3
+        await expect(groupElapsedTime).toHaveText("50%"); // 50/100 === 49% (rounded down)
       });
       test(`changing duration qty updates the total elapsed time percentage`, async ({
         page,
       }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(twentyFiveDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
@@ -139,13 +212,13 @@ test.describe("Settings", () => {
 
         // set and verify changed value
         await groupOneDurationFormat.selectOption("days");
-        await groupOneUnitQuantity.fill("100");
+        await groupOneUnitQuantity.fill("99");
         await expect(groupElapsedTime).toHaveText("25%");
       });
       test(`changing duration unit updates the total elapsed time percentage`, async ({
         page,
       }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(twentyFiveDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
@@ -158,32 +231,60 @@ test.describe("Settings", () => {
         await expect(groupElapsedTime).toHaveText("83%"); // 25/30 = 5/6 = 83%
 
         // set and verify changed value
-        await groupOneUnitQuantity.fill("100");
+        await groupOneUnitQuantity.fill("99");
         await groupOneDurationFormat.selectOption("days");
         await expect(groupElapsedTime).toHaveText("25%");
       });
       test(`clicking restore defaults resets the values`, async ({ page }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
         await groupSettingsButton.click();
 
         // verify orginal value
-        await expect(groupElapsedTime).toHaveText("65%"); // 20/31 = 65%
+        await expect(groupElapsedTime).toHaveText("64%"); // 20/31 = 64% (rounding down)
 
         // Change values
         await groupBeginningDatepicker.fill(zeroDaysLater);
         await groupOneDurationFormat.selectOption("days");
-        await groupOneUnitQuantity.fill("100");
+        await groupOneUnitQuantity.fill("99");
         await expect(groupElapsedTime).toHaveText("50%"); // 50/100 = 50%
 
         // reset and verify changed values
         await groupOneRestoreDefaults.click();
-        await expect(groupElapsedTime).toHaveText("65%");
+        await expect(groupElapsedTime).toHaveText("64%"); // (rounding down)
         await expect(groupOneDurationFormat).toHaveValue("months");
         await expect(groupOneUnitQuantity).toHaveValue("1");
-        await expect(groupBeginningDatepicker).toHaveValue("2023-10-01");
+        await expect(groupBeginningDatepicker).toHaveValue("2023-10-01T00:00");
+      });
+    });
+    test.describe("Visual", () => {
+      test("should display the date according to the format provided", async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await settingsButton.click();
+        await expect(dateDisplay).toHaveText("Saturday - Oct 21, 2023");
+
+        // set format
+        await dateFormatPicker.selectOption({ value: "MM/dd/yyyy" });
+        await expect(dateDisplay).toHaveText("Saturday - 10/21/2023");
+      });
+      test("should display the time according to the format provided", async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await settingsButton.click();
+        await expect(clock).toHaveText("12:00 AM");
+
+        // set format
+        await timeFormatPicker.selectOption({ value: "HH:mm" });
+        await expect(clock).toHaveText("00:00");
       });
     });
   });

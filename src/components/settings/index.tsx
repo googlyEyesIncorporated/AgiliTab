@@ -3,11 +3,11 @@ import { useAppSelector } from "../../app/hooks";
 import { selectVisualSettings } from "../../features/settings/settingsSlice";
 import { SetColors } from "./visual/SetColors";
 import { DateTimeFormat } from "./visual/DateTimeFormat";
-import { SetBooleanState } from "./term/WorkDay";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons/faCircleInfo";
 import Icon from "../atoms/Icon";
 import { InfoBox } from "./info";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
+import { SetBooleanState } from "../../app/commonTypes";
 
 export const Settings = ({
   settingsContainer,

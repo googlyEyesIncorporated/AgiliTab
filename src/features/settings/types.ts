@@ -3,22 +3,33 @@ export interface DurationState {
   qty: number;
 }
 
-export interface ScopedToWorkingHours extends UnitType {
-  workingHours: WorkingHours;
+export interface UnitTypeWithDuration<T extends boolean>
+  extends CommonUnitTypeProps<T> {
+  duration: DurationState;
 }
 
-export interface UnitType {
+export interface CommonUnitTypeProps<T extends boolean> {
   startDate: string;
   endDate?: string;
-  isDuration: boolean;
-  duration: DurationState;
+  isDuration: T;
   title: string;
-  unitType: string;
-  repeat: boolean;
 }
 
-export interface SettingsState {
-  units: UnitsState;
+export interface UnitTypeWithoutDuration<T extends boolean>
+  extends CommonUnitTypeProps<T> {
+  endDate: string;
+}
+
+export type UnitType<T extends boolean = true> = T extends true
+  ? UnitTypeWithDuration<T>
+  : UnitTypeWithoutDuration<T>;
+
+export interface SettingsState<
+  T extends boolean,
+  U extends boolean,
+  V extends boolean,
+> {
+  units: UnitsState<T, U, V>;
   visual: Visual;
 }
 
@@ -26,21 +37,15 @@ export interface BooleanPayload {
   value: boolean;
 }
 
-export interface Times {
-  start: string;
-  end: string;
-}
-
-export interface WorkingHours {
-  times: Times;
-  scopedToWorkingHours: boolean;
-}
-
-export interface UnitsState {
-  terms: UnitType[];
-  shortTerm: UnitType & ScopedToWorkingHours;
-  mediumTerm: UnitType;
-  longTerm: UnitType;
+export interface UnitsState<
+  T extends boolean,
+  U extends boolean,
+  V extends boolean,
+> {
+  terms: UnitType<T & U & V>[];
+  shortTerm: UnitType<T>;
+  mediumTerm: UnitType<U>;
+  longTerm: UnitType<V>;
 }
 
 export interface DateFormat {

@@ -6,7 +6,7 @@ export const Clock = ({ date }: { date: string }) => {
   const timeFormat = useAppSelector(selectTimeFormat);
 
   return (
-    <span className="clock">
+    <span className="clock" data-testid="clock">
       {timeFormat && DateTime.fromISO(date).toFormat(timeFormat)}
     </span>
   );
