@@ -1,4 +1,4 @@
-process.env.TZ = "America/New_York";
+process.env.TZ = "UTC";
 
 module.exports = {
   preset: "ts-jest",
