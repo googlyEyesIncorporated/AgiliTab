@@ -36,6 +36,11 @@ test.describe("Settings", () => {
     groupElapsedTime: Locator,
     groupSettingsButton: Locator,
     groupOneDurationFormat: Locator,
+    dateFormatPicker: Locator,
+    timeFormatPicker: Locator,
+    settingsButton: Locator,
+    clock: Locator,
+    dateDisplay: Locator,
     app: Locator;
 
   test.beforeEach(async ({ page }) => {
@@ -49,6 +54,12 @@ test.describe("Settings", () => {
     groupOneUnitQuantity = page.getByTestId("group-1-unit-qty");
     groupOneDurationFormat = page.getByTestId("group-1-duration-format-input");
     groupOneRestoreDefaults = page.getByTestId("group-1-restore-defaults");
+    dateFormatPicker = page.getByTestId("date-format-input");
+    timeFormatPicker = page.getByTestId("time-format-input");
+    clock = page.getByTestId("clock");
+    dateDisplay = page.getByTestId("date-display");
+    settingsButton = page.getByTestId("settings");
+
     app = page.getByTestId("App");
   });
 
@@ -108,7 +119,7 @@ test.describe("Settings", () => {
       test(`changing beginning date updates the total elapsed time percentage`, async ({
         page,
       }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
@@ -167,7 +178,7 @@ test.describe("Settings", () => {
       test(`changing end date updates the total elapsed time percentage`, async ({
         page,
       }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
@@ -187,7 +198,7 @@ test.describe("Settings", () => {
       test(`changing duration qty updates the total elapsed time percentage`, async ({
         page,
       }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(twentyFiveDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
@@ -207,7 +218,7 @@ test.describe("Settings", () => {
       test(`changing duration unit updates the total elapsed time percentage`, async ({
         page,
       }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(twentyFiveDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
@@ -225,7 +236,7 @@ test.describe("Settings", () => {
         await expect(groupElapsedTime).toHaveText("25%");
       });
       test(`clicking restore defaults resets the values`, async ({ page }) => {
-        // Openening sequence
+        // Opening sequence
         await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
         await page.goto(appPage);
         await page.hover('[data-testid="group-1-header"]');
@@ -246,6 +257,34 @@ test.describe("Settings", () => {
         await expect(groupOneDurationFormat).toHaveValue("months");
         await expect(groupOneUnitQuantity).toHaveValue("1");
         await expect(groupBeginningDatepicker).toHaveValue("2023-10-01T00:00");
+      });
+    });
+    test.describe("Visual", () => {
+      test("should display the date according to the format provided", async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await settingsButton.click();
+        await expect(dateDisplay).toHaveText("Saturday - Oct 21, 2023");
+
+        // set format
+        await dateFormatPicker.selectOption({ value: "MM/dd/yyyy" });
+        await expect(dateDisplay).toHaveText("Saturday - 10/21/2023");
+      });
+      test("should display the time according to the format provided", async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await settingsButton.click();
+        await expect(clock).toHaveText("12:00 AM");
+
+        // set format
+        await timeFormatPicker.selectOption({ value: "HH:mm" });
+        await expect(clock).toHaveText("00:00");
       });
     });
   });

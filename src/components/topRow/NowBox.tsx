@@ -18,7 +18,7 @@ export const NowBox = () => {
         <Clock date={date} />
         <span className="date">
           <span className="text-2xl">
-            <div>
+            <div data-testid="date-display">
               {DateTime.fromISO(date).weekdayLong +
                 " - " +
                 (dateFormat && DateTime.fromISO(date).toFormat(dateFormat))}
