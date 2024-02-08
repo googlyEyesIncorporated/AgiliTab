@@ -11,7 +11,7 @@ import { calculateStartEndMs } from "./calculateStartEndMs";
 export const useTerm = <T extends boolean>(
   savedTerm: UnitType<T>,
   preformattedTerm?: StartAndEnd
-): [StartAndEnd] => {
+): [StartAndEnd | null] => {
   const [term, setTerm] = useState(
     preformattedTerm ?? calculateStartEndMs(savedTerm)
   );

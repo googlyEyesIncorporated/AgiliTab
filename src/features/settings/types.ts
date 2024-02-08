@@ -9,6 +9,7 @@ export interface UnitTypeWithDuration<T extends boolean>
 }
 
 export interface CommonUnitTypeProps<T extends boolean> {
+  noTerm: boolean;
   startDate: string;
   endDate?: string;
   isDuration: T;

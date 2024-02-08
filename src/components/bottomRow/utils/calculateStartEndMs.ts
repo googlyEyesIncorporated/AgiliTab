@@ -9,6 +9,9 @@ import { UnitType } from "../../../features/settings/types";
 export const calculateStartEndMs = <T extends boolean>(
   termData: UnitType<T>
 ) => {
+  if (termData.noTerm) {
+    return null;
+  }
   const start = DateTime.fromISO(termData.startDate).toMillis();
   let end;
   if (termData.isDuration && termData.duration) {

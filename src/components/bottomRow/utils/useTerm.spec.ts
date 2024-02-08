@@ -8,6 +8,7 @@ const Jan21970 = 86400000;
 
 const commonParams = {
   startDate: DateTime.fromMillis(Jan11970).toISO() as string,
+  noTerm: false,
 };
 
 const paramsWithEndDate: UnitType<false> = {

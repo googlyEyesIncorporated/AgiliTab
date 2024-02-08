@@ -51,6 +51,7 @@ export const defaultShortTerm: UnitType = {
   endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
   startDate: startOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
   isDuration: true,
+  noTerm: false,
 };
 
 export const defaultMediumTerm: UnitType = {
@@ -59,6 +60,7 @@ export const defaultMediumTerm: UnitType = {
   endDate: reference.month.end,
   startDate: reference.month.start,
   isDuration: true,
+  noTerm: false,
 };
 
 export const defaultLongTerm: UnitType = {
@@ -67,6 +69,7 @@ export const defaultLongTerm: UnitType = {
   endDate: reference.year.end,
   startDate: reference.year.start ?? "",
   isDuration: true,
+  noTerm: false,
 };
 
 export const defaultTerms: Record<number, UnitType | UnitType<false>> = {

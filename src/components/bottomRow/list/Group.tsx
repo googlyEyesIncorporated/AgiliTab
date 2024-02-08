@@ -41,7 +41,7 @@ export const ListGroup = ({
         onMouseLeave={() => setIconVisibility("hidden")}
       >
         <div
-          className="min-w-10 inline-block"
+          className={`min-w-10 inline-block ${term ? "ml-0" : "-ml-16"}`}
           data-testid={`group-${groupId}-settings`}
         >
           <Icon
@@ -69,11 +69,13 @@ export const ListGroup = ({
         >
           {title}
         </span>
-        <ElapsedTime
-          className="text-[1.6875rem]"
-          term={term}
-          groupId={groupId}
-        />
+        {term && (
+          <ElapsedTime
+            className="text-[1.6875rem]"
+            term={term}
+            groupId={groupId}
+          />
+        )}
       </div>
       {hideSettings ? (
         <List itemList={list} listKey={listKey} dragAndDrop={dragAndDrop} />
@@ -95,6 +97,6 @@ interface ListGroupProps {
   list: ItemList;
   dragAndDrop?: DragAndDrop;
   listKey: ListKey;
-  term: StartAndEnd;
+  term: StartAndEnd | null;
   groupId: number;
 }
