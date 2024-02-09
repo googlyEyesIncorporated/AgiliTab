@@ -1,16 +1,19 @@
 import { ChangeEvent } from "react";
 import { Sentencecase } from "../../features/utils/Sentencecase";
+import { UnitTypes } from "../../features/settings/types";
 
 export const RadioButtons = ({
   enabled = true,
   groupId,
-  firstIsChecked,
   onChange,
+  selected = "none",
   firstRadioName,
   secondRadioName,
+  thirdRadioName,
 }: RadioButtonsProps) => {
   const firstRadioCategory = `group-${groupId}-${firstRadioName}`;
   const secondRadioCategory = `group-${groupId}-${secondRadioName}`;
+  const thirdRadioCategory = `group-${groupId}-${thirdRadioName}`;
   return (
     <>
       <input
@@ -20,7 +23,7 @@ export const RadioButtons = ({
         value={firstRadioName}
         disabled={!enabled}
         onChange={onChange}
-        checked={firstIsChecked}
+        checked={selected === firstRadioName}
       />
       <label htmlFor={firstRadioCategory} className="text-xs">{` ${Sentencecase(
         firstRadioName
@@ -32,12 +35,24 @@ export const RadioButtons = ({
         value={secondRadioName}
         disabled={!enabled}
         onChange={onChange}
-        checked={!firstIsChecked}
+        checked={selected === secondRadioName}
       />
       <label
         htmlFor={secondRadioCategory}
         className="text-xs"
       >{` ${Sentencecase(secondRadioName)}`}</label>
+      <input
+        type="radio"
+        id={thirdRadioCategory}
+        data-testid={thirdRadioCategory}
+        value={thirdRadioName}
+        disabled={!enabled}
+        onChange={onChange}
+        checked={selected === thirdRadioName}
+      />
+      <label htmlFor={thirdRadioCategory} className="text-xs">{` ${Sentencecase(
+        thirdRadioName
+      )} `}</label>
     </>
   );
 };
@@ -45,8 +60,9 @@ export const RadioButtons = ({
 interface RadioButtonsProps {
   enabled?: boolean;
   groupId: number;
-  firstIsChecked: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  selected?: UnitTypes;
   firstRadioName: string;
   secondRadioName: string;
+  thirdRadioName: string;
 }

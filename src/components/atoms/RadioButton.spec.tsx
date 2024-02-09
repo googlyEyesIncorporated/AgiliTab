@@ -7,8 +7,9 @@ const props = {
   groupId: 0,
   firstIsChecked: true,
   onChange: jest.fn(),
-  firstRadioName: "Duration",
+  firstRadioName: "none",
   secondRadioName: "Date",
+  thirdRadioName: "Duration",
 };
 
 describe("RadioButton", () => {

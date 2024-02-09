@@ -1,6 +1,12 @@
 import { DateTime } from "luxon";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
-import { SettingsState, UnitType, UnitsState, Visual } from "./types";
+import {
+  SettingsState,
+  UnitType,
+  UnitTypes,
+  UnitsState,
+  Visual,
+} from "./types";
 
 const Now = DateTime.now();
 const reference = {
@@ -45,43 +51,43 @@ export const initalVisuals: Visual = {
   timeFormat: "h:mm a",
 };
 
-export const defaultShortTerm: UnitType = {
+export const defaultShortTerm: UnitType<"duration"> = {
   title: "Today",
   duration: reference.durations.shortTerm,
   endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
   startDate: startOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
-  isDuration: true,
-  noTerm: false,
+  type: "duration",
 };
 
-export const defaultMediumTerm: UnitType = {
+export const defaultMediumTerm: UnitType<"duration"> = {
   title: "Month",
   duration: reference.durations.mediumTerm,
   endDate: reference.month.end,
   startDate: reference.month.start,
-  isDuration: true,
-  noTerm: false,
+  type: "duration",
 };
 
-export const defaultLongTerm: UnitType = {
+export const defaultLongTerm: UnitType<"duration"> = {
   title: "Year",
   duration: reference.durations.longTerm,
   endDate: reference.year.end,
   startDate: reference.year.start ?? "",
-  isDuration: true,
-  noTerm: false,
+  type: "duration",
 };
 
-export const defaultTerms: Record<number, UnitType | UnitType<false>> = {
+export const defaultTerms: Record<
+  number,
+  UnitType<"duration"> | UnitType<"date"> | UnitType<"none">
+> = {
   0: defaultShortTerm,
   1: defaultMediumTerm,
   2: defaultLongTerm,
 };
 
 const initialUnits: UnitsState<
-  (typeof defaultShortTerm)["isDuration"],
-  (typeof defaultMediumTerm)["isDuration"],
-  (typeof defaultLongTerm)["isDuration"]
+  (typeof defaultShortTerm)["type"],
+  (typeof defaultMediumTerm)["type"],
+  (typeof defaultLongTerm)["type"]
 > = {
   terms: [defaultShortTerm, defaultMediumTerm, defaultLongTerm],
   shortTerm: defaultShortTerm,
@@ -95,9 +101,13 @@ export const initialSettings: LoadedSettingState = {
 };
 
 export type LoadedSettingState = SettingsState<
-  (typeof initialUnits.shortTerm)["isDuration"],
-  (typeof initialUnits.mediumTerm)["isDuration"],
-  (typeof initialUnits.longTerm)["isDuration"]
+  (typeof initialUnits.shortTerm)["type"],
+  (typeof initialUnits.mediumTerm)["type"],
+  (typeof initialUnits.longTerm)["type"]
 >;
 
-export type PotentialSettingState = SettingsState<boolean, boolean, boolean>;
+export type PotentialSettingState = SettingsState<
+  UnitTypes,
+  UnitTypes,
+  UnitTypes
+>;

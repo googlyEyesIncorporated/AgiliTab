@@ -7,20 +7,19 @@ const Jan21970 = 86400000;
 
 const commonParams = {
   startDate: DateTime.fromMillis(Jan11970).toISO() as string,
-  noTerm: false,
 };
 
-const paramsWithEndDate: UnitType<false> = {
+const paramsWithEndDate: UnitType<"date"> = {
   ...commonParams,
   title: "Params with end date",
   endDate: DateTime.fromMillis(Jan21970).toISO() as string,
-  isDuration: false,
+  type: "date",
 };
 
-const paramsWithDuration: UnitType<true> = {
+const paramsWithDuration: UnitType<"duration"> = {
   ...commonParams,
   title: "Params with duration",
-  isDuration: true,
+  type: "duration",
   duration: { unit: "day", qty: 1 },
 };
 

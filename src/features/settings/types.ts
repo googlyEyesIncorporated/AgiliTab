@@ -3,32 +3,39 @@ export interface DurationState {
   qty: number;
 }
 
-export interface UnitTypeWithDuration<T extends boolean>
-  extends CommonUnitTypeProps<T> {
+export interface UnitTypeWithDuration<T extends UnitTypes>
+  extends UnitTypeWithTimeFrame<T> {
   duration: DurationState;
 }
 
-export interface CommonUnitTypeProps<T extends boolean> {
-  noTerm: boolean;
-  startDate: string;
-  endDate?: string;
-  isDuration: T;
+export type UnitTypes = "duration" | "date" | "none";
+
+export interface CommonUnitTypeProps<T extends UnitTypes> {
+  type: T;
   title: string;
 }
 
-export interface UnitTypeWithoutDuration<T extends boolean>
+interface UnitTypeWithTimeFrame<T extends UnitTypes>
   extends CommonUnitTypeProps<T> {
+  startDate: string;
+  endDate?: string;
+}
+
+export interface UnitTypeWithoutDuration<T extends UnitTypes>
+  extends UnitTypeWithTimeFrame<T> {
   endDate: string;
 }
 
-export type UnitType<T extends boolean = true> = T extends true
+export type UnitType<T extends UnitTypes> = T extends "duration"
   ? UnitTypeWithDuration<T>
-  : UnitTypeWithoutDuration<T>;
+  : T extends "date"
+  ? UnitTypeWithoutDuration<T>
+  : CommonUnitTypeProps<T>;
 
 export interface SettingsState<
-  T extends boolean,
-  U extends boolean,
-  V extends boolean,
+  T extends UnitTypes,
+  U extends UnitTypes,
+  V extends UnitTypes,
 > {
   units: UnitsState<T, U, V>;
   visual: Visual;
@@ -39,9 +46,9 @@ export interface BooleanPayload {
 }
 
 export interface UnitsState<
-  T extends boolean,
-  U extends boolean,
-  V extends boolean,
+  T extends UnitTypes,
+  U extends UnitTypes,
+  V extends UnitTypes,
 > {
   terms: UnitType<T & U & V>[];
   shortTerm: UnitType<T>;

@@ -8,12 +8,12 @@ import {
 import Icon from "../atoms/Icon";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { TermName } from "./term/TermName";
-import { SelectDate } from "./term/SelectDate";
-import { Duration } from "./term/Duration";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
 import { SetBooleanState } from "../../app/commonTypes";
 import { defaultTerms } from "../../features/settings/initialData";
 import { RadioButtons } from "../atoms/RadioButton";
+import { UnitTypes } from "../../features/settings/types";
+import { TimeFrameSelection } from "./TimeFrameselection";
 
 export const ColumnSettings = ({
   settingsContainer,
@@ -51,6 +51,7 @@ export const ColumnSettings = ({
     return () => {
       document.removeEventListener("click", clickHandler);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- first run only
   }, []);
 
   return (
@@ -59,15 +60,17 @@ export const ColumnSettings = ({
       data-testid="hideable-settings"
       style={{ backgroundColor: bgColor }}
     >
-      <h1 className="text-xl" id="settings-title">
-        <div className="inline-block ml-2">
+      <h1 className="text-l font-semibold" id="settings-title">
+        TimeFrame:
+        <div className="inline-block ml-2 font-normal">
           <RadioButtons
             groupId={groupId}
-            firstRadioName="duration"
-            secondRadioName="date"
-            firstIsChecked={termData.isDuration}
+            firstRadioName="none"
+            secondRadioName="duration"
+            thirdRadioName="date"
+            selected={termData.type}
             onChange={(e) => {
-              onChange({ isDuration: e.currentTarget.value === "duration" });
+              onChange({ type: e.currentTarget.value as UnitTypes });
             }}
           />
         </div>
@@ -83,7 +86,7 @@ export const ColumnSettings = ({
         />
       </h1>
       <hr style={{ borderColor: "inherit" }} />
-      <div className="my-2 w-fit flex flex-wrap mx-auto">
+      <div className="my-2 w-fit flex flex-wrap">
         <div className="mb-1 inline-block ml-2 min-w-[10.5rem]">
           <TermName
             groupId={groupId}
@@ -91,31 +94,11 @@ export const ColumnSettings = ({
             onChange={onChange}
           />
         </div>
-        <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2">
-          <SelectDate
-            title="Beginning"
-            groupId={groupId}
-            date={termData.startDate}
-            onChange={onChange}
-          />
-        </div>
-        <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2">
-          {termData.isDuration ? (
-            <Duration
-              duration={termData.duration}
-              groupId={groupId}
-              onChange={onChange}
-            />
-          ) : (
-            <SelectDate
-              title="End"
-              groupId={groupId}
-              date={termData.endDate}
-              min={termData.startDate}
-              onChange={onChange}
-            />
-          )}
-        </div>
+        <TimeFrameSelection
+          groupId={groupId}
+          onChange={onChange}
+          termData={termData}
+        />
       </div>
     </div>
   );
