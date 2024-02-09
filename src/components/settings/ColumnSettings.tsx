@@ -13,7 +13,7 @@ import { SetBooleanState } from "../../app/commonTypes";
 import { defaultTerms } from "../../features/settings/initialData";
 import { RadioButtons } from "../atoms/RadioButton";
 import { UnitTypes } from "../../features/settings/types";
-import { TimeFrameSelection } from "./TimeFrameselection";
+import { TimeFrameSelection } from "./TimeFrameSelection";
 
 export const ColumnSettings = ({
   settingsContainer,

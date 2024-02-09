@@ -23,14 +23,15 @@ export const TimeFrameSelection = <T extends UnitTypes>({
   termData,
 }: TimeFrameSelectionProps<T>) => {
   if (termData.type === "none") {
-    return (
-      <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2"></div>
-    );
+    return null;
   }
 
   return (
     <>
-      <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2">
+      <div
+        data-testid={`group-${groupId}-beginning-frame`}
+        className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2"
+      >
         <SelectDate
           title="Beginning"
           groupId={groupId}
@@ -38,7 +39,10 @@ export const TimeFrameSelection = <T extends UnitTypes>({
           onChange={onChange}
         />
       </div>
-      <div className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2">
+      <div
+        data-testid={`group-${groupId}-end-frame`}
+        className="inline-block mb-1 inline-block min-w-[10.5rem] ml-2"
+      >
         {termData.type === "duration" ? (
           <Duration
             duration={termData.duration}
