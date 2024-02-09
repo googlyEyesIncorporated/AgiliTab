@@ -82,7 +82,6 @@ export const ColumnSettings = ({
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
           iconClassName="float-right mr-2"
-          faStyle={{ color: secondFontColor }}
         />
       </h1>
       <hr style={{ borderColor: "inherit" }} />

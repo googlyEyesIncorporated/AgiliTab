@@ -57,9 +57,6 @@ export const Settings = ({
           }}
           icon={faCircleInfo}
           faClassName="text-base my-0 mx-2.5"
-          faStyle={{
-            color: secondFontColor,
-          }}
           iconClassName={`info-circle float-right`}
           data-testid="info-icon"
         />

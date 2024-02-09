@@ -82,7 +82,7 @@ export const Options = ({
           data-testid={`${listKey}-add-item-button`}
           value="Add"
           onClick={addClick}
-          style={{ color: fontColor }}
+          style={{ color: secondFontColor }}
           className="text-base background-none shadow-none border-none"
         />
       </form>

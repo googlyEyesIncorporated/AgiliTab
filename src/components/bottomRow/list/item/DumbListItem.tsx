@@ -79,14 +79,12 @@ export const DumbListItem = ({
         <Icon
           onClick={removeItem}
           icon={faTrash}
-          faStyle={{ color: iconColor }}
           iconClassName={`cursor-pointer float-right ml-2${iconShowOrHide}`}
           data-testid={`list-item-delete-${index}`}
         />
         <Icon
           onClick={() => copyItem(name)}
           icon={faCopy}
-          faStyle={{ color: iconColor }}
           iconClassName={`cursor-pointer float-right ml-2${iconShowOrHide}`}
           data-testid={`list-item-copy-${index}`}
         />
