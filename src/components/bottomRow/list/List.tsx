@@ -8,9 +8,15 @@ import { DragAndDrop } from "./item/DumbListItem";
 
 interface ListProps extends ReplaceList {
   dragAndDrop?: DragAndDrop;
+  groupId: number;
 }
 
-export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
+export const List = ({
+  itemList,
+  listKey,
+  dragAndDrop,
+  groupId,
+}: ListProps) => {
   const { enterList = () => {} } = dragAndDrop ?? {};
   const [shouldShowOptions, setShouldShowOptions] = useState(false);
   const { secondFontColor } = useAppSelector(selectVisualSettings);
@@ -35,6 +41,7 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
   return (
     <div className="list">
       <div
+        data-testid={`group-${groupId}-list`}
         className="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
         onDragEnter={() => enterList(listKey)}
       >
@@ -50,6 +57,7 @@ export const List = ({ itemList, listKey, dragAndDrop }: ListProps) => {
           </button>
         )}
         <Options
+          groupId={groupId}
           shouldShowOptions={shouldShowOptions}
           toggleOptions={toggleOptions}
           listKey={listKey}

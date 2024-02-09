@@ -77,7 +77,12 @@ export const ListGroup = ({
         )}
       </div>
       {hideSettings ? (
-        <List itemList={list} listKey={listKey} dragAndDrop={dragAndDrop} />
+        <List
+          groupId={groupId}
+          itemList={list}
+          listKey={listKey}
+          dragAndDrop={dragAndDrop}
+        />
       ) : (
         <div data-testid="column-settings" ref={settingsContainer}>
           <ColumnSettings
