@@ -40,28 +40,27 @@ export const ListGroup = ({
         onMouseEnter={() => setIconVisibility("fade-in-1s")}
         onMouseLeave={() => setIconVisibility("hidden")}
       >
-        <div
-          className={`min-w-10 inline-block ${term ? "ml-0" : "-ml-16"}`}
-          data-testid={`group-${groupId}-settings`}
-        >
-          <Icon
-            onClick={(e) => {
-              e.stopPropagation();
-              setHideSettings(!hideSettings);
-            }}
-            icon={faGears}
-            iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
-          />
-        </div>
-        <div
-          className="min-w-8 inline-block"
-          data-testid={`group-${groupId}-copy`}
-        >
-          <Icon
-            onClick={() => copyListToClipboard(list)}
-            icon={faCopy}
-            iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
-          />
+        <div className="absolute left-0">
+          <div
+            className="inline-block"
+            data-testid={`group-${groupId}-settings`}
+          >
+            <Icon
+              onClick={(e) => {
+                e.stopPropagation();
+                setHideSettings(!hideSettings);
+              }}
+              icon={faGears}
+              iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
+            />
+          </div>
+          <div className="inline-block" data-testid={`group-${groupId}-copy`}>
+            <Icon
+              onClick={() => copyListToClipboard(list)}
+              icon={faCopy}
+              iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
+            />
+          </div>
         </div>
         <span
           data-testid={`group-${groupId}-title`}
