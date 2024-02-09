@@ -87,6 +87,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
     >
       <div
         class="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
+        data-testid="group-0-list"
       >
         <ul
           class="text-left min-h-[0.5rem]"
@@ -100,6 +101,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         </button>
         <div
           class="text-center fade-in-1s hidden"
+          data-testid="group-0-options"
         >
           <form
             class="inline-block w-full mb-2"
@@ -225,6 +227,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
     >
       <div
         class="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
+        data-testid="group-1-list"
       >
         <ul
           class="text-left min-h-[0.5rem]"
@@ -238,6 +241,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         </button>
         <div
           class="text-center fade-in-1s hidden"
+          data-testid="group-1-options"
         >
           <form
             class="inline-block w-full mb-2"
@@ -363,6 +367,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
     >
       <div
         class="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
+        data-testid="group-2-list"
       >
         <ul
           class="text-left min-h-[0.5rem]"
@@ -376,6 +381,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         </button>
         <div
           class="text-center fade-in-1s hidden"
+          data-testid="group-2-options"
         >
           <form
             class="inline-block w-full mb-2"
