@@ -28,6 +28,9 @@ for (const viewport of viewports) {
       todoInputMedium: Locator,
       mediumAddItemButton: Locator,
       listItemCheckbox0: Locator,
+      body: Locator,
+      group1list: Locator,
+      hideableSettings: Locator,
       listItem0: Locator;
 
     // mediumUnlock: Locator,
@@ -56,6 +59,9 @@ for (const viewport of viewports) {
       mediumAddItemButton = page.getByTestId("mediumTermList-add-item-button");
       listItemCheckbox0 = page.getByTestId("list-item-checkbox-0");
       listItem0 = page.getByTestId("list-item-0");
+      body = page.getByTestId("body");
+      hideableSettings = page.getByTestId("hideable-settings");
+      group1list = page.getByTestId("group-1-list");
 
       // mediumDuration = page.getByTestId("medium-duration");
       // mediumUnlock = page.getByTestId("medium-unlock");
@@ -76,21 +82,21 @@ for (const viewport of viewports) {
       test(`open settings panel  (${viewport.width} x ${viewport.height})`, async ({
         page,
       }) => {
-        await expect(page).toHaveScreenshot();
+        await expect(hideableSettings).toHaveScreenshot();
       });
 
       test(`open color picker  (${viewport.width} x ${viewport.height})`, async ({
         page,
       }) => {
         await bgColorPicker.click();
-        await expect(page).toHaveScreenshot();
+        await expect(page).toHaveScreenshot({ mask: [body] });
       });
 
       test(`open date format picker (${viewport.width} x ${viewport.height})`, async ({
         page,
       }) => {
         await dateFormatPicker.click();
-        await expect(page).toHaveScreenshot();
+        await expect(page).toHaveScreenshot({ mask: [body] });
       });
 
       test(`open time format picker (${viewport.width} x ${viewport.height})`, async ({
@@ -98,54 +104,42 @@ for (const viewport of viewports) {
       }) => {
         await timeFormatPicker.click();
         await expect(page).toHaveScreenshot({
-          mask: [maskTimeFormatWithSeconds],
+          mask: [body, maskTimeFormatWithSeconds],
         });
       });
 
-      test.skip(`open medium term duration format (${viewport.width} x ${viewport.height})`, async ({
-        page,
-      }) => {
+      test.skip(`open medium term duration format (${viewport.width} x ${viewport.height})`, async () => {
         await mediumLock.click();
         await mediumDurationFormatInput.click();
-        await expect(page).toHaveScreenshot();
+        await expect(hideableSettings).toHaveScreenshot();
       });
 
-      test.skip(`switch to medium term date format (${viewport.width} x ${viewport.height})`, async ({
-        page,
-      }) => {
+      test.skip(`switch to medium term date format (${viewport.width} x ${viewport.height})`, async () => {
         await mediumLock.click();
         await mediumDate.click();
-        await expect(page).toHaveScreenshot();
+        await expect(hideableSettings).toHaveScreenshot();
       });
 
-      test(`open info box (${viewport.width} x ${viewport.height})`, async ({
-        page,
-      }) => {
+      test(`open info box (${viewport.width} x ${viewport.height})`, async () => {
         await infoIcon.click();
-        await expect(page).toHaveScreenshot();
+        await expect(hideableSettings).toHaveScreenshot();
       });
     });
     test.describe("Todo", () => {
       test.beforeEach(async () => {
         await mediumEditPriorities.click();
       });
-      test(`open todo input (${viewport.width} x ${viewport.height})`, async ({
-        page,
-      }) => {
-        await expect(page).toHaveScreenshot();
+      test(`open todo input (${viewport.width} x ${viewport.height})`, async () => {
+        await expect(group1list).toHaveScreenshot();
       });
-      test(`input text (${viewport.width} x ${viewport.height})`, async ({
-        page,
-      }) => {
+      test(`input text (${viewport.width} x ${viewport.height})`, async () => {
         todoInputMedium.fill("Todo 1");
-        await expect(page).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot();
       });
-      test(`input text and add item (${viewport.width} x ${viewport.height})`, async ({
-        page,
-      }) => {
+      test(`input text and add item (${viewport.width} x ${viewport.height})`, async () => {
         todoInputMedium.fill("Todo 1");
         mediumAddItemButton.click();
-        await expect(page).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot();
       });
       test(`input text and add item and edit item (${viewport.width} x ${viewport.height})`, async ({
         page,
@@ -154,21 +148,18 @@ for (const viewport of viewports) {
         mediumAddItemButton.click();
         await page.waitForSelector('[data-testid="todo-text"]');
         await listItem0.dblclick();
-        await expect(page).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot();
       });
-      test(`input text and add items and mark done (${viewport.width} x ${viewport.height})`, async ({
-        page,
-      }) => {
+      test(`input text and add items and mark done (${viewport.width} x ${viewport.height})`, async () => {
         todoInputMedium.fill("Todo 1");
         mediumAddItemButton.click();
         await listItemCheckbox0.click({ force: true });
-        await expect(page).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot();
       });
     });
     test(`Main page (${viewport.width} x ${viewport.height})`, async ({
       page,
     }) => {
-      // Update the Date accordingly in your test pages
       await expect(page).toHaveScreenshot();
     });
   });

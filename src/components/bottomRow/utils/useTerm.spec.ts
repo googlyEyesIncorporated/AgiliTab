@@ -10,11 +10,11 @@ const commonParams = {
   startDate: DateTime.fromMillis(Jan11970).toISO() as string,
 };
 
-const paramsWithEndDate: UnitType<false> = {
+const paramsWithEndDate: UnitType<"date"> = {
   ...commonParams,
   title: "Params with end date",
   endDate: DateTime.fromMillis(Jan21970).toISO() as string,
-  isDuration: false,
+  type: "date",
 };
 
 const expectedUnitType = {

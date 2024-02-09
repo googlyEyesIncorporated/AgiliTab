@@ -40,28 +40,27 @@ export const ListGroup = ({
         onMouseEnter={() => setIconVisibility("fade-in-1s")}
         onMouseLeave={() => setIconVisibility("hidden")}
       >
-        <div
-          className="min-w-10 inline-block"
-          data-testid={`group-${groupId}-settings`}
-        >
-          <Icon
-            onClick={(e) => {
-              e.stopPropagation();
-              setHideSettings(!hideSettings);
-            }}
-            icon={faGears}
-            iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
-          />
-        </div>
-        <div
-          className="min-w-8 inline-block"
-          data-testid={`group-${groupId}-copy`}
-        >
-          <Icon
-            onClick={() => copyListToClipboard(list)}
-            icon={faCopy}
-            iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
-          />
+        <div className="absolute left-0">
+          <div
+            className="inline-block"
+            data-testid={`group-${groupId}-settings`}
+          >
+            <Icon
+              onClick={(e) => {
+                e.stopPropagation();
+                setHideSettings(!hideSettings);
+              }}
+              icon={faGears}
+              iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
+            />
+          </div>
+          <div className="inline-block" data-testid={`group-${groupId}-copy`}>
+            <Icon
+              onClick={() => copyListToClipboard(list)}
+              icon={faCopy}
+              iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
+            />
+          </div>
         </div>
         <span
           data-testid={`group-${groupId}-title`}
@@ -69,14 +68,21 @@ export const ListGroup = ({
         >
           {title}
         </span>
-        <ElapsedTime
-          className="text-[1.6875rem]"
-          term={term}
-          groupId={groupId}
-        />
+        {term && (
+          <ElapsedTime
+            className="text-[1.6875rem]"
+            term={term}
+            groupId={groupId}
+          />
+        )}
       </div>
       {hideSettings ? (
-        <List itemList={list} listKey={listKey} dragAndDrop={dragAndDrop} />
+        <List
+          groupId={groupId}
+          itemList={list}
+          listKey={listKey}
+          dragAndDrop={dragAndDrop}
+        />
       ) : (
         <div data-testid="column-settings" ref={settingsContainer}>
           <ColumnSettings
@@ -95,6 +101,6 @@ interface ListGroupProps {
   list: ItemList;
   dragAndDrop?: DragAndDrop;
   listKey: ListKey;
-  term: StartAndEnd;
+  term: StartAndEnd | null;
   groupId: number;
 }

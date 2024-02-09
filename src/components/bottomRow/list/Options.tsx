@@ -15,10 +15,12 @@ export const Options = ({
   shouldShowOptions = false,
   listKey,
   toggleOptions,
+  groupId,
 }: {
   listKey: ListKey;
   shouldShowOptions: boolean;
   toggleOptions: () => void;
+  groupId: number;
 }) => {
   const { fontColor, secondFontColor, bgColor } =
     useAppSelector(selectVisualSettings);
@@ -60,6 +62,7 @@ export const Options = ({
 
   return (
     <div
+      data-testid={`group-${groupId}-options`}
       className={`text-center fade-in-1s${shouldShowOptions ? "" : " hidden"}`}
     >
       <form className="inline-block w-full mb-2">

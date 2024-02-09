@@ -11,7 +11,7 @@ export const ElapsedTime = ({ term, className, groupId }: IElapsedTime) => {
   const shouldCapToRange = false;
   return (
     <span
-      className={`float-right ${className}`}
+      className={`right-0 absolute ${className}`}
       data-testid={`group-${groupId}-elapsed-time`}
     >
       {getCurrentRatio(term, shouldCapToRange) + "%"}

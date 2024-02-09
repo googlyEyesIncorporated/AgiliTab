@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
-import { DateFormat, KeyValuePair, TimeFormat, UnitType } from "./types";
+import {
+  DateFormat,
+  KeyValuePair,
+  TimeFormat,
+  UnitType,
+  UnitTypes,
+} from "./types";
 import { updateStorage } from "../utils/updateStorage";
 import { RootState } from "../../app/commonTypes";
 import { localStorageDebounce } from "../utils/localStorageDebounce";
@@ -56,7 +62,7 @@ export const unitsSlice = createSlice({
       state.visual = initalVisuals;
       updateStorage({ storageKey: "settings", val: state });
     },
-    setPartialTerm: <T extends boolean>(
+    setPartialTerm: <T extends UnitTypes>(
       state: PotentialSettingState,
       {
         payload: { key, termPart },
