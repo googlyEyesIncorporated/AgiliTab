@@ -7,9 +7,9 @@ import {
   UnitType,
   UnitTypes,
 } from "./types";
-import { updateStorage } from "../utils/updateStorage";
+import { updateStorage } from "../utils/localStorage/updateStorage";
 import { RootState } from "../../app/commonTypes";
-import { localStorageDebounce } from "../utils/localStorageDebounce";
+import { localStorageDebounce } from "../utils/localStorage/localStorageDebounce";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 import {
   initalVisuals,

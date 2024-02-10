@@ -1,7 +1,7 @@
-import { ItemList } from "../itemList/types";
-import { useAppDispatch } from "../../app/hooks";
-import { populateSettingssFromChrome } from "../settings/settingsSlice";
-import { populateTasksFromChrome } from "../itemList/itemListSlice";
+import { useAppDispatch } from "../../../app/hooks";
+import { populateSettingssFromChrome } from "../../settings/settingsSlice";
+import { ItemList } from "../../itemList/types";
+import { populateTasksFromChrome } from "../../itemList/itemListSlice";
 
 export const getStorage = (dispatch: ReturnType<typeof useAppDispatch>) => {
   if (typeof chrome !== "undefined" && chrome.storage) {

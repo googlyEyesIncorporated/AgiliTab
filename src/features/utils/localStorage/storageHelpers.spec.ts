@@ -1,6 +1,6 @@
-import { initialSettings } from "../../settings/settingsSlice";
-import { getStorage } from "../storageHelpers";
-import { updateStorage } from "../updateStorage";
+import { initialSettings } from "../../settings/initialData";
+import { getStorage } from "./storageHelpers";
+import { updateStorage } from "./updateStorage";
 
 const syncSet = jest.fn();
 const syncGet = jest.fn(

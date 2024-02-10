@@ -7,7 +7,7 @@ import {
   ListAndItem,
   ReplaceList,
 } from "./types";
-import { updateStorage } from "../utils/updateStorage";
+import { updateStorage } from "../utils/localStorage/updateStorage";
 import { RootState } from "../../app/commonTypes";
 
 const initialTodoListState: ItemListState = {

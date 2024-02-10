@@ -1,6 +1,6 @@
-import { ItemListState } from "../itemList/types";
-import { LoadedSettingState } from "../settings/initialData";
-import { StorageKey } from "./types";
+import { ItemListState } from "../../itemList/types";
+import { LoadedSettingState } from "../../settings/initialData";
+import { StorageKey } from "../types";
 import { updateStorage } from "./updateStorage";
 
 let storageUpdateTimeoutId: NodeJS.Timeout | null = null;

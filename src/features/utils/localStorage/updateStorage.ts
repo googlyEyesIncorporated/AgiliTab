@@ -1,6 +1,6 @@
-import { ItemList } from "../itemList/types";
-import { PotentialSettingState } from "../settings/initialData";
-import { StorageKey } from "./types";
+import { ItemList } from "../../itemList/types";
+import { PotentialSettingState } from "../../settings/initialData";
+import { StorageKey } from "../types";
 
 export const updateStorage = ({
   storageKey,
