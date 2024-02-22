@@ -3,8 +3,8 @@ export interface DurationState {
   qty: number;
 }
 
-export interface UnitTypeWithDuration<T extends UnitTypes>
-  extends UnitTypeWithTimeFrame<T> {
+export interface UnitTypeWithDuration
+  extends UnitTypeWithTimeFrame<"duration"> {
   duration: DurationState;
 }
 
@@ -21,16 +21,15 @@ interface UnitTypeWithTimeFrame<T extends UnitTypes>
   endDate?: string;
 }
 
-export interface UnitTypeWithoutDuration<T extends UnitTypes>
-  extends UnitTypeWithTimeFrame<T> {
+export interface UnitTypeWithoutDuration extends UnitTypeWithTimeFrame<"date"> {
   endDate: string;
 }
 
 export type UnitType<T extends UnitTypes> = T extends "duration"
-  ? UnitTypeWithDuration<T>
+  ? UnitTypeWithDuration
   : T extends "date"
-  ? UnitTypeWithoutDuration<T>
-  : CommonUnitTypeProps<T>;
+  ? UnitTypeWithoutDuration
+  : CommonUnitTypeProps<"none">;
 
 export interface SettingsState<
   T extends UnitTypes,
