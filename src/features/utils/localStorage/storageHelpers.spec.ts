@@ -46,7 +46,7 @@ describe("updateStorage", () => {
   it("calls chrome.storage.sync.set with stuff", () => {
     updateStorage({
       storageKey: "settings",
-      val: initialSettings,
+      val: JSON.stringify(initialSettings),
     });
     expect(syncSet).toHaveBeenCalledWith({ settings: undefined });
   });

@@ -4,7 +4,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { Settings } from ".";
 import Icon from "../atoms/Icon";
 import { useAppDispatch } from "../../app/hooks";
-// import { addTerm } from "../../features/itemList/itemListSlicev2";
+import { addTerm } from "../../features/itemList/itemListSlice";
+import { generateNewList } from "../../features/utils/generateNewList";
 
 export const SettingsWrapper = () => {
   const [hidden, setHidden] = useState(true);
@@ -15,7 +16,7 @@ export const SettingsWrapper = () => {
     <div className="fixed left-0 bottom-0 m-4" ref={settingsContainer}>
       <div data-testid="add-group" className="text-center mb-2">
         <Icon
-          // onClick={() => dispatch(addTerm())}
+          onClick={() => dispatch(addTerm(generateNewList()))}
           icon={faPlus}
           faClassName={`fade-in-1s text-double cursor-pointer${
             !hidden ? " hidden" : ""

@@ -37,7 +37,7 @@ const props = {
     },
   },
   listKey: "shortTermList" as const,
-  groupId: 1,
+  groupId: "1",
 };
 
 const setup = (props: ComponentProps<typeof ListGroup>) =>

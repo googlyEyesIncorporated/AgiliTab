@@ -1,12 +1,6 @@
 import { DateTime } from "luxon";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
-import {
-  SettingsState,
-  UnitType,
-  UnitTypes,
-  UnitsState,
-  Visual,
-} from "./types";
+import { Visual } from "./types";
 
 const Now = DateTime.now();
 const reference = {
@@ -51,63 +45,50 @@ export const initalVisuals: Visual = {
   timeFormat: "h:mm a",
 };
 
-export const defaultShortTerm: UnitType<"duration"> = {
-  title: "Today",
-  duration: reference.durations.shortTerm,
-  endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
-  startDate: startOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
-  type: "duration",
+// export const defaultShortTerm: UnitType<"duration"> = {
+//   title: "Today",
+//   duration: reference.durations.shortTerm,
+//   endDate: endOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
+//   startDate: startOfToday.toFormat(DATE_TIME_NO_SECONDS) ?? "",
+//   type: "duration",
+// };
+
+// export const defaultMediumTerm: UnitType<"duration"> = {
+//   title: "Month",
+//   duration: reference.durations.mediumTerm,
+//   endDate: reference.month.end,
+//   startDate: reference.month.start,
+//   type: "duration",
+// };
+
+// export const defaultLongTerm: UnitType<"duration"> = {
+//   title: "Year",
+//   duration: reference.durations.longTerm,
+//   endDate: reference.year.end,
+//   startDate: reference.year.start ?? "",
+//   type: "duration",
+// };
+
+// export const defaultTerms: Record<
+//   number,
+//   UnitType<"duration"> | UnitType<"date"> | UnitType<"none">
+// > = {
+//   0: defaultShortTerm,
+//   1: defaultMediumTerm,
+//   2: defaultLongTerm,
+// };
+
+// const initialUnits: UnitsState<
+//   (typeof defaultShortTerm)["type"],
+//   (typeof defaultMediumTerm)["type"],
+//   (typeof defaultLongTerm)["type"]
+// > = {
+//   terms: [defaultShortTerm, defaultMediumTerm, defaultLongTerm],
+//   shortTerm: defaultShortTerm,
+//   mediumTerm: defaultMediumTerm,
+//   longTerm: defaultLongTerm,
+// };
+
+export const initialSettings = {
+  visualSettings: initalVisuals,
 };
-
-export const defaultMediumTerm: UnitType<"duration"> = {
-  title: "Month",
-  duration: reference.durations.mediumTerm,
-  endDate: reference.month.end,
-  startDate: reference.month.start,
-  type: "duration",
-};
-
-export const defaultLongTerm: UnitType<"duration"> = {
-  title: "Year",
-  duration: reference.durations.longTerm,
-  endDate: reference.year.end,
-  startDate: reference.year.start ?? "",
-  type: "duration",
-};
-
-export const defaultTerms: Record<
-  number,
-  UnitType<"duration"> | UnitType<"date"> | UnitType<"none">
-> = {
-  0: defaultShortTerm,
-  1: defaultMediumTerm,
-  2: defaultLongTerm,
-};
-
-const initialUnits: UnitsState<
-  (typeof defaultShortTerm)["type"],
-  (typeof defaultMediumTerm)["type"],
-  (typeof defaultLongTerm)["type"]
-> = {
-  terms: [defaultShortTerm, defaultMediumTerm, defaultLongTerm],
-  shortTerm: defaultShortTerm,
-  mediumTerm: defaultMediumTerm,
-  longTerm: defaultLongTerm,
-};
-
-export const initialSettings: LoadedSettingState = {
-  units: initialUnits,
-  visual: initalVisuals,
-};
-
-export type LoadedSettingState = SettingsState<
-  (typeof initialUnits.shortTerm)["type"],
-  (typeof initialUnits.mediumTerm)["type"],
-  (typeof initialUnits.longTerm)["type"]
->;
-
-export type PotentialSettingState = SettingsState<
-  UnitTypes,
-  UnitTypes,
-  UnitTypes
->;

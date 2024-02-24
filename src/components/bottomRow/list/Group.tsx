@@ -8,6 +8,8 @@ import { useRef, useState } from "react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { ColumnSettings } from "../../settings/ColumnSettings";
+import { DurationObj } from "../../../features/itemList/types";
+import { Duration, EndDate } from "../utils/getCurrentRatio";
 
 const copyListToClipboard = (list: ListGroupProps["list"]) => {
   const itemList = list.map((item) => item.name).join("\r\n");
@@ -15,11 +17,11 @@ const copyListToClipboard = (list: ListGroupProps["list"]) => {
 };
 export const ListGroup = ({
   title,
-  term,
   list,
   dragAndDrop,
   listKey,
   groupId,
+  ...term
 }: ListGroupProps) => {
   const [iconVisibility, setIconVisibility] = useState("hidden");
   const [hideSettings, setHideSettings] = useState(true);
@@ -71,7 +73,7 @@ export const ListGroup = ({
         {term && (
           <ElapsedTime
             className="text-[1.6875rem]"
-            term={term}
+            term={term as EndDate | Duration<DurationObj>}
             groupId={groupId}
           />
         )}
@@ -100,7 +102,15 @@ interface ListGroupProps {
   title: string;
   list: ItemList;
   dragAndDrop?: DragAndDrop;
-  listKey: ListKey;
-  term: StartAndEnd | null;
-  groupId: number;
+  listKey: string;
+  startDate?: string;
+  endDate?: string;
+  duration?: DurationObj;
+  groupId: string;
 }
+
+type CastedTerm = {
+  startDate: string;
+  endDate?: string | undefined;
+  duration?: DurationObj | undefined;
+};

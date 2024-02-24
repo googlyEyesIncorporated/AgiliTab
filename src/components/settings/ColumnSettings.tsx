@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  selectTerm,
-  selectVisualSettings,
-  setPartialTerm,
-} from "../../features/settings/settingsSlice";
+import { selectVisualSettings } from "../../features/settings/settingsSlice";
 import Icon from "../atoms/Icon";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { TermName } from "./term/TermName";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
 import { SetBooleanState } from "../../app/commonTypes";
-import { defaultTerms } from "../../features/settings/initialData";
 import { RadioButtons } from "../atoms/RadioButton";
-import { UnitTypes } from "../../features/settings/types";
 import { TimeFrameSelection } from "./TimeFrameSelection";
+import {
+  selectTermList,
+  setPartialTerm,
+} from "../../features/itemList/itemListSlice";
+import { UnitTypes } from "../../features/itemList/types";
+import { generateNewList } from "../../features/utils/generateNewList";
 
 export const ColumnSettings = ({
   settingsContainer,
@@ -22,20 +22,22 @@ export const ColumnSettings = ({
 }: {
   settingsContainer: React.MutableRefObject<HTMLDivElement | null>;
   setHideSettings: SetBooleanState;
-  groupId: number;
+  groupId: string;
 }) => {
   const dispatch = useAppDispatch();
-  const termData = useAppSelector(selectTerm(groupId));
+  const termData = useAppSelector((state) =>
+    selectTermList(state, `${groupId}`)
+  );
   const { bgColor } = useAppSelector(selectVisualSettings);
   const { secondFontColor } = useAppSelector(selectVisualSettings);
 
-  const defaultTerm = defaultTerms[groupId];
+  const defaultTerm = generateNewList();
   const onChange = (
     termPart: Parameters<typeof setPartialTerm>[0]["termPart"]
   ) => {
     dispatch(
       setPartialTerm({
-        key: groupId,
+        listKey: groupId,
         termPart,
       })
     );
@@ -76,7 +78,7 @@ export const ColumnSettings = ({
         </div>
         <Icon
           onClick={() => {
-            onChange(defaultTerm);
+            onChange(defaultTerm.listObject);
           }}
           data-testid={`group-${groupId}-restore-defaults`}
           icon={faArrowRightFromBracket}

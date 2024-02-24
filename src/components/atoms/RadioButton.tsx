@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import { Sentencecase } from "../../features/utils/Sentencecase";
-import { UnitTypes } from "../../features/settings/types";
+import { UnitTypes } from "../../features/itemList/types";
 
 export const RadioButtons = ({
   enabled = true,
@@ -59,7 +59,7 @@ export const RadioButtons = ({
 
 interface RadioButtonsProps {
   enabled?: boolean;
-  groupId: number;
+  groupId: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   selected?: UnitTypes;
   firstRadioName: string;

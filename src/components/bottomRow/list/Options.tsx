@@ -7,7 +7,6 @@ import {
 } from "../../../features/itemList/itemListSlice";
 import { v4 as uuidv4 } from "uuid";
 import { selectVisualSettings } from "../../../features/settings/settingsSlice";
-import { ListKey } from "../../../features/itemList/types";
 
 const buttonClasses = "border-none bg-transparent cursor-pointer";
 
@@ -17,10 +16,10 @@ export const Options = ({
   toggleOptions,
   groupId,
 }: {
-  listKey: ListKey;
+  listKey: string;
   shouldShowOptions: boolean;
   toggleOptions: () => void;
-  groupId: number;
+  groupId: string;
 }) => {
   const { fontColor, secondFontColor, bgColor } =
     useAppSelector(selectVisualSettings);

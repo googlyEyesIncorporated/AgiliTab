@@ -8,7 +8,7 @@ interface CommonProps {
 
 interface SelectDateProps extends CommonProps {
   title: "Beginning" | "End";
-  groupId: number;
+  groupId: string;
   date: string;
   min?: string;
 }

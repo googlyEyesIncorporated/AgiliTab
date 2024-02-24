@@ -3,9 +3,9 @@ import { TimeFrameSelection } from "./TimeFrameSelection";
 import "@testing-library/jest-dom";
 
 const props = {
-  groupId: 0,
+  groupId: "0",
   onChange: jest.fn(),
-  termData: { title: "test", type: "none" as const },
+  termData: { title: "test", type: "none" as const, list: [] },
 };
 
 const startDate = "2023-09-01T00:00";
@@ -27,6 +27,7 @@ describe("TimeFrameSelection", () => {
           type: "date",
           startDate,
           endDate,
+          list: [],
         }}
       />
     );
@@ -43,6 +44,7 @@ describe("TimeFrameSelection", () => {
           type: "duration",
           startDate,
           duration,
+          list: [],
         }}
       />
     );

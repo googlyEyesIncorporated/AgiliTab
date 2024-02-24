@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 
 const props: ComponentProps<typeof TermName> = {
   title: "Test",
-  groupId: 0,
+  groupId: "0",
   onChange: jest.fn(),
 };
 

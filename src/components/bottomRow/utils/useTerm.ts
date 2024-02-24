@@ -1,7 +1,7 @@
-import { UnitType, UnitTypes } from "../../../features/settings/types";
 import { StartAndEnd } from "../../../app/commonTypes";
 import { useEffect, useState } from "react";
 import { calculateStartEndMs } from "./calculateStartEndMs";
+import { UnitType, UnitTypes } from "../../../features/itemList/types";
 
 /**
  * A custom hook that takes a term and returns a stateful value and a function to update it

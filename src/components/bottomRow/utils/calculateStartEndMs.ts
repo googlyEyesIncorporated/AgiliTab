@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { UnitType, UnitTypes } from "../../../features/settings/types";
+import { UnitType, UnitTypes } from "../../../features/itemList/types";
 
 /**
  * Calculates Start/end MS based on either duration or end date

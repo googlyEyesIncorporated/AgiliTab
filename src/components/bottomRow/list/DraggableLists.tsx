@@ -2,16 +2,16 @@ import React, { useRef, useState } from "react";
 import { useAppDispatch } from "../../../app/hooks";
 import { updateList } from "../../../features/itemList/itemListSlice";
 import {
-  ItemListState,
   ListAndIndex,
   ListKey,
+  ObjectOfLists,
 } from "../../../features/itemList/types";
 
 export const DraggableLists = ({
   lists,
   children,
 }: React.PropsWithChildren<{
-  lists: ItemListState;
+  lists: ObjectOfLists;
 }>) => {
   const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dragTo: React.MutableRefObject<null | ListAndIndex> = useRef(null);

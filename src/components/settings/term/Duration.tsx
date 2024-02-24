@@ -1,4 +1,4 @@
-import { DurationState } from "../../../features/settings/types";
+import { DurationObj } from "../../../features/itemList/types";
 
 const formats = {
   units: {
@@ -9,9 +9,9 @@ const formats = {
   },
 };
 interface DurationProps {
-  groupId: number;
+  groupId: string;
   enabled?: boolean;
-  duration: DurationState;
+  duration: DurationObj;
   onChange: (change: any) => void;
 }
 

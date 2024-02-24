@@ -8,12 +8,8 @@ import {
 import { DateTime } from "luxon";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import {
-  selectTimeFormat,
-  updateDay,
-} from "../features/settings/settingsSlice";
+import { selectTimeFormat } from "../features/settings/settingsSlice";
 import { callFunctionPeriodically } from "../utils/callFunctionPeriodically";
-import { DATE_TIME_NO_SECONDS } from "../commonUtils";
 
 interface ITimeProvider {
   specifiedPeriod?: number;
@@ -44,13 +40,13 @@ function TimeProvider({
   }, [delay]);
 
   // Update day start/end times
-  useEffect(() => {
-    if (lastKnownDay.current !== today) {
-      lastKnownDay.current = today;
-      const startOfDay = DateTime.fromISO(date).startOf("day").toISO();
-      dispatch(updateDay(startOfDay));
-    }
-  }, [today, dispatch]);
+  // useEffect(() => {
+  //   if (lastKnownDay.current !== today) {
+  //     lastKnownDay.current = today;
+  //     const startOfDay = DateTime.fromISO(date).startOf("day").toISO();
+  //     dispatch(updateDay(startOfDay));
+  //   }
+  // }, [today, dispatch]);
 
   return <DateContext.Provider value={date} {...props} />;
 }

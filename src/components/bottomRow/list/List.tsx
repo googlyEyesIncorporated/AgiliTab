@@ -8,7 +8,7 @@ import { DragAndDrop } from "./item/DumbListItem";
 
 interface ListProps extends ReplaceList {
   dragAndDrop?: DragAndDrop;
-  groupId: number;
+  groupId: string;
 }
 
 export const List = ({

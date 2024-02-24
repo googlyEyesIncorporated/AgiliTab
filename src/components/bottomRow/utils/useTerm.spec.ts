@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react";
 import { useTerm } from "./useTerm";
 import { DateTime } from "luxon";
-import { UnitType } from "../../../features/settings/types";
+import { UnitType } from "../../../features/itemList/types";
 
 const Jan11970 = 0;
 const Jan21970 = 86400000;
@@ -15,6 +15,7 @@ const paramsWithEndDate: UnitType<"date"> = {
   title: "Params with end date",
   endDate: DateTime.fromMillis(Jan21970).toISO() as string,
   type: "date",
+  list: [],
 };
 
 const expectedUnitType = {

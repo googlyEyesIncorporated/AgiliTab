@@ -1,5 +1,6 @@
 import { getCurrentRatio, getRatioOfTimeElapsed } from "./getCurrentRatio";
 import { epochTimes } from "../../../commonTestData.json";
+import { DateTime } from "luxon";
 
 const { Sep012023, Sep082023, Sep152023, Sep232023, Sep302023 } = epochTimes;
 const jestSetTime = (newDateTime: number) => {
@@ -36,8 +37,8 @@ describe("getCurrentRatio", () => {
     jestSetTime(Sep012023);
     expect(
       getCurrentRatio({
-        start: Sep012023,
-        end: Sep302023,
+        startDate: DateTime.fromMillis(Sep012023).toISO() ?? "",
+        endDate: DateTime.fromMillis(Sep302023).toISO() ?? "",
       })
     ).toBe(0);
   });
@@ -45,8 +46,8 @@ describe("getCurrentRatio", () => {
     jestSetTime(Sep082023);
     expect(
       getCurrentRatio({
-        start: Sep012023,
-        end: Sep302023,
+        startDate: DateTime.fromMillis(Sep012023).toISO() ?? "",
+        endDate: DateTime.fromMillis(Sep302023).toISO() ?? "",
       })
     ).toBe(25);
   });
@@ -54,8 +55,8 @@ describe("getCurrentRatio", () => {
     jestSetTime(Sep152023);
     expect(
       getCurrentRatio({
-        start: Sep012023,
-        end: Sep302023,
+        startDate: DateTime.fromMillis(Sep012023).toISO() ?? "",
+        endDate: DateTime.fromMillis(Sep302023).toISO() ?? "",
       })
     ).toBe(50);
   });
@@ -63,8 +64,8 @@ describe("getCurrentRatio", () => {
     jestSetTime(Sep232023);
     expect(
       getCurrentRatio({
-        start: Sep012023,
-        end: Sep302023,
+        startDate: DateTime.fromMillis(Sep012023).toISO() ?? "",
+        endDate: DateTime.fromMillis(Sep302023).toISO() ?? "",
       })
     ).toBe(75);
   });
@@ -72,8 +73,8 @@ describe("getCurrentRatio", () => {
     jestSetTime(Sep302023);
     expect(
       getCurrentRatio({
-        start: Sep012023,
-        end: Sep302023,
+        startDate: DateTime.fromMillis(Sep012023).toISO() ?? "",
+        endDate: DateTime.fromMillis(Sep302023).toISO() ?? "",
       })
     ).toBe(100);
   });

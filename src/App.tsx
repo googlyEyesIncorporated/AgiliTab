@@ -4,7 +4,7 @@ import { selectVisualSettings } from "./features/settings/settingsSlice";
 import { SettingsWrapper } from "./components/settings/OpenSettings";
 import { NowBox } from "./components/topRow/NowBox";
 import { getStorage } from "./features/utils/localStorage/storageHelpers";
-import { BottomRow } from "./components/bottomRow";
+import { BottomRow } from "./components/bottomRow/BottomRow";
 import TimeProvider from "./components/TimeProvider";
 import { undoDelete } from "./features/itemList/itemListSlice";
 import Toaster from "./components/atoms/ToasterNotifications";

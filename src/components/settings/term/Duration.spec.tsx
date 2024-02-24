@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
 const props: ComponentProps<typeof Duration> = {
-  groupId: 0,
+  groupId: "0",
   duration: { unit: "weeks", qty: 1 },
   onChange: jest.fn(),
 };

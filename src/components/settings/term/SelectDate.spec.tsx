@@ -7,13 +7,13 @@ const onChange = jest.fn();
 
 const beginningProps: ComponentProps<typeof SelectDate> = {
   title: "Beginning",
-  groupId: 0,
+  groupId: "0",
   date: "2023-09-01T00:00",
   onChange,
 };
 const endProps: ComponentProps<typeof SelectDate> = {
   title: "End",
-  groupId: 0,
+  groupId: "0",
   date: "2023-10-01T00:00",
   onChange,
   min: beginningProps.date,
