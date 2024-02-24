@@ -12,13 +12,7 @@ export const generateNewList = () => {
       endDate: Now.endOf("day").toFormat(DATE_TIME_NO_SECONDS),
       startDate: Now.startOf("day").toFormat(DATE_TIME_NO_SECONDS),
       type: "date" as const,
-      list: [
-        {
-          done: false,
-          id: uuidv4(),
-          name: "do a thing",
-        },
-      ],
+      list: [],
     },
   };
 };
