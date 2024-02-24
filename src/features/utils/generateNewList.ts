@@ -15,7 +15,7 @@ export const generateNewList = () => {
       list: [
         {
           done: false,
-          id: "60b54fef-073c-4ed4-8698-3c4cc8f39b05",
+          id: uuidv4(),
           name: "do a thing",
         },
       ],
