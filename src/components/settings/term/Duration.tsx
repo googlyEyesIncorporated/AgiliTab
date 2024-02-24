@@ -25,7 +25,7 @@ export const Duration = ({
   duration,
   onChange,
 }: DurationProps) => {
-  const { qty, unit } = duration;
+  const { qty, unit } = duration || { qty: 1, unit: undefined };
 
   const categoryUnitQty = `group-${groupId}-unit-qty`;
   const categoryDurationFormatInput = `group-${groupId}-duration-format-input`;
@@ -51,7 +51,7 @@ export const Duration = ({
         onChange={(e) => {
           const durationObj = { unit, qty: parseInt(e.target.value) };
           if (unit) {
-            onChange({ duration: durationObj });
+            onChange({ duration: durationObj, endDate: undefined });
           }
         }}
       />
@@ -67,7 +67,7 @@ export const Duration = ({
           const durationObj = { unit: e.target.value, qty };
 
           if (qty) {
-            onChange({ duration: durationObj });
+            onChange({ duration: durationObj, endDate: undefined });
           }
         }}
       >

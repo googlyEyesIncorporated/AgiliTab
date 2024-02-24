@@ -47,7 +47,7 @@ export const SelectDate = ({
             if (title === "Beginning") {
               onChange({ startDate: e.target.value });
             } else {
-              onChange({ endDate: e.target.value });
+              onChange({ endDate: e.target.value, duration: undefined });
             }
         }}
       />
