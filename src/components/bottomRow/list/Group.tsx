@@ -21,6 +21,7 @@ export const ListGroup = ({
   dragAndDrop,
   listKey,
   groupId,
+  type,
   ...term
 }: ListGroupProps) => {
   const [iconVisibility, setIconVisibility] = useState("hidden");
@@ -70,7 +71,7 @@ export const ListGroup = ({
         >
           {title}
         </span>
-        {term && (
+        {type !== "none" && term && (
           <ElapsedTime
             className="text-[1.6875rem]"
             term={term as EndDate | Duration<DurationObj>}
@@ -104,6 +105,7 @@ interface ListGroupProps {
   dragAndDrop?: DragAndDrop;
   listKey: string;
   startDate?: string;
+  type: string;
   endDate?: string;
   duration?: DurationObj;
   groupId: string;
