@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { DurationObj } from "../../../features/itemList/types";
 
 const formats = {
@@ -25,7 +26,9 @@ export const Duration = ({
   duration,
   onChange,
 }: DurationProps) => {
-  const { qty, unit } = duration || { qty: 1, unit: undefined };
+  const { qty, unit } = duration || {};
+  const qtyRef = useRef(null as null | HTMLInputElement);
+  const unitRef = useRef(null as null | HTMLSelectElement);
 
   const categoryUnitQty = `group-${groupId}-unit-qty`;
   const categoryDurationFormatInput = `group-${groupId}-duration-format-input`;
@@ -48,7 +51,9 @@ export const Duration = ({
         }}
         {...(enabled ? {} : { disabled: true })}
         value={qty}
+        ref={qtyRef}
         onChange={(e) => {
+          const unit = unitRef.current?.value;
           const durationObj = { unit, qty: parseInt(e.target.value) };
           if (unit) {
             onChange({ duration: durationObj, endDate: undefined });
@@ -63,7 +68,9 @@ export const Duration = ({
         value={unit}
         style={getBackgroundColor(enabled)}
         {...(enabled ? {} : { disabled: true })}
+        ref={unitRef}
         onChange={(e) => {
+          const qty = qtyRef.current?.value;
           const durationObj = { unit: e.target.value, qty };
 
           if (qty) {
