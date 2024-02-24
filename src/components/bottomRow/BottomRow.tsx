@@ -5,6 +5,9 @@ import { ListGroup } from "./list/Group";
 
 export const BottomRow = () => {
   const lists = useAppSelector(selectAllLists);
+  if (!Object.keys(lists).length) {
+    return null;
+  }
 
   return (
     <div
