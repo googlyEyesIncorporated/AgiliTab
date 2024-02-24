@@ -5,8 +5,8 @@ import { RootState } from "../../app/commonTypes";
 import { localStorageDebounce } from "../utils/localStorage/localStorageDebounce";
 import { initalVisuals, initialSettings } from "./initialData";
 
-export const unitsSlice = createSlice({
-  name: "units",
+export const settingsSlice = createSlice({
+  name: "settings",
   initialState: initialSettings,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
@@ -42,7 +42,7 @@ export const {
   setVisualSetting,
   setDateTimeFormats,
   resetVisualSetting,
-} = unitsSlice.actions;
+} = settingsSlice.actions;
 
 export const selectTimeFormat = (state: RootState) =>
   state.settings.visualSettings.timeFormat;
@@ -51,4 +51,4 @@ export const selectDateFormat = (state: RootState) =>
 export const selectVisualSettings = (state: RootState) =>
   state.settings.visualSettings;
 
-export default unitsSlice.reducer;
+export default settingsSlice.reducer;

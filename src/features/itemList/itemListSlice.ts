@@ -127,16 +127,6 @@ export const itemListSlice = createSlice({
       state.itemList[listKey] = { ...state.itemList[listKey], ...termPart };
       updateStorage({ storageKey: listKey, val: state.itemList[listKey] });
     },
-    // updateDay: (
-    //   state,
-    //   { payload: startOfDay }: PayloadAction<string | null>
-    // ) => {
-    //   if (startOfDay) {
-    //     state.units.shortTerm.startDate = startOfDay;
-    //     state.units.shortTerm.endDate =
-    //       DateTime.now().endOf("day").toFormat(DATE_TIME_NO_SECONDS) ?? "";
-    //   }
-    // },
   },
 });
 
