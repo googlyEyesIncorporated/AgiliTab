@@ -1,5 +1,4 @@
-import { ItemList, ListKey } from "../../../features/itemList/types";
-import { StartAndEnd } from "../../../app/commonTypes";
+import { ItemList, DurationObj } from "../../../features/itemList/types";
 import { DragAndDrop } from "./item/DumbListItem";
 import { List } from "./List";
 import { ElapsedTime } from "../../atoms/ElapsedTime";
@@ -8,7 +7,6 @@ import { useRef, useState } from "react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
 import { ColumnSettings } from "../../settings/ColumnSettings";
-import { DurationObj } from "../../../features/itemList/types";
 import { Duration, EndDate } from "../utils/getCurrentRatio";
 
 const copyListToClipboard = (list: ListGroupProps["list"]) => {
@@ -110,9 +108,3 @@ interface ListGroupProps {
   duration?: DurationObj;
   groupId: string;
 }
-
-type CastedTerm = {
-  startDate: string;
-  endDate?: string | undefined;
-  duration?: DurationObj | undefined;
-};
