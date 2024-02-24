@@ -36,6 +36,7 @@ const props = {
       save: true,
     },
   },
+  type: "date",
   listKey: "shortTermList" as const,
   groupId: "1",
 };
