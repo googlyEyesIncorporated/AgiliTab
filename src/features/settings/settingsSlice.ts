@@ -28,11 +28,11 @@ export const settingsSlice = createSlice({
       { payload }: PayloadAction<DateFormat & TimeFormat>
     ) => {
       state.visualSettings = { ...state.visualSettings, ...payload };
-      updateStorage({ storageKey: "settings", val: JSON.stringify(state) });
+      updateStorage({ storageKey: "settings", val: state });
     },
     resetVisualSetting: (state) => {
       state.visualSettings = initalVisuals;
-      updateStorage({ storageKey: "settings", val: JSON.stringify(state) });
+      updateStorage({ storageKey: "settings", val: state });
     },
   },
 });

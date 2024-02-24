@@ -35,7 +35,7 @@ export const itemListSlice = createSlice({
     addTerm: (state, action: PayloadAction<CreateList>) => {
       const { listKey, listObject } = action.payload;
       state.itemList[listKey] = listObject;
-      updateStorage({ storageKey: listKey, val: listObject });
+      updateStorage({ storageKey: listKey, val: state.itemList[listKey] });
     },
     remove: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
@@ -124,8 +124,15 @@ export const itemListSlice = createSlice({
         listKey: string;
       }>
     ) => {
+      console.log(termPart);
       state.itemList[listKey] = { ...state.itemList[listKey], ...termPart };
-      updateStorage({ storageKey: listKey, val: state.itemList[listKey] });
+      updateStorage({
+        storageKey: listKey,
+        val: {
+          ...state.itemList[listKey],
+          list: [...state.itemList[listKey].list],
+        },
+      });
     },
   },
 });
