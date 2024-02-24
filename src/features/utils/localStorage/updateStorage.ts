@@ -1,5 +1,4 @@
 import { ListTypes } from "../../itemList/types";
-import { SettingsState } from "../../settings/types";
 
 export const updateStorage = ({
   storageKey,

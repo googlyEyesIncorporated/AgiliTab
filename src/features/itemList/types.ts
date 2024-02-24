@@ -73,14 +73,3 @@ export type UnitType<T extends UnitTypes> = T extends "duration"
   : T extends "date"
   ? UnitTypeWithoutDuration
   : CommonUnitTypeProps<"none">;
-
-export interface UnitsState<
-  T extends UnitTypes,
-  U extends UnitTypes,
-  V extends UnitTypes,
-> {
-  terms: UnitType<T & U & V>[];
-  shortTerm: UnitType<T>;
-  mediumTerm: UnitType<U>;
-  longTerm: UnitType<V>;
-}

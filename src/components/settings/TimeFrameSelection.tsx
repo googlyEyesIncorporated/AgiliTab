@@ -1,11 +1,4 @@
-import {
-  CommonUnitTypeProps,
-  ListTypes,
-  UnitType,
-  UnitTypeWithDuration,
-  UnitTypeWithoutDuration,
-  UnitTypes,
-} from "../../features/itemList/types";
+import { ListTypes, UnitType, UnitTypes } from "../../features/itemList/types";
 import { Duration } from "./term/Duration";
 import { SelectDate } from "./term/SelectDate";
 
