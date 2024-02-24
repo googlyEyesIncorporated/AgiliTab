@@ -6,6 +6,10 @@ export const updateStorage = ({
   val: any;
 }) => {
   if (typeof chrome !== "undefined" && chrome.storage) {
-    chrome.storage.sync.set({ [storageKey]: val });
+    if (val === null) {
+      chrome.storage.sync.remove(storageKey);
+    } else {
+      chrome.storage.sync.set({ [storageKey]: val });
+    }
   }
 };

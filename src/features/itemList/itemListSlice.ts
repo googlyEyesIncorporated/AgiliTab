@@ -47,6 +47,16 @@ export const itemListSlice = createSlice({
       state.itemList[listKey].list.splice(index, 1);
       updateStorage({ storageKey: listKey, val: state.itemList[listKey] });
     },
+    removeTerm: (state, action: PayloadAction<JustListKey>) => {
+      const { listKey } = action.payload;
+      state.deleteHistory.push({
+        list: state.itemList[listKey],
+        listKey,
+      });
+      const { [listKey]: termToRemove, ...everythingElse } = state.itemList;
+      state.itemList = everythingElse;
+      updateStorage({ storageKey: listKey, val: null });
+    },
     toggleChecked: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
       state.itemList[listKey].list[index].done =
@@ -101,14 +111,22 @@ export const itemListSlice = createSlice({
     undoDelete: (state) => {
       if (state.deleteHistory.length) {
         const lastIndex = state.deleteHistory.length - 1;
-        const { listKey, items } = state.deleteHistory[lastIndex];
+        const { listKey, items, list } = state.deleteHistory[lastIndex];
         state.deleteHistory = state.deleteHistory.slice(0, lastIndex);
-        if (listKey && Array.isArray(items)) {
-          state.itemList[listKey].list = [
-            ...state.itemList[listKey].list,
-            ...items,
-          ];
-          updateStorage({ storageKey: listKey, val: state.itemList[listKey] });
+        if (listKey || list) {
+          if (list) {
+            state.itemList[listKey] = list;
+            updateStorage({ storageKey: listKey, val: list });
+          } else if (Array.isArray(items)) {
+            state.itemList[listKey].list = [
+              ...state.itemList[listKey].list,
+              ...items,
+            ];
+            updateStorage({
+              storageKey: listKey,
+              val: state.itemList[listKey],
+            });
+          }
         }
       }
     },
@@ -141,6 +159,7 @@ export const {
   add,
   addTerm,
   remove,
+  removeTerm,
   toggleChecked,
   clearAll,
   clearDone,

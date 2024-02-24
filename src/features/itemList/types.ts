@@ -6,7 +6,8 @@ export interface Item {
 }
 
 interface IDeleteHistory {
-  items: ItemList;
+  items?: ItemList;
+  list?: ListTypes;
   listKey: ListKey;
 }
 

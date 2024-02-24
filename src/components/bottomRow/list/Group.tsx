@@ -6,8 +6,11 @@ import Icon from "../../atoms/Icon";
 import { useRef, useState } from "react";
 import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import { faGears } from "@fortawesome/free-solid-svg-icons/faGears";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { ColumnSettings } from "../../settings/ColumnSettings";
 import { Duration, EndDate } from "../utils/getCurrentRatio";
+import { useAppDispatch } from "../../../app/hooks";
+import { removeTerm } from "../../../features/itemList/itemListSlice";
 
 const copyListToClipboard = (list: ListGroupProps["list"]) => {
   const itemList = list.map((item) => item.name).join("\r\n");
@@ -25,6 +28,7 @@ export const ListGroup = ({
   const [iconVisibility, setIconVisibility] = useState("hidden");
   const [hideSettings, setHideSettings] = useState(true);
   const settingsContainer = useRef(null as HTMLDivElement | null);
+  const dispatch = useAppDispatch();
 
   return (
     <div
@@ -59,6 +63,13 @@ export const ListGroup = ({
             <Icon
               onClick={() => copyListToClipboard(list)}
               icon={faCopy}
+              iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
+            />
+          </div>
+          <div className="inline-block" data-testid={`group-${groupId}-copy`}>
+            <Icon
+              onClick={() => dispatch(removeTerm({ listKey }))}
+              icon={faTrash}
               iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
             />
           </div>
