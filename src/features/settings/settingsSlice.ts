@@ -4,8 +4,6 @@ import { updateStorage } from "../utils/localStorage/updateStorage";
 import { RootState } from "../../app/commonTypes";
 import { localStorageDebounce } from "../utils/localStorage/localStorageDebounce";
 import { initalVisuals, initialSettings } from "./initialData";
-import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
-import { DateTime } from "luxon";
 
 export const unitsSlice = createSlice({
   name: "units",
@@ -16,7 +14,7 @@ export const unitsSlice = createSlice({
       state,
       { payload }: PayloadAction<SettingsState>
     ) => {
-      state.visualSettings = payload.visualSettings;
+      payload.visualSettings && (state.visualSettings = payload.visualSettings);
     },
     setVisualSetting: (
       state,

@@ -9,11 +9,10 @@ import {
   CreateList,
   UnitTypes,
   UnitType,
+  ObjectOfLists,
 } from "./types";
 import { updateStorage } from "../utils/localStorage/updateStorage";
 import { RootState } from "../../app/commonTypes";
-import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
-import { DateTime } from "luxon";
 
 // TODO: start off better
 
@@ -95,9 +94,9 @@ export const itemListSlice = createSlice({
     },
     populateTasksFromChrome: (
       state,
-      { payload }: PayloadAction<ItemListState["itemList"] | {}>
+      { payload: { itemList } }: PayloadAction<{ itemList: ObjectOfLists }>
     ) => {
-      state.itemList = { ...state.itemList, ...payload };
+      state.itemList = { ...state.itemList, ...itemList };
     },
     undoDelete: (state) => {
       if (state.deleteHistory.length) {
