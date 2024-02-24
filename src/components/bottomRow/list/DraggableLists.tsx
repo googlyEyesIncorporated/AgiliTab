@@ -36,15 +36,17 @@ export const DraggableLists = ({
 
   const dragEnd = () => {
     if (dragFrom.current && dragTo.current) {
-      const mutableLists = JSON.parse(JSON.stringify(lists));
+      const mutableLists = JSON.parse(JSON.stringify(lists)) as typeof lists;
       const { listKey: fromKey, index: fromIndex } = dragFrom.current;
       const { listKey: toKey, index: toIndex } = dragTo.current;
-      const item = mutableLists[fromKey][fromIndex];
-      mutableLists[fromKey].splice(fromIndex, 1);
-      mutableLists[toKey].splice(toIndex, 0, item);
-      dispatch(updateList({ listKey: toKey, itemList: mutableLists[toKey] }));
+      const item = mutableLists[fromKey].list[fromIndex];
+      mutableLists[fromKey].list.splice(fromIndex, 1);
+      mutableLists[toKey].list.splice(toIndex, 0, item);
       dispatch(
-        updateList({ listKey: fromKey, itemList: mutableLists[fromKey] })
+        updateList({ listKey: toKey, itemList: mutableLists[toKey].list })
+      );
+      dispatch(
+        updateList({ listKey: fromKey, itemList: mutableLists[fromKey].list })
       );
       dragTo.current = null;
       dragFrom.current = null;
