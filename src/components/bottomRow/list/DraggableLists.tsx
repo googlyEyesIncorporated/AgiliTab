@@ -34,15 +34,11 @@ export const DraggableLists = ({
     if (dragFrom.current && dragTo.current) {
       const { listKey: fromKey, index: fromIndex } = dragFrom.current;
       const { listKey: toKey, index: toIndex } = dragTo.current;
-      const isSameList = fromKey === toKey;
 
-      // const fromList = [...lists[fromKey].list];
       const fromList = [...getList(fromKey)];
-      const item = lists[fromKey].list[fromIndex];
-      // const toList = isSameList ? fromList : [...lists[toKey].list];
-      const toList = isSameList ? fromList : [...getList(toKey)];
+      const toList = fromKey === toKey ? fromList : [...getList(toKey)];
 
-      fromList.splice(fromIndex, 1);
+      const item = fromList.splice(fromIndex, 1)[0];
       toList.splice(toIndex, 0, item);
 
       callback({
