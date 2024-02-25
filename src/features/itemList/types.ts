@@ -21,6 +21,7 @@ export interface ItemListState {
   itemList: ObjectOfLists;
   deleteHistory: IDeleteHistory[];
   shouldShowToaster: boolean;
+  listOrder: string[];
 }
 export type ListKey = string;
 

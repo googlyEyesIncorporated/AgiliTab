@@ -19,6 +19,7 @@ import { RootState } from "../../app/commonTypes";
 const initialTodoListState: ItemListState = {
   itemList: {},
   deleteHistory: [],
+  listOrder: [],
   shouldShowToaster: false,
 };
 
@@ -34,8 +35,10 @@ export const itemListSlice = createSlice({
     },
     addTerm: (state, action: PayloadAction<CreateList>) => {
       const { listKey, listObject } = action.payload;
+      state.listOrder.push(listKey);
       state.itemList[listKey] = listObject;
       updateStorage({ storageKey: listKey, val: state.itemList[listKey] });
+      updateStorage({ storageKey: "listOrder", val: state.listOrder });
     },
     remove: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
@@ -53,9 +56,32 @@ export const itemListSlice = createSlice({
         list: state.itemList[listKey],
         listKey,
       });
+      const positionInOrder = state.listOrder.findIndex(
+        (value) => value === listKey
+      );
+      if (positionInOrder !== -1) {
+        state.listOrder.splice(positionInOrder, 1);
+      }
       const { [listKey]: termToRemove, ...everythingElse } = state.itemList;
       state.itemList = everythingElse;
       updateStorage({ storageKey: listKey, val: null });
+      updateStorage({ storageKey: "listOrder", val: state.listOrder });
+    },
+    moveTerm: (state, action: PayloadAction<ListAndIndex>) => {
+      const { listKey, index } = action.payload;
+      state.deleteHistory.push({
+        list: state.itemList[listKey],
+        listKey,
+      });
+      const positionInOrder = state.listOrder.findIndex(
+        (value) => value === listKey
+      );
+      if (positionInOrder !== -1) {
+        const modifier = positionInOrder <= index ? -1 : 0;
+        const removedList = state.listOrder.splice(positionInOrder, 1);
+        state.listOrder.splice(index + modifier, 0, removedList[0]);
+      }
+      updateStorage({ storageKey: "listOrder", val: state.listOrder });
     },
     toggleChecked: (state, action: PayloadAction<ListAndIndex>) => {
       const { listKey, index } = action.payload;
@@ -160,6 +186,7 @@ export const {
   addTerm,
   remove,
   removeTerm,
+  moveTerm,
   toggleChecked,
   clearAll,
   clearDone,
