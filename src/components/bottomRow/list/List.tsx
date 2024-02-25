@@ -43,7 +43,7 @@ export const List = ({
       <div
         data-testid={`group-${groupId}-list`}
         className="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
-        onDragEnter={() => enterListItem({ listKey, index: 0 })}
+        onDragEnter={() => enterListItem({ listKey })}
       >
         <ul className="text-left min-h-[0.5rem]">{ListItems}</ul>
         {!shouldShowOptions && (

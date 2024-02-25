@@ -3,7 +3,11 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import Icon from "../../../atoms/Icon";
 import CheckBox from "../../../atoms/CheckBox";
 import React, { useState } from "react";
-import { ListAndIndex, ListKey } from "../../../../features/itemList/types";
+import {
+  ListAndIndex,
+  ListAndMaybeIndex,
+  ListKey,
+} from "../../../../features/itemList/types";
 import { EditBox } from "./Editbox";
 
 const itemBeingDraggedCurrentItem = (
@@ -94,7 +98,7 @@ export const DumbListItem = ({
 };
 
 export interface DragAndDrop {
-  enterListItem?: (position: ListAndIndex) => void;
+  enterListItem?: (position: ListAndMaybeIndex) => void;
   dragStart?: (position: ListAndIndex) => void;
   dragEnd?: () => void;
   enterList?: (listKey: ListKey) => void;

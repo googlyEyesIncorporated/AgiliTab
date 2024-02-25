@@ -32,9 +32,11 @@ export interface ReplaceList extends JustListKey {
 export interface CreateList extends JustListKey {
   listObject: ListTypes;
 }
-export interface ListAndIndex extends JustListKey {
+interface JustIndex {
   index: number;
 }
+export interface ListAndIndex extends JustListKey, JustIndex {}
+export interface ListAndMaybeIndex extends JustListKey, Partial<JustIndex> {}
 export interface ListAndItem extends JustListKey {
   item: Item;
 }

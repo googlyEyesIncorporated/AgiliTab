@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { ListAndMaybeIndex } from "../../../features/itemList/types";
 
 export const DraggableLists = ({
   lists,
@@ -20,8 +21,13 @@ export const DraggableLists = ({
     setItemBeingDragged(position);
   };
 
-  const enterListItem = (position: ListAndIndex) => {
-    dragTo.current = position;
+  const enterListItem = (position: ListAndMaybeIndex) => {
+    if (position.index === undefined) {
+      const existingOrDefault = dragTo.current?.index ?? 0;
+      dragTo.current = { ...position, index: existingOrDefault };
+    } else {
+      dragTo.current = position as ListAndIndex;
+    }
   };
 
   const dragEnd = () => {
