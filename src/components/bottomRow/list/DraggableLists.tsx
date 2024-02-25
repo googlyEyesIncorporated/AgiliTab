@@ -4,9 +4,11 @@ export const DraggableLists = ({
   lists,
   callback,
   children,
+  getList,
 }: React.PropsWithChildren<{
   lists: Record<string | number | symbol, any>;
   callback: (dragData: { from?: DraggableData; to?: DraggableData }) => void;
+  getList: (s: string) => any[];
 }>) => {
   const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dragTo: React.MutableRefObject<null | ListAndIndex> = useRef(null);
@@ -28,9 +30,11 @@ export const DraggableLists = ({
       const { listKey: toKey, index: toIndex } = dragTo.current;
       const isSameList = fromKey === toKey;
 
-      const fromList = [...lists[fromKey].list];
+      // const fromList = [...lists[fromKey].list];
+      const fromList = [...getList(fromKey)];
       const item = lists[fromKey].list[fromIndex];
-      const toList = isSameList ? fromList : [...lists[toKey].list];
+      // const toList = isSameList ? fromList : [...lists[toKey].list];
+      const toList = isSameList ? fromList : [...getList(toKey)];
 
       fromList.splice(fromIndex, 1);
       toList.splice(toIndex, 0, item);
