@@ -1,15 +1,18 @@
 import React, { useRef, useState } from "react";
 import { ListAndMaybeIndex } from "../../../features/itemList/types";
+import { DragAndDrop } from "./item/DumbListItem";
 
 export const DraggableLists = ({
   lists,
   callback,
   children,
   getList,
+  dragAndDrop: outterDragAndDrop,
 }: React.PropsWithChildren<{
   lists: Record<string | number | symbol, any>;
   callback: (dragData: { from?: DraggableData; to?: DraggableData }) => void;
   getList: (s: string) => any[];
+  dragAndDrop?: DragAndDrop;
 }>) => {
   const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dragTo: React.MutableRefObject<null | ListAndIndex> = useRef(null);
@@ -63,6 +66,7 @@ export const DraggableLists = ({
       {React.Children.map(children, (child) => {
         return React.cloneElement(child as React.ReactElement<any>, {
           dragAndDrop,
+          outterDragAndDrop,
         });
       })}
     </>

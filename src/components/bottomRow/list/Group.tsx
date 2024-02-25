@@ -20,9 +20,16 @@ export const ListGroup = ({
   title,
   list,
   dragAndDrop,
+  outterDragAndDrop: {
+    dragStart = () => {},
+    dragEnd = () => {},
+    enterListItem = () => {},
+    itemBeingDragged,
+  } = {},
   listKey,
   groupId,
   type,
+  index,
   ...term
 }: ListGroupProps) => {
   const [iconVisibility, setIconVisibility] = useState("hidden");
@@ -34,6 +41,10 @@ export const ListGroup = ({
     <div
       className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block"
       data-testid="group-container"
+      draggable
+      onDragStart={() => dragStart({ listKey: "listOrder", index })}
+      onDragEnter={() => enterListItem({ listKey: "listOrder", index })}
+      onDragEnd={() => dragEnd()}
     >
       <div
         className={`pb-1 text-2xl border-current text-center${
@@ -112,6 +123,8 @@ interface ListGroupProps {
   title: string;
   list: ItemList;
   dragAndDrop?: DragAndDrop;
+  outterDragAndDrop?: DragAndDrop;
+  index: number;
   listKey: string;
   startDate?: string;
   type: string;

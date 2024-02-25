@@ -1,7 +1,9 @@
 import { useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
+  moveTerm,
   selectAllLists,
+  selectListOrder,
   updateList,
 } from "../../features/itemList/itemListSlice";
 import { DraggableData, DraggableLists } from "./list/DraggableLists";
@@ -9,7 +11,11 @@ import { ListGroup } from "./list/Group";
 
 export const BottomRow = () => {
   const lists = useAppSelector(selectAllLists);
+  const listOrder = useAppSelector(selectListOrder);
   const dispatch = useAppDispatch();
+  const getListItem = (key: string) => lists[key].list;
+  const getList = () => listOrder;
+
   const moveListItem = useCallback(
     ({ to, from }: { from?: DraggableData; to?: DraggableData }) => {
       if (from) {
@@ -21,15 +27,10 @@ export const BottomRow = () => {
     },
     [dispatch]
   );
-  const getListItem = (key: string) => lists[key].list;
-
   const moveListPosition = useCallback(
-    ({ to, from }: { from?: DraggableData; to?: DraggableData }) => {
-      if (from) {
-        dispatch(updateList({ listKey: from.key, itemList: from.list }));
-        if (to && from.key !== to?.key) {
-          dispatch(updateList({ listKey: to.key, itemList: to.list }));
-        }
+    ({ from }: { from?: DraggableData }) => {
+      if (from?.list) {
+        dispatch(moveTerm({ listOrder: from.list }));
       }
     },
     [dispatch]
@@ -44,19 +45,29 @@ export const BottomRow = () => {
       data-testid="bottom-row"
       className="flex justify-evenly lg:h-1/2 h-auto flex-wrap"
     >
-      {/* <DraggableLists getList={getListItem} lists={lists} callback={() => {}}> */}
       <DraggableLists
-        lists={lists}
-        getList={getListItem}
-        callback={moveListItem}
+        getList={getList}
+        lists={listOrder}
+        callback={moveListPosition}
       >
-        {Object.keys(lists).map((key) => {
-          return (
-            <ListGroup key={key} {...lists[key]} listKey={key} groupId={key} />
-          );
-        })}
+        <DraggableLists
+          lists={lists}
+          getList={getListItem}
+          callback={moveListItem}
+        >
+          {listOrder.map((key, index) => {
+            return (
+              <ListGroup
+                index={index}
+                key={key}
+                {...lists[key]}
+                listKey={key}
+                groupId={key}
+              />
+            );
+          })}
+        </DraggableLists>
       </DraggableLists>
-      {/* </DraggableLists> */}
     </div>
   );
 };

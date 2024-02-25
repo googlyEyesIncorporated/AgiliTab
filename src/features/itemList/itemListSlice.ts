@@ -67,20 +67,8 @@ export const itemListSlice = createSlice({
       updateStorage({ storageKey: listKey, val: null });
       updateStorage({ storageKey: "listOrder", val: state.listOrder });
     },
-    moveTerm: (state, action: PayloadAction<ListAndIndex>) => {
-      const { listKey, index } = action.payload;
-      state.deleteHistory.push({
-        list: state.itemList[listKey],
-        listKey,
-      });
-      const positionInOrder = state.listOrder.findIndex(
-        (value) => value === listKey
-      );
-      if (positionInOrder !== -1) {
-        const modifier = positionInOrder <= index ? -1 : 0;
-        const removedList = state.listOrder.splice(positionInOrder, 1);
-        state.listOrder.splice(index + modifier, 0, removedList[0]);
-      }
+    moveTerm: (state, action: PayloadAction<{ listOrder: string[] }>) => {
+      state.listOrder = action.payload.listOrder;
       updateStorage({ storageKey: "listOrder", val: state.listOrder });
     },
     toggleChecked: (state, action: PayloadAction<ListAndIndex>) => {
@@ -202,6 +190,7 @@ export const {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectAllLists = (state: RootState) => state.itemList.itemList;
+export const selectListOrder = (state: RootState) => state.itemList.listOrder;
 export const selectTermList = (state: RootState, key: string) =>
   state.itemList.itemList[key];
 export const selectShouldShowToaster = (state: RootState) =>
