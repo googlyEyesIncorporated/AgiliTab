@@ -54,9 +54,18 @@ export const DumbListItem = ({
       onMouseEnter={() => setHideIcon(false)}
       onMouseLeave={() => setHideIcon(true)}
       draggable
-      onDragStart={() => dragStart({ listKey, index })}
-      onDragEnter={() => enterListItem({ listKey, index })}
-      onDragEnd={() => dragEnd()}
+      onDragStart={(e) => {
+        e.stopPropagation();
+        dragStart({ listKey, index });
+      }}
+      onDragEnter={(e) => {
+        e.stopPropagation();
+        enterListItem({ listKey, index });
+      }}
+      onDragEnd={(e) => {
+        e.stopPropagation();
+        dragEnd();
+      }}
       onDoubleClick={() => {
         setEditBoxIsHidden(false);
         inputRef.current?.focus();

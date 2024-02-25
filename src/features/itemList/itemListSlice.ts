@@ -130,7 +130,9 @@ export const itemListSlice = createSlice({
         if (listKey || list) {
           if (list) {
             state.itemList[listKey] = list;
+            state.listOrder.push(listKey);
             updateStorage({ storageKey: listKey, val: list });
+            updateStorage({ storageKey: "listOrder", val: state.listOrder });
           } else if (Array.isArray(items)) {
             state.itemList[listKey].list = [
               ...state.itemList[listKey].list,
