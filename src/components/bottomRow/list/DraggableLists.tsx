@@ -1,21 +1,15 @@
 import React, { useRef, useState } from "react";
-import { useAppDispatch } from "../../../app/hooks";
-import { updateList } from "../../../features/itemList/itemListSlice";
-import {
-  ListAndIndex,
-  ListKey,
-  ObjectOfLists,
-} from "../../../features/itemList/types";
 
 export const DraggableLists = ({
   lists,
+  callback,
   children,
 }: React.PropsWithChildren<{
-  lists: ObjectOfLists;
+  lists: Record<string | number | symbol, any>;
+  callback: (dragData: { from?: DraggableData; to?: DraggableData }) => void;
 }>) => {
   const dragFrom: React.MutableRefObject<null | ListAndIndex> = useRef(null);
   const dragTo: React.MutableRefObject<null | ListAndIndex> = useRef(null);
-  const dispatch = useAppDispatch();
   const [itemBeingDragged, setItemBeingDragged] = useState<null | ListAndIndex>(
     null
   );
@@ -28,26 +22,23 @@ export const DraggableLists = ({
     dragTo.current = position;
   };
 
-  const enterList = (listKey: ListKey) => {
-    if (dragTo.current?.listKey !== listKey) {
-      dragTo.current = { listKey, index: 0 };
-    }
-  };
-
   const dragEnd = () => {
     if (dragFrom.current && dragTo.current) {
-      const mutableLists = JSON.parse(JSON.stringify(lists)) as typeof lists;
       const { listKey: fromKey, index: fromIndex } = dragFrom.current;
       const { listKey: toKey, index: toIndex } = dragTo.current;
-      const item = mutableLists[fromKey].list[fromIndex];
-      mutableLists[fromKey].list.splice(fromIndex, 1);
-      mutableLists[toKey].list.splice(toIndex, 0, item);
-      dispatch(
-        updateList({ listKey: toKey, itemList: mutableLists[toKey].list })
-      );
-      dispatch(
-        updateList({ listKey: fromKey, itemList: mutableLists[fromKey].list })
-      );
+      const isSameList = fromKey === toKey;
+
+      const fromList = [...lists[fromKey].list];
+      const item = lists[fromKey].list[fromIndex];
+      const toList = isSameList ? fromList : [...lists[toKey].list];
+
+      fromList.splice(fromIndex, 1);
+      toList.splice(toIndex, 0, item);
+
+      callback({
+        from: { list: fromList, key: fromKey },
+        to: { list: toList, key: toKey },
+      });
       dragTo.current = null;
       dragFrom.current = null;
     }
@@ -58,7 +49,6 @@ export const DraggableLists = ({
     enterListItem,
     dragStart,
     dragEnd,
-    enterList,
     itemBeingDragged,
   };
 
@@ -72,3 +62,13 @@ export const DraggableLists = ({
     </>
   );
 };
+
+export interface ListAndIndex {
+  listKey: string;
+  index: number;
+}
+
+export interface DraggableData {
+  list: any[];
+  key: string;
+}
