@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] = `
+exports[`bottomRow should display 3 lists 1`] = `
 <div
-  class="flex justify-between lg:h-1/2 lg:flex-nowrap h-auto flex-wrap"
+  class="flex justify-evenly lg:h-1/2 h-auto flex-wrap"
   data-testid="bottom-row"
 >
   <div
     class="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block"
     data-testid="group-container"
+    draggable="true"
   >
     <div
       class="pb-1 text-2xl border-current text-center border-b"
@@ -33,6 +34,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
               viewBox="0 0 640 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -58,6 +60,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
               viewBox="0 0 448 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -68,9 +71,35 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
             </svg>
           </span>
         </div>
+        <div
+          class="inline-block"
+          data-testid="group-0-copy"
+        >
+          <span
+            aria-hidden="true"
+            class="cursor-pointer mr-2 hidden"
+          >
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-trash "
+              data-icon="trash"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
+              viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
       <span
-        class="text-[1.6875rem]"
+        class="text-[1.6875rem] min"
         data-testid="group-0-title"
       >
         Today
@@ -79,7 +108,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         class="right-0 absolute text-[1.6875rem]"
         data-testid="group-0-elapsed-time"
       >
-        0%
+        16%
       </span>
     </div>
     <div
@@ -94,7 +123,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         />
         <button
           class="no-underline m-2 text-base block button-class float-right"
-          data-testid="shortTermList-edit-priorities-link"
+          data-testid="group-0-edit-priorities-link"
           style="color: rgb(79, 79, 79);"
         >
           Options
@@ -108,14 +137,14 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
           >
             <input
               class="todo leading-none p-2"
-              data-testid="todo-input-shortTermList"
+              data-testid="todo-input-0"
               style="color: rgb(79, 79, 79); background-color: rgb(207, 207, 207); border-color: #4f4f4f;"
               type="text"
             />
              
             <input
               class="text-base background-none shadow-none border-none"
-              data-testid="shortTermList-add-item-button"
+              data-testid="group-0-add-item-button"
               style="color: rgb(79, 79, 79);"
               type="submit"
               value="Add"
@@ -148,6 +177,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
   <div
     class="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block"
     data-testid="group-container"
+    draggable="true"
   >
     <div
       class="pb-1 text-2xl border-current text-center border-b"
@@ -173,6 +203,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
               viewBox="0 0 640 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -198,6 +229,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
               viewBox="0 0 448 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -208,9 +240,35 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
             </svg>
           </span>
         </div>
+        <div
+          class="inline-block"
+          data-testid="group-1-copy"
+        >
+          <span
+            aria-hidden="true"
+            class="cursor-pointer mr-2 hidden"
+          >
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-trash "
+              data-icon="trash"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
+              viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
       <span
-        class="text-[1.6875rem]"
+        class="text-[1.6875rem] min"
         data-testid="group-1-title"
       >
         Month
@@ -234,7 +292,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         />
         <button
           class="no-underline m-2 text-base block button-class float-right"
-          data-testid="mediumTermList-edit-priorities-link"
+          data-testid="group-1-edit-priorities-link"
           style="color: rgb(79, 79, 79);"
         >
           Options
@@ -248,14 +306,14 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
           >
             <input
               class="todo leading-none p-2"
-              data-testid="todo-input-mediumTermList"
+              data-testid="todo-input-1"
               style="color: rgb(79, 79, 79); background-color: rgb(207, 207, 207); border-color: #4f4f4f;"
               type="text"
             />
              
             <input
               class="text-base background-none shadow-none border-none"
-              data-testid="mediumTermList-add-item-button"
+              data-testid="group-1-add-item-button"
               style="color: rgb(79, 79, 79);"
               type="submit"
               value="Add"
@@ -288,6 +346,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
   <div
     class="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block"
     data-testid="group-container"
+    draggable="true"
   >
     <div
       class="pb-1 text-2xl border-current text-center border-b"
@@ -313,6 +372,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
               viewBox="0 0 640 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -338,6 +398,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
               data-prefix="fas"
               focusable="false"
               role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
               viewBox="0 0 448 512"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -348,9 +409,35 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
             </svg>
           </span>
         </div>
+        <div
+          class="inline-block"
+          data-testid="group-2-copy"
+        >
+          <span
+            aria-hidden="true"
+            class="cursor-pointer mr-2 hidden"
+          >
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-trash "
+              data-icon="trash"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              style="color: rgba(79, 79, 79, 0.6);"
+              viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
       <span
-        class="text-[1.6875rem]"
+        class="text-[1.6875rem] min"
         data-testid="group-2-title"
       >
         Year
@@ -359,7 +446,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         class="right-0 absolute text-[1.6875rem]"
         data-testid="group-2-elapsed-time"
       >
-        0%
+        66%
       </span>
     </div>
     <div
@@ -374,7 +461,7 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
         />
         <button
           class="no-underline m-2 text-base block button-class float-right"
-          data-testid="longTermList-edit-priorities-link"
+          data-testid="group-2-edit-priorities-link"
           style="color: rgb(79, 79, 79);"
         >
           Options
@@ -388,14 +475,14 @@ exports[`bottomRow should display 3 lists, shortTerm, mediumTerm, longTerm 1`] =
           >
             <input
               class="todo leading-none p-2"
-              data-testid="todo-input-longTermList"
+              data-testid="todo-input-2"
               style="color: rgb(79, 79, 79); background-color: rgb(207, 207, 207); border-color: #4f4f4f;"
               type="text"
             />
              
             <input
               class="text-base background-none shadow-none border-none"
-              data-testid="longTermList-add-item-button"
+              data-testid="group-2-add-item-button"
               style="color: rgb(79, 79, 79);"
               type="submit"
               value="Add"
