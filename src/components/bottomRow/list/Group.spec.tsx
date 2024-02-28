@@ -13,7 +13,7 @@ const list1 = generateNewList();
 const mockDispatch = jest.fn();
 jest.mock("../../../app/hooks", () => ({
   ...jest.requireActual("../../../app/hooks"),
-  // useAppDispatch: jest.fn().mockImplementation(() => mockDispatch),
+  useAppDispatch: jest.fn().mockImplementation(() => mockDispatch),
   useAppSelector: jest.fn().mockImplementation(() => list1),
 }));
 
@@ -36,16 +36,8 @@ const props = {
     dragEnd: jest.fn(),
     enterList: jest.fn(),
     itemBeingDragged: {
-      itemList: [
-        {
-          id: "1",
-          name: "Task 1",
-          done: false,
-        },
-      ],
       index: 0,
       listKey: "mediumTermList" as const,
-      save: true,
     },
   },
   index: 0,
@@ -70,11 +62,50 @@ const fadeIn1Sec = ".fade-in-1s";
 describe("Group", () => {
   it("should render as expected", () => {
     render(WrappedListGroup);
-    expect(screen.getByText(props.list[0].name)).toBeInTheDocument();
-    expect(screen.getByText(props.title)).toBeInTheDocument();
-    expect(screen.getByTestId(elapsedTime)).toBeInTheDocument();
-    expect(screen.getByTestId(settingsIcon)).toBeInTheDocument();
-    expect(screen.getByTestId(copyIcon)).toBeInTheDocument();
+    expect(screen.queryByText(props.list[0].name)).toBeInTheDocument();
+    expect(screen.queryByText(props.title)).toBeInTheDocument();
+    expect(screen.queryByTestId(elapsedTime)).toBeInTheDocument();
+    expect(screen.queryByTestId(settingsIcon)).toBeInTheDocument();
+    expect(screen.queryByTestId(copyIcon)).toBeInTheDocument();
+  });
+
+  it('should not see elapsed time when timeframe is set to "none"', () => {
+    render(
+      <Provider store={store}>
+        <ListGroup {...{ ...props, type: "none" }} />;
+      </Provider>
+    );
+    expect(screen.queryByText(props.list[0].name)).toBeInTheDocument();
+    expect(screen.queryByText(props.title)).toBeInTheDocument();
+    expect(screen.queryByTestId(elapsedTime)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(settingsIcon)).toBeInTheDocument();
+    expect(screen.queryByTestId(copyIcon)).toBeInTheDocument();
+  });
+
+  it("should see elapsed time when timeframe is set to 'duration'", () => {
+    render(
+      <Provider store={store}>
+        <ListGroup {...{ ...props, type: "duration" }} />;
+      </Provider>
+    );
+    expect(screen.queryByText(props.list[0].name)).toBeInTheDocument();
+    expect(screen.queryByText(props.title)).toBeInTheDocument();
+    expect(screen.queryByTestId(elapsedTime)).toBeInTheDocument();
+    expect(screen.queryByTestId(settingsIcon)).toBeInTheDocument();
+    expect(screen.queryByTestId(copyIcon)).toBeInTheDocument();
+  });
+
+  it("should see elapsed time when timeframe is set to 'date'", () => {
+    render(
+      <Provider store={store}>
+        <ListGroup {...{ ...props, type: "date" }} />;
+      </Provider>
+    );
+    expect(screen.queryByText(props.list[0].name)).toBeInTheDocument();
+    expect(screen.queryByText(props.title)).toBeInTheDocument();
+    expect(screen.queryByTestId(elapsedTime)).toBeInTheDocument();
+    expect(screen.queryByTestId(settingsIcon)).toBeInTheDocument();
+    expect(screen.queryByTestId(copyIcon)).toBeInTheDocument();
   });
 
   it("should NOT show hidden icons without mousing over them", () => {
@@ -116,7 +147,7 @@ describe("Group", () => {
     fireEvent.click(
       screen.getByTestId(settingsIcon).querySelector(".fa-gears") as Element
     );
-    expect(screen.getByTestId("column-settings")).toBeInTheDocument();
+    expect(screen.queryByTestId("column-settings")).toBeInTheDocument();
   });
 
   it("should remove the list when trash icon was clicked", async () => {
@@ -137,20 +168,5 @@ describe("Group", () => {
     );
     const clipboardText = await navigator.clipboard.readText();
     expect(clipboardText).toBe("Task 1");
-  });
-
-  it('should not see elapsed time when timeframe is set to "none"', () => {
-    // TODO
-    render(WrappedListGroup);
-  });
-
-  it("should see elapsed time when timeframe is set to 'duration'", () => {
-    // TODO
-    render(WrappedListGroup);
-  });
-
-  it("should see elapsed time when timeframe is set to 'date'", () => {
-    // TODO
-    render(WrappedListGroup);
   });
 });
