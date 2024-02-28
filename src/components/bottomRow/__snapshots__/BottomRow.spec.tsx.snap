@@ -73,7 +73,7 @@ exports[`bottomRow should display 3 lists 1`] = `
         </div>
         <div
           class="inline-block"
-          data-testid="group-0-copy"
+          data-testid="group-0-trash"
         >
           <span
             aria-hidden="true"
@@ -99,7 +99,7 @@ exports[`bottomRow should display 3 lists 1`] = `
         </div>
       </div>
       <span
-        class="text-[1.6875rem] min"
+        class="text-[1.6875rem]"
         data-testid="group-0-title"
       >
         Today
@@ -242,7 +242,7 @@ exports[`bottomRow should display 3 lists 1`] = `
         </div>
         <div
           class="inline-block"
-          data-testid="group-1-copy"
+          data-testid="group-1-trash"
         >
           <span
             aria-hidden="true"
@@ -268,7 +268,7 @@ exports[`bottomRow should display 3 lists 1`] = `
         </div>
       </div>
       <span
-        class="text-[1.6875rem] min"
+        class="text-[1.6875rem]"
         data-testid="group-1-title"
       >
         Month
@@ -411,7 +411,7 @@ exports[`bottomRow should display 3 lists 1`] = `
         </div>
         <div
           class="inline-block"
-          data-testid="group-2-copy"
+          data-testid="group-2-trash"
         >
           <span
             aria-hidden="true"
@@ -437,7 +437,7 @@ exports[`bottomRow should display 3 lists 1`] = `
         </div>
       </div>
       <span
-        class="text-[1.6875rem] min"
+        class="text-[1.6875rem]"
         data-testid="group-2-title"
       >
         Year

@@ -24,7 +24,6 @@ export const ListGroup = ({
     dragStart = () => {},
     dragEnd = () => {},
     enterListItem = () => {},
-    itemBeingDragged,
   } = {},
   listKey,
   groupId,
@@ -77,7 +76,7 @@ export const ListGroup = ({
               iconClassName={`cursor-pointer mr-2 ${iconVisibility}`}
             />
           </div>
-          <div className="inline-block" data-testid={`group-${groupId}-copy`}>
+          <div className="inline-block" data-testid={`group-${groupId}-trash`}>
             <Icon
               onClick={() => dispatch(removeTerm({ listKey }))}
               icon={faTrash}

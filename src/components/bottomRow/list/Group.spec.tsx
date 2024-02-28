@@ -2,8 +2,20 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { ListGroup } from "./Group";
 import { Provider } from "react-redux";
 import { store } from "../../../app/store";
-import { ComponentProps } from "react";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
+import { generateNewList } from "../../../features/utils/generateNewList";
+
+const user = userEvent.setup();
+
+const list1 = generateNewList();
+
+const mockDispatch = jest.fn();
+jest.mock("../../../app/hooks", () => ({
+  ...jest.requireActual("../../../app/hooks"),
+  // useAppDispatch: jest.fn().mockImplementation(() => mockDispatch),
+  useAppSelector: jest.fn().mockImplementation(() => list1),
+}));
 
 const props = {
   title: "test group",
@@ -42,12 +54,11 @@ const props = {
   groupId: "1",
 };
 
-const setup = (props: ComponentProps<typeof ListGroup>) =>
-  render(
-    <Provider store={store}>
-      <ListGroup {...props} />;
-    </Provider>
-  );
+const WrappedListGroup = (
+  <Provider store={store}>
+    <ListGroup {...props} />;
+  </Provider>
+);
 
 const settingsIcon = `group-${props.groupId}-settings`;
 const copyIcon = `group-${props.groupId}-copy`;
@@ -58,7 +69,7 @@ const fadeIn1Sec = ".fade-in-1s";
 
 describe("Group", () => {
   it("should render as expected", () => {
-    setup(props);
+    render(WrappedListGroup);
     expect(screen.getByText(props.list[0].name)).toBeInTheDocument();
     expect(screen.getByText(props.title)).toBeInTheDocument();
     expect(screen.getByTestId(elapsedTime)).toBeInTheDocument();
@@ -67,7 +78,7 @@ describe("Group", () => {
   });
 
   it("should NOT show hidden icons without mousing over them", () => {
-    setup(props);
+    render(WrappedListGroup);
 
     expect(
       screen.queryByTestId(copyIcon)?.querySelector(hidden)
@@ -78,7 +89,7 @@ describe("Group", () => {
   });
 
   it("should show hidden icons when mousing over them", () => {
-    setup(props);
+    render(WrappedListGroup);
     fireEvent.mouseEnter(screen.getByTestId(header));
 
     // copyIcon
@@ -99,12 +110,47 @@ describe("Group", () => {
   });
 
   it("should render a settings box when gears are clicked", () => {
-    setup(props);
+    render(WrappedListGroup);
     fireEvent.mouseEnter(screen.getByTestId(header));
 
     fireEvent.click(
       screen.getByTestId(settingsIcon).querySelector(".fa-gears") as Element
     );
     expect(screen.getByTestId("column-settings")).toBeInTheDocument();
+  });
+
+  it("should remove the list when trash icon was clicked", async () => {
+    render(WrappedListGroup);
+    await user.click(
+      screen.getByTestId("group-1-trash").querySelector("svg") as Element
+    );
+    expect(mockDispatch).toHaveBeenCalledWith({
+      payload: { listKey: "shortTermList" },
+      type: "todo/removeTerm",
+    });
+  });
+
+  it("should copy the list when copy icon was clicked", async () => {
+    render(WrappedListGroup);
+    await user.click(
+      screen.getByTestId("group-1-copy").querySelector("svg") as Element
+    );
+    const clipboardText = await navigator.clipboard.readText();
+    expect(clipboardText).toBe("Task 1");
+  });
+
+  it('should not see elapsed time when timeframe is set to "none"', () => {
+    // TODO
+    render(WrappedListGroup);
+  });
+
+  it("should see elapsed time when timeframe is set to 'duration'", () => {
+    // TODO
+    render(WrappedListGroup);
+  });
+
+  it("should see elapsed time when timeframe is set to 'date'", () => {
+    // TODO
+    render(WrappedListGroup);
   });
 });

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { BottomRow } from ".";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
@@ -8,6 +8,10 @@ import { addTerm } from "../../features/itemList/itemListSlice";
 import { generateNewList } from "../../features/utils/generateNewList";
 import { DateTime } from "luxon";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
+import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
+
+const user = userEvent.setup();
 
 const { Sep012023 } = epochTimes;
 const jestSetTime = (newDateTime: number) => {
@@ -57,12 +61,32 @@ const list3 = generateNewList({
 describe("bottomRow", () => {
   it("should display 3 lists", () => {
     const { rerender } = render(WrappedBottomRow);
-    store.dispatch(addTerm(list1));
-    store.dispatch(addTerm(list2));
-    store.dispatch(addTerm(list3));
+    act(() => {
+      store.dispatch(addTerm(list1));
+      store.dispatch(addTerm(list2));
+      store.dispatch(addTerm(list3));
+    });
     rerender(WrappedBottomRow);
     const bottomRow = screen.getByTestId("bottom-row");
     expect(bottomRow).toBeInTheDocument();
     expect(bottomRow).toMatchSnapshot();
+  });
+
+  it("should update the list title when title is edited", async () => {
+    const replacementText = "Replacement Text";
+    const { rerender } = render(WrappedBottomRow);
+    act(() => {
+      store.dispatch(addTerm(list1));
+    });
+    rerender(WrappedBottomRow);
+    fireEvent.click(
+      screen.getByTestId("group-0-settings").querySelector("svg") as Element
+    );
+    const titleInput = screen.getByTestId("group-0-unit-name");
+    user.clear(titleInput);
+    user.click(titleInput);
+    user.paste(replacementText);
+    rerender(WrappedBottomRow);
+    expect(screen.getByText(replacementText)).toBeInTheDocument();
   });
 });
