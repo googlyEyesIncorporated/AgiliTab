@@ -29,6 +29,7 @@ export const SetColors = () => {
         <Icon
           onClick={() => dispatch(resetVisualSetting())}
           icon={faArrowRightFromBracket}
+          data-testid={`visual-restore-defaults`}
           title="Restore Default Colors"
           iconClassName="float-right text-base leading-none"
         />

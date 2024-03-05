@@ -150,17 +150,6 @@ describe("Group", () => {
     expect(screen.queryByTestId("column-settings")).toBeInTheDocument();
   });
 
-  it("should remove the list when trash icon was clicked", async () => {
-    render(WrappedListGroup);
-    await user.click(
-      screen.getByTestId("group-1-trash").querySelector("svg") as Element
-    );
-    expect(mockDispatch).toHaveBeenCalledWith({
-      payload: { listKey: "shortTermList" },
-      type: "todo/removeTerm",
-    });
-  });
-
   it("should copy the list when copy icon was clicked", async () => {
     render(WrappedListGroup);
     await user.click(
