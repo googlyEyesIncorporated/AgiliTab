@@ -25,9 +25,7 @@ export const ColumnSettings = ({
   groupId: string;
 }) => {
   const dispatch = useAppDispatch();
-  const termData = useAppSelector((state) =>
-    selectTermList(state, `${groupId}`)
-  );
+  const termData = useAppSelector((state) => selectTermList(state, groupId));
   const { bgColor } = useAppSelector(selectVisualSettings);
   const { secondFontColor } = useAppSelector(selectVisualSettings);
 

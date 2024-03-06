@@ -30,7 +30,6 @@ export const List = ({
     : itemList.map((props, index) => (
         <SmartListItem
           {...props}
-          done={props.done}
           index={index}
           key={props.id}
           listKey={listKey}
@@ -49,7 +48,7 @@ export const List = ({
         {!shouldShowOptions && (
           <button
             className="no-underline m-2 text-base block button-class float-right"
-            data-testid={`${listKey}-edit-priorities-link`}
+            data-testid={`group-${groupId}-edit-priorities-link`}
             onClick={toggleOptions}
             style={{ color: secondFontColor }}
           >

@@ -27,12 +27,10 @@ const AppJsx = (
 const setup = () => render(AppJsx);
 const user = userEvent.setup();
 
-describe("App", () => {
+describe("Settings", () => {
   it("renders a clock with the selected format", async () => {
     setup();
     expect(screen.getByTestId("now-box")).toBeInTheDocument();
-
-    // selecting format Feb 25, 2024, sets the date to same
     await user.click(screen.getByTestId("settings"));
     const dateFormatInput = screen.getByTestId("date-format-input");
     const timeFormatInput = screen.getByTestId("time-format-input");

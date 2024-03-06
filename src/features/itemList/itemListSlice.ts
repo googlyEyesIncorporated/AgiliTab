@@ -158,7 +158,6 @@ export const itemListSlice = createSlice({
         listKey: string;
       }>
     ) => {
-      console.log(termPart);
       state.itemList[listKey] = { ...state.itemList[listKey], ...termPart };
       updateStorage({
         storageKey: listKey,
