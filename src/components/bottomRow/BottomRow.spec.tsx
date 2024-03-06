@@ -153,4 +153,60 @@ describe("bottomRow", () => {
     ).not.toBeInTheDocument();
     expect(screen.queryByText("item 2")).toBeInTheDocument();
   });
+
+  it("should cross out the item when checked", () => {
+    // setup
+    const { rerender } = render(WrappedBottomRow);
+
+    const listWithItems = {
+      listKey: "5",
+      listObject: {
+        type: "date" as const,
+        startDate: Now.startOf("year").toFormat(DATE_TIME_NO_SECONDS),
+        endDate: Now.endOf("year").toFormat(DATE_TIME_NO_SECONDS),
+        list: [{ id: "1", name: "item 1", done: false }],
+        title: "Year",
+      },
+    };
+    act(() => {
+      store.dispatch(addTerm(listWithItems));
+    });
+    rerender(WrappedBottomRow);
+
+    // click checkbox
+    fireEvent.click(screen.getByTestId("list-item-checkbox-0"));
+    expect(screen.getByTestId("todo-text-0")).toHaveClass("line-through");
+  });
+
+  it("should update the list item name when edited", async () => {
+    // setup
+    render(WrappedBottomRow);
+    const newTaskName = "Take out the garbage";
+    const oldTaskName = "Task 1";
+
+    const listWithItems = {
+      listKey: "6",
+      listObject: {
+        type: "date" as const,
+        startDate: Now.startOf("year").toFormat(DATE_TIME_NO_SECONDS),
+        endDate: Now.endOf("year").toFormat(DATE_TIME_NO_SECONDS),
+        list: [{ id: "1", name: oldTaskName, done: false }],
+        title: "Year",
+      },
+    };
+    act(() => {
+      store.dispatch(addTerm(listWithItems));
+    });
+
+    // Edit list item
+    fireEvent.dblClick(
+      screen.getByTestId("group-6-list").querySelector("li") as Element
+    );
+    fireEvent.change(screen.getByTestId("todo-edit-0"), {
+      target: { value: newTaskName },
+    });
+    fireEvent.click(screen.getByTestId("group-6-list"));
+
+    expect(screen.getByText(newTaskName)).toBeInTheDocument();
+  });
 });

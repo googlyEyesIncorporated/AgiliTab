@@ -78,7 +78,7 @@ export const Options = ({
         />{" "}
         <input
           type="submit"
-          data-testid={`${listKey}-add-item-button`}
+          data-testid={`group-${groupId}-add-item-button`}
           value="Add"
           onClick={addClick}
           style={{ color: secondFontColor }}
@@ -89,6 +89,7 @@ export const Options = ({
         className={`${buttonClasses} text-base no-underline link`}
         style={{ color: secondFontColor }}
         onClick={clearDoneTasks}
+        data-testid={`group-${groupId}-clear-done-button`}
       >
         Clear Done
       </button>
@@ -97,6 +98,7 @@ export const Options = ({
         style={{ color: secondFontColor }}
         className={`${buttonClasses} text-base no-underline`}
         onClick={clearAllTasks}
+        data-testid={`group-${groupId}-clear-all-button`}
       >
         Clear All
       </button>

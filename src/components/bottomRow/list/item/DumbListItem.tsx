@@ -86,7 +86,7 @@ export const DumbListItem = ({
       </div>
       <div
         className={`grow${done ? " line-through" : ""}`}
-        data-testid="todo-text"
+        data-testid={`todo-text-${index}`}
       >
         {name}
         <Icon
