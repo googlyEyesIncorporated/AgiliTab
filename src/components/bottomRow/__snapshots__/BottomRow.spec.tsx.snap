@@ -2,11 +2,11 @@
 
 exports[`bottomRow should display more than one list 1`] = `
 <div
-  class="flex justify-evenly lg:h-1/2 h-auto flex-wrap"
+  class="flex justify-evenly lg:h-1/2 h-auto flex-wrap bg-inherit"
   data-testid="bottom-row"
 >
   <div
-    class="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block"
+    class="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block bg-inherit"
     data-testid="group-container"
     draggable="true"
   >
@@ -118,66 +118,70 @@ exports[`bottomRow should display more than one list 1`] = `
         class="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
         data-testid="group-0-list"
       >
-        <ul
-          class="text-left min-h-[0.5rem]"
-        />
-        <button
-          class="no-underline m-2 text-base block button-class float-right"
-          data-testid="group-0-edit-priorities-link"
-          style="color: rgb(79, 79, 79);"
-        >
-          Options
-        </button>
-        <div
-          class="text-center fade-in-1s hidden"
-          data-testid="group-0-options"
-        >
-          <form
-            class="inline-block w-full mb-2"
+        <div>
+          <ul
+            class="text-left min-h-[0.5rem]"
+          />
+        </div>
+        <div>
+          <button
+            class="no-underline m-2 text-base block button-class float-right"
+            data-testid="group-0-edit-priorities-link"
+            style="color: rgb(79, 79, 79);"
           >
-            <input
-              class="todo leading-none p-2"
-              data-testid="todo-input-0"
-              style="color: rgb(79, 79, 79); background-color: rgb(207, 207, 207); border-color: #4f4f4f;"
-              type="text"
-            />
-             
-            <input
-              class="text-base background-none shadow-none border-none"
-              data-testid="group-0-add-item-button"
+            Options
+          </button>
+          <div
+            class="text-center fade-in-1s hidden"
+            data-testid="group-0-options"
+          >
+            <form
+              class="inline-block w-full mb-2"
+            >
+              <input
+                class="todo leading-none p-2"
+                data-testid="todo-input-0"
+                style="color: rgb(79, 79, 79); background-color: rgb(207, 207, 207); border-color: #4f4f4f;"
+                type="text"
+              />
+               
+              <input
+                class="text-base background-none shadow-none border-none"
+                data-testid="group-0-add-item-button"
+                style="color: rgb(79, 79, 79);"
+                type="submit"
+                value="Add"
+              />
+            </form>
+            <button
+              class="border-none bg-transparent cursor-pointer text-base no-underline link"
+              data-testid="group-0-clear-done-button"
               style="color: rgb(79, 79, 79);"
-              type="submit"
-              value="Add"
-            />
-          </form>
-          <button
-            class="border-none bg-transparent cursor-pointer text-base no-underline link"
-            data-testid="group-0-clear-done-button"
-            style="color: rgb(79, 79, 79);"
-          >
-            Clear Done
-          </button>
-           | 
-          <button
-            class="border-none bg-transparent cursor-pointer text-base no-underline"
-            data-testid="group-0-clear-all-button"
-            style="color: rgb(79, 79, 79);"
-          >
-            Clear All
-          </button>
-           | 
-          <button
-            class="border-none bg-transparent cursor-pointer text-base no-underline"
-            style="color: rgb(79, 79, 79);"
-          >
-            Hide
-          </button>
+            >
+              Clear Done
+            </button>
+             | 
+            <button
+              class="border-none bg-transparent cursor-pointer text-base no-underline"
+              data-testid="group-0-clear-all-button"
+              style="color: rgb(79, 79, 79);"
+            >
+              Clear All
+            </button>
+             | 
+            <button
+              class="border-none bg-transparent cursor-pointer text-base no-underline"
+              style="color: rgb(79, 79, 79);"
+            >
+              Hide
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div
-    class="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block"
+    class="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block bg-inherit"
     data-testid="group-container"
     draggable="true"
   >
@@ -289,60 +293,64 @@ exports[`bottomRow should display more than one list 1`] = `
         class="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
         data-testid="group-1-list"
       >
-        <ul
-          class="text-left min-h-[0.5rem]"
-        />
-        <button
-          class="no-underline m-2 text-base block button-class float-right"
-          data-testid="group-1-edit-priorities-link"
-          style="color: rgb(79, 79, 79);"
-        >
-          Options
-        </button>
-        <div
-          class="text-center fade-in-1s hidden"
-          data-testid="group-1-options"
-        >
-          <form
-            class="inline-block w-full mb-2"
+        <div>
+          <ul
+            class="text-left min-h-[0.5rem]"
+          />
+        </div>
+        <div>
+          <button
+            class="no-underline m-2 text-base block button-class float-right"
+            data-testid="group-1-edit-priorities-link"
+            style="color: rgb(79, 79, 79);"
           >
-            <input
-              class="todo leading-none p-2"
-              data-testid="todo-input-1"
-              style="color: rgb(79, 79, 79); background-color: rgb(207, 207, 207); border-color: #4f4f4f;"
-              type="text"
-            />
-             
-            <input
-              class="text-base background-none shadow-none border-none"
-              data-testid="group-1-add-item-button"
+            Options
+          </button>
+          <div
+            class="text-center fade-in-1s hidden"
+            data-testid="group-1-options"
+          >
+            <form
+              class="inline-block w-full mb-2"
+            >
+              <input
+                class="todo leading-none p-2"
+                data-testid="todo-input-1"
+                style="color: rgb(79, 79, 79); background-color: rgb(207, 207, 207); border-color: #4f4f4f;"
+                type="text"
+              />
+               
+              <input
+                class="text-base background-none shadow-none border-none"
+                data-testid="group-1-add-item-button"
+                style="color: rgb(79, 79, 79);"
+                type="submit"
+                value="Add"
+              />
+            </form>
+            <button
+              class="border-none bg-transparent cursor-pointer text-base no-underline link"
+              data-testid="group-1-clear-done-button"
               style="color: rgb(79, 79, 79);"
-              type="submit"
-              value="Add"
-            />
-          </form>
-          <button
-            class="border-none bg-transparent cursor-pointer text-base no-underline link"
-            data-testid="group-1-clear-done-button"
-            style="color: rgb(79, 79, 79);"
-          >
-            Clear Done
-          </button>
-           | 
-          <button
-            class="border-none bg-transparent cursor-pointer text-base no-underline"
-            data-testid="group-1-clear-all-button"
-            style="color: rgb(79, 79, 79);"
-          >
-            Clear All
-          </button>
-           | 
-          <button
-            class="border-none bg-transparent cursor-pointer text-base no-underline"
-            style="color: rgb(79, 79, 79);"
-          >
-            Hide
-          </button>
+            >
+              Clear Done
+            </button>
+             | 
+            <button
+              class="border-none bg-transparent cursor-pointer text-base no-underline"
+              data-testid="group-1-clear-all-button"
+              style="color: rgb(79, 79, 79);"
+            >
+              Clear All
+            </button>
+             | 
+            <button
+              class="border-none bg-transparent cursor-pointer text-base no-underline"
+              style="color: rgb(79, 79, 79);"
+            >
+              Hide
+            </button>
+          </div>
         </div>
       </div>
     </div>
