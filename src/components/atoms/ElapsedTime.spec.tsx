@@ -10,7 +10,6 @@ const jestSetTime = (newDateTime: number) => {
 
 describe("ElapsedTime", () => {
   it("should display 0%", () => {
-    jestSetTime(Sep012023);
     render(
       <ElapsedTime
         groupId={"1"}

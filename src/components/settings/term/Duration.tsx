@@ -26,7 +26,7 @@ export const Duration = ({
   duration,
   onChange,
 }: DurationProps) => {
-  const { qty, unit } = duration || {};
+  const { qty, unit } = duration ?? {};
   const qtyRef = useRef(null as null | HTMLInputElement);
   const unitRef = useRef(null as null | HTMLSelectElement);
 

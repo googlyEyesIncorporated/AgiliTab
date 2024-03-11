@@ -16,7 +16,7 @@ import {
   hmmssa,
   mmmddyyyyDate,
   yyyyMMdd,
-} from "./DateTimeRegex";
+} from "../utils/DateTimeRegex";
 
 const AppJsx = (
   <Provider store={store}>

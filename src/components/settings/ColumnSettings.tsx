@@ -54,7 +54,7 @@ export const ColumnSettings = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- first run only
   }, []);
 
-  return (
+  return !termData ? null : (
     <div
       className={`p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl`}
       data-testid="hideable-settings"

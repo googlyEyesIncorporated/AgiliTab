@@ -3,24 +3,17 @@ import { BottomRow } from ".";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
 import "@testing-library/jest-dom";
-import { epochTimes } from "../../commonTestData.json";
 import { addTerm } from "../../features/itemList/itemListSlice";
 import { DateTime } from "luxon";
 import { DATE_TIME_NO_SECONDS } from "../../commonUtils";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 
-const { Sep012023 } = epochTimes;
-const jestSetTime = (newDateTime: number) => {
-  jest.useFakeTimers().setSystemTime(new Date(newDateTime));
-};
-
 const WrappedBottomRow = (
   <Provider store={{ ...store }}>
     <BottomRow />
   </Provider>
 );
-jestSetTime(Sep012023);
 
 const user = userEvent.setup();
 const Now = DateTime.now();
@@ -174,8 +167,17 @@ describe("bottomRow", () => {
     rerender(WrappedBottomRow);
 
     // click checkbox
-    fireEvent.click(screen.getByTestId("list-item-checkbox-0"));
-    expect(screen.getByTestId("todo-text-0")).toHaveClass("line-through");
+    fireEvent.click(
+      screen
+        .getByTestId("group-5-list")
+        .querySelector('[data-testid="list-item-checkbox-0"]') as Element
+    );
+    rerender(WrappedBottomRow);
+    expect(
+      screen
+        .getByTestId("group-5-list")
+        .querySelector('[data-testid="todo-text-0"]')
+    ).toHaveClass("line-through");
   });
 
   it("should update the list item name when edited", async () => {

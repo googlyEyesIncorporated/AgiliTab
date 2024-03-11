@@ -48,20 +48,16 @@ describe("updateStorage", () => {
       storageKey: "settings",
       val: JSON.stringify(initialSettings),
     });
-    expect(syncSet).toHaveBeenCalledWith({ settings: undefined });
-  });
-});
-
-describe("getStorage", () => {
-  xit("retrieves data from local storage", () => {
-    getStorage(mockDispatch);
-    expect(mockPopulateSettingssFromChrome).toHaveBeenCalledWith({
-      test: "settings",
-    });
-    expect(mockPopulateTasksFromChrome).toHaveBeenCalledWith({
-      longTermList: ["longTermList"],
-      mediumTermList: ["mediumTermList"],
-      shortTermList: ["shortTermList"],
+    expect(syncSet).toHaveBeenCalledWith({
+      settings: JSON.stringify({
+        visualSettings: {
+          bgColor: "#CFCFCF",
+          fontColor: "#4F4F4F",
+          secondFontColor: "#4F4F4F",
+          dateFormat: "MMM dd, yyyy",
+          timeFormat: "h:mm a",
+        },
+      }),
     });
   });
 });

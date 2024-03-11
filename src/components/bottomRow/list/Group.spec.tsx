@@ -4,17 +4,13 @@ import { Provider } from "react-redux";
 import { store } from "../../../app/store";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import { generateNewList } from "../../../features/utils/generateNewList";
 
 const user = userEvent.setup();
-
-const list1 = generateNewList();
 
 const mockDispatch = jest.fn();
 jest.mock("../../../app/hooks", () => ({
   ...jest.requireActual("../../../app/hooks"),
   useAppDispatch: jest.fn().mockImplementation(() => mockDispatch),
-  useAppSelector: jest.fn().mockImplementation(() => list1),
 }));
 
 const props = {
@@ -141,7 +137,8 @@ describe("Group", () => {
   });
 
   it("should render a settings box when gears are clicked", () => {
-    render(WrappedListGroup);
+    const { rerender } = render(WrappedListGroup);
+    rerender(WrappedListGroup);
     fireEvent.mouseEnter(screen.getByTestId(header));
 
     fireEvent.click(
