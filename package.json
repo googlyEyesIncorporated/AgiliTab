@@ -55,8 +55,8 @@
     "build:dev": "INLINE_RUNTIME_CHUNK=false react-app-rewired build",
     "build:prod": "INLINE_RUNTIME_CHUNK=false react-scripts build",
     "build": "echo \"Please use build:dev or build:prod \" && exit 1",
-    "test": "react-app-rewired test",
-    "test:cov": "react-app-rewired test --coverage",
+    "test": "TZ=UTC react-app-rewired test",
+    "test:cov": "TZ=UTC react-app-rewired test --coverage",
     "tw": "npx tailwindcss -i ./src/index.css -o ./public/index.css",
     "tw:watch": "yarn tw --watch",
     "version": "auto-changelog -p && git add CHANGELOG.md"
