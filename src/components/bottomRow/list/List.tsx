@@ -44,23 +44,31 @@ export const List = ({
         className="w-full overflow-auto max-h-60 lg:max-h-full overflow-x-hidden"
         onDragEnter={() => enterListItem({ listKey })}
       >
-        <ul className="text-left min-h-[0.5rem]">{ListItems}</ul>
-        {!shouldShowOptions && (
-          <button
-            className="no-underline m-2 text-base block button-class float-right"
-            data-testid={`group-${groupId}-edit-priorities-link`}
-            onClick={toggleOptions}
-            style={{ color: secondFontColor }}
-          >
-            Options
-          </button>
-        )}
-        <Options
-          groupId={groupId}
-          shouldShowOptions={shouldShowOptions}
-          toggleOptions={toggleOptions}
-          listKey={listKey}
-        />
+        <div onDragEnter={() => enterListItem({ listKey, index: 0 })}>
+          <ul className="text-left min-h-[0.5rem]">{ListItems}</ul>
+        </div>
+        <div
+          onDragEnter={() =>
+            enterListItem({ listKey, index: ListItems?.length })
+          }
+        >
+          {!shouldShowOptions && (
+            <button
+              className="no-underline m-2 text-base block button-class float-right"
+              data-testid={`group-${groupId}-edit-priorities-link`}
+              onClick={toggleOptions}
+              style={{ color: secondFontColor }}
+            >
+              Options
+            </button>
+          )}
+          <Options
+            groupId={groupId}
+            shouldShowOptions={shouldShowOptions}
+            toggleOptions={toggleOptions}
+            listKey={listKey}
+          />
+        </div>
       </div>
     </div>
   );
