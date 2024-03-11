@@ -3,6 +3,7 @@ import { NowBox } from "./NowBox";
 import TimeProvider from "../TimeProvider";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
+import { hmma, mmmddyyyyDate } from "../../utils/DateTimeRegex";
 
 describe("NowBox", () => {
   it("should render the current date/time", () => {
@@ -13,7 +14,9 @@ describe("NowBox", () => {
         </TimeProvider>
       </Provider>
     );
-    const nowBox = screen.getByTestId("now-box");
-    expect(nowBox).toMatchSnapshot();
+    expect(screen.getByTestId("clock").innerHTML).toMatch(hmma);
+    expect(
+      screen.getByTestId("now-box").querySelector(".date span div")?.innerHTML
+    ).toMatch(mmmddyyyyDate);
   });
 });
