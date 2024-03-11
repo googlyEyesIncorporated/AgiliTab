@@ -7,7 +7,6 @@ import {
 } from "../../../features/itemList/itemListSlice";
 import { v4 as uuidv4 } from "uuid";
 import { selectVisualSettings } from "../../../features/settings/settingsSlice";
-import { ListKey } from "../../../features/itemList/types";
 
 const buttonClasses = "border-none bg-transparent cursor-pointer";
 
@@ -17,10 +16,10 @@ export const Options = ({
   toggleOptions,
   groupId,
 }: {
-  listKey: ListKey;
+  listKey: string;
   shouldShowOptions: boolean;
   toggleOptions: () => void;
-  groupId: number;
+  groupId: string;
 }) => {
   const { fontColor, secondFontColor, bgColor } =
     useAppSelector(selectVisualSettings);
@@ -79,10 +78,10 @@ export const Options = ({
         />{" "}
         <input
           type="submit"
-          data-testid={`${listKey}-add-item-button`}
+          data-testid={`group-${groupId}-add-item-button`}
           value="Add"
           onClick={addClick}
-          style={{ color: fontColor }}
+          style={{ color: secondFontColor }}
           className="text-base background-none shadow-none border-none"
         />
       </form>
@@ -90,6 +89,7 @@ export const Options = ({
         className={`${buttonClasses} text-base no-underline link`}
         style={{ color: secondFontColor }}
         onClick={clearDoneTasks}
+        data-testid={`group-${groupId}-clear-done-button`}
       >
         Clear Done
       </button>
@@ -98,6 +98,7 @@ export const Options = ({
         style={{ color: secondFontColor }}
         className={`${buttonClasses} text-base no-underline`}
         onClick={clearAllTasks}
+        data-testid={`group-${groupId}-clear-all-button`}
       >
         Clear All
       </button>

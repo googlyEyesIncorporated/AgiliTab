@@ -1,19 +1,18 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  selectTerm,
-  selectVisualSettings,
-  setPartialTerm,
-} from "../../features/settings/settingsSlice";
 import Icon from "../atoms/Icon";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { TermName } from "./term/TermName";
 import { handleClickOutside } from "../../features/utils/handleClickOutside";
 import { SetBooleanState } from "../../app/commonTypes";
-import { defaultTerms } from "../../features/settings/initialData";
 import { RadioButtons } from "../atoms/RadioButton";
-import { UnitTypes } from "../../features/settings/types";
 import { TimeFrameSelection } from "./TimeFrameSelection";
+import {
+  selectTermList,
+  setPartialTerm,
+} from "../../features/itemList/itemListSlice";
+import { UnitTypes } from "../../features/itemList/types";
+import { generateNewList } from "../../features/utils/generateNewList";
 
 export const ColumnSettings = ({
   settingsContainer,
@@ -22,20 +21,18 @@ export const ColumnSettings = ({
 }: {
   settingsContainer: React.MutableRefObject<HTMLDivElement | null>;
   setHideSettings: SetBooleanState;
-  groupId: number;
+  groupId: string;
 }) => {
   const dispatch = useAppDispatch();
-  const termData = useAppSelector(selectTerm(groupId));
-  const { bgColor } = useAppSelector(selectVisualSettings);
-  const { secondFontColor } = useAppSelector(selectVisualSettings);
+  const termData = useAppSelector((state) => selectTermList(state, groupId));
 
-  const defaultTerm = defaultTerms[groupId];
+  const defaultTerm = generateNewList();
   const onChange = (
     termPart: Parameters<typeof setPartialTerm>[0]["termPart"]
   ) => {
     dispatch(
       setPartialTerm({
-        key: groupId,
+        listKey: groupId,
         termPart,
       })
     );
@@ -54,11 +51,10 @@ export const ColumnSettings = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- first run only
   }, []);
 
-  return (
+  return !termData ? null : (
     <div
-      className={`p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl`}
+      className={`bg-inherit p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl`}
       data-testid="hideable-settings"
-      style={{ backgroundColor: bgColor }}
     >
       <h1 className="text-l font-semibold" id="settings-title">
         TimeFrame:
@@ -76,13 +72,12 @@ export const ColumnSettings = ({
         </div>
         <Icon
           onClick={() => {
-            onChange(defaultTerm);
+            onChange(defaultTerm.listObject);
           }}
           data-testid={`group-${groupId}-restore-defaults`}
           icon={faArrowRightFromBracket}
           title="Restore Defaults"
           iconClassName="float-right mr-2"
-          faStyle={{ color: secondFontColor }}
         />
       </h1>
       <hr style={{ borderColor: "inherit" }} />

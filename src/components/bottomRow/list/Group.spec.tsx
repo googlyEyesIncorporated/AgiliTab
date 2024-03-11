@@ -2,8 +2,16 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { ListGroup } from "./Group";
 import { Provider } from "react-redux";
 import { store } from "../../../app/store";
-import { ComponentProps } from "react";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
+
+const user = userEvent.setup();
+
+const mockDispatch = jest.fn();
+jest.mock("../../../app/hooks", () => ({
+  ...jest.requireActual("../../../app/hooks"),
+  useAppDispatch: jest.fn().mockImplementation(() => mockDispatch),
+}));
 
 const props = {
   title: "test group",
@@ -24,28 +32,21 @@ const props = {
     dragEnd: jest.fn(),
     enterList: jest.fn(),
     itemBeingDragged: {
-      itemList: [
-        {
-          id: "1",
-          name: "Task 1",
-          done: false,
-        },
-      ],
       index: 0,
       listKey: "mediumTermList" as const,
-      save: true,
     },
   },
+  index: 0,
+  type: "date",
   listKey: "shortTermList" as const,
-  groupId: 1,
+  groupId: "1",
 };
 
-const setup = (props: ComponentProps<typeof ListGroup>) =>
-  render(
-    <Provider store={store}>
-      <ListGroup {...props} />;
-    </Provider>
-  );
+const WrappedListGroup = (
+  <Provider store={store}>
+    <ListGroup {...props} />;
+  </Provider>
+);
 
 const settingsIcon = `group-${props.groupId}-settings`;
 const copyIcon = `group-${props.groupId}-copy`;
@@ -56,16 +57,55 @@ const fadeIn1Sec = ".fade-in-1s";
 
 describe("Group", () => {
   it("should render as expected", () => {
-    setup(props);
-    expect(screen.getByText(props.list[0].name)).toBeInTheDocument();
-    expect(screen.getByText(props.title)).toBeInTheDocument();
-    expect(screen.getByTestId(elapsedTime)).toBeInTheDocument();
-    expect(screen.getByTestId(settingsIcon)).toBeInTheDocument();
-    expect(screen.getByTestId(copyIcon)).toBeInTheDocument();
+    render(WrappedListGroup);
+    expect(screen.queryByText(props.list[0].name)).toBeInTheDocument();
+    expect(screen.queryByText(props.title)).toBeInTheDocument();
+    expect(screen.queryByTestId(elapsedTime)).toBeInTheDocument();
+    expect(screen.queryByTestId(settingsIcon)).toBeInTheDocument();
+    expect(screen.queryByTestId(copyIcon)).toBeInTheDocument();
+  });
+
+  it('should not see elapsed time when timeframe is set to "none"', () => {
+    render(
+      <Provider store={store}>
+        <ListGroup {...{ ...props, type: "none" }} />;
+      </Provider>
+    );
+    expect(screen.queryByText(props.list[0].name)).toBeInTheDocument();
+    expect(screen.queryByText(props.title)).toBeInTheDocument();
+    expect(screen.queryByTestId(elapsedTime)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(settingsIcon)).toBeInTheDocument();
+    expect(screen.queryByTestId(copyIcon)).toBeInTheDocument();
+  });
+
+  it("should see elapsed time when timeframe is set to 'duration'", () => {
+    render(
+      <Provider store={store}>
+        <ListGroup {...{ ...props, type: "duration" }} />;
+      </Provider>
+    );
+    expect(screen.queryByText(props.list[0].name)).toBeInTheDocument();
+    expect(screen.queryByText(props.title)).toBeInTheDocument();
+    expect(screen.queryByTestId(elapsedTime)).toBeInTheDocument();
+    expect(screen.queryByTestId(settingsIcon)).toBeInTheDocument();
+    expect(screen.queryByTestId(copyIcon)).toBeInTheDocument();
+  });
+
+  it("should see elapsed time when timeframe is set to 'date'", () => {
+    render(
+      <Provider store={store}>
+        <ListGroup {...{ ...props, type: "date" }} />;
+      </Provider>
+    );
+    expect(screen.queryByText(props.list[0].name)).toBeInTheDocument();
+    expect(screen.queryByText(props.title)).toBeInTheDocument();
+    expect(screen.queryByTestId(elapsedTime)).toBeInTheDocument();
+    expect(screen.queryByTestId(settingsIcon)).toBeInTheDocument();
+    expect(screen.queryByTestId(copyIcon)).toBeInTheDocument();
   });
 
   it("should NOT show hidden icons without mousing over them", () => {
-    setup(props);
+    render(WrappedListGroup);
 
     expect(
       screen.queryByTestId(copyIcon)?.querySelector(hidden)
@@ -76,7 +116,7 @@ describe("Group", () => {
   });
 
   it("should show hidden icons when mousing over them", () => {
-    setup(props);
+    render(WrappedListGroup);
     fireEvent.mouseEnter(screen.getByTestId(header));
 
     // copyIcon
@@ -97,12 +137,22 @@ describe("Group", () => {
   });
 
   it("should render a settings box when gears are clicked", () => {
-    setup(props);
+    const { rerender } = render(WrappedListGroup);
+    rerender(WrappedListGroup);
     fireEvent.mouseEnter(screen.getByTestId(header));
 
     fireEvent.click(
       screen.getByTestId(settingsIcon).querySelector(".fa-gears") as Element
     );
-    expect(screen.getByTestId("column-settings")).toBeInTheDocument();
+    expect(screen.queryByTestId("column-settings")).toBeInTheDocument();
+  });
+
+  it("should copy the list when copy icon was clicked", async () => {
+    render(WrappedListGroup);
+    await user.click(
+      screen.getByTestId("group-1-copy").querySelector("svg") as Element
+    );
+    const clipboardText = await navigator.clipboard.readText();
+    expect(clipboardText).toBe("Task 1");
   });
 });

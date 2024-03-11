@@ -1,7 +1,7 @@
 import React from "react";
 
 interface TermNameProps {
-  groupId: number;
+  groupId: string;
   title: string;
   enabled?: boolean;
   onChange: (changed: any) => void;

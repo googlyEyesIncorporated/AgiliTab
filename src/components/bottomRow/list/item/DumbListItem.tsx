@@ -3,7 +3,11 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import Icon from "../../../atoms/Icon";
 import CheckBox from "../../../atoms/CheckBox";
 import React, { useState } from "react";
-import { ListAndIndex, ListKey } from "../../../../features/itemList/types";
+import {
+  ListAndIndex,
+  ListAndMaybeIndex,
+  ListKey,
+} from "../../../../features/itemList/types";
 import { EditBox } from "./Editbox";
 
 const itemBeingDraggedCurrentItem = (
@@ -34,7 +38,6 @@ export const DumbListItem = ({
 }: DumbListItemProps) => {
   const [hideIcon, setHideIcon] = useState(true);
   const iconShowOrHide = hideIcon ? " hidden" : " fade-in-1s";
-  const iconColor = done ? secondFontColor : fontColor;
   return (
     <li
       className={`flex p-2 border leading-none items-center${
@@ -50,9 +53,18 @@ export const DumbListItem = ({
       onMouseEnter={() => setHideIcon(false)}
       onMouseLeave={() => setHideIcon(true)}
       draggable
-      onDragStart={() => dragStart({ listKey, index })}
-      onDragEnter={() => enterListItem({ listKey, index })}
-      onDragEnd={() => dragEnd()}
+      onDragStart={(e) => {
+        e.stopPropagation();
+        dragStart({ listKey, index });
+      }}
+      onDragEnter={(e) => {
+        e.stopPropagation();
+        enterListItem({ listKey, index });
+      }}
+      onDragEnd={(e) => {
+        e.stopPropagation();
+        dragEnd();
+      }}
       onDoubleClick={() => {
         setEditBoxIsHidden(false);
         inputRef.current?.focus();
@@ -73,20 +85,18 @@ export const DumbListItem = ({
       </div>
       <div
         className={`grow${done ? " line-through" : ""}`}
-        data-testid="todo-text"
+        data-testid={`todo-text-${index}`}
       >
         {name}
         <Icon
           onClick={removeItem}
           icon={faTrash}
-          faStyle={{ color: iconColor }}
           iconClassName={`cursor-pointer float-right ml-2${iconShowOrHide}`}
           data-testid={`list-item-delete-${index}`}
         />
         <Icon
           onClick={() => copyItem(name)}
           icon={faCopy}
-          faStyle={{ color: iconColor }}
           iconClassName={`cursor-pointer float-right ml-2${iconShowOrHide}`}
           data-testid={`list-item-copy-${index}`}
         />
@@ -96,7 +106,7 @@ export const DumbListItem = ({
 };
 
 export interface DragAndDrop {
-  enterListItem?: (position: ListAndIndex) => void;
+  enterListItem?: (position: ListAndMaybeIndex) => void;
   dragStart?: (position: ListAndIndex) => void;
   dragEnd?: () => void;
   enterList?: (listKey: ListKey) => void;

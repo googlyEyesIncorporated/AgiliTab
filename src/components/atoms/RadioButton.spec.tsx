@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 
 const props = {
   enabled: true,
-  groupId: 0,
+  groupId: "0",
   firstIsChecked: true,
   onChange: jest.fn(),
   firstRadioName: "none",

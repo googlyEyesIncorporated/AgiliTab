@@ -1,9 +1,9 @@
 import { ItemListState } from "../features/itemList/types";
-import { PotentialSettingState } from "../features/settings/initialData";
+import { SettingsState } from "../features/settings/types";
 
 export interface RootState {
   itemList: ItemListState;
-  settings: PotentialSettingState;
+  settings: SettingsState;
 }
 
 export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,4 +11,8 @@ export type SetBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
 export interface StartAndEnd {
   start: number;
   end: number;
+}
+
+export interface BooleanPayload {
+  value: boolean;
 }

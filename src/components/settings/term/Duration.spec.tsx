@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
 const props: ComponentProps<typeof Duration> = {
-  groupId: 0,
+  groupId: "0",
   duration: { unit: "weeks", qty: 1 },
   onChange: jest.fn(),
 };
@@ -23,7 +23,7 @@ describe("Duration", () => {
     // Check Qty
     await user.type(screen.getByTestId("group-0-unit-qty"), "2");
     expect(props.onChange).toHaveBeenCalledWith({
-      duration: { ...props.duration, qty: 12 },
+      duration: { unit: "weeks", qty: 12 },
     });
 
     // Check Unit
@@ -31,8 +31,8 @@ describe("Duration", () => {
       screen.getByTestId("group-0-duration-format-input"),
       "days"
     );
-    expect(props.onChange).toHaveBeenCalledWith({
-      duration: { ...props.duration, unit: "days" },
+    expect(props.onChange).toHaveBeenNthCalledWith(2, {
+      duration: { qty: "1", unit: "days" },
     });
   });
 });

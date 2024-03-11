@@ -1,20 +1,11 @@
-import {
-  CommonUnitTypeProps,
-  UnitType,
-  UnitTypeWithDuration,
-  UnitTypeWithoutDuration,
-  UnitTypes,
-} from "../../features/settings/types";
+import { ListTypes, UnitType, UnitTypes } from "../../features/itemList/types";
 import { Duration } from "./term/Duration";
 import { SelectDate } from "./term/SelectDate";
 
 interface TimeFrameSelectionProps<T extends UnitTypes> {
-  groupId: number;
+  groupId: string;
   onChange: (termPart: Partial<UnitType<T>>) => void;
-  termData:
-    | UnitTypeWithDuration<"duration">
-    | UnitTypeWithoutDuration<"date">
-    | CommonUnitTypeProps<"none">;
+  termData: ListTypes;
 }
 
 export const TimeFrameSelection = <T extends UnitTypes>({

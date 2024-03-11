@@ -1,12 +1,13 @@
 import { DateTime } from "luxon";
 import { calculateStartEndMs } from "./calculateStartEndMs";
-import { UnitType } from "../../../features/settings/types";
+import { UnitType } from "../../../features/itemList/types";
 
 const Jan11970 = 0;
 const Jan21970 = 86400000;
 
 const commonParams = {
   startDate: DateTime.fromMillis(Jan11970).toISO() as string,
+  list: [],
 };
 
 const paramsWithEndDate: UnitType<"date"> = {
