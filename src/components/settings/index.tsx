@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../app/hooks";
-import { selectVisualSettings } from "../../features/settings/settingsSlice";
 import { SetColors } from "./visual/SetColors";
 import { DateTimeFormat } from "./visual/DateTimeFormat";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons/faCircleInfo";
@@ -38,15 +36,12 @@ export const Settings = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- run on mount only
   }, []);
 
-  const { bgColor, secondFontColor } = useAppSelector(selectVisualSettings);
-
   return (
     <div
-      className={`p-2 overflow-auto min-w-72 text-xs leading-normal border border-current shadow-2xl${
+      className={`bg-inherit p-2 overflow-auto min-w-72 text-xs leading-normal border border-current shadow-2xl${
         hideSettings ? " hidden" : ""
       }`}
       data-testid="hideable-settings"
-      style={{ backgroundColor: bgColor }}
     >
       {isInfoOpen && <InfoBox />}
       <h1 className="text-xl" id="settings-title">

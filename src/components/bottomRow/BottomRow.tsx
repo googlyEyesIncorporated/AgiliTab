@@ -43,7 +43,7 @@ export const BottomRow = () => {
   return (
     <div
       data-testid="bottom-row"
-      className="flex justify-evenly lg:h-1/2 h-auto flex-wrap"
+      className="flex justify-evenly lg:h-1/2 h-auto flex-wrap bg-inherit"
     >
       <DraggableLists
         getList={getList}

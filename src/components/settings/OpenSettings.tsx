@@ -13,7 +13,10 @@ export const SettingsWrapper = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="fixed left-0 bottom-0 m-4" ref={settingsContainer}>
+    <div
+      className="fixed left-0 bottom-0 m-4 bg-inherit"
+      ref={settingsContainer}
+    >
       <div data-testid="add-group" className="text-center mb-2">
         <Icon
           onClick={() => dispatch(addTerm(generateNewList()))}

@@ -38,7 +38,6 @@ export const DumbListItem = ({
 }: DumbListItemProps) => {
   const [hideIcon, setHideIcon] = useState(true);
   const iconShowOrHide = hideIcon ? " hidden" : " fade-in-1s";
-  const iconColor = done ? secondFontColor : fontColor;
   return (
     <li
       className={`flex p-2 border leading-none items-center${

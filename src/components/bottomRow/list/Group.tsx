@@ -38,7 +38,7 @@ export const ListGroup = ({
 
   return (
     <div
-      className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block"
+      className="fade-in-up-1s align-top m-2 w-full lg:w-3/10 inline-block bg-inherit"
       data-testid="group-container"
       draggable
       onDragStart={() => dragStart({ listKey: "listOrder", index })}
@@ -106,7 +106,11 @@ export const ListGroup = ({
           dragAndDrop={dragAndDrop}
         />
       ) : (
-        <div data-testid="column-settings" ref={settingsContainer}>
+        <div
+          className="bg-inherit"
+          data-testid="column-settings"
+          ref={settingsContainer}
+        >
           <ColumnSettings
             settingsContainer={settingsContainer}
             setHideSettings={setHideSettings}

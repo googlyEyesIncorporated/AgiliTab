@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectVisualSettings } from "../../features/settings/settingsSlice";
 import Icon from "../atoms/Icon";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons/faArrowRightFromBracket";
 import { TermName } from "./term/TermName";
@@ -26,8 +25,6 @@ export const ColumnSettings = ({
 }) => {
   const dispatch = useAppDispatch();
   const termData = useAppSelector((state) => selectTermList(state, groupId));
-  const { bgColor } = useAppSelector(selectVisualSettings);
-  const { secondFontColor } = useAppSelector(selectVisualSettings);
 
   const defaultTerm = generateNewList();
   const onChange = (
@@ -56,9 +53,8 @@ export const ColumnSettings = ({
 
   return !termData ? null : (
     <div
-      className={`p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl`}
+      className={`bg-inherit p-2 overflow-auto xl:w-[25vw] text-xs leading-normal border border-current shadow-2xl`}
       data-testid="hideable-settings"
-      style={{ backgroundColor: bgColor }}
     >
       <h1 className="text-l font-semibold" id="settings-title">
         TimeFrame:
