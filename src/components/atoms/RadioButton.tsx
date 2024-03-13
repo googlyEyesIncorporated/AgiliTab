@@ -1,29 +1,19 @@
 import { ChangeEvent } from "react";
 import { Sentencecase } from "../../features/utils/Sentencecase";
+import { UnitTypes } from "../../features/itemList/types";
 
-interface RadioButtonProps {
-  enabled: boolean;
-  category: string;
-  firstIsChecked: boolean;
-  setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
-  firstRadioName: string;
-  secondRadioName: string;
-}
-
-const RadioButton = ({
-  enabled,
-  category,
-  firstIsChecked,
-  setIsChecked,
+export const RadioButtons = ({
+  enabled = true,
+  groupId,
+  onChange,
+  selected = "none",
   firstRadioName,
   secondRadioName,
-}: RadioButtonProps) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.currentTarget.value === firstRadioName;
-    setIsChecked(isChecked);
-  };
-  const firstRadioCategory = `${category}-${firstRadioName}`;
-  const secondRadioCategory = `${category}-${secondRadioName}`;
+  thirdRadioName,
+}: RadioButtonsProps) => {
+  const firstRadioCategory = `group-${groupId}-${firstRadioName}`;
+  const secondRadioCategory = `group-${groupId}-${secondRadioName}`;
+  const thirdRadioCategory = `group-${groupId}-${thirdRadioName}`;
   return (
     <>
       <input
@@ -32,10 +22,10 @@ const RadioButton = ({
         data-testid={firstRadioCategory}
         value={firstRadioName}
         disabled={!enabled}
-        onChange={handleChange}
-        checked={firstIsChecked}
+        onChange={onChange}
+        checked={selected === firstRadioName}
       />
-      <label htmlFor={firstRadioCategory}>{` ${Sentencecase(
+      <label htmlFor={firstRadioCategory} className="text-xs">{` ${Sentencecase(
         firstRadioName
       )} `}</label>
       <input
@@ -44,13 +34,35 @@ const RadioButton = ({
         data-testid={secondRadioCategory}
         value={secondRadioName}
         disabled={!enabled}
-        onChange={handleChange}
-        checked={!firstIsChecked}
+        onChange={onChange}
+        checked={selected === secondRadioName}
       />
-      <label htmlFor={secondRadioCategory}>{` ${Sentencecase(
-        secondRadioName
-      )}`}</label>
+      <label
+        htmlFor={secondRadioCategory}
+        className="text-xs"
+      >{` ${Sentencecase(secondRadioName)}`}</label>
+      <input
+        type="radio"
+        id={thirdRadioCategory}
+        data-testid={thirdRadioCategory}
+        value={thirdRadioName}
+        disabled={!enabled}
+        onChange={onChange}
+        checked={selected === thirdRadioName}
+      />
+      <label htmlFor={thirdRadioCategory} className="text-xs">{` ${Sentencecase(
+        thirdRadioName
+      )} `}</label>
     </>
   );
 };
-export default RadioButton;
+
+interface RadioButtonsProps {
+  enabled?: boolean;
+  groupId: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  selected?: UnitTypes;
+  firstRadioName: string;
+  secondRadioName: string;
+  thirdRadioName: string;
+}

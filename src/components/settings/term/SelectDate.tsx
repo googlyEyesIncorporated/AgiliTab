@@ -1,83 +1,54 @@
 import { DateTime } from "luxon";
+import { DATE_TIME_NO_SECONDS } from "../../../commonUtils";
 
 type Limit = Partial<Record<"min" | "max", string>>;
 interface CommonProps {
-  date: string;
-  title: "Beginning" | "End";
-  limit: Limit;
-  setStartDate: React.Dispatch<React.SetStateAction<string>>;
-  setEndDate: React.Dispatch<React.SetStateAction<string>>;
-  enabled: boolean;
+  onChange: (changed: any) => void;
 }
 
 interface SelectDateProps extends CommonProps {
-  category: string;
+  title: "Beginning" | "End";
+  groupId: string;
+  date: string;
+  min?: string;
 }
-interface HandleDateSelection extends CommonProps {
-  value: string;
-}
-
-const handleDateSelection = ({
-  value,
-  enabled,
-  title,
-  date,
-  setStartDate,
-  setEndDate,
-  limit,
-}: HandleDateSelection) => {
-  if (enabled) {
-    if (title === "Beginning") {
-      if (limit.max) {
-        const duration = DateTime.fromISO(limit.max).diff(
-          DateTime.fromISO(date)
-        );
-        setStartDate(DateTime.fromISO(value).toISO() ?? "");
-        setEndDate(DateTime.fromISO(value).plus(duration).toISO() ?? "");
-      }
-    } else {
-      setEndDate(DateTime.fromISO(value).toISO() ?? "");
-    }
-  }
-};
 
 export const SelectDate = ({
   date,
   title,
-  category,
-  limit,
-  setStartDate,
-  setEndDate,
-  enabled = true,
+  groupId,
+  min,
+  onChange,
 }: SelectDateProps) => {
   const formattedLimit: Limit = {};
-  if ("min" in limit && limit.min) {
-    formattedLimit.min = DateTime.fromISO(limit.min).toISODate() ?? undefined;
+  if (min) {
+    formattedLimit.min =
+      DateTime.fromISO(min).toFormat(DATE_TIME_NO_SECONDS) ?? undefined;
   }
-  const categoryDatePicker = `${category}-${title.toLowerCase()}-datepicker`;
+  const categoryDatePicker = `group-${groupId}-${title.toLowerCase()}-datepicker`;
   return (
-    <div className="inline-block w-1/2">
-      <label htmlFor={categoryDatePicker}> {title}: </label>
+    <div className="mx-auto">
+      <label
+        className="inline-block w-[61px] my-auto"
+        htmlFor={categoryDatePicker}
+      >
+        {title}:
+      </label>
       <input
-        type="date"
+        type="datetime-local"
         {...formattedLimit}
         id={categoryDatePicker}
         data-testid={categoryDatePicker}
         name={categoryDatePicker}
-        value={DateTime.fromISO(date).toISODate() ?? ""}
-        style={{ backgroundColor: enabled ? "white" : "darkgray" }}
-        disabled={!enabled}
-        className="pt-2 pl-1 h-6 mb-0.5"
+        value={date ?? ""}
+        style={{ backgroundColor: "white" }}
         onChange={(e) => {
-          handleDateSelection({
-            value: e.target.value,
-            enabled,
-            title,
-            date,
-            setStartDate,
-            setEndDate,
-            limit,
-          });
+          if (DateTime.fromISO(e.target.value).isValid)
+            if (title === "Beginning") {
+              onChange({ startDate: e.target.value });
+            } else {
+              onChange({ endDate: e.target.value, duration: undefined });
+            }
         }}
       />
     </div>

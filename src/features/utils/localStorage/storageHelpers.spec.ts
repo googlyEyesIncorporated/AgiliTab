@@ -1,5 +1,6 @@
-import { initialSettings } from "../../settings/settingsSlice";
-import { updateStorage, getStorage } from "../storageHelpers";
+import { initialSettings } from "../../settings/initialData";
+import { getStorage } from "./storageHelpers";
+import { updateStorage } from "./updateStorage";
 
 const syncSet = jest.fn();
 const syncGet = jest.fn(
@@ -45,23 +46,18 @@ describe("updateStorage", () => {
   it("calls chrome.storage.sync.set with stuff", () => {
     updateStorage({
       storageKey: "settings",
-      val: initialSettings,
+      val: JSON.stringify(initialSettings),
     });
-
-    expect(syncSet).toHaveBeenCalledWith({ settings: undefined });
-  });
-});
-
-describe("getStorage", () => {
-  xit("retrieves data from local storage", () => {
-    getStorage(mockDispatch);
-    expect(mockPopulateSettingssFromChrome).toHaveBeenCalledWith({
-      test: "settings",
-    });
-    expect(mockPopulateTasksFromChrome).toHaveBeenCalledWith({
-      longTermList: ["longTermList"],
-      mediumTermList: ["mediumTermList"],
-      shortTermList: ["shortTermList"],
+    expect(syncSet).toHaveBeenCalledWith({
+      settings: JSON.stringify({
+        visualSettings: {
+          bgColor: "#CFCFCF",
+          fontColor: "#4F4F4F",
+          secondFontColor: "#4F4F4F",
+          dateFormat: "MMM dd, yyyy",
+          timeFormat: "h:mm a",
+        },
+      }),
     });
   });
 });

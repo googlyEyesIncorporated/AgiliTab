@@ -1,123 +1,290 @@
 import { test, expect } from "@playwright/test";
-import { appPage } from "./utils";
+import { appPage, setTime } from "./utils";
 import { Locator } from "playwright-core";
+import { epochTimes } from "../src/commonTestData.json";
+import { DateTime } from "luxon";
+
+import { DATE_TIME_NO_SECONDS } from "../src/commonUtils";
+const { Sep012023 } = epochTimes;
+
+const oneDayBefore = DateTime.fromMillis(Sep012023)
+  .minus({ days: 1 })
+  .toFormat(DATE_TIME_NO_SECONDS);
+const zeroDaysLater =
+  DateTime.fromMillis(Sep012023).toFormat(DATE_TIME_NO_SECONDS);
+
+const twentyFiveDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 25 })
+  .toFormat(DATE_TIME_NO_SECONDS);
+
+const fiftyDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 50 })
+  .toFormat(DATE_TIME_NO_SECONDS);
+
+const hundredDaysLater = DateTime.fromMillis(Sep012023)
+  .plus({ days: 99 })
+  .toFormat(DATE_TIME_NO_SECONDS);
 
 test.describe("Settings", () => {
-  let settingsButton: Locator,
-    mediumDate: Locator,
-    mediumLock: Locator,
-    mediumDuration: Locator,
-    mediumUnlock: Locator,
-    mediumDurationFormatInput: Locator,
-    mediumUnitName: Locator,
-    mediumBeginningDatepicker: Locator,
-    mediumEndDatepicker: Locator,
-    mediumUnitQuantity: Locator,
-    mediumRestoreDefaults: Locator,
-    hideButton: Locator,
-    settingsPanel: Locator;
+  let groupOneDate: Locator,
+    groupEndDatepicker: Locator,
+    groupOneUnitQuantity: Locator,
+    groupOneRestoreDefaults: Locator,
+    groupTitle: Locator,
+    groupOneUnitName: Locator,
+    groupBeginningDatepicker: Locator,
+    groupElapsedTime: Locator,
+    groupSettingsButton: Locator,
+    groupOneDurationFormat: Locator,
+    dateFormatPicker: Locator,
+    timeFormatPicker: Locator,
+    settingsButton: Locator,
+    clock: Locator,
+    dateDisplay: Locator,
+    app: Locator;
 
   test.beforeEach(async ({ page }) => {
+    groupSettingsButton = page.getByTestId("group-1-settings");
+    groupTitle = page.getByTestId("group-1-title");
+    groupBeginningDatepicker = page.getByTestId("group-1-beginning-datepicker");
+    groupEndDatepicker = page.getByTestId("group-1-end-datepicker");
+    groupElapsedTime = page.getByTestId("group-1-elapsed-time");
+    groupOneUnitName = page.getByTestId("group-1-unit-name");
+    groupOneDate = page.getByTestId("group-1-date");
+    groupOneUnitQuantity = page.getByTestId("group-1-unit-qty");
+    groupOneDurationFormat = page.getByTestId("group-1-duration-format-input");
+    groupOneRestoreDefaults = page.getByTestId("group-1-restore-defaults");
+    dateFormatPicker = page.getByTestId("date-format-input");
+    timeFormatPicker = page.getByTestId("time-format-input");
+    clock = page.getByTestId("clock");
+    dateDisplay = page.getByTestId("date-display");
     settingsButton = page.getByTestId("settings");
-    mediumDate = page.getByTestId("medium-date");
-    mediumLock = page.getByTestId("medium-lock");
-    mediumDuration = page.getByTestId("medium-duration");
-    mediumUnlock = page.getByTestId("medium-unlock");
-    mediumUnitName = page.getByTestId("medium-unit-name");
-    mediumBeginningDatepicker = page.getByTestId("medium-beginning-datepicker");
-    mediumEndDatepicker = page.getByTestId("medium-end-datepicker");
-    mediumUnitQuantity = page.getByTestId("medium-unit-qty");
-    mediumDurationFormatInput = page.getByTestId(
-      "medium-duration-format-input"
-    );
-    mediumRestoreDefaults = page.getByTestId("medium-restore-defaults");
 
-    hideButton = page.getByTestId("hide-button");
-    settingsPanel = page.getByTestId("hideable-settings");
-
-    // Go to the starting url before each test.
-    await page.goto(appPage);
-    await settingsButton.click();
+    app = page.getByTestId("App");
   });
 
   test.describe("Settings", () => {
     test.describe("TermInputs", () => {
-      test(`when closing settings panel, unlocked terminputs should lock`, async () => {
-        // starts as locked
-        await expect(mediumUnlock).toHaveCount(0);
-        await expect(mediumLock).toHaveCount(1);
+      test(`clicking the gear icon opens the settings dialogue`, async ({
+        page,
+      }) => {
+        // Go to the starting url before each test.
+        await page.goto(appPage);
 
-        // shows as unlocked after clicking it
-        await mediumLock.click();
-        await expect(mediumUnlock).toHaveCount(1);
-        await expect(mediumLock).toHaveCount(0);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
 
-        // close and reopen the settings
-        await hideButton.click();
-        await expect(settingsPanel).toHaveClass(/hidden/);
+        await expect(groupOneUnitName).toBeVisible();
+      });
+      test(`clicking anywhere that is not inside of the settings box closes the settings dialogue`, async ({
+        page,
+      }) => {
+        // Go to the starting url before each test.
+        await page.goto(appPage);
+
+        // Setup
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).toBeVisible();
+
+        // Close the settings by clicking the gears icon again
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).not.toBeVisible();
+
+        // Setup again
+        await groupSettingsButton.click();
+        await expect(groupOneUnitName).toBeVisible();
+
+        // Close the settings by clicking the outside of the settings box
+        await app.click();
+        await expect(groupOneUnitName).not.toBeVisible();
+      });
+      test(`changing group name updates the title`, async ({ page }) => {
+        // Go to the starting url before each test.
+        await page.goto(appPage);
+
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+
+        // establish baseline
+        await expect(groupTitle).toBeVisible();
+        await expect(groupOneUnitName).toBeVisible();
+        await expect(groupTitle).toHaveText("Month");
+
+        // update text and verify change
+        const ChangedValue = "ChangedValue";
+        groupOneUnitName.fill(ChangedValue);
+        await expect(groupTitle).toHaveText(ChangedValue);
+      });
+      test(`changing beginning date updates the total elapsed time percentage`, async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+
+        // establish baseline and set an end date with a nice round number of days in duration (100)
+        await groupBeginningDatepicker.fill(zeroDaysLater);
+        await groupOneDurationFormat.selectOption("days");
+        await groupOneUnitQuantity.fill("99");
+
+        // verify orginal value
+        await expect(groupElapsedTime).toHaveText("50%");
+
+        // set and verify changed value
+        await groupBeginningDatepicker.fill(twentyFiveDaysLater);
+        await expect(groupElapsedTime).toHaveText("25%");
+      });
+      test(`date mode is retained after closing the settings dialogue`, async ({
+        page,
+      }) => {
+        // Go to the starting url before each test.
+        await page.goto(appPage);
+
+        // Setup
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupOneUnitQuantity).toBeVisible();
+        await groupOneDate.click();
+        await expect(groupEndDatepicker).toBeVisible();
+        await expect(groupOneUnitQuantity).not.toBeVisible();
+
+        // Close the settings
+        await app.click();
+        await expect(groupEndDatepicker).not.toBeVisible();
+
+        // Open again and assert that date can be seen once again
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await expect(groupEndDatepicker).toBeVisible();
+        await expect(groupOneUnitQuantity).not.toBeVisible();
+      });
+      test(`user is prevented from setting an end date that is prior to the beginning date`, async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+        await groupBeginningDatepicker.fill(zeroDaysLater);
+
+        // set and min is set
+        await groupOneDate.click();
+        await expect(groupEndDatepicker).toHaveAttribute("min", zeroDaysLater);
+      });
+      test(`changing end date updates the total elapsed time percentage`, async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+
+        // verify orginal value
+        await expect(groupElapsedTime).toHaveText("64%"); // 20/31 = 64% (rounded down)
+
+        // establish baseline
+        await groupBeginningDatepicker.fill(zeroDaysLater);
+
+        // set and verify changed value
+        await groupOneDate.click();
+        await groupEndDatepicker.fill(hundredDaysLater);
+        await expect(groupElapsedTime).toHaveText("50%"); // 50/100 === 49% (rounded down)
+      });
+      test(`changing duration qty updates the total elapsed time percentage`, async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(twentyFiveDaysLater).toMillis());
+        await page.goto(appPage);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+
+        // Set beginning value to baseline
+        await groupBeginningDatepicker.fill(zeroDaysLater);
+
+        // verify orginal value
+        await expect(groupElapsedTime).toHaveText("83%"); // 25/30 = 5/6 = 83%
+
+        // set and verify changed value
+        await groupOneDurationFormat.selectOption("days");
+        await groupOneUnitQuantity.fill("99");
+        await expect(groupElapsedTime).toHaveText("25%");
+      });
+      test(`changing duration unit updates the total elapsed time percentage`, async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(twentyFiveDaysLater).toMillis());
+        await page.goto(appPage);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+
+        // Set beginning value to baseline
+        await groupBeginningDatepicker.fill(zeroDaysLater);
+
+        // verify orginal value
+        await expect(groupElapsedTime).toHaveText("83%"); // 25/30 = 5/6 = 83%
+
+        // set and verify changed value
+        await groupOneUnitQuantity.fill("99");
+        await groupOneDurationFormat.selectOption("days");
+        await expect(groupElapsedTime).toHaveText("25%");
+      });
+      test(`clicking restore defaults resets the values`, async ({ page }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await page.hover('[data-testid="group-1-header"]');
+        await groupSettingsButton.click();
+
+        // verify orginal value
+        await expect(groupElapsedTime).toHaveText("64%"); // 20/31 = 64% (rounding down)
+
+        // Change values
+        await groupBeginningDatepicker.fill(zeroDaysLater);
+        await groupOneDurationFormat.selectOption("days");
+        await groupOneUnitQuantity.fill("99");
+        await expect(groupElapsedTime).toHaveText("50%"); // 50/100 = 50%
+
+        // reset and verify changed values
+        await groupOneRestoreDefaults.click();
+        await expect(groupElapsedTime).toHaveText("64%"); // (rounding down)
+        await expect(groupOneDurationFormat).toHaveValue("months");
+        await expect(groupOneUnitQuantity).toHaveValue("1");
+        await expect(groupBeginningDatepicker).toHaveValue("2023-10-01T00:00");
+      });
+    });
+    test.describe("Visual", () => {
+      test("should display the date according to the format provided", async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
         await settingsButton.click();
+        await expect(dateDisplay).toHaveText("Saturday - Oct 21, 2023");
 
-        // assert that termInputs have locked when the setttings closed.
-        await expect(mediumUnlock).toHaveCount(0);
-        await expect(mediumLock).toHaveCount(1);
+        // set format
+        await dateFormatPicker.selectOption({ value: "MM/dd/yyyy" });
+        await expect(dateDisplay).toHaveText("Saturday - 10/21/2023");
       });
-      test(`termInput's respect locked status`, async () => {
-        // term inputs are locked
-        await expect(mediumUnlock).toHaveCount(0);
-        await expect(mediumLock).toHaveCount(1);
-        // check these inputs before we change the type
-        await expect(mediumUnitQuantity).toHaveAttribute("disabled");
-        await expect(mediumDurationFormatInput).toHaveAttribute("disabled");
+      test("should display the time according to the format provided", async ({
+        page,
+      }) => {
+        // Opening sequence
+        await setTime(page, DateTime.fromISO(fiftyDaysLater).toMillis());
+        await page.goto(appPage);
+        await settingsButton.click();
+        await expect(clock).toHaveText("12:00 AM");
 
-        // shows as unlocked after clicking it
-        await mediumLock.click();
-        await expect(mediumUnlock).toHaveCount(1);
-        await expect(mediumLock).toHaveCount(0);
-
-        // inputs are disabled
-        await expect(mediumUnitQuantity).not.toHaveAttribute("disabled");
-        await expect(mediumDurationFormatInput).not.toHaveAttribute("disabled");
-        await expect(mediumDate).not.toHaveAttribute("disabled");
-        await expect(mediumDuration).not.toHaveAttribute("disabled");
-        await expect(mediumUnitName).not.toHaveAttribute("disabled");
-        await expect(mediumBeginningDatepicker).not.toHaveAttribute("disabled");
-
-        // click mediumDate to enable end date input
-        await mediumDate.click();
-        await expect(mediumEndDatepicker).toBeVisible();
-        await expect(mediumEndDatepicker).not.toHaveAttribute("disabled");
-
-        // relock settings
-        await mediumUnlock.click();
-
-        // assert that inputs are disabled as expected
-        await expect(mediumDate).toHaveAttribute("disabled");
-        await expect(mediumDuration).toHaveAttribute("disabled");
-        await expect(mediumUnitName).toHaveAttribute("disabled");
-        await expect(mediumBeginningDatepicker).toHaveAttribute("disabled");
-        await expect(mediumEndDatepicker).toHaveAttribute("disabled");
-      });
-      test(`locking termInput also prevents resetting values`, async () => {
-        // Unlock termInput settings
-        await mediumLock.click();
-
-        // set a new value for Unit Name
-        mediumUnitName.fill("NewValue");
-        await expect(mediumUnitName).toHaveValue("NewValue");
-
-        // re-lock TermInput
-        await mediumUnlock.click();
-
-        // attempt to reset values, but fail
-        await mediumRestoreDefaults.click();
-        await expect(mediumUnitName).toHaveValue("NewValue");
-
-        // unlock TermInput again
-        await mediumLock.click();
-
-        // attempt to reset values and succeed
-        await mediumRestoreDefaults.click();
-        await expect(mediumUnitName).toHaveValue("Month");
+        // set format
+        await timeFormatPicker.selectOption({ value: "HH:mm" });
+        await expect(clock).toHaveText("00:00");
       });
     });
   });

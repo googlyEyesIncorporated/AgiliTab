@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { DurationState } from "../../../features/settings/types";
+import { useRef } from "react";
+import { DurationObj } from "../../../features/itemList/types";
 
 const formats = {
   units: {
@@ -10,10 +10,10 @@ const formats = {
   },
 };
 interface DurationProps {
-  category: string;
+  groupId: string;
   enabled?: boolean;
-  setDuration: React.Dispatch<React.SetStateAction<DurationState>>;
-  duration: DurationState;
+  duration: DurationObj;
+  onChange: (change: any) => void;
 }
 
 const getBackgroundColor = (enabled: boolean) => ({
@@ -21,29 +21,23 @@ const getBackgroundColor = (enabled: boolean) => ({
 });
 
 export const Duration = ({
-  category,
+  groupId,
   enabled = true,
-  setDuration,
   duration,
+  onChange,
 }: DurationProps) => {
-  const { qty: dQty, unit: dUnit } = duration;
-  const [qty, setQty] = useState(dQty);
-  const [unit, setUnit] = useState(dUnit);
+  const { qty, unit } = duration ?? {};
+  const qtyRef = useRef(null as null | HTMLInputElement);
+  const unitRef = useRef(null as null | HTMLSelectElement);
 
-  useEffect(() => {
-    if (dQty) setQty(dQty);
-  }, [dQty]);
-
-  useEffect(() => {
-    if (dUnit) setUnit(dUnit);
-  }, [dUnit]);
-
-  const categoryUnitQty = `${category}-unit-qty`;
-  const categoryDurationFormatInput = `${category}-duration-format-input`;
+  const categoryUnitQty = `group-${groupId}-unit-qty`;
+  const categoryDurationFormatInput = `group-${groupId}-duration-format-input`;
 
   return (
-    <div className="inline-block w-1/2">
-      <label htmlFor={categoryUnitQty}>Duration: </label>
+    <div className="inline-block h-[18px]">
+      <label className="inline-block w-[61px]" htmlFor={categoryUnitQty}>
+        Duration:
+      </label>
       <input
         type="number"
         name={categoryUnitQty}
@@ -51,30 +45,37 @@ export const Duration = ({
         data-testid={categoryUnitQty}
         min="1"
         max="100"
-        className="pt-2 pl-1 h-6 w-12 leading-loose"
+        className="w-[2.5rem]"
         style={{
           ...getBackgroundColor(enabled),
         }}
         {...(enabled ? {} : { disabled: true })}
         value={qty}
+        ref={qtyRef}
         onChange={(e) => {
-          const newQty = parseInt(e.target.value);
-          setQty(newQty);
-          if (unit) setDuration({ unit, qty: newQty });
+          const unit = unitRef.current?.value;
+          const durationObj = { unit, qty: parseInt(e.target.value) };
+          if (unit) {
+            onChange({ duration: durationObj, endDate: undefined });
+          }
         }}
       />
       <select
-        className="pt-2 pb-1 align-top h-6"
+        className="h-full ml-1"
         name={categoryDurationFormatInput}
         id={categoryDurationFormatInput}
         data-testid={categoryDurationFormatInput}
-        value={`${unit}`}
+        value={unit}
         style={getBackgroundColor(enabled)}
         {...(enabled ? {} : { disabled: true })}
+        ref={unitRef}
         onChange={(e) => {
-          const newUnit = e.target.value;
-          setUnit(newUnit);
-          if (qty) setDuration({ unit: newUnit, qty });
+          const qty = qtyRef.current?.value;
+          const durationObj = { unit: e.target.value, qty };
+
+          if (qty) {
+            onChange({ duration: durationObj, endDate: undefined });
+          }
         }}
       >
         <option value={formats.units.DAY + "s"}>{formats.units.DAY}s</option>
