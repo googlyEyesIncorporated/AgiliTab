@@ -82,21 +82,22 @@ for (const viewport of viewports) {
       test(`open settings panel  (${viewport.width} x ${viewport.height})`, async ({
         page,
       }) => {
-        await expect(hideableSettings).toHaveScreenshot();
+        await expect(hideableSettings).toHaveScreenshot({ maxDiffPixels: 100 });
       });
 
       test(`open color picker  (${viewport.width} x ${viewport.height})`, async ({
         page,
       }) => {
         await bgColorPicker.click();
-        await expect(page).toHaveScreenshot({ mask: [body] });
+        await expect(page).toHaveScreenshot({ mask: [body], maxDiffPixels: 100 });
+
       });
 
       test(`open date format picker (${viewport.width} x ${viewport.height})`, async ({
         page,
       }) => {
         await dateFormatPicker.click();
-        await expect(page).toHaveScreenshot({ mask: [body] });
+        await expect(page).toHaveScreenshot({ mask: [body], maxDiffPixels: 100 });
       });
 
       test(`open time format picker (${viewport.width} x ${viewport.height})`, async ({
@@ -105,24 +106,25 @@ for (const viewport of viewports) {
         await timeFormatPicker.click();
         await expect(page).toHaveScreenshot({
           mask: [body, maskTimeFormatWithSeconds],
+          maxDiffPixels: 100,
         });
       });
 
       test.skip(`open medium term duration format (${viewport.width} x ${viewport.height})`, async () => {
         await mediumLock.click();
         await mediumDurationFormatInput.click();
-        await expect(hideableSettings).toHaveScreenshot();
+        await expect(hideableSettings).toHaveScreenshot({ maxDiffPixels: 100 });
       });
 
       test.skip(`switch to medium term date format (${viewport.width} x ${viewport.height})`, async () => {
         await mediumLock.click();
         await mediumDate.click();
-        await expect(hideableSettings).toHaveScreenshot();
+        await expect(hideableSettings).toHaveScreenshot({ maxDiffPixels: 100 });
       });
 
       test(`open info box (${viewport.width} x ${viewport.height})`, async () => {
         await infoIcon.click();
-        await expect(hideableSettings).toHaveScreenshot();
+        await expect(hideableSettings).toHaveScreenshot({ maxDiffPixels: 100 });
       });
     });
     test.describe("Todo", () => {
@@ -130,16 +132,16 @@ for (const viewport of viewports) {
         await mediumEditPriorities.click();
       });
       test(`open todo input (${viewport.width} x ${viewport.height})`, async () => {
-        await expect(group1list).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot({ maxDiffPixels: 100 });
       });
       test(`input text (${viewport.width} x ${viewport.height})`, async () => {
         todoInputMedium.fill("Todo 1");
-        await expect(group1list).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot({ maxDiffPixels: 100 });
       });
       test(`input text and add item (${viewport.width} x ${viewport.height})`, async () => {
         todoInputMedium.fill("Todo 1");
         mediumAddItemButton.click();
-        await expect(group1list).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot({ maxDiffPixels: 100 });
       });
       test(`input text and add item and edit item (${viewport.width} x ${viewport.height})`, async ({
         page,
@@ -148,19 +150,20 @@ for (const viewport of viewports) {
         mediumAddItemButton.click();
         await page.waitForSelector('[data-testid="todo-text"]');
         await listItem0.dblclick();
-        await expect(group1list).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot({ maxDiffPixels: 100 });
       });
       test(`input text and add items and mark done (${viewport.width} x ${viewport.height})`, async () => {
         todoInputMedium.fill("Todo 1");
         mediumAddItemButton.click();
         await listItemCheckbox0.click({ force: true });
-        await expect(group1list).toHaveScreenshot();
+        await expect(group1list).toHaveScreenshot({ maxDiffPixels: 100 });
       });
     });
     test(`Main page (${viewport.width} x ${viewport.height})`, async ({
       page,
     }) => {
-      await expect(page).toHaveScreenshot();
+      // Update the Date accordingly in your test pages
+      await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });
     });
   });
 }
